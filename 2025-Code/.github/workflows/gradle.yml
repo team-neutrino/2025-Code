@@ -30,7 +30,7 @@ jobs:
         distribution: 'temurin'
     - name: Build with Gradle
       run: |
-        cd 2025\ Code
+        cd 2025-Code
         chmod +x ./gradlew
         ./gradlew build
-        du -h build/libs/2025\ Code.jar
+        du -h build/libs/2025-Code.jar
