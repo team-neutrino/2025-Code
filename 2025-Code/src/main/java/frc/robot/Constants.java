@@ -16,4 +16,29 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+
+  public static class ElevatorConstants {
+    public static final int ELEVATOR_MOTOR = 1;
+  }
+
+  public static class ArmConstants {
+
+  }
+
+  public static class ClawConstants {
+
+  }
+
+  public static class ClimbConstants {
+
+  }
+
+  public static class LimelightConstants {
+
+  }
+
+  public static class LEDConstants {
+
+  } 
+
 }
