@@ -13,7 +13,9 @@ import frc.robot.Constants.ElevatorConstants;
 
 public class Elevator extends SubsystemBase {
   private SparkFlex m_motor = new SparkFlex(ElevatorConstants.MOTOR, MotorType.kBrushless);
-  public Elevator() {}
+
+  public Elevator() {
+  }
 
   /**
    * Example command factory method.
@@ -30,7 +32,8 @@ public class Elevator extends SubsystemBase {
   }
 
   /**
-   * An example method querying a boolean state of the subsystem (for example, a digital sensor).
+   * An example method querying a boolean state of the subsystem (for example, a
+   * digital sensor).
    *
    * @return value of some boolean subsystem state, such as a digital sensor.
    */
