@@ -42,7 +42,15 @@ public final class Constants {
   }
 
   public static class ClawConstants {
-
+    public static final int LEFTGRABBER = 21;
+    public static final int RIGHTGRABBER = 22;
+    public static final int LEFTINNNER = 23;
+    public static final int RIGHTINNER = 24;
+    public static final int WRIST = 24;
+    public static final int INTAKE_MOTOR_BEAMBREAK = 1;
+    public static final int GRABBERCURRENTLIMIT = 5; // change to whatever is decided later
+    public static final int WRISTCURRENTLIMIT = 5;
+    public static final double INTAKE_MOTOR_VOLTAGE = 0.4;
   }
 
   public static class ClimbConstants {
