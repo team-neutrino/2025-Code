@@ -12,18 +12,17 @@ import edu.wpi.first.networktables.StringPublisher;
 public class LED extends SubsystemBase {
 
   NetworkTableInstance inst = NetworkTableInstance.getDefault();
-  StringTopic Color_topic = inst.getStringTopic("/LED/color");
+  StringTopic color_topic = inst.getStringTopic("/LED/color");
 
   final StringPublisher color_pub;
 
-  // Creates a new LED Subsystem
   public LED() {
-    color_pub = Color_topic.publish();
-    color_pub.setDefault(getName());
+    color_pub = color_topic.publish();
+    color_pub.setDefault("black");
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+
   }
 }
