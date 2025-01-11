@@ -14,6 +14,8 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig;
+import com.revrobotics.spark.config.SparkFlexConfig;
+import com.revrobotics.spark.config.SparkFlexConfigAccessor;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkMaxConfigAccessor;
 
@@ -25,13 +27,11 @@ import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Constants.ArmConstants;
-import frc.robot.Constants.MessageTimers;
-import frc.robot.Constants.MotorIDs;
-import frc.robot.Constants.LEDConstants.States;
 
 public class Arm extends SubsystemBase {
-  /** Creates a new Arm. */
+  private SparkFlex m_armMotor = new SparkFlex(0, null);
+  private SparkFlexConfig m_armMotorConfig = new SparkFlexConfig();
+
   public Arm() {
   }
 
