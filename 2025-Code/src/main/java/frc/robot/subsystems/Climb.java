@@ -5,11 +5,48 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.ClimbConstants;
+
+import com.revrobotics.AbsoluteEncoder;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkFlexConfig;
 
 public class Climb extends SubsystemBase {
-  /** Creates a new Climb. */
-  public Climb() {}
+  private SparkFlex m_amayaClimbMotor = new SparkFlex(ClimbConstants.CLIMB_MOTOR_ID, MotorType.kBrushless);
+  // motor for Amaya climb
+  private AbsoluteEncoder m_amayaClimbEncoder;
 
+  private SparkFlex m_climbMotor1 = new SparkFlex(ClimbConstants.CLIMB_MOTOR_ID2, MotorType.kBrushless);
+  private SparkFlex m_climbMotor2 = new SparkFlex(ClimbConstants.CLIMB_MOTOR_ID3, MotorType.kBrushless);
+  private SparkFlex m_holdClimbMotor = new SparkFlex(ClimbConstants.CLIMB_MOTOR_ID4, MotorType.kBrushless);
+  // motor for unqualified quokkas climb
+  private AbsoluteEncoder m_uqClimbEncoder;
+
+  private SparkFlexConfig m_climbMotorConfig = new SparkFlexConfig();
+  private SparkFlexConfig m_holdClimbMotorConfig = new SparkFlexConfig();
+
+  public Climb() {
+    m_climbMotorConfig.smartCurrentLimit(ClimbConstants.CLIMB_CURRENT_LIMIT);
+    m_climbMotorConfig.idleMode(IdleMode.kBrake);
+
+    m_holdClimbMotorConfig.smartCurrentLimit(ClimbConstants.HOLD_CURRENT_LIMIT);
+    m_holdClimbMotorConfig.idleMode(IdleMode.kBrake);
+
+    m_climbMotor1.configure(m_climbMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    m_climbMotor2.configure(m_climbMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    m_amayaClimbMotor.configure(m_climbMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+    m_holdClimbMotor.configure(m_holdClimbMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+  }
+
+  public void initializeEncoders() {
+
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
