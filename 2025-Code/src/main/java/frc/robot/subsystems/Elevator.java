@@ -5,13 +5,14 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstants;
 
 public class Elevator extends SubsystemBase {
-  private SparkFlex m_motor = new SparkFlex(ElevatorConstants.ELEVATOR_MOTOR, null);
+  private SparkFlex m_motor = new SparkFlex(ElevatorConstants.ELEVATOR_MOTOR, MotorType.kBrushless);
   public Elevator() {}
 
   /**
