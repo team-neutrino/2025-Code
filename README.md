@@ -13,3 +13,18 @@
 - [Phoenix](https://api.ctr-electronics.com/phoenix6/release/java/)
 - [Rev](https://codedocs.revrobotics.com/java/com/revrobotics/package-summary.html)
 - [LimeLight](https://docs.limelightvision.io/docs/docs-limelight/apis/limelight-lib)
+
+## CAN IDs
+| Subsystem | Motor          | CAN ID |
+| --------- | -------------- | ------ |
+| Elevator  |                | 01-09  |
+|           | height control | 01     |
+| Arm       |                | 10-19  |
+| Claw      |                | 20-29  |
+| Climb     |                | 30-39  |
+
+## DIO
+| Subsystem | Description          | Port |
+
+## PWM
+| Subsystem | Description          | Port |
