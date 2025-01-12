@@ -47,10 +47,20 @@ public final class Constants {
     public static final int LEFTINNNER = 23;
     public static final int RIGHTINNER = 24;
     public static final int WRIST = 24;
-    public static final int INTAKE_MOTOR_BEAMBREAK = 1;
-    public static final int GRABBERCURRENTLIMIT = 5; // change to whatever is decided later
+    public static final int INTAKEMOTORBEAMBREAK = 1;
+    // Dummy Values
+    public static final int GRABBERCURRENTLIMIT = 5; 
     public static final int WRISTCURRENTLIMIT = 5;
-    public static final double INTAKE_MOTOR_VOLTAGE = 0.4;
+    public static final double INTAKEMOTORVOLTAGE = 0.4;
+    public static final double MAXIMUMANGLE = 90.0;
+    public static final double MINIMUMANGLE = 0;
+    public static final double KP = 0;
+    public static final double KI = 0;
+    public static final double KD = 0;
+    public static final double KFF = 0;
+    public static final double MAXACCELERATION = 150 ;
+    public static final double MAXVELOCITY = 250;
+    public static final double ALLOWEDERROR = 1;
   }
 
   public static class ClimbConstants {
