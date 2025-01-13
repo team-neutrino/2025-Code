@@ -25,6 +25,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.ClawConstants;
@@ -45,9 +46,13 @@ public class Claw extends SubsystemBase {
     private double wristAngle;
     private boolean isBroken;
     private DigitalInput m_intakeBeamBreak = new DigitalInput(ClawConstants.INTAKEMOTORBEAMBREAK);
+    private Wrist wrist;
+    // In degrees
+    private static final double[] WRIST_POSITIONS = { 0.0, 45.0, 90.0 };
 
     /** Creates a new ExampleSubsystem. */
     public Claw() {
+        wrist = new Wrist();
         m_grabberEncoder = m_grabber.getEncoder();
         m_followerEncoder = m_follower.getEncoder();
 
@@ -62,7 +67,7 @@ public class Claw extends SubsystemBase {
         m_followerConfig.follow(m_grabber);
         m_grabber.configure(m_grabberConfig, SparkBase.ResetMode.kResetSafeParameters,
                 SparkBase.PersistMode.kPersistParameters);
-        m_grabber.configure(m_grabberConfig, SparkBase.ResetMode.kResetSafeParameters,
+        m_follower.configure(m_followerConfig, SparkBase.ResetMode.kResetSafeParameters,
                 SparkBase.PersistMode.kPersistParameters);
     }
 
@@ -86,7 +91,6 @@ public class Claw extends SubsystemBase {
         if (hasGamePiece()) {
             stopIntake();
         } else {
-
             clawVoltage = ClawConstants.INTAKEMOTORVOLTAGE;
         }
     }
@@ -103,12 +107,32 @@ public class Claw extends SubsystemBase {
         return isBroken;
     }
 
+    public Wrist getWrist() {
+        return wrist;
+    }
+
+    public void setWristState(int position) {
+        wrist.moveToPosition(WRIST_POSITIONS[position]);
+    }
+
     @Override
     public void periodic() {
-        Wrist wrist = new Wrist();
         m_grabber.set(clawVoltage);
         isBroken = !m_intakeBeamBreak.get();
-        wrist.moveToPosition(wristAngle);
+    }
+
+    public Command defaultCommand() {
+        stopIntake();
+        return new RunCommand(() -> wrist.moveToPosition(WRIST_POSITIONS[0]), this);
+    }
+
+    public Command rotateWrist() {
+        return new RunCommand(() -> wrist.moveToPosition(WRIST_POSITIONS[90]), this);
+    }
+
+    public Command intakeGamePiece() {
+        runIntake();
+        return new RunCommand(() -> wrist.moveToPosition(WRIST_POSITIONS[0]), this);
     }
 
     private class Wrist {
