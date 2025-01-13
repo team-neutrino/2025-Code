@@ -25,6 +25,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -43,7 +44,6 @@ public class Claw extends SubsystemBase {
     private RelativeEncoder m_followerEncoder;
 
     private double clawVoltage;
-    private double wristAngle;
     private boolean isBroken;
     private DigitalInput m_intakeBeamBreak = new DigitalInput(ClawConstants.INTAKEMOTORBEAMBREAK);
     private Wrist wrist;
@@ -121,18 +121,20 @@ public class Claw extends SubsystemBase {
         isBroken = !m_intakeBeamBreak.get();
     }
 
-    public Command defaultCommand() {
-        stopIntake();
+    public Command defaultCommandGrabber() {
+        return new RunCommand(() -> stopIntake(), this);
+    }
+
+    public Command defaultCommandWrist() {
         return new RunCommand(() -> wrist.moveToPosition(WRIST_POSITIONS[0]), this);
     }
 
-    public Command rotateWrist() {
-        return new RunCommand(() -> wrist.moveToPosition(WRIST_POSITIONS[90]), this);
+    public Command rotateWristto90() {
+        return new RunCommand(() -> wrist.moveToPosition(WRIST_POSITIONS[2]), this);
     }
 
     public Command intakeGamePiece() {
-        runIntake();
-        return new RunCommand(() -> wrist.moveToPosition(WRIST_POSITIONS[0]), this);
+        return new RunCommand(() -> runIntake(), this);
     }
 
     private class Wrist {
@@ -181,7 +183,7 @@ public class Claw extends SubsystemBase {
             return m_wristEncoder.getPosition();
         }
 
-        public boolean isAtPosition(double angle) {
+        public boolean verifyPosition(double angle) {
             return Math.abs(getCurrentPosition() - angle) <= ClawConstants.ALLOWEDERROR;
         }
 
