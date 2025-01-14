@@ -4,9 +4,7 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.servohub.ServoHub.ResetMode;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkAbsoluteEncoder;
 import com.revrobotics.spark.SparkBase;
@@ -144,7 +142,7 @@ public class Claw extends SubsystemBase {
     private class Wrist {
         private SparkMax m_wrist = new SparkMax(ClawConstants.WRIST, MotorType.kBrushless);
         private SparkMaxConfig m_wristConfig = new SparkMaxConfig();
-        private AbsoluteEncoder m_wristEncoder = m_wrist.getAbsoluteEncoder();
+        // private AbsoluteEncoder m_wristEncoder = m_wrist.getAbsoluteEncoder();
         private SparkClosedLoopController pidController = m_wrist.getClosedLoopController();
         private double wristVoltage = ClawConstants.WRISTVOLTAGE;
 
@@ -159,16 +157,17 @@ public class Claw extends SubsystemBase {
             m_wristConfig.softLimit.reverseSoftLimitEnabled(true);
             m_wrist.configure(m_wristConfig, SparkBase.ResetMode.kResetSafeParameters,
                     SparkBase.PersistMode.kPersistParameters);
-            AbsoluteEncoderConfig m_wristEncoderConfig = m_wristConfig.absoluteEncoder;
-            m_wristEncoderConfig.zeroOffset(0.0);
-            m_wristEncoderConfig.positionConversionFactor(360.0);
-            ClosedLoopConfig pidConfig = m_wristConfig.closedLoop;
-            pidConfig.pidf(ClawConstants.KP, ClawConstants.KI, ClawConstants.KD, ClawConstants.KFF);
-            pidConfig.outputRange(-1.0, 1.0);
-            pidConfig.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
-            pidConfig.maxMotion.maxVelocity(ClawConstants.MAXVELOCITY);
-            pidConfig.maxMotion.maxAcceleration(ClawConstants.MAXACCELERATION);
-            pidConfig.maxMotion.allowedClosedLoopError(ClawConstants.ALLOWEDERROR);
+            // AbsoluteEncoderConfig m_wristEncoderConfig = m_wristConfig.absoluteEncoder;
+            // m_wristEncoderConfig.zeroOffset(0.0);
+            // m_wristEncoderConfig.positionConversionFactor(360.0);
+            // ClosedLoopConfig pidConfig = m_wristConfig.closedLoop;
+            // pidConfig.pidf(ClawConstants.KP, ClawConstants.KI, ClawConstants.KD,
+            // ClawConstants.KFF);
+            // pidConfig.outputRange(-1.0, 1.0);
+            // pidConfig.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
+            // pidConfig.maxMotion.maxVelocity(ClawConstants.MAXVELOCITY);
+            // pidConfig.maxMotion.maxAcceleration(ClawConstants.MAXACCELERATION);
+            // pidConfig.maxMotion.allowedClosedLoopError(ClawConstants.ALLOWEDERROR);
         }
 
         public void moveToPosition(double angle) {
@@ -186,17 +185,17 @@ public class Claw extends SubsystemBase {
             m_wrist.stopMotor();
         }
 
-        public double getCurrentPosition() {
-            return m_wristEncoder.getPosition();
-        }
+        // public double getCurrentPosition() {
+        // return m_wristEncoder.getPosition();
+        // }
 
         public boolean isCurrentSpike() {
             return m_wrist.getOutputCurrent() > ClawConstants.CURRENTSPIKELIMIT;
         }
 
-        public boolean verifyPosition(double angle) {
-            return Math.abs(getCurrentPosition() - angle) <= ClawConstants.ALLOWEDERROR;
-        }
+        // public boolean verifyPosition(double angle) {
+        // return Math.abs(getCurrentPosition() - angle) <= ClawConstants.ALLOWEDERROR;
+        // }
     }
 
 }
