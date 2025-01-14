@@ -18,11 +18,11 @@ public class LED extends SubsystemBase {
 
   public LED() {
     color_pub = color_topic.publish();
-    color_pub.setDefault("black");
+    color_pub.setDefault("white");
   }
 
   @Override
   public void periodic() {
-
+    color_pub.set("orange");
   }
 }
