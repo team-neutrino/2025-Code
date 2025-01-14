@@ -119,6 +119,10 @@ public class Claw extends SubsystemBase {
     public void periodic() {
         m_grabber.set(clawVoltage);
         isBroken = !m_intakeBeamBreak.get();
+        wrist.m_wrist.set(clawVoltage);
+        if (wrist.isCurrentSpike()) {
+            wrist.stopWrist();
+        }
     }
 
     public Command defaultCommandGrabber() {
@@ -142,6 +146,7 @@ public class Claw extends SubsystemBase {
         private SparkMaxConfig m_wristConfig = new SparkMaxConfig();
         private AbsoluteEncoder m_wristEncoder = m_wrist.getAbsoluteEncoder();
         private SparkClosedLoopController pidController = m_wrist.getClosedLoopController();
+        private double wristVoltage = ClawConstants.WRISTVOLTAGE;
 
         private Wrist() {
 
@@ -167,12 +172,14 @@ public class Claw extends SubsystemBase {
         }
 
         public void moveToPosition(double angle) {
-            if (angle < ClawConstants.MINIMUMANGLE) {
-                angle = ClawConstants.MINIMUMANGLE;
-            } else if (angle > ClawConstants.MAXIMUMANGLE) {
-                angle = ClawConstants.MAXIMUMANGLE;
+            if (angle == ClawConstants.MINIMUMANGLE) {
+                wristVoltage = -ClawConstants.MAXIMUMANGLE;
+            } else if (angle == ClawConstants.MAXIMUMANGLE) {
+                wristVoltage = ClawConstants.MAXIMUMANGLE;
+            } else {
+                throw new IllegalStateException(
+                        "Argument in angle must be passed in as the Minimimum angle or Maximum angle (0 or 90)");
             }
-            pidController.setReference(angle, ControlType.kPosition);
         }
 
         public void stopWrist() {
@@ -183,10 +190,13 @@ public class Claw extends SubsystemBase {
             return m_wristEncoder.getPosition();
         }
 
+        public boolean isCurrentSpike() {
+            return m_wrist.getOutputCurrent() > ClawConstants.CURRENTSPIKELIMIT;
+        }
+
         public boolean verifyPosition(double angle) {
             return Math.abs(getCurrentPosition() - angle) <= ClawConstants.ALLOWEDERROR;
         }
-
     }
 
 }
