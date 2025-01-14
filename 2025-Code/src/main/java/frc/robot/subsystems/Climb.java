@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimbConstants;
 
@@ -16,9 +19,11 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
 public class Climb extends SubsystemBase {
-  private SparkFlex m_amayaClimbMotor = new SparkFlex(ClimbConstants.CLIMB_MOTOR_ID, MotorType.kBrushless);
-  // motor for Amaya climb
-  private AbsoluteEncoder m_amayaClimbEncoder;
+  private SparkFlex m_climbMotor1 = new SparkFlex(ClimbConstants.CLIMB_MOTOR_ID, MotorType.kBrushless);
+  private SparkFlex m_climbMotor2 = new SparkFlex(ClimbConstants.CLIMB_MOTOR_ID2, MotorType.kBrushless);
+  private SparkFlex m_holdClimbMotor = new SparkFlex(ClimbConstants.CLIMB_MOTOR_ID3, MotorType.kBrushless);
+  private SparkAbsoluteEncoder m_climbEncoder;
+  private DigitalInput m_lockLimitSwitch = new DigitalInput(ClimbConstants.LOCK_LIMIT_SWITCH);
 
   private SparkFlex m_climbMotor1 = new SparkFlex(ClimbConstants.CLIMB_MOTOR_ID2, MotorType.kBrushless);
   private SparkFlex m_climbMotor2 = new SparkFlex(ClimbConstants.CLIMB_MOTOR_ID3, MotorType.kBrushless);
@@ -44,9 +49,14 @@ public class Climb extends SubsystemBase {
 
   }
 
-  public void initializeEncoders() {
+  public void lockClimb() {
 
   }
+
+  public Command lockCommand() {
+    return new RunCommand(() -> lockClimb(), this);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
