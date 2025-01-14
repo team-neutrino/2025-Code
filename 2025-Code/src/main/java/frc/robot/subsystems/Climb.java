@@ -37,8 +37,7 @@ public class Climb extends SubsystemBase {
     m_holdClimbMotorConfig.smartCurrentLimit(ClimbConstants.HOLD_CURRENT_LIMIT);
     m_holdClimbMotorConfig.idleMode(IdleMode.kBrake);
 
-    m_followMotorConfig.smartCurrentLimit(ClimbConstants.CLIMB_CURRENT_LIMIT);
-    m_followMotorConfig.idleMode(IdleMode.kBrake);
+    m_followMotorConfig.apply(m_climbMotorConfig);
     m_followMotorConfig.follow(m_climbMotor1);
 
     m_climbMotor1.configure(m_climbMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
