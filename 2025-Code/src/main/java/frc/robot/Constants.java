@@ -120,7 +120,7 @@ public final class Constants {
 
     public static final int CLIMB_CURRENT_LIMIT = 0;
     // int not correct
-    public static final int HOLD_CURRENT_LIMIT = 0;
+    public static final int LOCK_CURRENT_LIMIT = 0;
     // int not correct
 
     public static final int LOCK_LIMIT_SWITCH = 1;
