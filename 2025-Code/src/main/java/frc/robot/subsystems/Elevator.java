@@ -20,8 +20,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstants;
 
 public class Elevator extends SubsystemBase {
-  private SparkFlex m_motor1 = new SparkFlex(ElevatorConstants.MOTOR1, MotorType.kBrushless);
-  private SparkFlex m_motor2 = new SparkFlex(ElevatorConstants.MOTOR2, MotorType.kBrushless);
+  private SparkFlex m_motor1 = new SparkFlex(ElevatorConstants.MOTOR1_ID, MotorType.kBrushless);
+  private SparkFlex m_motor2 = new SparkFlex(ElevatorConstants.MOTOR2_ID, MotorType.kBrushless);
   private SparkRelativeEncoder m_encoder;
   private SparkLimitSwitch m_highLimit;
   private SparkLimitSwitch m_lowLimit;
@@ -36,24 +36,16 @@ public class Elevator extends SubsystemBase {
         .inverted(false)
         .idleMode(IdleMode.kBrake);
     m_config.encoder
-        .positionConversionFactor(0)
-        .velocityConversionFactor(0);
+        .positionConversionFactor(1)
+        .velocityConversionFactor(1);
     m_config.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-        .pid(0.0, 0.0, 0.0);
+        .pid(1.0, 0.0, 0.0);
     m_motor1.configure(m_config, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
 
     m_followerConfig.follow(1);
-    m_followerConfig
-        .inverted(true)
-        .idleMode(IdleMode.kBrake);
-    m_followerConfig.encoder
-        .positionConversionFactor(0)
-        .velocityConversionFactor(0);
-    m_followerConfig.closedLoop
-        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-        .pid(0.0, 0.0, 0.0);
+    m_followerConfig.apply(m_config);
     m_motor2.configure(m_followerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
