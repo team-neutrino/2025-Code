@@ -32,8 +32,8 @@ import frc.robot.Constants.ClawConstants;
 public class Claw extends SubsystemBase {
 
     // grabber is the intake
-    private SparkMax m_grabber = new SparkMax(ClawConstants.LEFTGRABBER, MotorType.kBrushless);
-    private SparkMax m_follower = new SparkMax(ClawConstants.RIGHTGRABBER, MotorType.kBrushless);
+    private SparkMax m_grabber = new SparkMax(ClawConstants.LEFT_GRABBER, MotorType.kBrushless);
+    private SparkMax m_follower = new SparkMax(ClawConstants.RIGHT_GRABBER, MotorType.kBrushless);
 
     private SparkMaxConfig m_grabberConfig = new SparkMaxConfig();
     private SparkMaxConfig m_followerConfig = new SparkMaxConfig();
@@ -43,7 +43,7 @@ public class Claw extends SubsystemBase {
 
     private double clawVoltage;
     private boolean isBroken;
-    private DigitalInput m_intakeBeamBreak = new DigitalInput(ClawConstants.INTAKEMOTORBEAMBREAK);
+    private DigitalInput m_intakeBeamBreak = new DigitalInput(ClawConstants.INTAKE_MOTOR_BEAMBREAK);
     private Wrist wrist;
     // In degrees
 
@@ -99,7 +99,7 @@ public class Claw extends SubsystemBase {
         private SparkMaxConfig m_wristConfig = new SparkMaxConfig();
         // private AbsoluteEncoder m_wristEncoder = m_wrist.getAbsoluteEncoder();
         private SparkClosedLoopController pidController = m_wrist.getClosedLoopController();
-        private double wristVoltage = ClawConstants.WRISTVOLTAGE;
+        private double wristVoltage = ClawConstants.WRIST_VOLTAGE;
 
         private Wrist() {
 
