@@ -26,8 +26,9 @@ public class Limelight extends SubsystemBase {
 
   /** Creates a new ExampleSubsystem. */
   public Limelight() {
+    // global instance of the network table
     limelight = NetworkTableInstance.getDefault().getTable("Limelight");
-    // turns off LED
+    // force LED off
     limelight.getEntry("ledMode").setNumber(1);
   }
 
