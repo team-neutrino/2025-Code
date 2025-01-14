@@ -22,8 +22,17 @@ public final class Constants {
   }
 
   public static class ElevatorConstants {
-    public static final int MOTOR = 1;
+    public static final int MOTOR1 = 1;
+    public static final int MOTOR2 = 2;
     public static final int LOW_BEAMBREAK = 2;
+    public static final double LOW_POSITION = 0.0;
+    public static final double HIGH_POSITION = 1.0;
+    public static final double ALGAE_INTAKE = 0.0;
+    public static final double CORAL_INTAKE = 0.0;
+    public static final double L1 = 0.0;
+    public static final double L2 = 1.0;
+    public static final double L3 = 2.0;
+    public static final double L4 = 3.0;
   }
 
   public static class ArmConstants {
