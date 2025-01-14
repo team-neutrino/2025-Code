@@ -30,7 +30,7 @@ public class Limelight extends SubsystemBase {
 
   // get valid target
   public boolean getTv() {
-    return false; 
+    return false;
   }
 
   // get Horizontal Offset From Crosshair To Target (LL1: -27 degrees to 27
@@ -52,6 +52,10 @@ public class Limelight extends SubsystemBase {
 
   public void setPriorityID(int id) {
 
+  }
+
+  public double[] getBotPose() {
+    return pose; 
   }
 
   /**
