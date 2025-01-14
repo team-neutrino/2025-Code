@@ -47,33 +47,21 @@ public class Arm extends SubsystemBase {
 
   // finds out if the arm is in limit
   public boolean isArmInLimit() {
-    if (!isArmHitingElevator() && !isArmHitingBase()) {
-      return true;
-    } else {
-      return false;
-    }
+    return !isArmHitingElevator() && !isArmHitingBase();
   }
 
   // add elevator and wrist parts later
   // finds if the arm will be in the area the elevator is in
   public boolean isArmHitingElevator() {
-    if (ArmConstants.HITING_LEFT_ELEVATOR_ARM_POSITION < getArmPosition()
-        && getArmPosition() < ArmConstants.HITING_RIGHT_ELEVATOR_ARM_POSITION) {
-      return true;
-    } else {
-      return false;
-    }
+    return ArmConstants.HITING_LEFT_ELEVATOR_ARM_POSITION < getArmPosition()
+        && getArmPosition() < ArmConstants.HITING_RIGHT_ELEVATOR_ARM_POSITION;
   }
 
   // add elevator and wrist parts later
   // finds if the arm will be in the area the base is in
   public boolean isArmHitingBase() {
-    if (ArmConstants.HITING_LEFT_BASE_ARM_POSITION < getArmPosition()
-        && getArmPosition() < ArmConstants.HITING_RIGHT_BASE_ARM_POSITION) {
-      return true;
-    } else {
-      return false;
-    }
+    return ArmConstants.HITING_LEFT_BASE_ARM_POSITION < getArmPosition()
+        && getArmPosition() < ArmConstants.HITING_RIGHT_BASE_ARM_POSITION;
   }
 
   @Override
