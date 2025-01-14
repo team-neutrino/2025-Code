@@ -55,7 +55,15 @@ public class Limelight extends SubsystemBase {
   }
 
   public double[] getBotPose() {
-    return pose; 
+    return pose;
+  }
+
+  public double getDistanceFromPrimaryTarget() {
+    return 0.0;
+  }
+
+  public void setPriorityID(){
+    
   }
 
   /**
