@@ -26,49 +26,32 @@ public class Limelight extends SubsystemBase {
 
   /** Creates a new ExampleSubsystem. */
   public Limelight() {
-    // global instance of the network table
-    limelight = NetworkTableInstance.getDefault().getTable("Limelight");
-    // force LED off
-    limelight.getEntry("ledMode").setNumber(1);
   }
 
   // get valid target
   public boolean getTv() {
-    return limelight.getEntry("tv").getDouble(0.0) == 1;
+    return false; 
   }
 
   // get Horizontal Offset From Crosshair To Target (LL1: -27 degrees to 27
-  // degrees / LL2: -29.8 to 29.8 degrees)
+  // degrees / LL
   public double getTx() {
-    return limelight.getEntry("tx").getDouble(0.0);
+    return 0.0;
   }
 
   // get Vertical Offset From Crosshair To Target (LL1: -20.5 degrees to 20.5
   // degrees / LL2: -24.85 to 24.85 degrees)
   public double getTy() {
-    return limelight.getEntry("ty").getDouble(0.0);
+    return 0.0;
   }
 
   // get ID of the primary in-view AprilTag
   public int getID() {
-    return (int) limelight.getEntry("tid").getDouble(0.0);
-  }
-
-  // change wpiblue depending on how we want our odometry to work
-  public double[] getBotPose() {
-    pose = limelight.getEntry("botpose_orb_wpiblue").getDoubleArray(pastPose);
-    if (getTv()) {
-      pastPose = pose;
-    }
-    return pose;
-  }
-
-  public double getDistanceFromPrimaryTarget() {
-    return getBotPose()[9];
+    return 0;
   }
 
   public void setPriorityID(int id) {
-    limelight.getEntry("priorityid").setNumber(id);
+
   }
 
   /**
