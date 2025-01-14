@@ -34,6 +34,11 @@ public final class Constants {
     public static final double L2_ARM_POSITION = 0.0;
     public static final double L3_ARM_POSITION = 0.0;
     public static final double L4_ARM_POSITION = 0.0;
+
+    public static final double HITING_LEFT_ELEVATOR_ARM_POSITION = 0.0;
+    public static final double HITING_RIGHT_ELEVATOR_ARM_POSITION = 0.0;
+    public static final double HITING_LEFT_BASE_ARM_POSITION = 0.0;
+    public static final double HITING_RIGHT_BASE_ARM_POSITION = 0.0;
   }
 
   public static class ClawConstants {
