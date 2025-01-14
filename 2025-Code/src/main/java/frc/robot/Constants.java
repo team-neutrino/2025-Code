@@ -56,7 +56,17 @@ public final class Constants {
   }
 
   public static class ClimbConstants {
+    public static final int CLIMB_MOTOR_ID = 30;
+    public static final int CLIMB_MOTOR_ID2 = 31;
+    public static final int CLIMB_MOTOR_ID3 = 32;
+    public static final int CLIMB_MOTOR_ID4 = 34;
 
+    public static final int CLIMB_CURRENT_LIMIT = 0;
+    // int not correct
+    public static final int HOLD_CURRENT_LIMIT = 0;
+    // int not correct
+
+    public static final int LOCK_LIMIT_SWITCH = 0;
   }
 
   public static class LimelightConstants {
