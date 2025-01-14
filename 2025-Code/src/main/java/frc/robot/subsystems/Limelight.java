@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import java.security.PublicKey;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -25,6 +27,8 @@ public class Limelight extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public Limelight() {
     limelight = NetworkTableInstance.getDefault().getTable("Limelight");
+    // turns off LED
+    limelight.getEntry("ledMode").setNumber(1);
   }
 
   // get valid target
@@ -49,13 +53,17 @@ public class Limelight extends SubsystemBase {
     return (int) limelight.getEntry("tid").getDouble(0.0);
   }
 
+  // change wpiblue depending on how we want our odometry to work
   public double[] getBotPose() {
     pose = limelight.getEntry("botpose_orb_wpiblue").getDoubleArray(pastPose);
     if (getTv()) {
       pastPose = pose;
     }
-
     return pose;
+  }
+
+  public double getDistanceFromPrimaryTarget() {
+    return getBotPose()[9];
   }
 
   public void setPriorityID(int id) {
