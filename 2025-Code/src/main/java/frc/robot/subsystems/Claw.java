@@ -46,39 +46,22 @@ public class Claw extends SubsystemBase {
     private DigitalInput m_intakeBeamBreak = new DigitalInput(ClawConstants.INTAKEMOTORBEAMBREAK);
     private Wrist wrist;
     // In degrees
-    private static final double[] WRIST_POSITIONS = { 0.0, 45.0, 90.0 };
 
     /** Creates a new ExampleSubsystem. */
     public Claw() {
-        wrist = new Wrist();
-        m_grabberEncoder = m_grabber.getEncoder();
-        m_followerEncoder = m_follower.getEncoder();
 
-        // space for current limits
-        m_grabberConfig.smartCurrentLimit(Constants.ClawConstants.GRABBERCURRENTLIMIT);
-        m_grabberConfig.inverted(false);
-        m_grabberConfig.idleMode(IdleMode.kCoast);
-
-        m_grabberConfig.softLimit.forwardSoftLimitEnabled(false);
-        m_grabberConfig.softLimit.reverseSoftLimitEnabled(false);
-        m_followerConfig.apply(m_grabberConfig);
-        m_followerConfig.follow(m_grabber);
-        m_grabber.configure(m_grabberConfig, SparkBase.ResetMode.kResetSafeParameters,
-                SparkBase.PersistMode.kPersistParameters);
-        m_follower.configure(m_followerConfig, SparkBase.ResetMode.kResetSafeParameters,
-                SparkBase.PersistMode.kPersistParameters);
     }
 
     public double getVelocityOfGrabber() {
-        return m_grabberEncoder.getVelocity();
+        return 0;
     }
 
     public double getVelocityOfGrabberFollower() {
-        return m_followerEncoder.getVelocity();
+        return 0;
     }
 
     public boolean grabberVelocityagrees() {
-        return Math.abs(getVelocityOfGrabber() - getVelocityOfGrabberFollower()) < 5;
+        return false;
     }
 
     public double getClawVoltage() {
@@ -86,19 +69,13 @@ public class Claw extends SubsystemBase {
     }
 
     public void runIntake() {
-        if (hasGamePiece()) {
-            stopIntake();
-        } else {
-            clawVoltage = ClawConstants.INTAKEMOTORVOLTAGE;
-        }
+
     }
 
     public void runOuttake() {
-        clawVoltage = -ClawConstants.INTAKEMOTORVOLTAGE;
     }
 
     public void stopIntake() {
-        clawVoltage = 0;
     }
 
     public boolean hasGamePiece() {
@@ -110,33 +87,11 @@ public class Claw extends SubsystemBase {
     }
 
     public void setWristState(int position) {
-        wrist.moveToPosition(WRIST_POSITIONS[position]);
     }
 
     @Override
     public void periodic() {
-        m_grabber.set(clawVoltage);
-        isBroken = !m_intakeBeamBreak.get();
-        wrist.m_wrist.set(clawVoltage);
-        if (wrist.isCurrentSpike()) {
-            wrist.stopWrist();
-        }
-    }
 
-    public Command defaultCommandGrabber() {
-        return new RunCommand(() -> stopIntake(), this);
-    }
-
-    public Command defaultCommandWrist() {
-        return new RunCommand(() -> wrist.moveToPosition(WRIST_POSITIONS[0]), this);
-    }
-
-    public Command rotateWristto90() {
-        return new RunCommand(() -> wrist.moveToPosition(WRIST_POSITIONS[2]), this);
-    }
-
-    public Command intakeGamePiece() {
-        return new RunCommand(() -> runIntake(), this);
     }
 
     private class Wrist {
@@ -148,54 +103,17 @@ public class Claw extends SubsystemBase {
 
         private Wrist() {
 
-            m_wristConfig.smartCurrentLimit(ClawConstants.WRISTCURRENTLIMIT);
-            m_wristConfig.idleMode(IdleMode.kBrake);
-
-            m_wristConfig.softLimit.forwardSoftLimit(ClawConstants.MAXIMUMANGLE);
-            m_wristConfig.softLimit.reverseSoftLimit(ClawConstants.MINIMUMANGLE);
-            m_wristConfig.softLimit.forwardSoftLimitEnabled(true);
-            m_wristConfig.softLimit.reverseSoftLimitEnabled(true);
-            m_wrist.configure(m_wristConfig, SparkBase.ResetMode.kResetSafeParameters,
-                    SparkBase.PersistMode.kPersistParameters);
-            // AbsoluteEncoderConfig m_wristEncoderConfig = m_wristConfig.absoluteEncoder;
-            // m_wristEncoderConfig.zeroOffset(0.0);
-            // m_wristEncoderConfig.positionConversionFactor(360.0);
-            // ClosedLoopConfig pidConfig = m_wristConfig.closedLoop;
-            // pidConfig.pidf(ClawConstants.KP, ClawConstants.KI, ClawConstants.KD,
-            // ClawConstants.KFF);
-            // pidConfig.outputRange(-1.0, 1.0);
-            // pidConfig.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
-            // pidConfig.maxMotion.maxVelocity(ClawConstants.MAXVELOCITY);
-            // pidConfig.maxMotion.maxAcceleration(ClawConstants.MAXACCELERATION);
-            // pidConfig.maxMotion.allowedClosedLoopError(ClawConstants.ALLOWEDERROR);
         }
 
         public void moveToPosition(double angle) {
-            if (angle == ClawConstants.MINIMUMANGLE) {
-                wristVoltage = -ClawConstants.MAXIMUMANGLE;
-            } else if (angle == ClawConstants.MAXIMUMANGLE) {
-                wristVoltage = ClawConstants.MAXIMUMANGLE;
-            } else {
-                throw new IllegalStateException(
-                        "Argument in angle must be passed in as the Minimimum angle or Maximum angle (0 or 90)");
-            }
+
         }
 
         public void stopWrist() {
-            m_wrist.stopMotor();
         }
-
-        // public double getCurrentPosition() {
-        // return m_wristEncoder.getPosition();
-        // }
 
         public boolean isCurrentSpike() {
-            return m_wrist.getOutputCurrent() > ClawConstants.CURRENTSPIKELIMIT;
+            return false;
         }
-
-        // public boolean verifyPosition(double angle) {
-        // return Math.abs(getCurrentPosition() - angle) <= ClawConstants.ALLOWEDERROR;
-        // }
     }
-
 }
