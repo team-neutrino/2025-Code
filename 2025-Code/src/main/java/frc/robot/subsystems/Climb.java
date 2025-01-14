@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimbConstants;
 
 import com.revrobotics.AbsoluteEncoder;
+import com.revrobotics.spark.SparkAbsoluteEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkFlex;
@@ -25,14 +26,9 @@ public class Climb extends SubsystemBase {
   private SparkAbsoluteEncoder m_climbEncoder;
   private DigitalInput m_lockLimitSwitch = new DigitalInput(ClimbConstants.LOCK_LIMIT_SWITCH);
 
-  private SparkFlex m_climbMotor1 = new SparkFlex(ClimbConstants.CLIMB_MOTOR_ID2, MotorType.kBrushless);
-  private SparkFlex m_climbMotor2 = new SparkFlex(ClimbConstants.CLIMB_MOTOR_ID3, MotorType.kBrushless);
-  private SparkFlex m_holdClimbMotor = new SparkFlex(ClimbConstants.CLIMB_MOTOR_ID4, MotorType.kBrushless);
-  // motor for unqualified quokkas climb
-  private AbsoluteEncoder m_uqClimbEncoder;
-
   private SparkFlexConfig m_climbMotorConfig = new SparkFlexConfig();
   private SparkFlexConfig m_holdClimbMotorConfig = new SparkFlexConfig();
+  private SparkFlexConfig m_followMotorConfig = new SparkFlexConfig();
 
   public Climb() {
     m_climbMotorConfig.smartCurrentLimit(ClimbConstants.CLIMB_CURRENT_LIMIT);
@@ -41,11 +37,17 @@ public class Climb extends SubsystemBase {
     m_holdClimbMotorConfig.smartCurrentLimit(ClimbConstants.HOLD_CURRENT_LIMIT);
     m_holdClimbMotorConfig.idleMode(IdleMode.kBrake);
 
+    m_followMotorConfig.smartCurrentLimit(ClimbConstants.CLIMB_CURRENT_LIMIT);
+    m_followMotorConfig.idleMode(IdleMode.kBrake);
+    m_followMotorConfig.follow(m_climbMotor1);
+
     m_climbMotor1.configure(m_climbMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    m_climbMotor2.configure(m_climbMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    m_amayaClimbMotor.configure(m_climbMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+    m_climbMotor2.configure(m_followMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     m_holdClimbMotor.configure(m_holdClimbMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+    m_climbEncoder = m_climbMotor1.getAbsoluteEncoder();
 
   }
 
