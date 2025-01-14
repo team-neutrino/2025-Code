@@ -51,14 +51,6 @@ public class Climb extends SubsystemBase {
 
   }
 
-  public void lockClimb() {
-
-  }
-
-  public Command lockCommand() {
-    return new RunCommand(() -> lockClimb(), this);
-  }
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
