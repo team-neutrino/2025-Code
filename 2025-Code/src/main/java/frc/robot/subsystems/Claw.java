@@ -70,11 +70,11 @@ public class Claw extends SubsystemBase {
     }
 
     public double getVelocityOfGrabber() {
-        return m_grabberEncoder.getPosition();
+        return m_grabberEncoder.getVelocity();
     }
 
     public double getVelocityOfGrabberFollower() {
-        return m_followerEncoder.getPosition();
+        return m_followerEncoder.getVelocity();
     }
 
     public boolean grabberVelocityagrees() {
