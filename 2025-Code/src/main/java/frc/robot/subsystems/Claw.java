@@ -91,6 +91,12 @@ public class Claw extends SubsystemBase {
 
     @Override
     public void periodic() {
+        m_grabber.set(clawVoltage);
+        isBroken = !m_intakeBeamBreak.get();
+        if (wrist.isCurrentSpike()) {
+            wrist.stopWrist();
+        }
+    }
 
     }
 
@@ -99,17 +105,48 @@ public class Claw extends SubsystemBase {
         private SparkMaxConfig m_wristConfig = new SparkMaxConfig();
         // private AbsoluteEncoder m_wristEncoder = m_wrist.getAbsoluteEncoder();
         private SparkClosedLoopController pidController = m_wrist.getClosedLoopController();
-        private double wristVoltage = ClawConstants.WRIST_VOLTAGE;
+        private double wristVoltage;
 
         private Wrist() {
+
+            m_wristConfig.smartCurrentLimit(ClawConstants.WRISTCURRENTLIMIT);
+            m_wristConfig.idleMode(IdleMode.kBrake);
+
+            m_wristConfig.softLimit.forwardSoftLimit(ClawConstants.MAXIMUMANGLE);
+            m_wristConfig.softLimit.reverseSoftLimit(ClawConstants.MINIMUMANGLE);
+            m_wristConfig.softLimit.forwardSoftLimitEnabled(true);
+            m_wristConfig.softLimit.reverseSoftLimitEnabled(true);
+            m_wrist.configure(m_wristConfig, SparkBase.ResetMode.kResetSafeParameters,
+                    SparkBase.PersistMode.kPersistParameters);
+            // AbsoluteEncoderConfig m_wristEncoderConfig = m_wristConfig.absoluteEncoder;
+            // m_wristEncoderConfig.zeroOffset(0.0);
+            // m_wristEncoderConfig.positionConversionFactor(360.0);
+            ClosedLoopConfig pidConfig = m_wristConfig.closedLoop;
+            pidConfig.pidf(ClawConstants.KP, ClawConstants.KI, ClawConstants.KD,
+                    ClawConstants.KFF);
+            pidConfig.outputRange(0, 1.0);
+            pidConfig.feedbackSensor(FeedbackSensor.kAnalogSensor);
+            pidConfig.maxMotion.maxVelocity(ClawConstants.MAXVELOCITY);
+            pidConfig.maxMotion.maxAcceleration(ClawConstants.MAXACCELERATION);
+            pidConfig.maxMotion.allowedClosedLoopError(ClawConstants.ALLOWEDERROR);
 
         }
 
         public void moveToPosition(double angle) {
-
+            if (angle == 90) {
+                wristVoltage = ClawConstants.WRISTVOLTAGE;
+            } else if (angle == 0) {
+                wristVoltage = -ClawConstants.WRISTVOLTAGE;
+            } else {
+                throw new IllegalStateException(
+                        "Argument in angle must be passed in as the Minimimum angle or Maximum angle (0 or 90)");
+            }
+            pidController.setReference(wristVoltage, ControlType.kVoltage);
         }
 
         public void stopWrist() {
+            m_wrist.stopMotor();
+            wristVoltage = 0;
         }
 
         public boolean isCurrentSpike() {
