@@ -64,6 +64,8 @@ public class Climb extends SubsystemBase {
 
     m_climbEncoder = m_climbMotor1.getAbsoluteEncoder();
 
+    m_lockLimitSwitchConfig.forwardLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen);
+
   }
 
   private void lockClimb() {
