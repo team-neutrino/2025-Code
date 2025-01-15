@@ -10,6 +10,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
 
 public class LED extends SubsystemBase {
+  private int counter = 0;
 
   NetworkTableInstance inst = NetworkTableInstance.getDefault();
   StringTopic color_topic = inst.getStringTopic("/LED/color");
@@ -23,6 +24,15 @@ public class LED extends SubsystemBase {
 
   @Override
   public void periodic() {
-    color_pub.set("orange");
+    counter++;
+    if (counter % 50 == 0) {
+      if (counter % 100 == 0) {
+        color_pub.set("white");
+        return;
+      }
+      color_pub.set("orange");
+
+    }
+
   }
 }
