@@ -10,6 +10,8 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
 
 public class LED extends SubsystemBase {
+  private int m_counter = 0;
+  private int m_counter2 = 0;
 
   NetworkTableInstance inst = NetworkTableInstance.getDefault();
   StringTopic color_topic = inst.getStringTopic("/LED/color");
@@ -18,11 +20,28 @@ public class LED extends SubsystemBase {
 
   public LED() {
     color_pub = color_topic.publish();
-    color_pub.setDefault("white");
+    color_pub.setDefault("orange");
+  }
+
+  private boolean slowDown(int rate) {
+    m_counter2++;
+    return m_counter2 % rate == 0;
   }
 
   @Override
   public void periodic() {
-    color_pub.set("orange");
+    if (slowDown(50)) {
+      if (m_counter == 0) {
+        color_pub.set("white");
+        m_counter++;
+      } else if (m_counter == 1) {
+        color_pub.set("orange");
+        m_counter++;
+      } else if (m_counter == 2) {
+        color_pub.set("blue");
+        m_counter = 0;
+      }
+    }
   }
+
 }
