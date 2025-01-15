@@ -10,7 +10,8 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
 
 public class LED extends SubsystemBase {
-  private int counter = 0;
+  private int m_counter = 0;
+  private int m_counter2 = 0;
 
   NetworkTableInstance inst = NetworkTableInstance.getDefault();
   StringTopic color_topic = inst.getStringTopic("/LED/color");
@@ -19,20 +20,44 @@ public class LED extends SubsystemBase {
 
   public LED() {
     color_pub = color_topic.publish();
-    color_pub.setDefault("white");
+    color_pub.setDefault("orange");
+  }
+
+  public boolean slowDown(int rate) {
+    m_counter2++;
+    if (m_counter2 % rate == 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @Override
   public void periodic() {
-    counter++;
-    if (counter % 50 == 0) {
-      if (counter % 100 == 0) {
+    if (slowDown(50)) {
+      if (m_counter == 0) {
         color_pub.set("white");
-        return;
+        m_counter++;
+      } else if (m_counter == 1) {
+        color_pub.set("orange");
+        m_counter++;
+      } else if (m_counter == 2) {
+        color_pub.set("blue");
+        m_counter = 0;
       }
-      color_pub.set("orange");
-
     }
 
+    // m_counter++;
+    // if (m_counter % 50 == 0) {
+    // if (m_counter % 100 == 0) {
+    // color_pub.set("white");
+    // return;
+    // }
+    // if (m_counter % 150 == 0) {
+    // color_pub.set("indigo");
+    // }
+    // color_pub.set("orange");
+
   }
+
 }
