@@ -20,6 +20,7 @@ import com.revrobotics.spark.SparkLimitSwitch;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.ClosedLoopConfig;
+import com.revrobotics.spark.config.LimitSwitchConfig;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
 public class Climb extends SubsystemBase {
@@ -27,9 +28,7 @@ public class Climb extends SubsystemBase {
   private SparkFlex m_climbMotor2 = new SparkFlex(ClimbConstants.CLIMB_MOTOR_ID2, MotorType.kBrushless);
   private SparkFlex m_lockClimbMotor = new SparkFlex(ClimbConstants.CLIMB_MOTOR_ID3, MotorType.kBrushless);
   private SparkAbsoluteEncoder m_climbEncoder;
-  private DigitalInput m_lockLimitSwitch = new DigitalInput(ClimbConstants.LOCK_LIMIT_SWITCH);
-  // private SparkLimitSwitch aaaaaaaaa = m_climbMotor1.getForwardLimitSwitch();
-  // idk
+  private SparkLimitSwitch m_lockLimitSwitch = m_lockClimbMotor.getForwardLimitSwitch();
 
   private SparkFlexConfig m_climbMotorConfig = new SparkFlexConfig();
   private SparkFlexConfig m_lockClimbMotorConfig = new SparkFlexConfig();
@@ -37,6 +36,8 @@ public class Climb extends SubsystemBase {
 
   private SparkClosedLoopController m_climbPID = m_climbMotor1.getClosedLoopController();
   private ClosedLoopConfig m_climbPIDConfig = new ClosedLoopConfig();
+
+  private LimitSwitchConfig m_lockLimitSwitchConfig = new LimitSwitchConfig();
 
   public Climb() {
     m_climbMotorConfig.smartCurrentLimit(CLIMB_CURRENT_LIMIT);
@@ -56,10 +57,12 @@ public class Climb extends SubsystemBase {
 
     m_climbEncoder = m_climbMotor1.getAbsoluteEncoder();
 
+    m_lockLimitSwitchConfig.forwardLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen);
+
   }
 
   public void lockClimb() {
-    if (!m_lockLimitSwitch.get()) {
+    if (!m_lockLimitSwitch.isPressed()) {
       m_lockClimbMotor.set(ClimbConstants.LOCK_SPEED);
     } else {
       m_lockClimbMotor.stopMotor();

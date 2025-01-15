@@ -122,8 +122,6 @@ public final class Constants {
     public static final int LOCK_CURRENT_LIMIT = 0;
     // int not correct
 
-    public static final int LOCK_LIMIT_SWITCH = 0;
-
     public static final double LOCK_SPEED = 0.1;
     // subject to change
   }
