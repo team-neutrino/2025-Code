@@ -23,8 +23,14 @@ import frc.robot.Constants.ElevatorConstants;
 
 public class Elevator extends SubsystemBase {
   private SparkFlex m_motor1 = new SparkFlex(ElevatorConstants.MOTOR1_ID, MotorType.kBrushless);
+  // private SparkFlex m_motor2 = new SparkFlex(ElevatorConstants.MOTOR2_ID,
+  // MotorType.kBrushless);
+  private SparkRelativeEncoder m_encoder;
+  private SparkLimitSwitch m_highLimit;
+  private SparkLimitSwitch m_lowLimit;
   private SparkClosedLoopController m_pid = m_motor1.getClosedLoopController();
   private SparkFlexConfig m_config = new SparkFlexConfig();
+  // private SparkFlexConfig m_followerConfig = new SparkFlexConfig();
 
   private double m_target = 0.0;
 
@@ -40,6 +46,11 @@ public class Elevator extends SubsystemBase {
         .pid(1.0, 0.0, 0.0);
     m_motor1.configure(m_config, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
+
+    // m_followerConfig.follow(1);
+    // m_followerConfig.apply(m_config);
+    // m_motor2.configure(m_followerConfig, ResetMode.kResetSafeParameters,
+    // PersistMode.kPersistParameters);
   }
 
   private void setTargetHeight(double target) {
@@ -54,6 +65,18 @@ public class Elevator extends SubsystemBase {
     return 0.0;
   }
 
+  private void resetEncoder(double position) {
+    m_encoder.setPosition(position);
+  }
+
+  private boolean isLowPosition() {
+    return m_lowLimit.isPressed();
+  }
+
+  public boolean isHighPosition() {
+    return m_highLimit.isPressed();
+  }
+
   public Command moveElevatorCommand(double height) {
     return runOnce(
         () -> {
@@ -63,6 +86,12 @@ public class Elevator extends SubsystemBase {
 
   @Override
   public void periodic() {
+    // if (isLowPosition()) {
+    // resetEncoder(ElevatorConstants.LOW_POSITION);
+    // }
+    // if (isHighPosition()) {
+    // resetEncoder(ElevatorConstants.HIGH_POSITION);
+    // }
     adjustElevator(m_target);
   }
 
