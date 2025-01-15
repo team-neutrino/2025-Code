@@ -10,10 +10,6 @@ import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -26,6 +22,7 @@ public class Limelight extends SubsystemBase {
   PoseEstimate m_PoseEstimate;
   SwerveDrivePoseEstimator m_poseEstimator;
   double robotYaw;
+  LimelightHelpers.PoseEstimate limelightMeasurement;
   private double[] pose = new double[11];
   private double[] targetPose = new double[6];
   private double[] pastPose = new double[11];
@@ -39,7 +36,7 @@ public class Limelight extends SubsystemBase {
     LimelightHelpers.setLEDMode_ForceOff("limelight");
     LimelightHelpers.setCameraPose_RobotSpace("limelight",
         LimelightConstants.CAMERA_FORWARD_OFFSET, // Forward offset (meters)
-        LimelightConstants.CAMERA_SIDE_OFFSET, // Side offset (meters)
+        LimelightConstants.CAMERA_SIDE_OFFSET, // Side offset (meters) left is positive
         LimelightConstants.CAMERA_HEIGHT_OFFSET, // Height offset (meters)
         LimelightConstants.CAMERA_ROLL_OFFSET, // Roll (degrees)
         LimelightConstants.CAMERA_PITCH_OFFSET, // Pitch (degrees)
@@ -49,19 +46,19 @@ public class Limelight extends SubsystemBase {
 
   // get valid target
   public boolean getTv() {
-    return m_limelightHelpers.getTV("limelight");
+    return LimelightHelpers.getTV("limelight");
   }
 
   // get Horizontal Offset From Crosshair To Target (LL1: -27 degrees to 27
   // degrees / LL
   public double getTx() {
-    return m_limelightHelpers.getTX("limelight");
+    return LimelightHelpers.getTX("limelight");
   }
 
   // get Vertical Offset From Crosshair To Target (LL1: -20.5 degrees to 20.5
   // degrees / LL2: -24.85 to 24.85 degrees)
   public double getTy() {
-    return m_limelightHelpers.getTY("limelight");
+    return LimelightHelpers.getTY("limelight");
   }
 
   // get ID of the primary in-view AprilTag
@@ -71,6 +68,15 @@ public class Limelight extends SubsystemBase {
 
   public void setPriorityID(int id) {
 
+  }
+
+  public double[] getTargetPose() {
+    return LimelightHelpers.getTargetPose_RobotSpace("limelight");
+  }
+  // set target yaw
+
+  public double getTargetYaw() {
+    return targetPose[5];
   }
 
   public double[] getBotPose() {
