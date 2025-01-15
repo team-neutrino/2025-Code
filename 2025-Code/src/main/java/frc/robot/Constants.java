@@ -29,10 +29,10 @@ public final class Constants {
     public static final double HIGH_POSITION = 1.0;
     public static final double ALGAE_INTAKE = 0.0;
     public static final double CORAL_INTAKE = 0.0;
-    public static final double L1 = 0.0;
-    public static final double L2 = 1.0;
-    public static final double L3 = 2.0;
-    public static final double L4 = 3.0;
+    public static final double L1 = 1.0;
+    public static final double L2 = 2.0;
+    public static final double L3 = 3.0;
+    public static final double L4 = 4.0;
   }
 
   public static class ArmConstants {

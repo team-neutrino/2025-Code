@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.command_factories.ElevatorFactory;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -61,7 +62,11 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is
     // pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    m_driverController.x().whileTrue(ElevatorFactory.moveL1());
+    m_driverController.y().whileTrue(ElevatorFactory.moveL2());
+    m_driverController.b().whileTrue(ElevatorFactory.moveL3());
+    m_driverController.a().whileTrue(ElevatorFactory.moveL4());
+
   }
 
   /**
