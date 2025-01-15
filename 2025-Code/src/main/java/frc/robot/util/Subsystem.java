@@ -1,5 +1,7 @@
 package frc.robot.util;
 
-public class Subsystem {
+import frc.robot.subsystems.Elevator;
 
+public class Subsystem {
+    public static final Elevator elevator = new Elevator();
 }
