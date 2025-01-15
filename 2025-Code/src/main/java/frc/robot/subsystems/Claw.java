@@ -44,7 +44,7 @@ public class Claw extends SubsystemBase {
     private RelativeEncoder m_grabberEncoder;
     private RelativeEncoder m_followerEncoder;
 
-    private double clawVoltage;
+    private double intakeVoltage;
     private boolean isBroken;
     private DigitalInput m_intakeBeamBreak = new DigitalInput(ClawConstants.INTAKE_MOTOR_BEAMBREAK);
     private Wrist wrist;
@@ -84,24 +84,24 @@ public class Claw extends SubsystemBase {
         return Math.abs(getVelocityOfGrabber() - getVelocityOfGrabberFollower()) < 5;
     }
 
-    public double getClawVoltage() {
-        return clawVoltage;
+    public double getIntakeVoltage() {
+        return intakeVoltage;
     }
 
     public void runIntake() {
         if (hasGamePiece()) {
             stopIntake();
         } else {
-            clawVoltage = ClawConstants.INTAKE_MOTOR_VOLTAGE;
+            intakeVoltage = ClawConstants.INTAKE_MOTOR_VOLTAGE;
         }
     }
 
     public void runOuttake() {
-        clawVoltage = -ClawConstants.INTAKE_MOTOR_VOLTAGE;
+        intakeVoltage = -ClawConstants.INTAKE_MOTOR_VOLTAGE;
     }
 
     public void stopIntake() {
-        clawVoltage = 0;
+        intakeVoltage = 0;
     }
 
     public boolean hasGamePiece() {
@@ -118,7 +118,7 @@ public class Claw extends SubsystemBase {
 
     @Override
     public void periodic() {
-        m_grabber.set(clawVoltage);
+        m_grabber.set(intakeVoltage);
         isBroken = !m_intakeBeamBreak.get();
         if (wrist.isCurrentSpike()) {
             wrist.stopWrist();
@@ -141,33 +141,25 @@ public class Claw extends SubsystemBase {
         return new RunCommand(() -> runIntake(), this);
     }
 
+    public Command outakeGamePiece() {
+        return new RunCommand(() -> runOuttake(), this);
+    }
+
     private class Wrist {
         private SparkMax m_wrist = new SparkMax(ClawConstants.WRIST, MotorType.kBrushless);
         private SparkMaxConfig m_wristConfig = new SparkMaxConfig();
-        private SparkClosedLoopController pidController = m_wrist.getClosedLoopController();
         private double wristVoltage;
-        SparkAnalogSensor voltageAnalogSensor = m_wrist.getAnalog();
 
         private Wrist() {
-            AnalogSensorConfig voltageAnalogConfig = m_wristConfig.analogSensor;
             m_wristConfig.smartCurrentLimit(ClawConstants.WRIST_CURRENT_LIMIT);
             m_wristConfig.idleMode(IdleMode.kBrake);
             m_wristConfig.softLimit.forwardSoftLimit(ClawConstants.MAXIMUM_ANGLE);
             m_wristConfig.softLimit.reverseSoftLimit(ClawConstants.MINIMUM_ANGLE);
             m_wristConfig.softLimit.forwardSoftLimitEnabled(true);
             m_wristConfig.softLimit.reverseSoftLimitEnabled(true);
+            m_wristConfig.openLoopRampRate(0.25);
             m_wrist.configure(m_wristConfig, SparkBase.ResetMode.kResetSafeParameters,
                     SparkBase.PersistMode.kPersistParameters);
-            voltageAnalogConfig.velocityConversionFactor(1);
-            ClosedLoopConfig pidConfig = m_wristConfig.closedLoop;
-            pidConfig.feedbackSensor(FeedbackSensor.kAnalogSensor);
-            pidConfig.pidf(ClawConstants.KP, ClawConstants.KI, ClawConstants.KD,
-                    ClawConstants.KFF);
-            pidConfig.outputRange(0, 1.0);
-            pidConfig.feedbackSensor(FeedbackSensor.kAnalogSensor);
-            pidConfig.maxMotion.maxVelocity(ClawConstants.MAX_VELOCITY);
-            pidConfig.maxMotion.maxAcceleration(ClawConstants.MAX_ACCELERATION);
-            pidConfig.maxMotion.allowedClosedLoopError(ClawConstants.ALLOWED_ERROR);
         }
 
         public void moveToPosition(double angle) {
@@ -179,7 +171,7 @@ public class Claw extends SubsystemBase {
                 throw new IllegalStateException(
                         "Argument in angle must be passed in as the Minimimum angle or Maximum angle (0 or 90)");
             }
-            pidController.setReference(wristVoltage, ControlType.kVoltage);
+            m_wrist.set(wristVoltage);
         }
 
         public void stopWrist() {
@@ -189,9 +181,7 @@ public class Claw extends SubsystemBase {
 
         // Test method
         public boolean voltageAgrees() {
-            // potentailly use 2nd one
-            return Math.abs(wristVoltage - voltageAnalogSensor.getVoltage()) < 0.1;
-            // return Math.abs(wristVoltage - m_wrist.getAppliedOutput()) < 0.1;
+            return Math.abs(wristVoltage - m_wrist.getOutputCurrent()) < 0.1;
         }
 
         public boolean isCurrentSpike() {
