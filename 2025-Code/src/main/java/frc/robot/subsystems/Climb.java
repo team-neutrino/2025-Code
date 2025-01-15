@@ -12,12 +12,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimbConstants;
 
 import com.revrobotics.spark.SparkAbsoluteEncoder;
+import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLimitSwitch;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.ClosedLoopConfig;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
 public class Climb extends SubsystemBase {
@@ -32,6 +34,9 @@ public class Climb extends SubsystemBase {
   private SparkFlexConfig m_climbMotorConfig = new SparkFlexConfig();
   private SparkFlexConfig m_lockClimbMotorConfig = new SparkFlexConfig();
   private SparkFlexConfig m_followMotorConfig = new SparkFlexConfig();
+
+  private SparkClosedLoopController m_climbPID = m_climbMotor1.getClosedLoopController();
+  private ClosedLoopConfig m_climbPIDConfig = new ClosedLoopConfig();
 
   public Climb() {
     m_climbMotorConfig.smartCurrentLimit(CLIMB_CURRENT_LIMIT);
