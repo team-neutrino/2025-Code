@@ -24,8 +24,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  private final Subsystem m_subsystem = new Subsystem();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final Subsystem m_subsystem = new Subsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController = new CommandXboxController(
