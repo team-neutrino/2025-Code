@@ -23,13 +23,9 @@ public class LED extends SubsystemBase {
     color_pub.setDefault("orange");
   }
 
-  public boolean slowDown(int rate) {
+  private boolean slowDown(int rate) {
     m_counter2++;
-    if (m_counter2 % rate == 0) {
-      return true;
-    } else {
-      return false;
-    }
+    return m_counter2 % rate == 0;
   }
 
   @Override
@@ -46,18 +42,6 @@ public class LED extends SubsystemBase {
         m_counter = 0;
       }
     }
-
-    // m_counter++;
-    // if (m_counter % 50 == 0) {
-    // if (m_counter % 100 == 0) {
-    // color_pub.set("white");
-    // return;
-    // }
-    // if (m_counter % 150 == 0) {
-    // color_pub.set("indigo");
-    // }
-    // color_pub.set("orange");
-
   }
 
 }
