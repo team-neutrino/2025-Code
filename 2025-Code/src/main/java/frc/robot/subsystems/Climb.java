@@ -95,10 +95,6 @@ public class Climb extends SubsystemBase {
     return new RunCommand(() -> moveClimbArm(angle), this);
   }
 
-  public Command lowerCLimbArmCommand() {
-    return new RunCommand(() -> lowerClimbArm(), this);
-  }
-
   @Override
   public void periodic() {
     setArmAngle(m_targetAngle);
