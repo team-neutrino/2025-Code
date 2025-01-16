@@ -21,6 +21,11 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
   }
 
+  public static class SwerveConstants {
+    public static final double MAX_SPEED = 5.7;
+    public static final double MAX_ROTATION_SPEED = 1.5 * Math.PI;
+  }
+
   public static class ElevatorConstants {
     public static final int MOTOR1_ID = 1;
     public static final int MOTOR2_ID = 2;
