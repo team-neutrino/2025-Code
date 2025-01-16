@@ -11,8 +11,10 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimbConstants;
 
+import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkAbsoluteEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkFlex;
@@ -22,6 +24,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.ClosedLoopConfig;
 import com.revrobotics.spark.config.LimitSwitchConfig;
 import com.revrobotics.spark.config.SparkFlexConfig;
+import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 
 public class Climb extends SubsystemBase {
   private SparkFlex m_climbMotor1 = new SparkFlex(ClimbConstants.CLIMB_MOTOR_ID, MotorType.kBrushless);
@@ -35,19 +38,25 @@ public class Climb extends SubsystemBase {
   private SparkFlexConfig m_followMotorConfig = new SparkFlexConfig();
 
   private SparkClosedLoopController m_climbPID = m_climbMotor1.getClosedLoopController();
-  private ClosedLoopConfig m_climbPIDConfig = new ClosedLoopConfig();
 
   private LimitSwitchConfig m_lockLimitSwitchConfig = new LimitSwitchConfig();
+
+  private int m_targetAngle = 0;
 
   public Climb() {
     m_climbMotorConfig.smartCurrentLimit(CLIMB_CURRENT_LIMIT);
     m_climbMotorConfig.idleMode(IdleMode.kBrake);
+    m_climbMotorConfig.closedLoop.feedbackSensor(FeedbackSensor.kAbsoluteEncoder);
+    m_climbMotorConfig.closedLoop.pid(1.0, 0.0, 0.0);
+    m_climbMotorConfig.encoder.positionConversionFactor(360);
 
     m_lockClimbMotorConfig.smartCurrentLimit(ClimbConstants.LOCK_CURRENT_LIMIT);
     m_lockClimbMotorConfig.idleMode(IdleMode.kBrake);
 
     m_followMotorConfig.apply(m_climbMotorConfig);
     m_followMotorConfig.follow(m_climbMotor1, true);
+
+    m_lockLimitSwitchConfig.forwardLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen);
 
     m_climbMotor1.configure(m_climbMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
@@ -57,11 +66,9 @@ public class Climb extends SubsystemBase {
 
     m_climbEncoder = m_climbMotor1.getAbsoluteEncoder();
 
-    m_lockLimitSwitchConfig.forwardLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen);
-
   }
 
-  public void lockClimb() {
+  private void lockClimb() {
     if (!m_lockLimitSwitch.isPressed()) {
       m_lockClimbMotor.set(ClimbConstants.LOCK_SPEED);
     } else {
@@ -69,8 +76,21 @@ public class Climb extends SubsystemBase {
     }
   }
 
-  public void raiseClimbArm() {
+  private void setArmAngle(int angle) {
+    m_climbPID.setReference(angle, ControlType.kPosition, ClosedLoopSlot.kSlot0, feedForwardCalculation());
+  }
 
+  private double feedForwardCalculation() {
+    return 0.0;
+    // subject to change
+  }
+
+  private void raiseClimbArm() {
+    m_targetAngle = ClimbConstants.CLIMB_ANGLE;
+  }
+
+  private void lowerClimbArm() {
+    m_targetAngle = ClimbConstants.CLIMB_DOWN_ANGLE;
   }
 
   public Command lockCommand() {
@@ -81,8 +101,12 @@ public class Climb extends SubsystemBase {
     return new RunCommand(() -> raiseClimbArm(), this);
   }
 
+  public Command lowerCLimbArmCommand() {
+    return new RunCommand(() -> lowerClimbArm(), this);
+  }
+
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    setArmAngle(m_targetAngle);
   }
 }

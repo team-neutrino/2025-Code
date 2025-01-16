@@ -118,11 +118,15 @@ public final class Constants {
     public static final int CLIMB_MOTOR_ID3 = 32;
 
     public static final int CLIMB_CURRENT_LIMIT = 0;
-    // int not correct
     public static final int LOCK_CURRENT_LIMIT = 0;
     // int not correct
 
     public static final double LOCK_SPEED = 0.1;
+    // subject to change
+
+    public static final int REST_ANGLE = 0;
+    public static final int CLIMB_ANGLE = 30;
+    public static final int CLIMB_DOWN_ANGLE = 10;
     // subject to change
   }
 
