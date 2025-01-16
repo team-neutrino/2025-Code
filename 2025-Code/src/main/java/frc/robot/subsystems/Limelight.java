@@ -49,21 +49,25 @@ public class Limelight extends SubsystemBase {
     return LimelightHelpers.getTV("limelight");
   }
 
-  // get Horizontal Offset From Crosshair To Target (LL1: -27 degrees to 27
-  // degrees / LL
+  /**
+   * get Horizontal Offset From Crosshair To Target (LL1: -27 degrees to 27
+   * degrees / LL2: -29.8 to 29.8 degrees)
+   */
   public double getTx() {
     return LimelightHelpers.getTX("limelight");
   }
 
-  // get Vertical Offset From Crosshair To Target (LL1: -20.5 degrees to 20.5
-  // degrees / LL2: -24.85 to 24.85 degrees)
+  /**
+   * get Vertical Offset From Crosshair To Target (LL1: -20.5 degrees to 20.5
+   * degrees / LL2: -24.85 to 24.85 degrees)
+   */
   public double getTy() {
     return LimelightHelpers.getTY("limelight");
   }
 
-  // get ID of the primary in-view AprilTag
+  /** get ID of the primary in-view AprilTag */
   public int getID() {
-    return 0;
+    return (int) LimelightHelpers.getFiducialID("limelight");
   }
 
   public void setPriorityID(int id) {
