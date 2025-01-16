@@ -120,6 +120,7 @@ public class Claw extends SubsystemBase {
     public void periodic() {
         m_grabber.set(intakeVoltage);
         isBroken = !m_intakeBeamBreak.get();
+        System.out.println(getIntakeVoltage());
     }
 
     public Command defaultCommandGrabber() {

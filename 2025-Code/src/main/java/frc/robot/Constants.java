@@ -22,8 +22,8 @@ public final class Constants {
   }
 
   public static class ElevatorConstants {
-    public static final int MOTOR1_ID = 1;
-    public static final int MOTOR2_ID = 2;
+    public static final int MOTOR1_ID = 10; // 1
+    public static final int MOTOR2_ID = 20; // 2
     public static final int LOW_BEAMBREAK = 2;
     public static final double LOW_POSITION = 0.0;
     public static final double HIGH_POSITION = 1.0;
@@ -52,8 +52,8 @@ public final class Constants {
   }
 
   public static class ClawConstants {
-    public static final int LEFT_GRABBER = 21;// 21
-    public static final int RIGHT_GRABBER = 23;
+    public static final int LEFT_GRABBER = 1;// 21
+    public static final int RIGHT_GRABBER = 2;
     public static final int LEFT_INNNER = 23;
     public static final int RIGHT_INNER = 24;
     public static final int WRIST = 25;// 24 ?
@@ -61,7 +61,7 @@ public final class Constants {
     // Dummy Values
     public static final int GRABBER_CURRENT_LIMIT = 20;
     public static final int WRIST_CURRENT_LIMIT = 15;
-    public static final double INTAKE_MOTOR_VOLTAGE = 0.4;
+    public static final double INTAKE_MOTOR_VOLTAGE = 0.1; // 0.4
     public static final double MAXIMUM_ANGLE = 90.0;
     public static final double MINIMUM_ANGLE = 0;
     public static final double KP = 0;
