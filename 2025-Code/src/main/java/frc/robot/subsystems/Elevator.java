@@ -42,7 +42,7 @@ public class Elevator extends SubsystemBase {
     m_motor1.configure(m_config, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
 
-    m_followerConfig.follow(1);
+    m_followerConfig.follow(ElevatorConstants.MOTOR1_ID);
     m_followerConfig.apply(m_config);
     m_motor2.configure(m_followerConfig, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
