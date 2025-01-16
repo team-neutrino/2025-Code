@@ -10,6 +10,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Constants.SwerveConstants;
 import frc.robot.util.GeneratedSwerveCode.CommandSwerveDrivetrain;
 import frc.robot.util.GeneratedSwerveCode.TunerConstants;
 
@@ -18,7 +19,7 @@ import frc.robot.util.GeneratedSwerveCode.TunerConstants;
  * modification of generated code.
  */
 public class Swerve extends CommandSwerveDrivetrain {
-  private boolean hasBeenConstructed = false;
+  private boolean m_hasBeenConstructed = false;
 
   /**
    * Constructs the drivetrain using the values found in {@link TunerConstants}.
@@ -33,14 +34,14 @@ public class Swerve extends CommandSwerveDrivetrain {
     super(TunerConstants.DrivetrainConstants, TunerConstants.FrontLeft, TunerConstants.FrontRight,
         TunerConstants.BackLeft, TunerConstants.BackRight);
 
-    if (hasBeenConstructed) {
+    if (m_hasBeenConstructed) {
       try {
         throw new IllegalAccessException("Swerve subsystem was instantiated twice");
       } catch (IllegalAccessException e) {
         System.out.println("don't instantiate a subsystem twice!");
       }
     }
-    hasBeenConstructed = true;
+    m_hasBeenConstructed = true;
   }
 
   /**
@@ -77,9 +78,9 @@ public class Swerve extends CommandSwerveDrivetrain {
    * @return The default command.
    */
   public Command getDefaultCommand(CommandXboxController controller) {
-    return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(controller.getLeftY() * 5.7)
-        .withVelocityY(controller.getLeftX() * 5.7)
-        .withRotationalRate(-controller.getRightX() * 1.5 * Math.PI));
+    return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(controller.getLeftY() * SwerveConstants.MAX_SPEED)
+        .withVelocityY(controller.getLeftX() * SwerveConstants.MAX_SPEED)
+        .withRotationalRate(-controller.getRightX() * SwerveConstants.MAX_ROTATION_SPEED));
   }
 
   /**
@@ -90,9 +91,10 @@ public class Swerve extends CommandSwerveDrivetrain {
    * @return A slow-driving default command.
    */
   public Command getSlowMoveCommand(CommandXboxController controller) {
-    return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(controller.getLeftY() * 2.5)
-        .withVelocityY(controller.getLeftX() * 2.5)
-        .withRotationalRate(-controller.getRightX() * 1.5 * Math.PI));
+    return applyRequest(
+        () -> SwerveRequestStash.drive.withVelocityX(controller.getLeftY() * (SwerveConstants.MAX_SPEED / 2))
+            .withVelocityY(controller.getLeftX() * (SwerveConstants.MAX_SPEED / 2))
+            .withRotationalRate(-controller.getRightX() * (SwerveConstants.MAX_ROTATION_SPEED / 2)));
   }
 
   @Override
