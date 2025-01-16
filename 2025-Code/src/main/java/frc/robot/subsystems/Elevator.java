@@ -10,8 +10,6 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
-import com.revrobotics.spark.SparkLimitSwitch;
-import com.revrobotics.spark.SparkRelativeEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -23,8 +21,11 @@ import frc.robot.Constants.ElevatorConstants;
 
 public class Elevator extends SubsystemBase {
   private SparkFlex m_motor1 = new SparkFlex(ElevatorConstants.MOTOR1_ID, MotorType.kBrushless);
+  private SparkFlex m_motor2 = new SparkFlex(ElevatorConstants.MOTOR2_ID,
+      MotorType.kBrushless);
   private SparkClosedLoopController m_pid = m_motor1.getClosedLoopController();
   private SparkFlexConfig m_config = new SparkFlexConfig();
+  private SparkFlexConfig m_followerConfig = new SparkFlexConfig();
 
   private double m_target = 0.0;
 
@@ -39,6 +40,11 @@ public class Elevator extends SubsystemBase {
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
         .pid(1.0, 0.0, 0.0);
     m_motor1.configure(m_config, ResetMode.kResetSafeParameters,
+        PersistMode.kPersistParameters);
+
+    m_followerConfig.follow(ElevatorConstants.MOTOR1_ID);
+    m_followerConfig.apply(m_config);
+    m_motor2.configure(m_followerConfig, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
   }
 
