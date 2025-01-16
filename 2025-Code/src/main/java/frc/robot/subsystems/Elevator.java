@@ -10,7 +10,9 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.SparkLimitSwitch;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkRelativeEncoder;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
@@ -23,9 +25,8 @@ public class Elevator extends SubsystemBase {
   private SparkFlex m_motor1 = new SparkFlex(ElevatorConstants.MOTOR1_ID, MotorType.kBrushless);
   private SparkFlex m_motor2 = new SparkFlex(ElevatorConstants.MOTOR2_ID,
       MotorType.kBrushless);
-  // private SparkRelativeEncoder m_encoder;
-  // private SparkLimitSwitch m_highLimit;
-  // private SparkLimitSwitch m_lowLimit;
+  private SparkRelativeEncoder m_encoder;
+  private SparkLimitSwitch m_lowLimit;
   private SparkClosedLoopController m_pid = m_motor1.getClosedLoopController();
   private SparkFlexConfig m_config = new SparkFlexConfig();
   private SparkFlexConfig m_followerConfig = new SparkFlexConfig();
@@ -63,17 +64,17 @@ public class Elevator extends SubsystemBase {
     return 0.0;
   }
 
-  // private void resetEncoder(double position) {
-  // m_encoder.setPosition(position);
-  // }
+  private void resetEncoder(double position) {
+    m_encoder.setPosition(position);
+  }
 
-  // private boolean isLowPosition() {
-  // return m_lowLimit.isPressed();
-  // }
+  private boolean isLowPosition() {
+    return false;
+  }
 
-  // public boolean isHighPosition() {
-  // return m_highLimit.isPressed();
-  // }
+  public boolean isHighPosition() {
+    return false;
+  }
 
   public Command moveElevatorCommand(double height) {
     return runOnce(
@@ -84,12 +85,6 @@ public class Elevator extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // if (isLowPosition()) {
-    // resetEncoder(ElevatorConstants.LOW_POSITION);
-    // }
-    // if (isHighPosition()) {
-    // resetEncoder(ElevatorConstants.HIGH_POSITION);
-    // }
     adjustElevator(m_target);
   }
 
