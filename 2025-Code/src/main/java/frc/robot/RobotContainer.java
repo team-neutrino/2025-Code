@@ -57,7 +57,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    m_claw.setDefaultCommand(m_claw.defaultCommandGrabber());
+    m_claw.setDefaultCommand(m_claw.defaultCommandWrist());
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
 

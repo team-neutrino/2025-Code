@@ -52,11 +52,11 @@ public final class Constants {
   }
 
   public static class ClawConstants {
-    public static final int LEFT_GRABBER = 22;// 21
+    public static final int LEFT_GRABBER = 21;// 21
     public static final int RIGHT_GRABBER = 23;
     public static final int LEFT_INNNER = 23;
     public static final int RIGHT_INNER = 24;
-    public static final int WRIST = 24;
+    public static final int WRIST = 25;// 24 ?
     public static final int INTAKE_MOTOR_BEAMBREAK = 0;
     // Dummy Values
     public static final int GRABBER_CURRENT_LIMIT = 20;
@@ -71,8 +71,7 @@ public final class Constants {
     public static final double MAX_ACCELERATION = 150;
     public static final double MAX_VELOCITY = 250;
     public static final double ALLOWED_ERROR = 1;
-    public static final double CURRENT_SPIKE_LIMIT = 4;
-    public static final double WRIST_VOLTAGE = 0.5;
+    public static final double WRIST_VOLTAGE = 0.3;
   }
 
   public static class ClimbConstants {

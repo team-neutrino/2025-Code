@@ -120,9 +120,6 @@ public class Claw extends SubsystemBase {
     public void periodic() {
         m_grabber.set(intakeVoltage);
         isBroken = !m_intakeBeamBreak.get();
-        if (wrist.isCurrentSpike()) {
-            wrist.stopWrist();
-        }
     }
 
     public Command defaultCommandGrabber() {
@@ -130,11 +127,15 @@ public class Claw extends SubsystemBase {
     }
 
     public Command defaultCommandWrist() {
+        return new RunCommand(() -> wrist.stopWrist(), this);
+    }
+
+    public Command rotateWristTo0() {
         return new RunCommand(() -> wrist.moveToPosition(WRIST_POSITIONS[0]), this);
     }
 
-    public Command rotateWristto90() {
-        return new RunCommand(() -> wrist.moveToPosition(WRIST_POSITIONS[2]), this);
+    public Command rotateWristTo90() {
+        return new RunCommand(() -> wrist.moveToPosition(WRIST_POSITIONS[1]), this);
     }
 
     public Command intakeGamePiece() {
@@ -149,20 +150,29 @@ public class Claw extends SubsystemBase {
         private SparkMax m_wrist = new SparkMax(ClawConstants.WRIST, MotorType.kBrushless);
         private SparkMaxConfig m_wristConfig = new SparkMaxConfig();
         private double wristVoltage;
+        private double m_angle;
+        private boolean hasCurrentSpiked;
 
         private Wrist() {
+            wristVoltage = 0.0;
+            m_angle = 0.0;
+            hasCurrentSpiked = false;
             m_wristConfig.smartCurrentLimit(ClawConstants.WRIST_CURRENT_LIMIT);
             m_wristConfig.idleMode(IdleMode.kBrake);
-            m_wristConfig.softLimit.forwardSoftLimit(ClawConstants.MAXIMUM_ANGLE);
-            m_wristConfig.softLimit.reverseSoftLimit(ClawConstants.MINIMUM_ANGLE);
-            m_wristConfig.softLimit.forwardSoftLimitEnabled(true);
-            m_wristConfig.softLimit.reverseSoftLimitEnabled(true);
+            // m_wristConfig.softLimit.forwardSoftLimit(ClawConstants.MAXIMUM_ANGLE);
+            // m_wristConfig.softLimit.reverseSoftLimit(ClawConstants.MINIMUM_ANGLE);
+            // m_wristConfig.softLimit.forwardSoftLimitEnabled(true);
+            // m_wristConfig.softLimit.reverseSoftLimitEnabled(true);
             m_wristConfig.openLoopRampRate(0.25);
             m_wrist.configure(m_wristConfig, SparkBase.ResetMode.kResetSafeParameters,
                     SparkBase.PersistMode.kPersistParameters);
         }
 
         public void moveToPosition(double angle) {
+            if (angle != m_angle) {
+                wrist.hasCurrentSpiked = false;
+            }
+            m_angle = angle;
             if (angle == 90) {
                 wristVoltage = ClawConstants.WRIST_VOLTAGE;
             } else if (angle == 0) {
@@ -171,12 +181,18 @@ public class Claw extends SubsystemBase {
                 throw new IllegalStateException(
                         "Argument in angle must be passed in as the Minimimum angle or Maximum angle (0 or 90)");
             }
-            m_wrist.set(wristVoltage);
+            if (wrist.hasCurrentSpiked()) {
+                wrist.stopWrist();
+            } else {
+                m_wrist.set(wristVoltage);
+                wrist.hasCurrentSpiked = wrist.isCurrentSpike();
+            }
         }
 
         public void stopWrist() {
             m_wrist.stopMotor();
             wristVoltage = 0;
+            m_wrist.set(wristVoltage);
         }
 
         // Test method
@@ -185,7 +201,11 @@ public class Claw extends SubsystemBase {
         }
 
         public boolean isCurrentSpike() {
-            return m_wrist.getOutputCurrent() > ClawConstants.CURRENT_SPIKE_LIMIT;
+            return m_wrist.getOutputCurrent() > ClawConstants.WRIST_CURRENT_LIMIT;
+        }
+
+        public boolean hasCurrentSpiked() {
+            return hasCurrentSpiked;
         }
 
     }
