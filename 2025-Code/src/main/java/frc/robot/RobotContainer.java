@@ -8,11 +8,13 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.command_factories.ElevatorFactory;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.util.Subsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.util.Subsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -55,6 +57,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
+    Subsystem.claw.setDefaultCommand(Subsystem.claw.defaultCommandWrist());
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
 
