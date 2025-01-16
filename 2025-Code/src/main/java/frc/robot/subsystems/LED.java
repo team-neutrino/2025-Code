@@ -46,6 +46,9 @@ public class LED extends SubsystemBase {
         m_counter++;
       } else if (m_counter == 2) {
         color_pub.set("blue");
+        m_counter++;
+      } else if (m_counter == 3) {
+        color_pub.set("indigo");
         m_counter = 0;
       }
     }
