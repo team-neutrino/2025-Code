@@ -19,7 +19,6 @@ import frc.robot.LimelightHelpers.PoseEstimate;
 
 public class Limelight extends SubsystemBase {
   LimelightHelpers m_limelightHelpers;
-  PoseEstimate m_PoseEstimate;
   SwerveDrivePoseEstimator m_poseEstimator;
   double robotYaw;
   LimelightHelpers.PoseEstimate limelightMeasurement;
@@ -70,12 +69,9 @@ public class Limelight extends SubsystemBase {
     return (int) LimelightHelpers.getFiducialID("limelight");
   }
 
-  public void setPriorityID(int id) {
-
-  }
-
   public double[] getTargetPose() {
-    return LimelightHelpers.getTargetPose_RobotSpace("limelight");
+    targetPose = LimelightHelpers.getTargetPose_RobotSpace("limelight");
+    return targetPose;
   }
   // set target yaw
 
@@ -84,7 +80,8 @@ public class Limelight extends SubsystemBase {
   }
 
   public double[] getBotPose() {
-
+    // depending on how we do want to do our vision we could have getBotPose_wpiblue
+    pose = LimelightHelpers.getBotPose("limelight");
     return pose;
   }
 
@@ -92,8 +89,8 @@ public class Limelight extends SubsystemBase {
     return 0.0;
   }
 
-  public void setPriorityID() {
-
+  public void setPriorityID(int id) {
+    LimelightHelpers.setPriorityTagID("", id);
   }
 
   /**
@@ -124,18 +121,10 @@ public class Limelight extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    // if (Alliance == blue) {
-    LimelightHelpers.PoseEstimate limelightMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
-    if (limelightMeasurement.tagCount >= 2) { // Only trust measurement if we see multiple tags
-      m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
-      m_poseEstimator.addVisionMeasurement(
-          limelightMeasurement.pose,
-          limelightMeasurement.timestampSeconds);
-    }
-    // }
-    // else {
+
+    // Field Localization
     // LimelightHelpers.PoseEstimate limelightMeasurement =
-    // LimelightHelpers.getBotPoseEstimate_wpiRed("limelight");
+    // LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
     // if (limelightMeasurement.tagCount >= 2) { // Only trust measurement if we see
     // multiple tags
     // m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7,
@@ -143,7 +132,7 @@ public class Limelight extends SubsystemBase {
     // m_poseEstimator.addVisionMeasurement(
     // limelightMeasurement.pose,
     // limelightMeasurement.timestampSeconds);
-    // }
+    //
   }
 
   @Override
