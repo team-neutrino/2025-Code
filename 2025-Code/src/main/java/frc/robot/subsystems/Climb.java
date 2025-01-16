@@ -85,24 +85,16 @@ public class Climb extends SubsystemBase {
     // subject to change
   }
 
-  private void raiseClimbArm() {
-    m_targetAngle = ClimbConstants.CLIMB_ANGLE;
-  }
-
-  private void lowerClimbArm() {
-    m_targetAngle = ClimbConstants.CLIMB_DOWN_ANGLE;
+  private void moveClimbArm(int angle) {
+    m_targetAngle = angle;
   }
 
   public Command lockCommand() {
     return new RunCommand(() -> lockClimb(), this);
   }
 
-  public Command raiseClimbArmCommand() {
-    return new RunCommand(() -> raiseClimbArm(), this);
-  }
-
-  public Command lowerCLimbArmCommand() {
-    return new RunCommand(() -> lowerClimbArm(), this);
+  public Command moveCLimbArmCommand(int angle) {
+    return new RunCommand(() -> moveClimbArm(angle), this);
   }
 
   @Override
