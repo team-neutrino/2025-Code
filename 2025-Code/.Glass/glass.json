@@ -1,4 +1,14 @@
 {
+  "NetworkTables": {
+    "transitory": {
+      "limelight": {
+        "open": true
+      }
+    },
+    "types": {
+      "/FMSInfo": "FMSInfo"
+    }
+  },
   "NetworkTables Info": {
     "visible": true
   },
