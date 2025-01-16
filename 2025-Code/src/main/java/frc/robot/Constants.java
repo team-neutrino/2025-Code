@@ -57,12 +57,12 @@ public final class Constants {
     public static final double HITING_LEFT_BASE_ARM_POSITION = 0.0;
     public static final double HITING_RIGHT_BASE_ARM_POSITION = 0.0;
 
-    public static final int ARM_MOTOR_ID = 10;
+    public static final int ARM_MOTOR_ID = 2;
 
     public static final double ARM_ENCODER_ZERO_OFFSET = 0;
     public static final int ARM_CURRENT_LIMIT = 0;
 
-    public static final double Arm_kp = 0;
+    public static final double Arm_kp = 0.1;
     public static final double Arm_ki = 0;
     public static final double Arm_kd = 0;
     public static final double ArmIZone = 0;
