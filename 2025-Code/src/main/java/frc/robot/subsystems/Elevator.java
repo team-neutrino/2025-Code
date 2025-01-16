@@ -10,7 +10,9 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.SparkLimitSwitch;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkRelativeEncoder;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
@@ -23,6 +25,8 @@ public class Elevator extends SubsystemBase {
   private SparkFlex m_motor1 = new SparkFlex(ElevatorConstants.MOTOR1_ID, MotorType.kBrushless);
   private SparkFlex m_motor2 = new SparkFlex(ElevatorConstants.MOTOR2_ID,
       MotorType.kBrushless);
+  private SparkRelativeEncoder m_encoder;
+  private SparkLimitSwitch m_lowLimit;
   private SparkClosedLoopController m_pid = m_motor1.getClosedLoopController();
   private SparkFlexConfig m_config = new SparkFlexConfig();
   private SparkFlexConfig m_followerConfig = new SparkFlexConfig();
@@ -58,6 +62,18 @@ public class Elevator extends SubsystemBase {
 
   private double feedForwardCalculation() {
     return 0.0;
+  }
+
+  private void resetEncoder(double position) {
+    m_encoder.setPosition(position);
+  }
+
+  private boolean isLowPosition() {
+    return false;
+  }
+
+  public boolean isHighPosition() {
+    return false;
   }
 
   public Command moveElevatorCommand(double height) {
