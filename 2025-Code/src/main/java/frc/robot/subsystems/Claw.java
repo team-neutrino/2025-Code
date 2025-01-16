@@ -40,7 +40,6 @@ public class Claw extends SubsystemBase {
         m_grabberEncoder = m_grabber.getEncoder();
         m_followerEncoder = m_follower.getEncoder();
 
-        // space for current limits
         m_grabberConfig.smartCurrentLimit(Constants.ClawConstants.GRABBER_CURRENT_LIMIT);
         m_grabberConfig.inverted(false);
         m_grabberConfig.idleMode(IdleMode.kCoast);
@@ -103,7 +102,6 @@ public class Claw extends SubsystemBase {
     public void periodic() {
         m_grabber.set(intakeVoltage);
         isBroken = !m_intakeBeamBreak.get();
-        System.out.println(getIntakeVoltage());
     }
 
     public Command defaultCommandGrabber() {
