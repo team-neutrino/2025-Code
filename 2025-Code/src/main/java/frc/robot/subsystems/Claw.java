@@ -6,27 +6,13 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.spark.ClosedLoopSlot;
-import com.revrobotics.spark.SparkAbsoluteEncoder;
-import com.revrobotics.spark.SparkAnalogSensor;
 import com.revrobotics.spark.SparkBase;
-import com.revrobotics.spark.SparkBase.ControlType;
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-import com.revrobotics.spark.config.AbsoluteEncoderConfig;
-import com.revrobotics.spark.config.AnalogSensorConfig;
-import com.revrobotics.spark.config.ClosedLoopConfig;
-import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkMaxConfig;
-
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -34,7 +20,6 @@ import frc.robot.Constants.ClawConstants;
 
 public class Claw extends SubsystemBase {
 
-    // grabber is the intake
     private SparkMax m_grabber = new SparkMax(ClawConstants.LEFT_GRABBER, MotorType.kBrushless);
     private SparkMax m_follower = new SparkMax(ClawConstants.RIGHT_GRABBER, MotorType.kBrushless);
 
@@ -48,10 +33,8 @@ public class Claw extends SubsystemBase {
     private boolean isBroken;
     private DigitalInput m_intakeBeamBreak = new DigitalInput(ClawConstants.INTAKE_MOTOR_BEAMBREAK);
     private Wrist wrist;
-    // In degrees
     private static final double[] WRIST_POSITIONS = { 0.0, 90.0 };
 
-    /** Creates a new ExampleSubsystem. */
     public Claw() {
         wrist = new Wrist();
         m_grabberEncoder = m_grabber.getEncoder();
@@ -155,15 +138,8 @@ public class Claw extends SubsystemBase {
         private boolean hasCurrentSpiked;
 
         private Wrist() {
-            wristVoltage = 0.0;
-            m_angle = 0.0;
-            hasCurrentSpiked = false;
             m_wristConfig.smartCurrentLimit(ClawConstants.WRIST_CURRENT_LIMIT);
             m_wristConfig.idleMode(IdleMode.kBrake);
-            // m_wristConfig.softLimit.forwardSoftLimit(ClawConstants.MAXIMUM_ANGLE);
-            // m_wristConfig.softLimit.reverseSoftLimit(ClawConstants.MINIMUM_ANGLE);
-            // m_wristConfig.softLimit.forwardSoftLimitEnabled(true);
-            // m_wristConfig.softLimit.reverseSoftLimitEnabled(true);
             m_wristConfig.openLoopRampRate(0.25);
             m_wrist.configure(m_wristConfig, SparkBase.ResetMode.kResetSafeParameters,
                     SparkBase.PersistMode.kPersistParameters);
@@ -196,7 +172,6 @@ public class Claw extends SubsystemBase {
             m_wrist.set(wristVoltage);
         }
 
-        // Test method
         public boolean voltageAgrees() {
             return Math.abs(wristVoltage - m_wrist.getOutputCurrent()) < 0.1;
         }
