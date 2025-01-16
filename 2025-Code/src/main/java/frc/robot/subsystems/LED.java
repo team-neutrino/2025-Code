@@ -39,7 +39,7 @@ public class LED extends SubsystemBase {
   public void periodic() {
     if (slowDown(50)) {
       if (m_counter == 0) {
-        color_pub.set("white");
+        color_pub.set("rainbow");
         m_counter++;
       } else if (m_counter == 1) {
         color_pub.set("orange");
@@ -48,7 +48,7 @@ public class LED extends SubsystemBase {
         color_pub.set("blue");
         m_counter++;
       } else if (m_counter == 3) {
-        color_pub.set("indigo");
+        color_pub.set("blinkwhite");
         m_counter = 0;
       }
     }
