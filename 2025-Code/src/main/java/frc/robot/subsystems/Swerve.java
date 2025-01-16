@@ -4,9 +4,7 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
-import com.ctre.phoenix6.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -30,14 +28,17 @@ public class Swerve extends CommandSwerveDrivetrain {
    * @throws IllegalAccessException In case this constructor was called more than
    *                                once, throw an exception.
    */
-  public Swerve(SwerveDrivetrainConstants drivetrainConstants, SwerveModuleConstants<?, ?, ?>... modules)
-      throws IllegalAccessException {
+  public Swerve() {
 
     super(TunerConstants.DrivetrainConstants, TunerConstants.FrontLeft, TunerConstants.FrontRight,
         TunerConstants.BackLeft, TunerConstants.BackRight);
 
     if (hasBeenConstructed) {
-      throw new IllegalAccessException("Swerve subsystem was instantiated twice");
+      try {
+        throw new IllegalAccessException("Swerve subsystem was instantiated twice");
+      } catch (IllegalAccessException e) {
+        System.out.println("don't instantiate a subsystem twice!");
+      }
     }
     hasBeenConstructed = true;
   }
