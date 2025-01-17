@@ -33,6 +33,7 @@ public final class Constants {
     public static final double LOW_POSITION = 0.0;
     public static final double HIGH_POSITION = 1.0;
     public static final double ALGAE_INTAKE = 0.0;
+    public static final double ALGAE_SCORER = 0.0;
     public static final double CORAL_INTAKE = 0.0;
     public static final double L1 = 1.0;
     public static final double L2 = 2.0;

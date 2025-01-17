@@ -6,7 +6,16 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.util.Subsystem;
 
 public class ElevatorFactory {
-    // hi
+    public static Command AlgaeIntake() {
+        Elevator elevator = Subsystem.elevator;
+        return elevator.moveElevatorCommand(ElevatorConstants.ALGAE_INTAKE);
+    }
+
+    public static Command AlgaeScorer() {
+        Elevator elevator = Subsystem.elevator;
+        return elevator.moveElevatorCommand(ElevatorConstants.ALGAE_SCORER);
+    }
+
     public static Command moveL1() {
         Elevator elevator = Subsystem.elevator;
         return elevator.moveElevatorCommand(ElevatorConstants.L1);
