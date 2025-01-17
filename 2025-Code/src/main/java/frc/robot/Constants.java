@@ -50,12 +50,12 @@ public final class Constants {
     public static final double L3_ARM_POSITION = 0.0;
     public static final double L4_ARM_POSITION = 0.0;
 
-    public static final double HITING_LEFT_BOTTOM_ELEVATOR_ARM_POSITION = 0.0;
-    public static final double HITING_RIGHT_BOTTOM_ELEVATOR_ARM_POSITION = 0.0;
-    public static final double HITING_LEFT_TOP_ELEVATOR_ARM_POSITION = 0.0;
-    public static final double HITING_RIGHT_TOP_ELEVATOR_ARM_POSITION = 0.0;
-    public static final double HITING_LEFT_BASE_ARM_POSITION = 0.0;
-    public static final double HITING_RIGHT_BASE_ARM_POSITION = 0.0;
+    public static final double HITTING_LEFT_BOTTOM_ELEVATOR_ARM_POSITION = 0.0;
+    public static final double HITTING_RIGHT_BOTTOM_ELEVATOR_ARM_POSITION = 0.0;
+    public static final double HITTING_LEFT_TOP_ELEVATOR_ARM_POSITION = 0.0;
+    public static final double HITTING_RIGHT_TOP_ELEVATOR_ARM_POSITION = 0.0;
+    public static final double HITTING_LEFT_BASE_ARM_POSITION = 0.0;
+    public static final double HITTING_RIGHT_BASE_ARM_POSITION = 0.0;
 
     public static final int ARM_MOTOR_ID = 10;
 
