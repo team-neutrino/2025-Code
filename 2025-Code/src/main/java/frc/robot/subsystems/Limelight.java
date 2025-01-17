@@ -15,18 +15,21 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
 import frc.robot.Constants.LimelightConstants;
+import frc.robot.subsystems.Swerve;
 import frc.robot.LimelightHelpers.PoseEstimate;
 
 public class Limelight extends SubsystemBase {
   LimelightHelpers m_limelightHelpers;
   SwerveDrivePoseEstimator m_poseEstimator;
   double robotYaw;
+  Swerve m_swerve;
   LimelightHelpers.PoseEstimate limelightMeasurement;
   private double[] pose = new double[11];
   private double[] targetPose = new double[6];
 
   /** Creates a new ExampleSubsystem. */
   public Limelight() {
+    m_swerve = new Swerve();
     m_limelightHelpers = new LimelightHelpers();
     // fake pipeline number
     // LimelightHelpers.setPipelineIndex("limelight", 1);
