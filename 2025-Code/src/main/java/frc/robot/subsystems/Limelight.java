@@ -24,6 +24,7 @@ public class Limelight extends SubsystemBase {
   LimelightHelpers.PoseEstimate limelightMeasurement;
   private double[] pose = new double[11];
   private double[] targetPose = new double[6];
+  // look into if we need this
   private double[] pastPose = new double[11];
   private double[] pastTargetPose = new double[6];
 
@@ -70,8 +71,12 @@ public class Limelight extends SubsystemBase {
   }
 
   public double[] getTargetPose() {
+    // if(getTv()){
+    //
+    // }
     targetPose = LimelightHelpers.getTargetPose_RobotSpace("limelight");
     return targetPose;
+    // currently defaults to 0 if there's no target
   }
   // set target yaw
 
@@ -80,9 +85,13 @@ public class Limelight extends SubsystemBase {
   }
 
   public double[] getBotPose() {
-    // depending on how we do want to do our vision we could have getBotPose_wpiblue
-    pose = LimelightHelpers.getBotPose("limelight");
+    // depending on how we do want to do our vision we could have regular getBotPose
+    // if(getTv()){
+
+    // }
+    pose = LimelightHelpers.getBotPose_wpiBlue("limelight");
     return pose;
+    // currently defaults to 0 if there's no pose
   }
 
   public double getDistanceFromPrimaryTarget() {
@@ -90,7 +99,7 @@ public class Limelight extends SubsystemBase {
   }
 
   public void setPriorityID(int id) {
-    LimelightHelpers.setPriorityTagID("", id);
+    LimelightHelpers.setPriorityTagID("limelight", id);
   }
 
   /**
