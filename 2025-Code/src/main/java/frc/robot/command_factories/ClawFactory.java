@@ -8,11 +8,11 @@ public class ClawFactory {
     private static Claw claw = new Claw();
 
     public static Command wristToIntake() {
-        return claw.rotateWrist(90);
+        return claw.rotateWrist(ClawConstants.WRIST_INTAKE_POS);
     }
 
     public static Command wristToScoring() {
-        return claw.rotateWrist(0);
+        return claw.rotateWrist(ClawConstants.WRIST_SCORING_POS);
     }
 
     public static Command runIntakeCoral() {

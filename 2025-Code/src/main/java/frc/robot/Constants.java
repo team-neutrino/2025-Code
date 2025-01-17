@@ -77,6 +77,8 @@ public final class Constants {
     public static final int WRIST_CURRENT_LIMIT = 15;
     public static final double INTAKE_MOTOR_VOLTAGE = 0.5;
     public static final double WRIST_VOLTAGE = 0.3;
+    public static final int WRIST_INTAKE_POS = 90;
+    public static final int WRIST_SCORING_POS = 0;
   }
 
   public static class ClimbConstants {
