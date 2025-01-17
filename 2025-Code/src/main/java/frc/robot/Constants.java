@@ -64,19 +64,21 @@ public final class Constants {
     public static final double L3_ARM_POSITION = 0.0;
     public static final double L4_ARM_POSITION = 0.0;
 
-    public static final double HITTING_LEFT_BOTTOM_ELEVATOR_ARM_POSITION = 0.0;
-    public static final double HITTING_RIGHT_BOTTOM_ELEVATOR_ARM_POSITION = 0.0;
-    public static final double HITTING_LEFT_TOP_ELEVATOR_ARM_POSITION = 0.0;
-    public static final double HITTING_RIGHT_TOP_ELEVATOR_ARM_POSITION = 0.0;
-    public static final double HITTING_LEFT_BASE_ARM_POSITION = 0.0;
-    public static final double HITTING_RIGHT_BASE_ARM_POSITION = 0.0;
+    public static final double HITTING_LEFT_BOTTOM_ELEVATOR_POSITION = 0.0;
+    public static final double HITTING_RIGHT_BOTTOM_ELEVATOR_POSITION = 0.0;
+    public static final double HITTING_LEFT_TOP_ELEVATOR_POSITION = 0.0;
+    public static final double HITTING_RIGHT_TOP_ELEVATOR_POSITION = 0.0;
+    public static final double HITTING_LEFT_BASE_POSITION = 0.0;
+    public static final double HITTING_RIGHT_BASE_POSITION = 0.0;
 
-    public static final double ARM_ENCODER_ZERO_OFFSET = 0;
-    public static final int ARM_CURRENT_LIMIT = 20;
+    public static final int MOTOR_ID = 10;
 
-    public static final double Arm_kp = 1;
-    public static final double Arm_ki = 0;
-    public static final double Arm_kd = 0;
+    public static final double ENCODER_ZERO_OFFSET = 0;
+    public static final int CURRENT_LIMIT = 20;
+
+    public static final double kp = 1;
+    public static final double ki = 0;
+    public static final double kd = 0;
     public static final double ArmIZone = 0;
     public static final int REEF_L2_DESCORE_POSITION = 0;
     public static final int REEF_L3_DESCORE_POSITION = 0;

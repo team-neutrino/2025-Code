@@ -49,11 +49,11 @@ public class Arm extends SubsystemBase {
 
     m_armMotorConfig.signals.absoluteEncoderPositionPeriodMs(5);
 
-    m_armMotorConfig.smartCurrentLimit(ARM_CURRENT_LIMIT);
+    m_armMotorConfig.smartCurrentLimit(ArmConstants.CURRENT_LIMIT);
 
     m_armMotorConfig.closedLoop
         .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
-        .pid(Arm_kp, Arm_ki, Arm_kd, ClosedLoopSlot.kSlot0);
+        .pid(ArmConstants.kp, ArmConstants.ki, ArmConstants.kd, ClosedLoopSlot.kSlot0);
     m_armPidController = m_armMotor.getClosedLoopController();
 
     m_armMotor.configure(m_armMotorConfig,
