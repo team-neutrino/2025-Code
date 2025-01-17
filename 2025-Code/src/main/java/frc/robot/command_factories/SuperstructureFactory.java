@@ -13,8 +13,8 @@ public class SuperstructureFactory {
     public static Command intakeCoral() {
         // 3 neo 550s, 3 vortexes
         Command elevatorCom = ElevatorFactory.moveToIntake();
-        Command armCom = arm.ArmMoveCommand(ArmConstants.CORAL_STATION_ARM_POSITION);
-        Command clawCom = claw.intakeGamePiece();
+        Command armCom = ArmFactory.armToIntake();
+        Command clawCom = claw.intakeGamePiece().alongWith(ClawAndWristFactory.wristToIntake());
         return elevatorCom.alongWith(armCom).alongWith(clawCom).until(() -> claw.hasGamePiece());
     }
 }
