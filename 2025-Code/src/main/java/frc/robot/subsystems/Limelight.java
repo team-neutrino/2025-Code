@@ -24,9 +24,6 @@ public class Limelight extends SubsystemBase {
   LimelightHelpers.PoseEstimate limelightMeasurement;
   private double[] pose = new double[11];
   private double[] targetPose = new double[6];
-  // look into if we need this
-  private double[] pastPose = new double[11];
-  private double[] pastTargetPose = new double[6];
 
   /** Creates a new ExampleSubsystem. */
   public Limelight() {
@@ -71,31 +68,31 @@ public class Limelight extends SubsystemBase {
   }
 
   public double[] getTargetPose() {
-    // if(getTv()){
-    //
-    // }
-    targetPose = LimelightHelpers.getTargetPose_RobotSpace("limelight");
+    if (getTv()) {
+      targetPose = LimelightHelpers.getTargetPose_RobotSpace("limelight");
+    }
     return targetPose;
     // currently defaults to 0 if there's no target
   }
   // set target yaw
 
   public double getTargetYaw() {
+    getTargetPose();
     return targetPose[5];
   }
 
   public double[] getBotPose() {
     // depending on how we do want to do our vision we could have regular getBotPose
-    // if(getTv()){
-
-    // }
-    pose = LimelightHelpers.getBotPose_wpiBlue("limelight");
+    if (getTv()) {
+      pose = LimelightHelpers.getBotPose_wpiBlue("limelight");
+    }
     return pose;
     // currently defaults to 0 if there's no pose
   }
 
   public double getDistanceFromPrimaryTarget() {
-    return 0.0;
+    return getBotPose()[9];
+    // based on camera not robot
   }
 
   public void setPriorityID(int id) {
@@ -130,7 +127,6 @@ public class Limelight extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-
     // Field Localization
     // LimelightHelpers.PoseEstimate limelightMeasurement =
     // LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
