@@ -148,12 +148,11 @@ public class Claw extends SubsystemBase {
         private Wrist() {
             m_wristConfig.smartCurrentLimit(ClawConstants.WRIST_CURRENT_LIMIT);
             m_wristConfig.idleMode(IdleMode.kBrake);
-            m_wristConfig.softLimit.forwardSoftLimit(ClawConstants.MAXIMUM_ANGLE);
-            m_wristConfig.softLimit.reverseSoftLimit(ClawConstants.MINIMUM_ANGLE);
-            m_wristConfig.softLimit.forwardSoftLimitEnabled(true);
-            m_wristConfig.softLimit.reverseSoftLimitEnabled(true);
-            m_wrist.configure(m_wristConfig, SparkBase.ResetMode.kResetSafeParameters,
-                    SparkBase.PersistMode.kPersistParameters);
+            // m_wristConfig.softLimit.forwardSoftLimit(ClawConstants.MAXIMUM_ANGLE);
+            // m_wristConfig.softLimit.reverseSoftLimit(ClawConstants.MINIMUM_ANGLE);
+            // m_wristConfig.softLimit.forwardSoftLimitEnabled(true);
+            // m_wristConfig.softLimit.reverseSoftLimitEnabled(true);
+
             EncoderConfig m_wristEncoderConfig = m_wristConfig.encoder;
             m_wristEncoderConfig.positionConversionFactor(360.0);
             ClosedLoopConfig pidConfig = m_wristConfig.closedLoop;
@@ -163,6 +162,8 @@ public class Claw extends SubsystemBase {
             pidConfig.maxMotion.maxVelocity(ClawConstants.MAX_VELOCITY);
             pidConfig.maxMotion.maxAcceleration(ClawConstants.MAX_ACCELERATION);
             pidConfig.maxMotion.allowedClosedLoopError(ClawConstants.ALLOWED_ERROR);
+            m_wrist.configure(m_wristConfig, SparkBase.ResetMode.kResetSafeParameters,
+                    SparkBase.PersistMode.kPersistParameters);
         }
 
         public void moveToPosition(double angle) {
@@ -174,7 +175,8 @@ public class Claw extends SubsystemBase {
                 throw new IllegalStateException(
                         "Argument in angle must be passed in as the Minimimum angle or Maximum angle (0 or 90)");
             }
-            m_pid.setReference(angle, ControlType.kPosition);
+            System.out.println("hiii");
+            m_pid.setReference(angle, ControlType.kPosition, ClosedLoopSlot.kSlot0);
 
         }
 
