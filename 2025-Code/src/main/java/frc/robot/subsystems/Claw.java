@@ -30,7 +30,6 @@ public class Claw extends SubsystemBase {
     private RelativeEncoder m_followerEncoder;
 
     private double intakeVoltage;
-    private boolean isBroken;
     private DigitalInput m_intakeBeamBreak = new DigitalInput(ClawConstants.INTAKE_MOTOR_BEAMBREAK);
     private Wrist wrist;
 
@@ -61,26 +60,17 @@ public class Claw extends SubsystemBase {
         return m_followerEncoder.getVelocity();
     }
 
-    public boolean grabberVelocityagrees() {
-        return Math.abs(getVelocityOfGrabber() - getVelocityOfGrabberFollower()) < 5;
-    }
-
     public double getIntakeVoltage() {
         return intakeVoltage;
     }
 
     public boolean hasGamePiece() {
-        return isBroken;
-    }
-
-    public Wrist getWrist() {
-        return wrist;
+        return !m_intakeBeamBreak.get();
     }
 
     @Override
     public void periodic() {
         m_grabber.set(intakeVoltage);
-        isBroken = !m_intakeBeamBreak.get();
     }
 
     public Command clawAndWristDefaultCommand() {
@@ -122,9 +112,6 @@ public class Claw extends SubsystemBase {
                 wristVoltage = ClawConstants.WRIST_VOLTAGE;
             } else if (angle == 0) {
                 wristVoltage = -ClawConstants.WRIST_VOLTAGE;
-            } else {
-                throw new IllegalStateException(
-                        "Argument in angle must be passed in as the Minimimum angle or Maximum angle (0 or 90)");
             }
             if (wrist.hasCurrentSpiked()) {
                 wrist.stopWrist();
