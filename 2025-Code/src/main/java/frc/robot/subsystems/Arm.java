@@ -28,7 +28,7 @@ public class Arm extends SubsystemBase {
   private SparkFlexConfig m_armMotorConfig = new SparkFlexConfig();
   private AbsoluteEncoder m_armEncoder;
   private SparkClosedLoopController m_armPidController;
-  private double m_targetAngle = 20;
+  private double m_targetAngle = 0;
 
   public Arm() {
     initializeMotorControllers();
@@ -68,8 +68,8 @@ public class Arm extends SubsystemBase {
   }
 
   public void updateArmAngle() {
-    // m_armPidController.setReference(m_targetAngle,
-    // SparkBase.ControlType.kPosition, ClosedLoopSlot.kSlot0);
+    m_armPidController.setReference(m_targetAngle,
+        SparkBase.ControlType.kPosition, ClosedLoopSlot.kSlot0);
   }
 
   @Override
