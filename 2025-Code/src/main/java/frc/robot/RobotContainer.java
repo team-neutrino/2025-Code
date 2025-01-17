@@ -53,7 +53,7 @@ public class RobotContainer {
   private void configureBindings() {
     configureDefaultCommands();
 
-    if (Subsystem.ENABLE_SUPERSTRUCTURE) {
+    if (Subsystem.ENABLE_ELEVATOR) {
       m_driverController.x().whileTrue(ElevatorFactory.moveL1());
       m_driverController.y().whileTrue(ElevatorFactory.moveL2());
       m_driverController.b().whileTrue(ElevatorFactory.moveL3());
@@ -62,7 +62,7 @@ public class RobotContainer {
   }
 
   private void configureDefaultCommands() {
-    if (Subsystem.ENABLE_SUPERSTRUCTURE) {
+    if (Subsystem.ENABLE_CLAW) {
       Subsystem.claw.setDefaultCommand(Subsystem.claw.clawAndWristDefaultCommand());
     }
   }
