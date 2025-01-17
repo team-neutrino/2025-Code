@@ -74,6 +74,12 @@ public class Elevator extends SubsystemBase {
 
   public Command elevatorDefaultCommand() {
     return run(() -> m_target = LOW_POSITION);
+  private double safeHeight(double targetHeight) {
+    double safeTarget = targetHeight;
+    if (!Subsystem.arm.isArmInLimit() && targetHeight < ElevatorConstants.ARM_WILL_NOT_HIT_BASE_HEIGHT) {
+      safeTarget = ElevatorConstants.ARM_WILL_NOT_HIT_BASE_HEIGHT;
+    }
+    return safeTarget;
   }
 
   public Command moveElevatorCommand(double height) {
