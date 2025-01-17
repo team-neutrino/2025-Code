@@ -53,14 +53,18 @@ public class RobotContainer {
   private void configureBindings() {
     configureDefaultCommands();
 
-    m_driverController.x().whileTrue(ElevatorFactory.moveL1());
-    m_driverController.y().whileTrue(ElevatorFactory.moveL2());
-    m_driverController.b().whileTrue(ElevatorFactory.moveL3());
-    m_driverController.a().whileTrue(ElevatorFactory.moveL4());
+    if (Subsystem.ENABLE_SUPERSTRUCTURE) {
+      m_driverController.x().whileTrue(ElevatorFactory.moveL1());
+      m_driverController.y().whileTrue(ElevatorFactory.moveL2());
+      m_driverController.b().whileTrue(ElevatorFactory.moveL3());
+      m_driverController.a().whileTrue(ElevatorFactory.moveL4());
+    }
   }
 
   private void configureDefaultCommands() {
-    Subsystem.claw.setDefaultCommand(Subsystem.claw.clawAndWristDefaultCommand());
+    if (Subsystem.ENABLE_SUPERSTRUCTURE) {
+      Subsystem.claw.setDefaultCommand(Subsystem.claw.clawAndWristDefaultCommand());
+    }
   }
 
   /**
