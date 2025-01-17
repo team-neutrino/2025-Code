@@ -6,23 +6,25 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.util.Subsystem;
 
 public class ElevatorFactory {
+    private static Elevator elevator = Subsystem.elevator;
+
     public static Command moveL1() {
-        Elevator elevator = Subsystem.elevator;
         return elevator.moveElevatorCommand(ElevatorConstants.L1);
     }
 
     public static Command moveL2() {
-        Elevator elevator = Subsystem.elevator;
         return elevator.moveElevatorCommand(ElevatorConstants.L2);
     }
 
     public static Command moveL3() {
-        Elevator elevator = Subsystem.elevator;
         return elevator.moveElevatorCommand(ElevatorConstants.L3);
     }
 
     public static Command moveL4() {
-        Elevator elevator = Subsystem.elevator;
         return elevator.moveElevatorCommand(ElevatorConstants.L4);
+    }
+
+    public static Command moveToIntake() {
+        return elevator.moveElevatorCommand(ElevatorConstants.CORAL_INTAKE);
     }
 }
