@@ -6,15 +6,11 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.command_factories.ElevatorFactory;
-import frc.robot.commands.Autos;
-import frc.robot.subsystems.Claw;
 import frc.robot.util.Subsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.util.Subsystem;
-import frc.robot.subsystems.Arm;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
