@@ -27,8 +27,8 @@ public final class Constants {
   }
 
   public static class ElevatorConstants {
-    public static final int MOTOR1_ID = 1;
-    public static final int MOTOR2_ID = 2;
+    public static final int MOTOR1_ID = 2;
+    public static final int MOTOR2_ID = 0;
     public static final int LOW_BEAMBREAK = 2;
     public static final double LOW_POSITION = 0.0;
     public static final double HIGH_POSITION = 1.0;
@@ -57,12 +57,12 @@ public final class Constants {
     public static final double HITING_LEFT_BASE_ARM_POSITION = 0.0;
     public static final double HITING_RIGHT_BASE_ARM_POSITION = 0.0;
 
-    public static final int ARM_MOTOR_ID = 2;
+    public static final int ARM_MOTOR_ID = 1;
 
     public static final double ARM_ENCODER_ZERO_OFFSET = 0;
-    public static final int ARM_CURRENT_LIMIT = 0;
+    public static final int ARM_CURRENT_LIMIT = 20;
 
-    public static final double Arm_kp = 0.1;
+    public static final double Arm_kp = 1;
     public static final double Arm_ki = 0;
     public static final double Arm_kd = 0;
     public static final double ArmIZone = 0;

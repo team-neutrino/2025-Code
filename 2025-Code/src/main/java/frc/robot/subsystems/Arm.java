@@ -15,13 +15,13 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
-import com.revrobotics.spark.SparkLowLevel;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.config.AbsoluteEncoderConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
-import com.revrobotics.spark.config.SparkBaseConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.AbsoluteEncoder;
+import com.revrobotics.RelativeEncoder;
+
 import frc.robot.Constants.ArmConstants;
 
 public class Arm extends SubsystemBase {
@@ -44,21 +44,19 @@ public class Arm extends SubsystemBase {
   public void initializeMotorControllers() {
     m_armEncoder = m_armMotor.getAbsoluteEncoder();
     m_armPidController = m_armMotor.getClosedLoopController();
-    // m_armMotorConfig.idleMode(SparkBaseConfig.IdleMode.kBrake);
-    m_armMotorConfig.encoder.positionConversionFactor(360);
+    m_armMotorConfig.idleMode(IdleMode.kBrake);
     // m_armMotorConfig.absoluteEncoder.zeroOffset(ArmConstants.ARM_ENCODER_ZERO_OFFSET);
 
-    m_armMotorConfig.signals.absoluteEncoderPositionPeriodMs(0);
+    m_armMotorConfig.encoder
+        .positionConversionFactor(1)
+        .velocityConversionFactor(1);
+
+    m_armMotorConfig.signals.absoluteEncoderPositionPeriodMs(5);
 
     m_armMotorConfig.smartCurrentLimit(ArmConstants.ARM_CURRENT_LIMIT);
-
     m_armMotorConfig.closedLoop
-        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-        .pid(ArmConstants.Arm_kp, ArmConstants.Arm_ki, ArmConstants.Arm_kd, ClosedLoopSlot.kSlot1)
-        .iZone(ArmConstants.ArmIZone)
-        .positionWrappingMaxInput(360)
-        .positionWrappingMinInput(0)
-        .positionWrappingEnabled(true);
+        .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
+        .pid(ArmConstants.Arm_kp, ArmConstants.Arm_ki, ArmConstants.Arm_kd, ClosedLoopSlot.kSlot0);
     m_armPidController = m_armMotor.getClosedLoopController();
     // SparkBaseConfig config, ResetMode resetMode, PersistMode persistMode) {
     m_armMotor.configure(m_armMotorConfig,
@@ -86,7 +84,10 @@ public class Arm extends SubsystemBase {
   }
 
   public void updateArmAngle() {
-    m_armPidController.setReference(m_targetAngle, SparkBase.ControlType.kPosition);
+    System.out.print("Target angle: " + m_targetAngle);
+    // m_armMotor.setVoltage(1);
+    m_armPidController.setReference(m_targetAngle,
+        SparkBase.ControlType.kPosition, ClosedLoopSlot.kSlot0);
   }
 
   @Override
