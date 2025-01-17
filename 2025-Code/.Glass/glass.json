@@ -1,4 +1,23 @@
 {
+  "NetworkTables": {
+    "transitory": {
+      "limelight": {
+        "double[]##v_/limelight/botpose": {
+          "open": true
+        },
+        "double[]##v_/limelight/botpose_orb_wpiblue": {
+          "open": true
+        },
+        "double[]##v_/limelight/targetpose_robotspace": {
+          "open": true
+        },
+        "open": true
+      }
+    },
+    "types": {
+      "/FMSInfo": "FMSInfo"
+    }
+  },
   "NetworkTables Info": {
     "visible": true
   },
