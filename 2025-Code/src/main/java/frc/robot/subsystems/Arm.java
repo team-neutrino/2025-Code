@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -20,7 +19,6 @@ import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.AbsoluteEncoder;
-import com.revrobotics.RelativeEncoder;
 
 import frc.robot.Constants.ArmConstants;
 
@@ -45,7 +43,6 @@ public class Arm extends SubsystemBase {
     m_armEncoder = m_armMotor.getAbsoluteEncoder();
     m_armPidController = m_armMotor.getClosedLoopController();
     m_armMotorConfig.idleMode(IdleMode.kBrake);
-    // m_armMotorConfig.absoluteEncoder.zeroOffset(ArmConstants.ARM_ENCODER_ZERO_OFFSET);
 
     m_armMotorConfig.encoder
         .positionConversionFactor(1)
@@ -54,11 +51,12 @@ public class Arm extends SubsystemBase {
     m_armMotorConfig.signals.absoluteEncoderPositionPeriodMs(5);
 
     m_armMotorConfig.smartCurrentLimit(ArmConstants.ARM_CURRENT_LIMIT);
+
     m_armMotorConfig.closedLoop
         .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
         .pid(ArmConstants.Arm_kp, ArmConstants.Arm_ki, ArmConstants.Arm_kd, ClosedLoopSlot.kSlot0);
     m_armPidController = m_armMotor.getClosedLoopController();
-    // SparkBaseConfig config, ResetMode resetMode, PersistMode persistMode) {
+
     m_armMotor.configure(m_armMotorConfig,
         ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
@@ -66,33 +64,16 @@ public class Arm extends SubsystemBase {
 
   // finds out if the arm is in limit
   public boolean isArmInLimit() {
-    return !isArmHitingElevator() && !isArmHitingBase();
-  }
-
-  // add elevator and wrist parts later
-  // finds if the arm will be in the area the elevator is in
-  public boolean isArmHitingElevator() {
-    return ArmConstants.HITING_LEFT_BOTTOM_ELEVATOR_ARM_POSITION < getArmPosition()
-        && getArmPosition() < ArmConstants.HITING_RIGHT_BOTTOM_ELEVATOR_ARM_POSITION;
-  }
-
-  // add elevator and wrist parts later
-  // finds if the arm will be in the area the base is in
-  public boolean isArmHitingBase() {
-    return ArmConstants.HITING_LEFT_BASE_ARM_POSITION < getArmPosition()
-        && getArmPosition() < ArmConstants.HITING_RIGHT_BASE_ARM_POSITION;
+    return true;
   }
 
   public void updateArmAngle() {
-    System.out.print("Target angle: " + m_targetAngle);
-    // m_armMotor.setVoltage(1);
-    m_armPidController.setReference(m_targetAngle,
-        SparkBase.ControlType.kPosition, ClosedLoopSlot.kSlot0);
+    // m_armPidController.setReference(m_targetAngle,
+    // SparkBase.ControlType.kPosition, ClosedLoopSlot.kSlot0);
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
     updateArmAngle();
   }
 
