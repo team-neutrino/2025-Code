@@ -110,9 +110,6 @@ public class Claw extends SubsystemBase {
     public void periodic() {
         m_grabber.set(intakeVoltage);
         isBroken = !m_intakeBeamBreak.get();
-        if (wrist.isAtPosition(WRIST_POSITIONS[0]) || wrist.isAtPosition(WRIST_POSITIONS[1])) {
-            wrist.m_wristEncoder.setPosition(0);
-        }
     }
 
     public Command defaultCommandGrabber() {
@@ -144,23 +141,25 @@ public class Claw extends SubsystemBase {
         private SparkMaxConfig m_wristConfig = new SparkMaxConfig();
         private SparkClosedLoopController m_pid = m_wrist.getClosedLoopController();
         private RelativeEncoder m_wristEncoder = m_wrist.getEncoder();
+        private boolean isAt90;
 
         private Wrist() {
             m_wristConfig.smartCurrentLimit(ClawConstants.WRIST_CURRENT_LIMIT);
             m_wristConfig.idleMode(IdleMode.kBrake);
-            // m_wristConfig.softLimit.forwardSoftLimit(ClawConstants.MAXIMUM_ANGLE);
-            // m_wristConfig.softLimit.reverseSoftLimit(ClawConstants.MINIMUM_ANGLE);
-            // m_wristConfig.softLimit.forwardSoftLimitEnabled(true);
-            // m_wristConfig.softLimit.reverseSoftLimitEnabled(true);
+            m_wristConfig.softLimit.forwardSoftLimit(ClawConstants.MAXIMUM_ANGLE);
+            m_wristConfig.softLimit.reverseSoftLimit(ClawConstants.MINIMUM_ANGLE);
+            m_wristConfig.softLimit.forwardSoftLimitEnabled(true);
+            m_wristConfig.softLimit.reverseSoftLimitEnabled(true);
 
             EncoderConfig m_wristEncoderConfig = m_wristConfig.encoder;
             m_wristEncoderConfig.positionConversionFactor(360.0);
             ClosedLoopConfig pidConfig = m_wristConfig.closedLoop;
-            pidConfig.pidf(ClawConstants.KP, ClawConstants.KI, ClawConstants.KD, ClawConstants.KFF);
-            pidConfig.outputRange(-1.0, 1.0);
+            pidConfig.pidf(ClawConstants.KP, ClawConstants.KI, ClawConstants.KD, ClawConstants.KFF,
+                    ClosedLoopSlot.kSlot0);
+            // pidConfig.outputRange(-1.0, 1.0);
             pidConfig.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
-            pidConfig.maxMotion.maxVelocity(ClawConstants.MAX_VELOCITY);
-            pidConfig.maxMotion.maxAcceleration(ClawConstants.MAX_ACCELERATION);
+            // pidConfig.maxMotion.maxVelocity(ClawConstants.MAX_VELOCITY);
+            // pidConfig.maxMotion.maxAcceleration(ClawConstants.MAX_ACCELERATION);
             pidConfig.maxMotion.allowedClosedLoopError(ClawConstants.ALLOWED_ERROR);
             m_wrist.configure(m_wristConfig, SparkBase.ResetMode.kResetSafeParameters,
                     SparkBase.PersistMode.kPersistParameters);
@@ -168,16 +167,19 @@ public class Claw extends SubsystemBase {
 
         public void moveToPosition(double angle) {
             if (angle == 90) {
-                angle = ClawConstants.MAXIMUM_ANGLE;
-            } else if (angle == 0) {
-                angle = -ClawConstants.MINIMUM_ANGLE;
-            } else {
-                throw new IllegalStateException(
-                        "Argument in angle must be passed in as the Minimimum angle or Maximum angle (0 or 90)");
+                if (angle == 90 && !isAt90) {
+                    angle = ClawConstants.MAXIMUM_ANGLE;
+                    m_pid.setReference(angle, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+                    isAt90 = true;
+                } else if (angle == 0) {
+                    angle = -ClawConstants.MINIMUM_ANGLE;
+                    m_pid.setReference(angle, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+                } else {
+                    throw new IllegalStateException(
+                            "Argument in angle must be passed in as the Minimimum angle or Maximum angle (0 or 90)");
+                }
+                System.out.println("hiii");
             }
-            System.out.println("hiii");
-            m_pid.setReference(angle, ControlType.kPosition, ClosedLoopSlot.kSlot0);
-
         }
 
         public void stopWrist() {

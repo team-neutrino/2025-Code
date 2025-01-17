@@ -67,13 +67,13 @@ public final class Constants {
     public static final double WRIST_VOLTAGE = 0.3;
     public static final double MINIMUM_ANGLE = 0.0;
     public static final double MAXIMUM_ANGLE = 90.0;
-    public static final double KP = 1;
+    public static final double KP = 0.08;
     public static final double KI = 0.0;
     public static final double KD = 0.0;
     public static final double KFF = 0.0;
     public static final double MAX_VELOCITY = 1.0;
     public static final double MAX_ACCELERATION = 1.0;
-    public static final double ALLOWED_ERROR = 2;
+    public static final double ALLOWED_ERROR = 5;
   }
 
   public static class ClimbConstants {

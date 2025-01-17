@@ -69,7 +69,7 @@ public class RobotContainer {
     // m_driverController.b().whileTrue(ElevatorFactory.moveL3());
     // m_driverController.a().whileTrue(ElevatorFactory.moveL4());
     m_driverController.a().whileTrue(Subsystem.claw.rotateWristTo0());
-    m_driverController.a().whileTrue(Subsystem.claw.rotateWristTo90());
+    m_driverController.b().whileTrue(Subsystem.claw.rotateWristTo90());
 
   }
 
