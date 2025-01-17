@@ -33,7 +33,6 @@ public class Claw extends SubsystemBase {
     private boolean isBroken;
     private DigitalInput m_intakeBeamBreak = new DigitalInput(ClawConstants.INTAKE_MOTOR_BEAMBREAK);
     private Wrist wrist;
-    private static final double[] WRIST_POSITIONS = { 0.0, 90.0 };
 
     public Claw() {
         wrist = new Wrist();
@@ -70,32 +69,12 @@ public class Claw extends SubsystemBase {
         return intakeVoltage;
     }
 
-    public void runIntake() {
-        if (hasGamePiece()) {
-            stopIntake();
-        } else {
-            intakeVoltage = ClawConstants.INTAKE_MOTOR_VOLTAGE;
-        }
-    }
-
-    public void runOuttake() {
-        intakeVoltage = -ClawConstants.INTAKE_MOTOR_VOLTAGE;
-    }
-
-    public void stopIntake() {
-        intakeVoltage = 0;
-    }
-
     public boolean hasGamePiece() {
         return isBroken;
     }
 
     public Wrist getWrist() {
         return wrist;
-    }
-
-    public void setWristState(int position) {
-        wrist.moveToPosition(WRIST_POSITIONS[position]);
     }
 
     @Override
@@ -106,25 +85,17 @@ public class Claw extends SubsystemBase {
 
     public Command clawAndWristDefaultCommand() {
         return run(() -> {
-            stopIntake();
+            intakeVoltage = 0;
             wrist.stopWrist();
         });
     }
 
-    public Command rotateWristToIntake() {
-        return run(() -> wrist.moveToPosition(WRIST_POSITIONS[0]));
+    public Command rotateWrist(double angle) {
+        return run(() -> wrist.moveToPosition(angle));
     }
 
-    public Command rotateWristToScore() {
-        return run(() -> wrist.moveToPosition(WRIST_POSITIONS[1]));
-    }
-
-    public Command intakeGamePiece() {
-        return run(() -> runIntake());
-    }
-
-    public Command outakeGamePiece() {
-        return run(() -> runOuttake());
+    public Command runIntake(double speed) {
+        return run(() -> intakeVoltage = speed);
     }
 
     private class Wrist {
