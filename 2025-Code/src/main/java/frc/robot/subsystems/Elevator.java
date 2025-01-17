@@ -82,7 +82,7 @@ public class Elevator extends SubsystemBase {
 
   @Override
   public void periodic() {
-    adjustElevator(m_target);
+    adjustElevator(safeHeight(m_target));
   }
 
   @Override

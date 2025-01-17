@@ -39,6 +39,7 @@ public final class Constants {
     public static final double L4 = 4.0;
     public static final double REMOVE_ALGAE_L2 = 0.0;
     public static final double REMOVE_ALGAE_L3 = 0.0;
+    public static final double ARM_WILL_NOT_HIT_BASE_HEIGHT = 0;
   }
 
   public static class ArmConstants {

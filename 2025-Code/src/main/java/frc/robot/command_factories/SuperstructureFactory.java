@@ -25,7 +25,7 @@ public class SuperstructureFactory {
         return elevatorCom.alongWith(armCom, clawCom).until(() -> claw.hasGamePiece());
     public static Command scoreCoralL1Command() {
         return new ParallelCommandGroup(
-                ElevatorFactory.moveL1(), 
-                Subsystem.arm.ArmMoveCommand(ArmConstants.L1_ARM_POSITION), );
+                ElevatorFactory.moveL1(),
+                Subsystem.arm.ArmMoveCommand(ArmConstants.L1_ARM_POSITION));
     }
 }
