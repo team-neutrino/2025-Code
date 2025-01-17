@@ -77,7 +77,7 @@ public class Elevator extends SubsystemBase {
   }
 
   public Command moveElevatorCommand(double height) {
-    return runOnce(
+    return run(
         () -> {
           setTargetHeight(height);
         });
