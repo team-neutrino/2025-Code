@@ -82,13 +82,13 @@ public class Arm extends SubsystemBase {
   }
 
   public Command ArmDefaultCommand() {
-    return Commands.runOnce(() -> {
+    return run(() -> {
     });
   }
 
   // move the arm a desired amount
   public Command ArmMoveCommand(double movementAmount) {
-    return Commands.runOnce(() -> {
+    return run(() -> {
     });
   }
 

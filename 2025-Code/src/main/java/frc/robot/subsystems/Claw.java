@@ -104,12 +104,11 @@ public class Claw extends SubsystemBase {
         isBroken = !m_intakeBeamBreak.get();
     }
 
-    public Command defaultCommandGrabber() {
-        return new RunCommand(() -> stopIntake(), this);
-    }
-
-    public Command defaultCommandWrist() {
-        return new RunCommand(() -> wrist.stopWrist(), this);
+    public Command clawAndWristDefaultCommand() {
+        return new RunCommand(() -> {
+            stopIntake();
+            wrist.stopWrist();
+        }, this);
     }
 
     public Command rotateWristTo0() {
