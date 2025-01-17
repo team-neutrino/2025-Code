@@ -109,6 +109,13 @@ public final class Constants {
   }
 
   public static class AprilTagConstants {
+    public final class RED_ALLIANCE_IDS {
+
+    }
+
+    public final class BLUE_ALLIANCE_IDS {
+
+    }
 
   }
 

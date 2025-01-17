@@ -29,7 +29,7 @@ public class Limelight extends SubsystemBase {
   public Limelight() {
     m_limelightHelpers = new LimelightHelpers();
     // fake pipeline number
-    LimelightHelpers.setPipelineIndex("limelight", 1);
+    // LimelightHelpers.setPipelineIndex("limelight", 1);
     LimelightHelpers.setLEDMode_ForceOff("limelight");
     LimelightHelpers.setCameraPose_RobotSpace("limelight",
         LimelightConstants.CAMERA_FORWARD_OFFSET, // Forward offset (meters)
@@ -99,6 +99,10 @@ public class Limelight extends SubsystemBase {
     LimelightHelpers.setPriorityTagID("limelight", id);
   }
 
+  public void setPipelineID(int id) {
+    LimelightHelpers.setPipelineIndex("limelight", id);
+  }
+
   /**
    * Example command factory method.
    *
@@ -127,7 +131,7 @@ public class Limelight extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    // Field Localization
+    // Field Localization code below
     // LimelightHelpers.PoseEstimate limelightMeasurement =
     // LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
     // if (limelightMeasurement.tagCount >= 2) { // Only trust measurement if we see
