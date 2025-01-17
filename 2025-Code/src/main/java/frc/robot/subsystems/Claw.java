@@ -115,16 +115,12 @@ public class Claw extends SubsystemBase {
         return new RunCommand(() -> wrist.moveToPosition(WRIST_POSITIONS[0]), this);
     }
 
-    public Command rotateWristTo90() {
-        return new RunCommand(() -> wrist.moveToPosition(WRIST_POSITIONS[1]), this);
-    }
-
     public Command intakeGamePiece() {
-        return new RunCommand(() -> runIntake(), this);
+        return run(() -> runIntake());
     }
 
     public Command outakeGamePiece() {
-        return new RunCommand(() -> runOuttake(), this);
+        return run(() -> runOuttake());
     }
 
     private class Wrist {
