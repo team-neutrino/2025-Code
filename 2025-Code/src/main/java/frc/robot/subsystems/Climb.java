@@ -90,7 +90,7 @@ public class Climb extends SubsystemBase {
     return new RunCommand(() -> lockClimb(), this);
   }
 
-  public Command moveCLimbArmCommand(int angle) {
+  public Command moveClimbArmCommand(int angle) {
     return new RunCommand(() -> moveClimbArm(angle), this);
   }
 
