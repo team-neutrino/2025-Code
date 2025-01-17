@@ -7,10 +7,10 @@ public class ClawAndWristFactory {
     private static Claw claw = new Claw();
 
     public static Command wristToIntake() {
-        return claw.rotateWristToPos(0);
+        return claw.rotateWristToIntake();
     }
 
     public static Command wristToScoring() {
-        return claw.rotateWristToPos(1);
+        return claw.rotateWristToScore();
     }
 }

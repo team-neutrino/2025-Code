@@ -84,9 +84,7 @@ public class Arm extends SubsystemBase {
 
   // move the arm a desired amount
   public Command ArmRotateCommand(double targetAngle) {
-    return Commands.runOnce(() -> {
-      m_targetAngle = targetAngle;
-    });
+    return run(() -> m_targetAngle = targetAngle);
   }
 
 }

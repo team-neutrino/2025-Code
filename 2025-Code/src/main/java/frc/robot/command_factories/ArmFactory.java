@@ -14,6 +14,6 @@ public class ArmFactory {
     private static Arm arm = Subsystem.arm;
 
     public static Command armToIntake() {
-        return arm.ArmMoveCommand(ArmConstants.CORAL_STATION_ARM_POSITION);
+        return arm.ArmRotateCommand(ArmConstants.CORAL_STATION_ARM_POSITION);
     }
 }
