@@ -4,8 +4,6 @@
 
 package frc.robot.subsystems;
 
-import java.security.PublicKey;
-
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -16,20 +14,21 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
 import frc.robot.Constants.LimelightConstants;
 import frc.robot.subsystems.Swerve;
+import frc.robot.util.Subsystem;
 import frc.robot.LimelightHelpers.PoseEstimate;
 
 public class Limelight extends SubsystemBase {
   LimelightHelpers m_limelightHelpers;
   SwerveDrivePoseEstimator m_poseEstimator;
-  double robotYaw;
+  double m_robotYaw;
   Swerve m_swerve;
-  LimelightHelpers.PoseEstimate limelightMeasurement;
+  LimelightHelpers.PoseEstimate m_limelightMeasurement;
   private double[] pose = new double[11];
   private double[] targetPose = new double[6];
 
   /** Creates a new ExampleSubsystem. */
   public Limelight() {
-    m_swerve = new Swerve();
+    m_swerve = Subsystem.swerve;
     m_limelightHelpers = new LimelightHelpers();
     // fake pipeline number
     // LimelightHelpers.setPipelineIndex("limelight", 1);
