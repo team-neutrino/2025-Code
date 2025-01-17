@@ -5,8 +5,6 @@ import frc.robot.Constants.ClimbConstants;
 import frc.robot.subsystems.Climb;
 import frc.robot.util.Subsystem;
 
-
-
 public class ClimbFactory {
     public static Command raiseArmCommand() {
         Climb climb = Subsystem.climb;
