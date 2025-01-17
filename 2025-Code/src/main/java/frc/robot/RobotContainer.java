@@ -5,13 +5,16 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.util.*;
+import frc.robot.command_factories.ElevatorFactory;
 import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Claw;
+import frc.robot.util.Subsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.util.Subsystem;
+import frc.robot.subsystems.Arm;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -23,9 +26,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  public Subsystem m_subsystem = new Subsystem();
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final Subsystem m_subsystem = new Subsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController = new CommandXboxController(
@@ -54,14 +55,16 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
+    configureDefaultCommands();
 
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is
-    // pressed,
-    // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    m_driverController.x().whileTrue(ElevatorFactory.moveL1());
+    m_driverController.y().whileTrue(ElevatorFactory.moveL2());
+    m_driverController.b().whileTrue(ElevatorFactory.moveL3());
+    m_driverController.a().whileTrue(ElevatorFactory.moveL4());
+  }
+
+  private void configureDefaultCommands() {
+    Subsystem.claw.setDefaultCommand(Subsystem.claw.clawAndWristDefaultCommand());
   }
 
   /**
@@ -70,7 +73,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    return new InstantCommand();
   }
 }
