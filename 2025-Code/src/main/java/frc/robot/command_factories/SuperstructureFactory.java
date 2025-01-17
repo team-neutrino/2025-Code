@@ -1,17 +1,20 @@
 package frc.robot.command_factories;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.ElevatorConstants;
+import frc.robot.Constants.*;
 import frc.robot.subsystems.*;
 import frc.robot.util.Subsystem;
 
 public class SuperstructureFactory {
     private static Elevator elevator = Subsystem.elevator;
     private static Claw claw = Subsystem.claw;
-    // private static Arm arm = Subsystem.arm;
+    private static Arm arm = Subsystem.arm;
 
     public static Command intakeCoral() {
-        Command ret = elevator.moveElevatorCommand(ElevatorConstants.CORAL_INTAKE).alongWith(null);
-        return null;
+        // 3 neo 550s, 3 vortexes
+        Command elevatorCom = elevator.moveElevatorCommand(ElevatorConstants.CORAL_INTAKE);
+        Command armCom = arm.ArmMoveCommand(ArmConstants.CORAL_STATION_ARM_POSITION);
+        Command clawCom = claw.intakeGamePiece();
+        return elevatorCom.alongWith(armCom).alongWith(clawCom).until(() -> claw.hasGamePiece());
     }
 }
