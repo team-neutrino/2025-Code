@@ -105,14 +105,18 @@ public class Claw extends SubsystemBase {
     }
 
     public Command clawAndWristDefaultCommand() {
-        return new RunCommand(() -> {
+        return run(() -> {
             stopIntake();
             wrist.stopWrist();
-        }, this);
+        });
     }
 
-    public Command rotateWristTo0() {
-        return new RunCommand(() -> wrist.moveToPosition(WRIST_POSITIONS[0]), this);
+    public Command rotateWristToIntake() {
+        return run(() -> wrist.moveToPosition(WRIST_POSITIONS[0]));
+    }
+
+    public Command rotateWristToScore() {
+        return run(() -> wrist.moveToPosition(WRIST_POSITIONS[1]));
     }
 
     public Command intakeGamePiece() {
