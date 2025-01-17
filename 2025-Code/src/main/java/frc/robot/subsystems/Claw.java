@@ -6,17 +6,9 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase;
-import com.revrobotics.spark.SparkBase.ControlType;
-import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkRelativeEncoder;
-import com.revrobotics.spark.config.AbsoluteEncoderConfig;
-import com.revrobotics.spark.config.ClosedLoopConfig;
-import com.revrobotics.spark.config.EncoderConfig;
-import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -110,9 +102,6 @@ public class Claw extends SubsystemBase {
     public void periodic() {
         m_grabber.set(intakeVoltage);
         isBroken = !m_intakeBeamBreak.get();
-        if (wrist.isAtPosition(WRIST_POSITIONS[0]) || wrist.isAtPosition(WRIST_POSITIONS[1])) {
-            wrist.m_wristEncoder.setPosition(0);
-        }
     }
 
     public Command defaultCommandGrabber() {
@@ -142,52 +131,55 @@ public class Claw extends SubsystemBase {
     private class Wrist {
         private SparkMax m_wrist = new SparkMax(ClawConstants.WRIST, MotorType.kBrushless);
         private SparkMaxConfig m_wristConfig = new SparkMaxConfig();
-        private SparkClosedLoopController m_pid = m_wrist.getClosedLoopController();
-        private RelativeEncoder m_wristEncoder = m_wrist.getEncoder();
+        private double wristVoltage;
+        private double m_angle;
+        private boolean hasCurrentSpiked;
 
         private Wrist() {
             m_wristConfig.smartCurrentLimit(ClawConstants.WRIST_CURRENT_LIMIT);
             m_wristConfig.idleMode(IdleMode.kBrake);
-            m_wristConfig.softLimit.forwardSoftLimit(ClawConstants.MAXIMUM_ANGLE);
-            m_wristConfig.softLimit.reverseSoftLimit(ClawConstants.MINIMUM_ANGLE);
-            m_wristConfig.softLimit.forwardSoftLimitEnabled(true);
-            m_wristConfig.softLimit.reverseSoftLimitEnabled(true);
+            m_wristConfig.openLoopRampRate(0.25);
             m_wrist.configure(m_wristConfig, SparkBase.ResetMode.kResetSafeParameters,
                     SparkBase.PersistMode.kPersistParameters);
-            EncoderConfig m_wristEncoderConfig = m_wristConfig.encoder;
-            m_wristEncoderConfig.positionConversionFactor(360.0);
-            ClosedLoopConfig pidConfig = m_wristConfig.closedLoop;
-            pidConfig.pidf(ClawConstants.KP, ClawConstants.KI, ClawConstants.KD, ClawConstants.KFF);
-            pidConfig.outputRange(-1.0, 1.0);
-            pidConfig.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
-            pidConfig.maxMotion.maxVelocity(ClawConstants.MAX_VELOCITY);
-            pidConfig.maxMotion.maxAcceleration(ClawConstants.MAX_ACCELERATION);
-            pidConfig.maxMotion.allowedClosedLoopError(ClawConstants.ALLOWED_ERROR);
         }
 
         public void moveToPosition(double angle) {
+            if (angle != m_angle) {
+                wrist.hasCurrentSpiked = false;
+            }
+            m_angle = angle;
             if (angle == 90) {
-                angle = ClawConstants.MAXIMUM_ANGLE;
+                wristVoltage = ClawConstants.WRIST_VOLTAGE;
             } else if (angle == 0) {
-                angle = -ClawConstants.MINIMUM_ANGLE;
+                wristVoltage = -ClawConstants.WRIST_VOLTAGE;
             } else {
                 throw new IllegalStateException(
                         "Argument in angle must be passed in as the Minimimum angle or Maximum angle (0 or 90)");
             }
-            m_pid.setReference(angle, ControlType.kPosition);
-
+            if (wrist.hasCurrentSpiked()) {
+                wrist.stopWrist();
+            } else {
+                m_wrist.set(wristVoltage);
+                wrist.hasCurrentSpiked = wrist.isCurrentSpike();
+            }
         }
 
         public void stopWrist() {
             m_wrist.stopMotor();
+            wristVoltage = 0;
+            m_wrist.set(wristVoltage);
         }
 
-        public double getCurrentPosition() {
-            return m_wristEncoder.getPosition();
+        public boolean voltageAgrees() {
+            return Math.abs(wristVoltage - m_wrist.getOutputCurrent()) < 0.1;
         }
 
-        public boolean isAtPosition(double angle) {
-            return Math.abs(getCurrentPosition() - angle) <= ClawConstants.ALLOWED_ERROR;
+        public boolean isCurrentSpike() {
+            return m_wrist.getOutputCurrent() > ClawConstants.WRIST_CURRENT_LIMIT;
+        }
+
+        public boolean hasCurrentSpiked() {
+            return hasCurrentSpiked;
         }
 
     }
