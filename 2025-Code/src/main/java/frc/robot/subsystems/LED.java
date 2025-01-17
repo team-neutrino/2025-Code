@@ -45,10 +45,13 @@ public class LED extends SubsystemBase {
         color_pub.set("orange");
         m_counter++;
       } else if (m_counter == 2) {
-        color_pub.set("blue");
+        color_pub.set("teal");
         m_counter++;
       } else if (m_counter == 3) {
         color_pub.set("blinkwhite");
+        m_counter++;
+      } else if (m_counter == 4) {
+        color_pub.set("blinkteal");
         m_counter = 0;
       }
     }
