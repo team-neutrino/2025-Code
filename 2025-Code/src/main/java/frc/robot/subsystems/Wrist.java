@@ -31,17 +31,19 @@ public class Wrist extends SubsystemBase {
   }
 
   /**
-   * Moves the wrist to the given position. See helper method {@link #canMove()}
-   * for the conditions by which the request is denied. If the request is denied,
-   * the wrist will stay in the last position it was in
+   * Moves the wrist to the given position.
+   * <p>
+   * Uses {@link #hasCurrentSpiked} to know whether or not to deny the request. If
+   * the request is denied, the wrist will stay in the last position it was in.
    * 
    * @param angle The angle to move to.
    */
   public void moveToPosition(double angle) {
-    if (!canMove(angle)) {
+    updateCurrentSpike(angle);
+    if (hasCurrentSpiked || (angle != WRIST_INTAKE_POS && angle != WRIST_SCORING_POS)) {
+      wristVoltage = 0;
       return;
     }
-    hasCurrentSpiked = false;
     lastAngle = angle;
     wristVoltage = (angle == WRIST_INTAKE_POS ? WRIST_VOLTAGE : -WRIST_VOLTAGE);
   }
@@ -55,24 +57,20 @@ public class Wrist extends SubsystemBase {
   }
 
   /**
-   * Helper method for {@link #moveToPosition} that determines whether or not the
-   * wrist can move given the requested angle to move to using the following
-   * criteria:
+   * Updates {@link #hasCurrentSpiked} using the following criteria:
    * <p>
-   * 1.) The motor is not current spiking (running up against the hardstop)
-   * <p>
-   * 2.) The requested angle isn't the same as the last requested angle
-   * <p>
-   * 3.) The requested angle is either the intake or scoring position
+   * If there hasn't been a current spike yet, the wrist was not at either
+   * hardstop at the time of the last check. So, check if the current is too high
+   * to determine if it has now run into the hardstop. If there has already been a
+   * current spike, the wrist is at a hardstop, so if the angle being requested is
+   * the same as the last one then the wrist is already there.
    * 
    * @param requestedAngle The requested angle to move the wrist to.
    * @return Whether or not the wrist can move.
    */
-  private boolean canMove(double requestedAngle) {
-    if (!hasCurrentSpiked) {
-      return true;
-    }
-    return requestedAngle != lastAngle && (requestedAngle == WRIST_INTAKE_POS || requestedAngle == WRIST_SCORING_POS);
+  private void updateCurrentSpike(double requestedAngle) {
+    hasCurrentSpiked = !hasCurrentSpiked ? m_wristMotor.getOutputCurrent() > HARDSTOP_CURRENT_LIMIT
+        : (requestedAngle == lastAngle);
   }
 
   /**
