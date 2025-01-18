@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.ClawConstants;
+import com.reduxrobotics.sensors.canandcolor.Canandcolor;
+import com.reduxrobotics.sensors.canandcolor.ColorData;
 
 public class Claw extends SubsystemBase {
 
@@ -47,6 +49,16 @@ public class Claw extends SubsystemBase {
                 SparkBase.PersistMode.kPersistParameters);
         m_follower.configure(m_followerConfig, SparkBase.ResetMode.kResetSafeParameters,
                 SparkBase.PersistMode.kPersistParameters);
+    }
+
+    public boolean isAlgae() {
+        ColorData colorData = canandcolor.getColor();
+        return colorData.blue() > 100;
+    }
+
+    public boolean isCoral() {
+        ColorData colorData = canandcolor.getColor();
+        return colorData.blue() > 240 && colorData.red() > 240 && colorData.green() > 240;
     }
 
     public double getVelocityOfGrabber() {

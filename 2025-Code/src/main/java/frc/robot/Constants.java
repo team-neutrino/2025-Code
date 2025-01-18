@@ -109,6 +109,7 @@ public final class Constants {
     public static final int GRABBER_CURRENT_LIMIT = 20;
     public static final double INTAKE_MOTOR_VOLTAGE = 0.2;
 
+    public static final int COLOR_SENSOR = 0;
   }
 
   public static class WristConstants {
