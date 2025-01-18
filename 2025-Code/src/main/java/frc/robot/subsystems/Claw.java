@@ -20,7 +20,8 @@ import frc.robot.Constants.ClawConstants;
 public class Claw extends SubsystemBase {
 
     private SparkMax m_grabber = new SparkMax(ClawConstants.LEFT_GRABBER, MotorType.kBrushless);
-    private SparkMax m_follower = new SparkMax(ClawConstants.RIGHT_GRABBER, MotorType.kBrushless);
+    // private SparkMax m_follower = new SparkMax(ClawConstants.RIGHT_GRABBER,
+    // MotorType.kBrushless);
 
     private SparkMaxConfig m_grabberConfig = new SparkMaxConfig();
     private SparkMaxConfig m_followerConfig = new SparkMaxConfig();
@@ -33,7 +34,7 @@ public class Claw extends SubsystemBase {
 
     public Claw() {
         m_grabberEncoder = m_grabber.getEncoder();
-        m_followerEncoder = m_follower.getEncoder();
+        // m_followerEncoder = m_follower.getEncoder();
 
         m_grabberConfig.smartCurrentLimit(Constants.ClawConstants.GRABBER_CURRENT_LIMIT);
         m_grabberConfig.inverted(false);
@@ -45,8 +46,9 @@ public class Claw extends SubsystemBase {
         m_followerConfig.follow(m_grabber);
         m_grabber.configure(m_grabberConfig, SparkBase.ResetMode.kResetSafeParameters,
                 SparkBase.PersistMode.kPersistParameters);
-        m_follower.configure(m_followerConfig, SparkBase.ResetMode.kResetSafeParameters,
-                SparkBase.PersistMode.kPersistParameters);
+        // m_follower.configure(m_followerConfig,
+        // SparkBase.ResetMode.kResetSafeParameters,
+        // SparkBase.PersistMode.kPersistParameters);
     }
 
     public double getVelocityOfGrabber() {
