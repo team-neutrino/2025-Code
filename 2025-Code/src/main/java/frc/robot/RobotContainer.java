@@ -28,11 +28,6 @@ public class RobotContainer {
 
   private void configureBindings() {
     configureDefaultCommands();
-
-    m_driverController.x().whileTrue(ElevatorFactory.moveL1());
-    m_driverController.y().whileTrue(ElevatorFactory.moveL2());
-    m_driverController.b().whileTrue(ElevatorFactory.moveL3());
-    m_driverController.a().whileTrue(ElevatorFactory.moveL4());
   }
 
   private void configureDefaultCommands() {

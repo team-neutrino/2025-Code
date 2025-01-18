@@ -39,11 +39,11 @@ public class Elevator extends SubsystemBase {
         .idleMode(IdleMode.kBrake);
     m_config.encoder
         .positionConversionFactor(
-            (ElevatorConstants.STAGE_1_LENGTH + ElevatorConstants.STAGE_2_LENGTH) / ElevatorConstants.GEAR_RATIO)
+            (1))
         .velocityConversionFactor(1);
     m_config.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-        .pid(1.0, 0.0, 0.0);
+        .pid(0.01, 0.0, 0.0);
     m_motor1.configure(m_config, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
 
@@ -85,6 +85,13 @@ public class Elevator extends SubsystemBase {
 
   public Command moveElevatorCommand(double height) {
     return run(() -> m_target = height);
+  }
+
+  public Command elevatorDefaultCommand() {
+    return run(
+        () -> {
+          setTargetHeight(0);
+        });
   }
 
   @Override
