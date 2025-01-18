@@ -158,11 +158,18 @@ public final class Constants {
 
   public static class AprilTagConstants {
     public final class RED_ALLIANCE_IDS {
+      public static final int SOURCE = 1;
+      public static final int SOURCE_PROCESSOR_SIDE = 2;
+      public static final int PROCESSSOR = 3;
+      public static final int REEF_FACING_ALLIANCE = 7;
 
     }
 
     public final class BLUE_ALLIANCE_IDS {
-
+      public static final int SOURCE = 13;
+      public static final int SOURCE_PROCESSOR_SIDE = 12;
+      public static final int PROCESSSOR = 16;
+      public static final int REEF_FACING_ALLIANCE = 18;
     }
 
   }
