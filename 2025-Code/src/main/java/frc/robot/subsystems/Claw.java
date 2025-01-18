@@ -28,7 +28,7 @@ public class Claw extends SubsystemBase {
     private RelativeEncoder m_grabberEncoder;
     private RelativeEncoder m_followerEncoder;
 
-    private double intakeVoltage;
+    private double m_intakeVoltage;
     private DigitalInput m_intakeBeamBreak = new DigitalInput(ClawConstants.INTAKE_MOTOR_BEAMBREAK);
 
     public Claw() {
@@ -58,7 +58,7 @@ public class Claw extends SubsystemBase {
     }
 
     public double getIntakeVoltage() {
-        return intakeVoltage;
+        return m_intakeVoltage;
     }
 
     public boolean hasGamePiece() {
@@ -67,15 +67,15 @@ public class Claw extends SubsystemBase {
 
     @Override
     public void periodic() {
-        m_grabber.set(intakeVoltage);
+        m_grabber.set(m_intakeVoltage);
     }
 
     public Command clawDefaultCommand() {
-        return run(() -> intakeVoltage = 0);
+        return run(() -> m_intakeVoltage = 0);
     }
 
     public Command runIntake(double speed) {
-        return run(() -> intakeVoltage = speed);
+        return run(() -> m_intakeVoltage = speed);
     }
 
 }

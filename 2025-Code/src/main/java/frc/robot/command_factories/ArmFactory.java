@@ -6,7 +6,7 @@ package frc.robot.command_factories;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import static frc.robot.Constants.ArmConstants.*;
-import static frc.robot.util.Subsystem.arm;;
+import static frc.robot.util.Subsystem.arm;
 
 /** Add your docs here. */
 public class ArmFactory {
