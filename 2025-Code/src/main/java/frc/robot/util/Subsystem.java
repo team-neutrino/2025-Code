@@ -8,9 +8,11 @@ import frc.robot.subsystems.*;
 
 public class Subsystem {
     public static final Claw claw = new Claw();
+    public static final Wrist wrist = new Wrist();
     public static final Elevator elevator = new Elevator();
     // public static final Swerve swerve = new Swerve();
     public static final Limelight limelight = new Limelight();
     public static final LED LED = new LED();
     public static final Arm arm = new Arm();
+    public static final Climb climb = new Climb();
 }

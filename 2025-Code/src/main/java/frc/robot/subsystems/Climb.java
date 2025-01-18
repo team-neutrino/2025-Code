@@ -5,12 +5,9 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ClimbConstants;
 
-import com.revrobotics.AbsoluteEncoder;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import static frc.robot.Constants.ClimbConstants.*;
 import com.revrobotics.spark.SparkAbsoluteEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -20,21 +17,21 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
 public class Climb extends SubsystemBase {
-  private SparkFlex m_climbMotor1 = new SparkFlex(ClimbConstants.CLIMB_MOTOR_ID, MotorType.kBrushless);
-  private SparkFlex m_climbMotor2 = new SparkFlex(ClimbConstants.CLIMB_MOTOR_ID2, MotorType.kBrushless);
-  private SparkFlex m_holdClimbMotor = new SparkFlex(ClimbConstants.CLIMB_MOTOR_ID3, MotorType.kBrushless);
+  private SparkFlex m_climbMotor1 = new SparkFlex(CLIMB_MOTOR_ID, MotorType.kBrushless);
+  private SparkFlex m_climbMotor2 = new SparkFlex(CLIMB_MOTOR_ID2, MotorType.kBrushless);
+  private SparkFlex m_holdClimbMotor = new SparkFlex(CLIMB_MOTOR_ID3, MotorType.kBrushless);
   private SparkAbsoluteEncoder m_climbEncoder;
-  private DigitalInput m_lockLimitSwitch = new DigitalInput(ClimbConstants.LOCK_LIMIT_SWITCH);
+  private DigitalInput m_lockLimitSwitch = new DigitalInput(LOCK_LIMIT_SWITCH);
 
   private SparkFlexConfig m_climbMotorConfig = new SparkFlexConfig();
   private SparkFlexConfig m_holdClimbMotorConfig = new SparkFlexConfig();
   private SparkFlexConfig m_followMotorConfig = new SparkFlexConfig();
 
   public Climb() {
-    m_climbMotorConfig.smartCurrentLimit(ClimbConstants.CLIMB_CURRENT_LIMIT);
+    m_climbMotorConfig.smartCurrentLimit(CLIMB_CURRENT_LIMIT);
     m_climbMotorConfig.idleMode(IdleMode.kBrake);
 
-    m_holdClimbMotorConfig.smartCurrentLimit(ClimbConstants.HOLD_CURRENT_LIMIT);
+    m_holdClimbMotorConfig.smartCurrentLimit(HOLD_CURRENT_LIMIT);
     m_holdClimbMotorConfig.idleMode(IdleMode.kBrake);
 
     m_followMotorConfig.apply(m_climbMotorConfig);
