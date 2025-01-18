@@ -13,6 +13,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.ClawConstants;
@@ -80,14 +81,14 @@ public class Claw extends SubsystemBase {
     }
 
     public Command rotateWrist(double angle) {
-        return run(() -> wrist.moveToPosition(angle));
+        return new RunCommand(() -> wrist.moveToPosition(angle), this.wrist);
     }
 
     public Command runIntake(double speed) {
         return run(() -> intakeVoltage = speed);
     }
 
-    private class Wrist {
+    private class Wrist extends SubsystemBase {
         private SparkMax m_wrist = new SparkMax(ClawConstants.WRIST, MotorType.kBrushless);
         private SparkMaxConfig m_wristConfig = new SparkMaxConfig();
         private double wristVoltage;
