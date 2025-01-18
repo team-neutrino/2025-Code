@@ -28,6 +28,7 @@ public class Arm extends SubsystemBase {
   private SparkFlexConfig m_armMotorConfig = new SparkFlexConfig();
   private AbsoluteEncoder m_armEncoder;
   private SparkClosedLoopController m_armPidController;
+
   private double m_targetAngle = 0;
 
   public Arm() {
@@ -75,6 +76,7 @@ public class Arm extends SubsystemBase {
 
   @Override
   public void periodic() {
+    updateArmAngle();
   }
 
   public Command armDefaultCommand() {
@@ -82,7 +84,7 @@ public class Arm extends SubsystemBase {
   }
 
   // move the arm a desired amount
-  public Command ArmRotateCommand(double targetAngle) {
+  public Command armRotateCommand(double targetAngle) {
     return run(() -> m_targetAngle = targetAngle);
   }
 

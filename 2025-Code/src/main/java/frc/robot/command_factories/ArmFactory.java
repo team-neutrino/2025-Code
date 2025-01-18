@@ -6,34 +6,34 @@ import frc.robot.util.Subsystem;
 
 public class ArmFactory {
     public static Command moveToL1() {
-        return Subsystem.arm.ArmRotateCommand(ArmConstants.L1_POSITION);
+        return Subsystem.arm.armRotateCommand(ArmConstants.L1_POSITION);
     }
 
     public static Command moveToL2() {
-        return Subsystem.arm.ArmRotateCommand(ArmConstants.L2_POSITION);
+        return Subsystem.arm.armRotateCommand(ArmConstants.L2_POSITION);
     }
 
     public static Command moveToL3() {
-        return Subsystem.arm.ArmRotateCommand(ArmConstants.L3_POSITION);
+        return Subsystem.arm.armRotateCommand(ArmConstants.L3_POSITION);
     }
 
     public static Command moveToL4() {
-        return Subsystem.arm.ArmRotateCommand(ArmConstants.L4_POSITION);
+        return Subsystem.arm.armRotateCommand(ArmConstants.L4_POSITION);
     }
 
     public static Command armToIntake() {
-        return Subsystem.arm.ArmRotateCommand(ArmConstants.CORAL_STATION_POSITION);
+        return Subsystem.arm.armRotateCommand(ArmConstants.CORAL_STATION_POSITION);
     }
     public static Command armToIntake() {
         return arm.ArmRotateCommand(CORAL_STATION_ARM_POSITION);
     }
 
     public static Command armToDescoreL2() {
-        return Subsystem.arm.ArmRotateCommand(ArmConstants.REEF_L2_DESCORE_POSITION);
+        return Subsystem.arm.armRotateCommand(ArmConstants.REEF_L2_DESCORE_POSITION);
     }
 
     public static Command armToDescoreL3() {
-        return Subsystem.arm.ArmRotateCommand(ArmConstants.REEF_L3_DESCORE_POSITION);
+        return Subsystem.arm.armRotateCommand(ArmConstants.REEF_L3_DESCORE_POSITION);
     }
 
     public static Command armToScore(double level) {
