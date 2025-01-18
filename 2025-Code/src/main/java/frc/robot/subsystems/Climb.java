@@ -36,23 +36,30 @@ public class Climb extends SubsystemBase {
 
   private final CurrentLimitsConfigs m_currentLimitConfig = new CurrentLimitsConfigs();
 
-  // private SparkFlex m_climbMotor1 = new SparkFlex(ClimbConstants.CLIMB_MOTOR_ID, MotorType.kBrushless);
-  // private SparkFlex m_climbMotor2 = new SparkFlex(ClimbConstants.CLIMB_MOTOR_ID2, MotorType.kBrushless);
   private SparkMax m_lockClimbMotor = new SparkMax(ClimbConstants.CLIMB_MOTOR_ID3, MotorType.kBrushless);
-  private SparkAbsoluteEncoder m_climbEncoder;
-  private SparkLimitSwitch m_lockLimitSwitch = m_lockClimbMotor.getForwardLimitSwitch();
-
-  // private SparkFlexConfig m_climbMotorConfig = new SparkFlexConfig();
   private SparkMaxConfig m_lockClimbMotorConfig = new SparkMaxConfig();
-  // private SparkFlexConfig m_followMotorConfig = new SparkFlexConfig();
 
-  // private SparkClosedLoopController m_climbPID = m_climbMotor1.getClosedLoopController();
-
+  private SparkLimitSwitch m_lockLimitSwitch = m_lockClimbMotor.getForwardLimitSwitch();
   private LimitSwitchConfig m_lockLimitSwitchConfig = new LimitSwitchConfig();
+
+  private SparkAbsoluteEncoder m_climbEncoder;
 
   private int m_targetAngle = 0;
 
+  // private SparkFlex m_climbMotor1 = new
+  // SparkFlex(ClimbConstants.CLIMB_MOTOR_ID, MotorType.kBrushless);
+  // private SparkFlex m_climbMotor2 = new
+  // SparkFlex(ClimbConstants.CLIMB_MOTOR_ID2, MotorType.kBrushless);
+
+  // private SparkFlexConfig m_climbMotorConfig = new SparkFlexConfig();
+  // private SparkFlexConfig m_followMotorConfig = new SparkFlexConfig();
+
+  // private SparkClosedLoopController m_climbPID =
+  // m_climbMotor1.getClosedLoopController();
+
   public Climb() {
+    m_lockLimitSwitchConfig.forwardLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen);
+
     // m_climbMotorConfig.smartCurrentLimit(ClimbConstants.CLIMB_CURRENT_LIMIT);
     // m_climbMotorConfig.idleMode(IdleMode.kBrake);
     // m_climbMotorConfig.closedLoop.feedbackSensor(FeedbackSensor.kAbsoluteEncoder);
@@ -62,13 +69,11 @@ public class Climb extends SubsystemBase {
     // m_followMotorConfig.apply(m_climbMotorConfig);
     // m_followMotorConfig.follow(m_climbMotor1, true);
 
-    m_lockLimitSwitchConfig.forwardLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen);
+    // m_climbMotor1.configure(m_climbMotorConfig, ResetMode.kResetSafeParameters,
+    // PersistMode.kPersistParameters);
 
-    // m_climbMotor1.configure(m_climbMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-
-    // m_climbMotor2.configure(m_followMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-
-    m_lockClimbMotor.configure(m_lockClimbMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    // m_climbMotor2.configure(m_followMotorConfig, ResetMode.kResetSafeParameters,
+    // PersistMode.kPersistParameters);
 
     // m_climbEncoder = m_climbMotor1.getAbsoluteEncoder();
 
@@ -79,6 +84,8 @@ public class Climb extends SubsystemBase {
 
     m_lockClimbMotorConfig.smartCurrentLimit(ClimbConstants.LOCK_CURRENT_LIMIT);
     m_lockClimbMotorConfig.idleMode(IdleMode.kCoast);
+
+    m_lockClimbMotor.configure(m_lockClimbMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
   }
 
@@ -91,7 +98,8 @@ public class Climb extends SubsystemBase {
   }
 
   private void setArmAngle(int angle) {
-    // m_climbPID.setReference(angle, ControlType.kPosition, ClosedLoopSlot.kSlot0, feedForwardCalculation());
+    // m_climbPID.setReference(angle, ControlType.kPosition, ClosedLoopSlot.kSlot0,
+    // feedForwardCalculation());
   }
 
   private double feedForwardCalculation() {
