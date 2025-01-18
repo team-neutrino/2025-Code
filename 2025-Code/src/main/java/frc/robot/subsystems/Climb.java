@@ -9,11 +9,13 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimbConstants;
 
+import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.spark.SparkAbsoluteEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
@@ -26,6 +28,8 @@ import com.revrobotics.spark.config.LimitSwitchConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 public class Climb extends SubsystemBase {
+  private final CANBus m_CANBus = new CANBus("rio");
+
   private TalonFX m_climbMotor = new TalonFX(ClimbConstants.CLIMB_MOTOR_ID);
   private TalonFX m_followMotor = new TalonFX(ClimbConstants.CLIMB_MOTOR_ID2);
   private TalonFXConfiguration m_climbMotorConfig = new TalonFXConfiguration();
@@ -41,7 +45,7 @@ public class Climb extends SubsystemBase {
   private SparkLimitSwitch m_lockLimitSwitch = m_lockClimbMotor.getForwardLimitSwitch();
   private LimitSwitchConfig m_lockLimitSwitchConfig = new LimitSwitchConfig();
 
-  private SparkAbsoluteEncoder m_climbEncoder;
+  private CANcoder m_encoder = new CANcoder(ClimbConstants.);
 
   private int m_targetAngle = 0;
 
@@ -58,7 +62,7 @@ public class Climb extends SubsystemBase {
 
   public Climb() {
     m_lockLimitSwitchConfig.forwardLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen);
-    
+
     configurePID();
     configureMotors();
 
