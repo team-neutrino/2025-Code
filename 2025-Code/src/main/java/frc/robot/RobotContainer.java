@@ -58,8 +58,13 @@ public class RobotContainer {
   }
 
   private void configureDefaultCommands() {
-    claw.setDefaultCommand(claw.clawAndWristDefaultCommand());
+    claw.setDefaultCommand(claw.clawDefaultCommand());
+    wrist.setDefaultCommand(wrist.getDefaultCommand());
     arm.setDefaultCommand(arm.ArmDefaultCommand());
+    elevator.setDefaultCommand(elevator.elevatorDefaultCommand());
+    LED.setDefaultCommand(LED.LEDefaultCommand());
+    limelight.setDefaultCommand(limelight.limelightDefaultCommand());
+    // swerve.setDefaultCommand(swerve.swerveDefaultCommand(m_driverController));
   }
 
   /**

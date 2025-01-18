@@ -52,10 +52,6 @@ public class Elevator extends SubsystemBase {
         PersistMode.kPersistParameters);
   }
 
-  private void setTargetHeight(double target) {
-    m_target = target;
-  }
-
   private void adjustElevator(double target) {
     m_pid.setReference(target, ControlType.kPosition, ClosedLoopSlot.kSlot0, feedForwardCalculation());
   }
@@ -76,11 +72,12 @@ public class Elevator extends SubsystemBase {
     return false;
   }
 
+  public Command elevatorDefaultCommand() {
+    return run(() -> m_target = ElevatorConstants.LOW_POSITION);
+  }
+
   public Command moveElevatorCommand(double height) {
-    return run(
-        () -> {
-          setTargetHeight(height);
-        });
+    return run(() -> m_target = height);
   }
 
   @Override

@@ -6,13 +6,10 @@ package frc.robot.command_factories;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import static frc.robot.Constants.ArmConstants.*;
-import frc.robot.subsystems.Arm;
-import frc.robot.util.Subsystem;
+import static frc.robot.util.Subsystem.arm;;
 
 /** Add your docs here. */
 public class ArmFactory {
-    private static Arm arm = Subsystem.arm;
-
     public static Command armToIntake() {
         return arm.ArmRotateCommand(CORAL_STATION_ARM_POSITION);
     }

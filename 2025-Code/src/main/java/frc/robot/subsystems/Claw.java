@@ -13,7 +13,6 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.ClawConstants;
@@ -31,10 +30,8 @@ public class Claw extends SubsystemBase {
 
     private double intakeVoltage;
     private DigitalInput m_intakeBeamBreak = new DigitalInput(ClawConstants.INTAKE_MOTOR_BEAMBREAK);
-    private Wrist wrist;
 
     public Claw() {
-        wrist = new Wrist();
         m_grabberEncoder = m_grabber.getEncoder();
         m_followerEncoder = m_follower.getEncoder();
 
@@ -73,72 +70,12 @@ public class Claw extends SubsystemBase {
         m_grabber.set(intakeVoltage);
     }
 
-    public Command clawAndWristDefaultCommand() {
-        return run(() -> {
-            intakeVoltage = 0;
-            wrist.stopWrist();
-        });
-    }
-
-    public Command rotateWrist(double angle) {
-        return new RunCommand(() -> wrist.moveToPosition(angle), this.wrist);
+    public Command clawDefaultCommand() {
+        return run(() -> intakeVoltage = 0);
     }
 
     public Command runIntake(double speed) {
         return run(() -> intakeVoltage = speed);
-    }
-
-    private class Wrist extends SubsystemBase {
-        private SparkMax m_wrist = new SparkMax(ClawConstants.WRIST, MotorType.kBrushless);
-        private SparkMaxConfig m_wristConfig = new SparkMaxConfig();
-        private double wristVoltage;
-        private double m_angle;
-        private boolean hasCurrentSpiked;
-
-        private Wrist() {
-            m_wristConfig.smartCurrentLimit(ClawConstants.WRIST_CURRENT_LIMIT);
-            m_wristConfig.idleMode(IdleMode.kBrake);
-            m_wristConfig.openLoopRampRate(0.25);
-            m_wrist.configure(m_wristConfig, SparkBase.ResetMode.kResetSafeParameters,
-                    SparkBase.PersistMode.kPersistParameters);
-        }
-
-        public void moveToPosition(double angle) {
-            if (angle != m_angle) {
-                wrist.hasCurrentSpiked = false;
-            }
-            m_angle = angle;
-            if (angle == 90) {
-                wristVoltage = ClawConstants.WRIST_VOLTAGE;
-            } else if (angle == 0) {
-                wristVoltage = -ClawConstants.WRIST_VOLTAGE;
-            }
-            if (wrist.hasCurrentSpiked()) {
-                wrist.stopWrist();
-            } else {
-                m_wrist.set(wristVoltage);
-                wrist.hasCurrentSpiked = wrist.isCurrentSpike();
-            }
-        }
-
-        public void stopWrist() {
-            m_wrist.stopMotor();
-            wristVoltage = 0;
-            m_wrist.set(wristVoltage);
-        }
-
-        public boolean voltageAgrees() {
-            return Math.abs(wristVoltage - m_wrist.getOutputCurrent()) < 0.1;
-        }
-
-        public boolean isCurrentSpike() {
-            return m_wrist.getOutputCurrent() > ClawConstants.WRIST_CURRENT_LIMIT;
-        }
-
-        public boolean hasCurrentSpiked() {
-            return hasCurrentSpiked;
-        }
-
     }
 
 }

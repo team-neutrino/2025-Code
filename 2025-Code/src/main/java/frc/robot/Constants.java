@@ -74,11 +74,15 @@ public final class Constants {
   public static class ClawConstants {
     public static final int LEFT_GRABBER = 21;
     public static final int RIGHT_GRABBER = 22;
-    public static final int WRIST = 25;
     public static final int INTAKE_MOTOR_BEAMBREAK = 0;
     public static final int GRABBER_CURRENT_LIMIT = 20;
-    public static final int WRIST_CURRENT_LIMIT = 15;
     public static final double INTAKE_MOTOR_VOLTAGE = 0.5;
+    
+  }
+
+  public static class WristConstants {
+    public static final int WRIST = 25;
+    public static final int WRIST_CURRENT_LIMIT = 15;
     public static final double WRIST_VOLTAGE = 0.3;
     public static final int WRIST_INTAKE_POS = 90;
     public static final int WRIST_SCORING_POS = 0;
