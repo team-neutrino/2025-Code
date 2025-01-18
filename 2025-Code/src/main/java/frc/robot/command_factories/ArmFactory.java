@@ -21,4 +21,8 @@ public class ArmFactory {
     public static Command armToDescoreL3() {
         return arm.ArmRotateCommand(REEF_L3_DESCORE_POSITION);
     }
+
+    public static Command armToScore(double level) {
+        return arm.ArmRotateCommand(level);
+    }
 }

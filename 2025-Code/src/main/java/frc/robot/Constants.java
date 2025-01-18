@@ -66,8 +66,6 @@ public final class Constants {
     public static final double HITTING_LEFT_BASE_ARM_POSITION = 0.0;
     public static final double HITTING_RIGHT_BASE_ARM_POSITION = 0.0;
 
-    public static final int ARM_MOTOR_ID = 10;
-
     public static final double ARM_ENCODER_ZERO_OFFSET = 0;
     public static final int ARM_CURRENT_LIMIT = 20;
 
