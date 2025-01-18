@@ -80,7 +80,7 @@ public class Arm extends SubsystemBase {
   }
 
   public Command armDefaultCommand() {
-    return run(() -> m_targetAngle = DEFAULT_ARM_POSITION);
+    return run(() -> m_targetAngle = ArmConstants.DEFAULT_POSITION);
   }
 
   // move the arm a desired amount

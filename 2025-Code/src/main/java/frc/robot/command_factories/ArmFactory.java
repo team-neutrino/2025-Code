@@ -24,9 +24,6 @@ public class ArmFactory {
     public static Command armToIntake() {
         return Subsystem.arm.armRotateCommand(ArmConstants.CORAL_STATION_POSITION);
     }
-    public static Command armToIntake() {
-        return arm.ArmRotateCommand(CORAL_STATION_ARM_POSITION);
-    }
 
     public static Command armToDescoreL2() {
         return Subsystem.arm.armRotateCommand(ArmConstants.REEF_L2_DESCORE_POSITION);
