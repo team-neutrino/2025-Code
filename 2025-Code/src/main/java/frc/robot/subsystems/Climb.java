@@ -12,6 +12,7 @@ import frc.robot.Constants.ClimbConstants;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.spark.SparkAbsoluteEncoder;
@@ -32,6 +33,7 @@ public class Climb extends SubsystemBase {
   private Slot0Configs m_PIDConfig = new Slot0Configs();
 
   private final CurrentLimitsConfigs m_currentLimitConfig = new CurrentLimitsConfigs();
+  private Follower m_followRequest = new Follower(ClimbConstants.CLIMB_MOTOR_ID, true);
 
   private SparkMax m_lockClimbMotor = new SparkMax(ClimbConstants.CLIMB_MOTOR_ID3, MotorType.kBrushless);
   private SparkMaxConfig m_lockClimbMotorConfig = new SparkMaxConfig();
@@ -88,6 +90,7 @@ public class Climb extends SubsystemBase {
 
     m_followMotor.setNeutralMode(NeutralModeValue.Brake);
     m_followMotor.getConfigurator().apply(m_followMotorConfig);
+    m_followMotor.setControl(m_followRequest);
 
     m_lockClimbMotorConfig.smartCurrentLimit(ClimbConstants.LOCK_CURRENT_LIMIT);
     m_lockClimbMotorConfig.idleMode(IdleMode.kCoast);
