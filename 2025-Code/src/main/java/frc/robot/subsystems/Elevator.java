@@ -38,7 +38,8 @@ public class Elevator extends SubsystemBase {
         .inverted(false)
         .idleMode(IdleMode.kBrake);
     m_config.encoder
-        .positionConversionFactor(1)
+        .positionConversionFactor(
+            (ElevatorConstants.STAGE_1_LENGTH + ElevatorConstants.STAGE_2_LENGTH) / ElevatorConstants.GEAR_RATIO)
         .velocityConversionFactor(1);
     m_config.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
