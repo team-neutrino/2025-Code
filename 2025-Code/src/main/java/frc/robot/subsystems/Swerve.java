@@ -103,6 +103,9 @@ public class Swerve extends CommandSwerveDrivetrain {
         .withRotationalRate(omega * SwerveConstants.MAX_ROTATION_SPEED));
   }
 
+  // public Command driveForAutoAlignFieldFacing(CommandXboxController controller,
+  // double )
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
