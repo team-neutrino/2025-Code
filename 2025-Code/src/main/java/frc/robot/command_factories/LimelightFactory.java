@@ -10,4 +10,9 @@ public class LimelightFactory {
         return Subsystem.swerve.driveForAutoAlign(Subsystem.limelight.getXboxController(),
                 Subsystem.limelight.offsetToOmega(-Subsystem.limelight.getTx()));
     }
+
+    public static Command alignToAprilTagFacingAngle() {
+        return Subsystem.swerve.driveForAutoAlignFieldFacing(Subsystem.limelight.getXboxController(),
+                Subsystem.limelight.getTargetYawRotation2d());
+    }
 }

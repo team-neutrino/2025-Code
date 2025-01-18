@@ -22,6 +22,7 @@ public class Limelight extends SubsystemBase {
   SwerveDrivePoseEstimator m_poseEstimator;
   double m_robotYaw;
   Swerve m_swerve;
+  Rotation2d m_targetYaw;
   LimelightHelpers.PoseEstimate m_limelightMeasurement;
   private double[] pose = new double[11];
   private double[] targetPose = new double[6];
@@ -142,6 +143,16 @@ public class Limelight extends SubsystemBase {
   public double getTargetYawFromCamera2() {
     getTargetPoseFromCamera2();
     return targetPose2[5];
+  }
+
+  public Rotation2d getTargetYawRotation2d() {
+    getTargetPose();
+    return Rotation2d.fromDegrees(targetPose[5]);
+  }
+
+  public Rotation2d getTargetYawRotation2dFromCamera2() {
+    getTargetPoseFromCamera2();
+    return Rotation2d.fromDegrees(targetPose2[5]);
   }
 
   public double[] getBotPose() {
