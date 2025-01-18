@@ -9,6 +9,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import static frc.robot.Constants.SwerveConstants.*;
 import frc.robot.util.GeneratedSwerveCode.CommandSwerveDrivetrain;
@@ -103,8 +104,13 @@ public class Swerve extends CommandSwerveDrivetrain {
         .withRotationalRate(omega * SwerveConstants.MAX_ROTATION_SPEED));
   }
 
-  // public Command driveForAutoAlignFieldFacing(CommandXboxController controller,
-  // double )
+  public Command driveForAutoAlignFieldFacing(CommandXboxController controller,
+      Rotation2d targetAngle) {
+    return applyRequest(
+        () -> SwerveRequestStash.facingAngleDrive.withVelocityX(controller.getLeftY() * SwerveConstants.MAX_SPEED)
+            .withVelocityY(controller.getLeftX() * SwerveConstants.MAX_SPEED)
+            .withTargetDirection(targetAngle));
+  }
 
   @Override
   public void periodic() {
@@ -116,8 +122,11 @@ public class Swerve extends CommandSwerveDrivetrain {
    */
   private class SwerveRequestStash {
     public static final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
-        .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
-    // .withDeadband(MaxSpeed * 0.1)
-    // .withRotationalDeadband(MaxAngularRate * 0.06)
+        .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
+        .withDeadband(SwerveConstants.MAX_SPEED * 0.1)
+        .withRotationalDeadband(SwerveConstants.MAX_ROTATION_SPEED * 0.06);
+    public static final SwerveRequest.FieldCentricFacingAngle facingAngleDrive = new SwerveRequest.FieldCentricFacingAngle()
+        .withDriveRequestType(DriveRequestType.OpenLoopVoltage).withDeadband(SwerveConstants.MAX_SPEED * 0.1)
+        .withRotationalDeadband(SwerveConstants.MAX_ROTATION_SPEED * 0.06);
   }
 }
