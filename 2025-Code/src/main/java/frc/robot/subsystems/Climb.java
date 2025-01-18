@@ -43,9 +43,9 @@ public class Climb extends SubsystemBase {
 
   private int m_targetAngle = 0;
 
-  // private SparkFlex m_climbMotor1 = new
+  // private SparkFlex m_climbMotor = new
   // SparkFlex(ClimbConstants.CLIMB_MOTOR_ID, MotorType.kBrushless);
-  // private SparkFlex m_climbMotor2 = new
+  // private SparkFlex m_followMotor = new
   // SparkFlex(ClimbConstants.CLIMB_MOTOR_ID2, MotorType.kBrushless);
 
   // private SparkFlexConfig m_climbMotorConfig = new SparkFlexConfig();
@@ -66,10 +66,10 @@ public class Climb extends SubsystemBase {
     // m_followMotorConfig.apply(m_climbMotorConfig);
     // m_followMotorConfig.follow(m_climbMotor1, true);
 
-    // m_climbMotor1.configure(m_climbMotorConfig, ResetMode.kResetSafeParameters,
+    // m_climbMotor.configure(m_climbMotorConfig, ResetMode.kResetSafeParameters,
     // PersistMode.kPersistParameters);
 
-    // m_climbMotor2.configure(m_followMotorConfig, ResetMode.kResetSafeParameters,
+    // m_followMotor.configure(m_followMotorConfig, ResetMode.kResetSafeParameters,
     // PersistMode.kPersistParameters);
 
     // m_climbEncoder = m_climbMotor1.getAbsoluteEncoder();
