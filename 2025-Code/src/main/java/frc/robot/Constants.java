@@ -55,14 +55,16 @@ public final class Constants {
   }
 
   public static class ArmConstants {
-    public static final int MOTOR_ID = 10;
-    public static final double DEFAULT_ARM_POSITION = 0.0;
-    public static final double GROUND_ALGAE_ARM_POSITION = 0.0;
-    public static final double CORAL_STATION_ARM_POSITION = 0.0;
-    public static final double L1_ARM_POSITION = 0.0;
-    public static final double L2_ARM_POSITION = 0.0;
-    public static final double L3_ARM_POSITION = 0.0;
-    public static final double L4_ARM_POSITION = 0.0;
+    // change positions
+    public static final double START_POSITION = 0.0;
+    public static final double GROUND_ALGAE_POSITION = 0.0;
+    public static final double CORAL_STATION_POSITION = 0.0;
+    public static final double L1_POSITION = 0.0;
+    public static final double L2_POSITION = 0.0;
+    public static final double L3_POSITION = 0.0;
+    public static final double L4_POSITION = 0.0;
+    public static final double REEF_L2_DESCORE_POSITION = 0.0;
+    public static final double REEF_L3_DESCORE_POSITION = 0.0;
 
     public static final double HITTING_BOTTOM_ELEVATOR_POSITION = 0.0;
     public static final double HITTING_TOP_ELEVATOR_POSITION = 0.0;
@@ -77,8 +79,6 @@ public final class Constants {
     public static final double ki = 0;
     public static final double kd = 0;
     public static final double ArmIZone = 0;
-    public static final int REEF_L2_DESCORE_POSITION = 0;
-    public static final int REEF_L3_DESCORE_POSITION = 0;
   }
 
   public static class ClawConstants {

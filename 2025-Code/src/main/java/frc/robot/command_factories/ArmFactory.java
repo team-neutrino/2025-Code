@@ -6,10 +6,11 @@ import frc.robot.util.Subsystem;
 import frc.robot.subsystems.Arm;
 
 public class ArmFactory {
+    private static Arm arm = Subsystem.arm;
+
     public static Command moveToL1() {
         return arm.ArmRotateCommand(ArmConstants.L1_POSITION);
     }
-    private static Arm arm = Subsystem.arm;
 
     public static Command moveToL2() {
         return arm.ArmRotateCommand(ArmConstants.L2_POSITION);
@@ -23,7 +24,7 @@ public class ArmFactory {
         return arm.ArmRotateCommand(ArmConstants.L4_POSITION);
     }
 
-    public static Command moveToCoralStation() {
+    public static Command armToIntake() {
         return arm.ArmRotateCommand(ArmConstants.CORAL_STATION_POSITION);
     }
     public static Command armToIntake() {
