@@ -30,10 +30,8 @@ public class Claw extends SubsystemBase {
     private RelativeEncoder m_followerEncoder;
 
     private double intakeVoltage;
-    private boolean isBroken;
     private DigitalInput m_intakeBeamBreak = new DigitalInput(ClawConstants.INTAKE_MOTOR_BEAMBREAK);
     private Wrist wrist;
-    private static final double[] WRIST_POSITIONS = { 0.0, 90.0 };
 
     public Claw() {
         wrist = new Wrist();
@@ -62,72 +60,35 @@ public class Claw extends SubsystemBase {
         return m_followerEncoder.getVelocity();
     }
 
-    public boolean grabberVelocityagrees() {
-        return Math.abs(getVelocityOfGrabber() - getVelocityOfGrabberFollower()) < 5;
-    }
-
     public double getIntakeVoltage() {
         return intakeVoltage;
     }
 
-    public void runIntake() {
-        if (hasGamePiece()) {
-            stopIntake();
-        } else {
-            intakeVoltage = ClawConstants.INTAKE_MOTOR_VOLTAGE;
-        }
-    }
-
-    public void runOuttake() {
-        intakeVoltage = -ClawConstants.INTAKE_MOTOR_VOLTAGE;
-    }
-
-    public void stopIntake() {
-        intakeVoltage = 0;
-    }
-
     public boolean hasGamePiece() {
-        return isBroken;
-    }
-
-    public Wrist getWrist() {
-        return wrist;
-    }
-
-    public void setWristState(int position) {
-        wrist.moveToPosition(WRIST_POSITIONS[position]);
+        return !m_intakeBeamBreak.get();
     }
 
     @Override
     public void periodic() {
         m_grabber.set(intakeVoltage);
-        isBroken = !m_intakeBeamBreak.get();
     }
 
     public Command clawAndWristDefaultCommand() {
-        return new RunCommand(() -> {
-            stopIntake();
+        return run(() -> {
+            intakeVoltage = 0;
             wrist.stopWrist();
-        }, this);
+        });
     }
 
-    public Command rotateWristTo0() {
-        return new RunCommand(() -> wrist.moveToPosition(WRIST_POSITIONS[0]), this);
+    public Command rotateWrist(double angle) {
+        return new RunCommand(() -> wrist.moveToPosition(angle), this.wrist);
     }
 
-    public Command rotateWristTo90() {
-        return new RunCommand(() -> wrist.moveToPosition(WRIST_POSITIONS[1]), this);
+    public Command runIntake(double speed) {
+        return run(() -> intakeVoltage = speed);
     }
 
-    public Command intakeGamePiece() {
-        return new RunCommand(() -> runIntake(), this);
-    }
-
-    public Command outakeGamePiece() {
-        return new RunCommand(() -> runOuttake(), this);
-    }
-
-    private class Wrist {
+    private class Wrist extends SubsystemBase {
         private SparkMax m_wrist = new SparkMax(ClawConstants.WRIST, MotorType.kBrushless);
         private SparkMaxConfig m_wristConfig = new SparkMaxConfig();
         private double wristVoltage;
@@ -151,9 +112,6 @@ public class Claw extends SubsystemBase {
                 wristVoltage = ClawConstants.WRIST_VOLTAGE;
             } else if (angle == 0) {
                 wristVoltage = -ClawConstants.WRIST_VOLTAGE;
-            } else {
-                throw new IllegalStateException(
-                        "Argument in angle must be passed in as the Minimimum angle or Maximum angle (0 or 90)");
             }
             if (wrist.hasCurrentSpiked()) {
                 wrist.stopWrist();
