@@ -5,7 +5,7 @@
 package frc.robot.command_factories;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.ArmConstants;
+import static frc.robot.Constants.ArmConstants.*;
 import frc.robot.subsystems.Arm;
 import frc.robot.util.Subsystem;
 
@@ -14,14 +14,14 @@ public class ArmFactory {
     private static Arm arm = Subsystem.arm;
 
     public static Command armToIntake() {
-        return arm.ArmRotateCommand(ArmConstants.CORAL_STATION_ARM_POSITION);
+        return arm.ArmRotateCommand(CORAL_STATION_ARM_POSITION);
     }
 
     public static Command armToDescoreL2() {
-        return arm.ArmRotateCommand(ArmConstants.REEF_L2_DESCORE_POSITION);
+        return arm.ArmRotateCommand(REEF_L2_DESCORE_POSITION);
     }
 
     public static Command armToDescoreL3() {
-        return arm.ArmRotateCommand(ArmConstants.REEF_L3_DESCORE_POSITION);
+        return arm.ArmRotateCommand(REEF_L3_DESCORE_POSITION);
     }
 }

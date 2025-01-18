@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.spark.ClosedLoopSlot;
@@ -78,8 +77,7 @@ public class Arm extends SubsystemBase {
   }
 
   public Command ArmDefaultCommand() {
-    return run(() -> {
-    });
+    return run(() -> m_targetAngle = ArmConstants.DEFAULT_ARM_POSITION);
   }
 
   // move the arm a desired amount
