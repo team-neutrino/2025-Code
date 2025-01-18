@@ -59,7 +59,7 @@ public final class Constants {
     public static final double START_POSITION = 0.0;
     public static final double GROUND_ALGAE_POSITION = 0.0;
     public static final double CORAL_STATION_POSITION = 0.0;
-    public static final double L1_POSITION = 0.0;
+    public static final double L1_POSITION = 0.5;
     public static final double L2_POSITION = 0.0;
     public static final double L3_POSITION = 0.0;
     public static final double L4_POSITION = 0.0;
@@ -75,7 +75,7 @@ public final class Constants {
     public static final double ENCODER_ZERO_OFFSET = 0;
     public static final int CURRENT_LIMIT = 20;
 
-    public static final double kp = 1;
+    public static final double kp = 0.05;
     public static final double ki = 0;
     public static final double kd = 0;
     public static final double ArmIZone = 0;

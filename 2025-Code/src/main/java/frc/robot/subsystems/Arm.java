@@ -19,7 +19,8 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.AbsoluteEncoder;
 
-import static frc.robot.Constants.ArmConstants.*;
+import frc.robot.Constants.ArmConstants;
+import frc.robot.command_factories.ArmFactory;
 
 public class Arm extends SubsystemBase {
 
@@ -67,13 +68,13 @@ public class Arm extends SubsystemBase {
   }
 
   public void updateArmAngle() {
+    System.out.println(m_targetAngle);
     m_armPidController.setReference(m_targetAngle,
         SparkBase.ControlType.kPosition, ClosedLoopSlot.kSlot0);
   }
 
   @Override
   public void periodic() {
-    updateArmAngle();
   }
 
   public Command armDefaultCommand() {
