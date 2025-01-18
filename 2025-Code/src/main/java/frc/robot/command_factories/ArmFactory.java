@@ -3,7 +3,6 @@ package frc.robot.command_factories;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.util.Subsystem;
-import frc.robot.subsystems.Arm;
 
 public class ArmFactory {
     public static Command moveToL1() {
