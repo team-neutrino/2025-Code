@@ -38,6 +38,8 @@ public final class Constants {
     public static final double L2 = 2.0;
     public static final double L3 = 3.0;
     public static final double L4 = 4.0;
+    public static final double REMOVE_ALGAE_L2 = 0.0;
+    public static final double REMOVE_ALGAE_L3 = 0.0;
   }
 
   public static class ArmConstants {
@@ -66,6 +68,8 @@ public final class Constants {
     public static final double Arm_ki = 0;
     public static final double Arm_kd = 0;
     public static final double ArmIZone = 0;
+    public static final int REEF_L2_DESCORE_POSITION = 0;
+    public static final int REEF_L3_DESCORE_POSITION = 0;
   }
 
   public static class ClawConstants {

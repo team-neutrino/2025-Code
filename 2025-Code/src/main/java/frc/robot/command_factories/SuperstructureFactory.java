@@ -11,7 +11,21 @@ public class SuperstructureFactory {
         // 3 neo 550s, 3 vortexes
         Command elevatorCom = ElevatorFactory.moveToIntake();
         Command armCom = ArmFactory.armToIntake();
-        Command clawCom = ClawFactory.runIntakeCoral().alongWith(ClawFactory.wristToIntake());
+        Command clawCom = ClawFactory.runIntake().alongWith(ClawFactory.wristToIntake());
+        return elevatorCom.alongWith(armCom, clawCom).until(() -> claw.hasGamePiece());
+    }
+
+    public static Command descoreAlgaeL2() {
+        Command elevatorCom = ElevatorFactory.movetoRemoveAlgaeL2();
+        Command armCom = ArmFactory.armToDescoreL2();
+        Command clawCom = ClawFactory.runIntake().alongWith(ClawFactory.wristToIntake());
+        return elevatorCom.alongWith(armCom, clawCom).until(() -> claw.hasGamePiece());
+    }
+
+    public static Command descoreAlgaeL3() {
+        Command elevatorCom = ElevatorFactory.movetoRemoveAlgaeL3();
+        Command armCom = ArmFactory.armToDescoreL3();
+        Command clawCom = ClawFactory.runIntake().alongWith(ClawFactory.wristToIntake());
         return elevatorCom.alongWith(armCom, clawCom).until(() -> claw.hasGamePiece());
     }
 }
