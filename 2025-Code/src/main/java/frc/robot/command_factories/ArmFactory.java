@@ -6,19 +6,19 @@ package frc.robot.command_factories;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import static frc.robot.Constants.ArmConstants.*;
-// import static frc.robot.util.Subsystem.arm;;
+import static frc.robot.util.Subsystem.arm;;
 
 /** Add your docs here. */
 public class ArmFactory {
-    // public static Command armToIntake() {
-    // return arm.ArmRotateCommand(CORAL_STATION_ARM_POSITION);
-    // }
+    public static Command armToIntake() {
+        return arm.ArmRotateCommand(CORAL_STATION_ARM_POSITION);
+    }
 
-    // public static Command armToDescoreL2() {
-    // return arm.ArmRotateCommand(REEF_L2_DESCORE_POSITION);
-    // }
+    public static Command armToDescoreL2() {
+        return arm.ArmRotateCommand(REEF_L2_DESCORE_POSITION);
+    }
 
-    // public static Command armToDescoreL3() {
-    // return arm.ArmRotateCommand(REEF_L3_DESCORE_POSITION);
-    // }
+    public static Command armToDescoreL3() {
+        return arm.ArmRotateCommand(REEF_L3_DESCORE_POSITION);
+    }
 }
