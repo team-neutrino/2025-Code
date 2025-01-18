@@ -23,6 +23,8 @@ public class SuperstructureFactory {
         Command armCom = ArmFactory.armToDescoreL3();
         Command clawCom = ClawFactory.runIntake().alongWith(WristFactory.wristToIntake());
         return elevatorCom.alongWith(armCom, clawCom).until(() -> claw.hasGamePiece());
+    }
+
     public static Command scoreCoralL1Command() {
         return new ParallelCommandGroup(
                 ElevatorFactory.moveL1(),
