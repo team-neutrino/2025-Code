@@ -32,6 +32,7 @@ public class Claw extends SubsystemBase {
 
     private double m_intakeVoltage;
     private DigitalInput m_intakeBeamBreak = new DigitalInput(ClawConstants.INTAKE_MOTOR_BEAMBREAK);
+    Canandcolor colorSensor = new Canandcolor(ClawConstants.COLOR_SENSOR);
 
     public Claw() {
         m_grabberEncoder = m_grabber.getEncoder();
@@ -52,12 +53,12 @@ public class Claw extends SubsystemBase {
     }
 
     public boolean isAlgae() {
-        ColorData colorData = canandcolor.getColor();
+        ColorData colorData = colorSensor.getColor();
         return colorData.blue() > 100;
     }
 
     public boolean isCoral() {
-        ColorData colorData = canandcolor.getColor();
+        ColorData colorData = colorSensor.getColor();
         return colorData.blue() > 240 && colorData.red() > 240 && colorData.green() > 240;
     }
 
