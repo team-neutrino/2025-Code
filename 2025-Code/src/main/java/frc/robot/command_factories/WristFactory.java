@@ -11,10 +11,10 @@ import static frc.robot.Constants.WristConstants.*;
 /** Add your docs here. */
 public class WristFactory {
     public static Command wristToIntake() {
-        return wrist.rotateWrist(WRIST_INTAKE_POS);
+        return wrist.rotateWrist(INTAKE_POS);
     }
 
     public static Command wristToScoring() {
-        return wrist.rotateWrist(WRIST_SCORING_POS);
+        return wrist.rotateWrist(SCORING_POS);
     }
 }

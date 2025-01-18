@@ -19,11 +19,11 @@ import com.revrobotics.spark.config.SparkFlexConfig;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ElevatorConstants;
+import static frc.robot.Constants.ElevatorConstants.*;
 
 public class Elevator extends SubsystemBase {
-  private SparkFlex m_motor1 = new SparkFlex(ElevatorConstants.MOTOR1_ID, MotorType.kBrushless);
-  private SparkFlex m_motor2 = new SparkFlex(ElevatorConstants.MOTOR2_ID,
+  private SparkFlex m_motor1 = new SparkFlex(MOTOR1_ID, MotorType.kBrushless);
+  private SparkFlex m_motor2 = new SparkFlex(MOTOR2_ID,
       MotorType.kBrushless);
   private SparkRelativeEncoder m_encoder;
   private SparkLimitSwitch m_lowLimit;
@@ -46,7 +46,7 @@ public class Elevator extends SubsystemBase {
     m_motor1.configure(m_config, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
 
-    m_followerConfig.follow(ElevatorConstants.MOTOR1_ID);
+    m_followerConfig.follow(MOTOR1_ID);
     m_followerConfig.apply(m_config);
     m_motor2.configure(m_followerConfig, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
@@ -73,7 +73,7 @@ public class Elevator extends SubsystemBase {
   }
 
   public Command elevatorDefaultCommand() {
-    return run(() -> m_target = ElevatorConstants.LOW_POSITION);
+    return run(() -> m_target = LOW_POSITION);
   }
 
   public Command moveElevatorCommand(double height) {

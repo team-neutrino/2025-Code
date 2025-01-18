@@ -10,7 +10,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Constants.SwerveConstants;
+import static frc.robot.Constants.SwerveConstants.*;
 import frc.robot.util.GeneratedSwerveCode.CommandSwerveDrivetrain;
 import frc.robot.util.GeneratedSwerveCode.TunerConstants;
 
@@ -78,9 +78,9 @@ public class Swerve extends CommandSwerveDrivetrain {
    * @return The default command.
    */
   public Command swerveDefaultCommand(CommandXboxController controller) {
-    return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(controller.getLeftY() * SwerveConstants.MAX_SPEED)
-        .withVelocityY(controller.getLeftX() * SwerveConstants.MAX_SPEED)
-        .withRotationalRate(-controller.getRightX() * SwerveConstants.MAX_ROTATION_SPEED));
+    return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(controller.getLeftY() * MAX_SPEED)
+        .withVelocityY(controller.getLeftX() * MAX_SPEED)
+        .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED));
   }
 
   /**
@@ -92,9 +92,9 @@ public class Swerve extends CommandSwerveDrivetrain {
    */
   public Command getSlowMoveCommand(CommandXboxController controller) {
     return applyRequest(
-        () -> SwerveRequestStash.drive.withVelocityX(controller.getLeftY() * (SwerveConstants.MAX_SPEED / 2))
-            .withVelocityY(controller.getLeftX() * (SwerveConstants.MAX_SPEED / 2))
-            .withRotationalRate(-controller.getRightX() * (SwerveConstants.MAX_ROTATION_SPEED / 2)));
+        () -> SwerveRequestStash.drive.withVelocityX(controller.getLeftY() * (MAX_SPEED / 2))
+            .withVelocityY(controller.getLeftX() * (MAX_SPEED / 2))
+            .withRotationalRate(-controller.getRightX() * (MAX_ROTATION_SPEED / 2)));
   }
 
   @Override
@@ -108,7 +108,7 @@ public class Swerve extends CommandSwerveDrivetrain {
   private class SwerveRequestStash {
     public static final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
-    // .withDeadband(SwerveConstants.MaxSpeed * 0.1)
-    // .withRotationalDeadband(SwerveConstants.MaxAngularRate * 0.06)
+    // .withDeadband(MaxSpeed * 0.1)
+    // .withRotationalDeadband(MaxAngularRate * 0.06)
   }
 }

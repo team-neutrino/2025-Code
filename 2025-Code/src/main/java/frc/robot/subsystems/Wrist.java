@@ -16,16 +16,16 @@ import frc.robot.util.Subsystem;
 import static frc.robot.Constants.WristConstants.*;
 
 public class Wrist extends SubsystemBase {
-  private SparkMax m_wristMotor = new SparkMax(WRIST, MotorType.kBrushless);
+  private SparkMax m_wristMotor = new SparkMax(MOTOR_ID, MotorType.kBrushless);
   private SparkMaxConfig m_wristConfig = new SparkMaxConfig();
-  private double wristVoltage;
-  private double lastAngle;
-  private boolean hasCurrentSpiked;
+  private double m_wristVoltage;
+  private double m_lastAngle;
+  private boolean m_hasCurrentSpiked;
 
   public Wrist() {
-    m_wristConfig.smartCurrentLimit(WRIST_CURRENT_LIMIT);
+    m_wristConfig.smartCurrentLimit(CURRENT_LIMIT);
     m_wristConfig.idleMode(IdleMode.kBrake);
-    m_wristConfig.openLoopRampRate(0.25);
+    m_wristConfig.openLoopRampRate(RAMP_RATE);
     m_wristMotor.configure(m_wristConfig, SparkBase.ResetMode.kResetSafeParameters,
         SparkBase.PersistMode.kPersistParameters);
   }
@@ -33,31 +33,32 @@ public class Wrist extends SubsystemBase {
   /**
    * Moves the wrist to the given position.
    * <p>
-   * Uses {@link #hasCurrentSpiked} to know whether or not to deny the request. If
+   * Uses {@link #m_hasCurrentSpiked} to know whether or not to deny the request.
+   * If
    * the request is denied, the wrist will stay in the last position it was in.
    * 
    * @param angle The angle to move to.
    */
   public void moveToPosition(double angle) {
     updateCurrentSpike(angle);
-    if (hasCurrentSpiked || (angle != WRIST_INTAKE_POS && angle != WRIST_SCORING_POS)) {
-      wristVoltage = 0;
+    if (m_hasCurrentSpiked || (angle != INTAKE_POS && angle != SCORING_POS)) {
+      m_wristVoltage = 0;
       return;
     }
-    lastAngle = angle;
-    wristVoltage = (angle == WRIST_INTAKE_POS ? WRIST_VOLTAGE : -WRIST_VOLTAGE);
+    m_lastAngle = angle;
+    m_wristVoltage = (angle == INTAKE_POS ? VOLTAGE : -VOLTAGE);
   }
 
   public boolean voltageAgrees() {
-    return Math.abs(wristVoltage - m_wristMotor.getOutputCurrent()) < 0.1;
+    return Math.abs(m_wristVoltage - m_wristMotor.getOutputCurrent()) < 0.1;
   }
 
   public boolean isCurrentSpike() {
-    return m_wristMotor.getOutputCurrent() > WRIST_CURRENT_LIMIT;
+    return m_wristMotor.getOutputCurrent() > CURRENT_LIMIT;
   }
 
   /**
-   * Updates {@link #hasCurrentSpiked} using the following criteria:
+   * Updates {@link #m_hasCurrentSpiked} using the following criteria:
    * <p>
    * If there hasn't been a current spike yet, the wrist was not at either
    * hardstop at the time of the last check. So, check if the current is too high
@@ -69,8 +70,8 @@ public class Wrist extends SubsystemBase {
    * @return Whether or not the wrist can move.
    */
   private void updateCurrentSpike(double requestedAngle) {
-    hasCurrentSpiked = !hasCurrentSpiked ? m_wristMotor.getOutputCurrent() > HARDSTOP_CURRENT_LIMIT
-        : (requestedAngle == lastAngle);
+    m_hasCurrentSpiked = !m_hasCurrentSpiked ? m_wristMotor.getOutputCurrent() > HARDSTOP_CURRENT_LIMIT
+        : (requestedAngle == m_lastAngle);
   }
 
   /**
@@ -85,9 +86,9 @@ public class Wrist extends SubsystemBase {
   public Command wristDefaultCommand() {
     return run(() -> {
       if (Subsystem.claw.hasGamePiece()) {
-        moveToPosition(WRIST_SCORING_POS);
+        moveToPosition(SCORING_POS);
       } else {
-        moveToPosition(WRIST_INTAKE_POS);
+        moveToPosition(INTAKE_POS);
       }
     });
   }
@@ -98,7 +99,7 @@ public class Wrist extends SubsystemBase {
 
   @Override
   public void periodic() {
-    m_wristMotor.setVoltage(wristVoltage);
+    m_wristMotor.setVoltage(m_wristVoltage);
   }
 
 }

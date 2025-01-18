@@ -19,11 +19,11 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.AbsoluteEncoder;
 
-import frc.robot.Constants.ArmConstants;
+import static frc.robot.Constants.ArmConstants.*;
 
 public class Arm extends SubsystemBase {
 
-  private SparkFlex m_armMotor = new SparkFlex(ArmConstants.ARM_MOTOR_ID, MotorType.kBrushless);
+  private SparkFlex m_armMotor = new SparkFlex(ARM_MOTOR_ID, MotorType.kBrushless);
   private SparkFlexConfig m_armMotorConfig = new SparkFlexConfig();
   private AbsoluteEncoder m_armEncoder;
   private SparkClosedLoopController m_armPidController;
@@ -49,11 +49,11 @@ public class Arm extends SubsystemBase {
 
     m_armMotorConfig.signals.absoluteEncoderPositionPeriodMs(5);
 
-    m_armMotorConfig.smartCurrentLimit(ArmConstants.ARM_CURRENT_LIMIT);
+    m_armMotorConfig.smartCurrentLimit(ARM_CURRENT_LIMIT);
 
     m_armMotorConfig.closedLoop
         .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
-        .pid(ArmConstants.Arm_kp, ArmConstants.Arm_ki, ArmConstants.Arm_kd, ClosedLoopSlot.kSlot0);
+        .pid(Arm_kp, Arm_ki, Arm_kd, ClosedLoopSlot.kSlot0);
     m_armPidController = m_armMotor.getClosedLoopController();
 
     m_armMotor.configure(m_armMotorConfig,
@@ -76,8 +76,8 @@ public class Arm extends SubsystemBase {
     updateArmAngle();
   }
 
-  public Command ArmDefaultCommand() {
-    return run(() -> m_targetAngle = ArmConstants.DEFAULT_ARM_POSITION);
+  public Command armDefaultCommand() {
+    return run(() -> m_targetAngle = DEFAULT_ARM_POSITION);
   }
 
   // move the arm a desired amount

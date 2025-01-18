@@ -77,16 +77,17 @@ public final class Constants {
     public static final int INTAKE_MOTOR_BEAMBREAK = 0;
     public static final int GRABBER_CURRENT_LIMIT = 20;
     public static final double INTAKE_MOTOR_VOLTAGE = 0.2;
-    
+
   }
 
   public static class WristConstants {
-    public static final int WRIST = 25;
-    public static final int WRIST_CURRENT_LIMIT = 15;
+    public static final int MOTOR_ID = 25;
+    public static final int CURRENT_LIMIT = 15;
     public static final double HARDSTOP_CURRENT_LIMIT = .3;
-    public static final double WRIST_VOLTAGE = 0.3;
-    public static final int WRIST_INTAKE_POS = 90;
-    public static final int WRIST_SCORING_POS = 0;
+    public static final double VOLTAGE = 0.3;
+    public static final int INTAKE_POS = 90;
+    public static final int SCORING_POS = 0;
+    public static final double RAMP_RATE = 0.25;
   }
 
   public static class ClimbConstants {
