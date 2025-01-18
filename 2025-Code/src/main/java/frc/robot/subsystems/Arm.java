@@ -20,10 +20,11 @@ import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.AbsoluteEncoder;
 
 import static frc.robot.Constants.ArmConstants.*;
+import static frc.robot.Constants.WristConstants.MOTOR_ID;
 
 public class Arm extends SubsystemBase {
 
-  private SparkFlex m_armMotor = new SparkFlex(ARM_MOTOR_ID, MotorType.kBrushless);
+  private SparkFlex m_armMotor = new SparkFlex(MOTOR_ID, MotorType.kBrushless);
   private SparkFlexConfig m_armMotorConfig = new SparkFlexConfig();
   private AbsoluteEncoder m_armEncoder;
   private SparkClosedLoopController m_armPidController;
