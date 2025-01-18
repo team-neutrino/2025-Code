@@ -16,4 +16,12 @@ public class ArmFactory {
     public static Command armToIntake() {
         return arm.ArmRotateCommand(ArmConstants.CORAL_STATION_ARM_POSITION);
     }
+
+    public static Command armToDescoreL2() {
+        return arm.ArmRotateCommand(ArmConstants.REEF_L2_DESCORE_POSITION);
+    }
+
+    public static Command armToDescoreL3() {
+        return arm.ArmRotateCommand(ArmConstants.REEF_L3_DESCORE_POSITION);
+    }
 }

@@ -16,11 +16,11 @@ public class ClawFactory {
         return claw.rotateWrist(ClawConstants.WRIST_SCORING_POS);
     }
 
-    public static Command runIntakeCoral() {
+    public static Command runIntake() {
         return claw.runIntake(ClawConstants.INTAKE_MOTOR_VOLTAGE);
     }
 
-    public static Command runOuttakeCoral() {
+    public static Command runOuttake() {
         return claw.runIntake(-ClawConstants.INTAKE_MOTOR_VOLTAGE);
     }
 }

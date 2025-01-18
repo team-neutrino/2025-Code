@@ -27,4 +27,12 @@ public class ElevatorFactory {
     public static Command moveToIntake() {
         return elevator.moveElevatorCommand(ElevatorConstants.CORAL_INTAKE);
     }
+
+    public static Command movetoRemoveAlgaeL2() {
+        return elevator.moveElevatorCommand(ElevatorConstants.REMOVE_ALGAE_L2);
+    }
+
+    public static Command movetoRemoveAlgaeL3() {
+        return elevator.moveElevatorCommand(ElevatorConstants.REMOVE_ALGAE_L3);
+    }
 }
