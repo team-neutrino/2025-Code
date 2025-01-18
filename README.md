@@ -14,17 +14,53 @@
 - [Rev](https://codedocs.revrobotics.com/java/com/revrobotics/package-summary.html)
 - [LimeLight](https://docs.limelightvision.io/docs/docs-limelight/apis/limelight-lib)
 
-## CAN IDs
+## Rio Bus CAN IDs
 | Subsystem | Motor          | CAN ID |
 | --------- | -------------- | ------ |
 | Elevator  |                | 01-09  |
 |           | height control | 01     |
+|           | height control | 02     |
 | Arm       |                | 10-19  |
+|           | angle control  | 10     |
 | Claw      |                | 20-29  |
+|           | left grabber   | 21     |
+|           | right grabber  | 22     |
+|           | wrist          | 25     |
+|           | color sensor   | 27     |
 | Climb     |                | 30-39  |
+|           | 0              | 30     |
+|           | 1              | 31     |
+|           | 2              | 32     |
+|           | 3              | 33     |
 
 ## DIO
-| Subsystem | Description          | Port |
+| Subsystem | Description          | Port   |
+| --------- | -------------------- | ------ |
 
 ## PWM
-| Subsystem | Description          | Port |
+| Subsystem | Description          | Port   |
+| --------- | -------------------- | ------ |
+
+## PDH
+| Port | Destination |
+| ---- | ----------- |
+| 0    | FLS         |
+| 1    | FRS         |
+| 2    | FLA         |
+| 3    | FRA         |
+| 4    |             |
+| 5    |             |
+| 6    |             |
+| 7    |             |
+| 8    |             |
+| 9    |             |
+| 10   |             |
+| 11   |             |
+| 12   |             |
+| 13   |             |
+| 14   |             |
+| 15   |             |
+| 16   | BLA         |
+| 17   | BRA         |
+| 18   | BLS         |
+| 19   | BRS         |
