@@ -58,9 +58,9 @@ public class Climb extends SubsystemBase {
 
   public Climb() {
     m_lockLimitSwitchConfig.forwardLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen);
-
-    configureMotors();
+    
     configurePID();
+    configureMotors();
 
     // m_climbMotorConfig.smartCurrentLimit(ClimbConstants.CLIMB_CURRENT_LIMIT);
     // m_climbMotorConfig.idleMode(IdleMode.kBrake);
@@ -107,7 +107,7 @@ public class Climb extends SubsystemBase {
     m_PIDConfig.kI = 0.0;
     m_PIDConfig.kD = 0.0;
     // subject to change
-    m_climbMotor.getConfigurator().apply(m_PIDConfig);
+    m_climbMotorConfig.Slot0 = m_PIDConfig;
   }
 
   private void lockClimb() {
