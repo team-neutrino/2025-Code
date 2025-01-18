@@ -6,9 +6,16 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.LimelightHelpers;
 import frc.robot.Constants.LimelightConstants;
+import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.SwerveConstants;
+import frc.robot.subsystems.Swerve;
+import frc.robot.util.Subsystem;
+import frc.robot.LimelightHelpers.PoseEstimate;
 
 public class Limelight extends SubsystemBase {
   LimelightHelpers m_limelightHelpers;
@@ -19,10 +26,12 @@ public class Limelight extends SubsystemBase {
   private double[] pose = new double[11];
   private double[] targetPose = new double[6];
   private double[] targetPose2 = new double[6];
+  boolean m_hasBeenConstructed = false;
+  CommandXboxController m_driverController;
 
   /** Creates a new ExampleSubsystem. */
   public Limelight() {
-    // m_swerve = Subsystem.swerve;
+    m_swerve = Subsystem.swerve;
     m_limelightHelpers = new LimelightHelpers();
     // fake pipeline number
     // LimelightHelpers.setPipelineIndex("limelight", 1);
@@ -45,6 +54,16 @@ public class Limelight extends SubsystemBase {
         LimelightConstants.CAMERA2_PITCH_OFFSET, // Pitch (degrees)
         LimelightConstants.CAMERA2_YAW_OFFSET // Yaw (degrees)
     );
+    m_driverController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
+
+    if (m_hasBeenConstructed) {
+      try {
+        throw new IllegalAccessException("Swerve subsystem was instantiated twice");
+      } catch (IllegalAccessException e) {
+        System.out.println("don't instantiate a subsystem twice!");
+      }
+    }
+    m_hasBeenConstructed = true;
   }
 
   // **get valid target from camera 1*/
@@ -141,6 +160,19 @@ public class Limelight extends SubsystemBase {
     // based on camera not robot
   }
 
+  public CommandXboxController getXboxController() {
+    return m_driverController;
+  }
+
+  public double offsetToOmega(double offsetAngle) {
+    offsetAngle /= 32; // maximum possible tx value is 29.8 in either direc
+
+    double scaler = SwerveConstants.MAX_ROTATION_SPEED * .5;
+
+    // Use power proportional to the offset angle
+    return offsetAngle * scaler;
+  }
+
   public void setPriorityID(int id) {
     LimelightHelpers.setPriorityTagID("limelight", id);
   }
@@ -159,8 +191,15 @@ public class Limelight extends SubsystemBase {
     LimelightHelpers.setPipelineIndex("limelight", id);
   }
 
-
-    });
+  /**
+   * An example method querying a boolean state of the subsystem (for example, a
+   * digital sensor).
+   *
+   * @return value of some boolean subsystem state, such as a digital sensor.
+   */
+  public boolean exampleCondition() {
+    // Query some boolean state, such as a digital sensor.
+    return false;
   }
 
   @Override

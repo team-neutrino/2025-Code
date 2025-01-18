@@ -97,6 +97,12 @@ public class Swerve extends CommandSwerveDrivetrain {
             .withRotationalRate(-controller.getRightX() * (MAX_ROTATION_SPEED / 2)));
   }
 
+  public Command driveForAutoAlign(CommandXboxController controller, double omega) {
+    return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(controller.getLeftY() * SwerveConstants.MAX_SPEED)
+        .withVelocityY(controller.getLeftX() * SwerveConstants.MAX_SPEED)
+        .withRotationalRate(omega * SwerveConstants.MAX_ROTATION_SPEED));
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
