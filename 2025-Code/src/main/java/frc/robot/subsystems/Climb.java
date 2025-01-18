@@ -45,7 +45,7 @@ public class Climb extends SubsystemBase {
   private SparkLimitSwitch m_lockLimitSwitch = m_lockClimbMotor.getForwardLimitSwitch();
   private LimitSwitchConfig m_lockLimitSwitchConfig = new LimitSwitchConfig();
 
-  private CANcoder m_encoder = new CANcoder(ClimbConstants.);
+  private CANcoder m_encoder = new CANcoder(ClimbConstants.CLIMB_ENCODER_ID, m_CANBus);
 
   private int m_targetAngle = 0;
 
