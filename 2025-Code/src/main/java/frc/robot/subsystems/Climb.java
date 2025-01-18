@@ -81,11 +81,12 @@ public class Climb extends SubsystemBase {
         .withSupplyCurrentLimitEnable(true)
         .withStatorCurrentLimit(ClimbConstants.CLIMB_CURRENT_LIMIT)
         .withStatorCurrentLimitEnable(true);
-
     m_climbMotorConfig.CurrentLimits = m_currentLimitConfig;
+
     m_climbMotor.setNeutralMode(NeutralModeValue.Brake);
     m_climbMotor.getConfigurator().apply(m_climbMotorConfig);
 
+    m_followMotor.setNeutralMode(NeutralModeValue.Brake);
     m_followMotor.getConfigurator().apply(m_followMotorConfig);
 
     m_lockClimbMotorConfig.smartCurrentLimit(ClimbConstants.LOCK_CURRENT_LIMIT);
