@@ -15,23 +15,26 @@
 - [LimeLight](https://docs.limelightvision.io/docs/docs-limelight/apis/limelight-lib)
 
 ## Rio Bus CAN IDs
-| Subsystem | Motor          | CAN ID |
-| --------- | -------------- | ------ |
-| Elevator  |                | 01-09  |
-|           | height control | 01     |
-|           | height control | 02     |
-| Arm       |                | 10-19  |
-|           | angle control  | 10     |
-| Claw      |                | 20-29  |
-|           | left grabber   | 21     |
-|           | right grabber  | 22     |
-|           | wrist          | 25     |
-|           | color sensor   | 27     |
-| Climb     |                | 30-39  |
-|           | 0              | 30     |
-|           | 1              | 31     |
-|           | 2              | 32     |
-|           | 3              | 33     |
+| Subsystem | Description    | CAN ID | Node Type        |
+| --------- | -------------- | ------ | ---------------- |
+| Robot     |                |        |                  |
+|           | RoboRIO        | 00     | RoboRIO          |
+|           | PDH            | 01     | PDH              |
+| Elevator  |                | 02-09  |                  |
+|           | height control | 02     | Spark Flex       |
+|           | height control | 03     | Spark Flex       |
+| Arm       |                | 10-19  |                  |
+|           | angle control  | 10     | Spark Flex       |
+| Claw      |                | 20-29  |                  |
+|           | left grabber   | 21     | Spark Max        |
+|           | right grabber  | 22     | Spark Max        |
+|           | wrist          | 25     | Spark Max        |
+|           | color sensor   | 27     | Canandcolor      |
+| Climb     |                | 30-39  |                  |
+|           | 0              | 30     | Talon Fx         |
+|           | 1              | 31     | Talon Fx         |
+|           | 2              | 32     | ?                |
+|           | 3              | 33     | ?                |
 
 ## DIO
 | Subsystem | Description          | Port   |
