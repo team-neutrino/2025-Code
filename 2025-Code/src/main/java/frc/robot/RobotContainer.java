@@ -41,6 +41,8 @@ public class RobotContainer {
     m_driverController.b().whileTrue(ElevatorFactory.moveL3());
     m_driverController.a().whileTrue(ElevatorFactory.moveL4());
 
+    m_driverController.leftBumper().whileTrue(SuperstructureFactory.autoAlign(m_driverController));
+
     m_driverController.leftBumper().whileTrue(ArmFactory.moveToL1());
     m_driverController.back().whileTrue(swerve.resetYawCommand());
     m_driverController.start().onTrue(new InstantCommand(() -> limelight.updateOdometry()));
