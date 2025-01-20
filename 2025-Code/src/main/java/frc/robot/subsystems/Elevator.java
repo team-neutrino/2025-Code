@@ -52,6 +52,7 @@ public class Elevator extends SubsystemBase {
 
     m_followerConfig.follow(MOTOR1_ID);
     m_followerConfig.apply(m_config);
+    m_followerConfig.inverted(true);
     m_motor2.configure(m_followerConfig, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
   }
@@ -69,11 +70,11 @@ public class Elevator extends SubsystemBase {
   }
 
   private boolean isLowPosition() {
-    return false;
+    return m_lowLimit.isPressed();
   }
 
   public boolean isHighPosition() {
-    return false;
+    return m_encoder.getPosition() > HIGH_POSITION;
   }
 
   private double safeHeight(double targetHeight) {
@@ -95,6 +96,9 @@ public class Elevator extends SubsystemBase {
   @Override
   public void periodic() {
     adjustElevator(safeHeight(m_target));
+    if (isLowPosition()) {
+      resetEncoder(LOW_POSITION);
+    }
   }
 
   @Override
