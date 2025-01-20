@@ -5,7 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
-import com.ctre.phoenix6.hardware.Pigeon2;
+import com.ctre.phoenix6.swerve.SwerveRequest.FieldCentricFacingAngle;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.ModuleConfig;
@@ -13,6 +13,7 @@ import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -66,12 +67,13 @@ public class Swerve extends CommandSwerveDrivetrain {
 
   /**
    * Returns the yaw of the robot, which is the rotation of the robot around the
-   * vertical axis, from -180 -> 180 as defined by the SWERVE, not pigeon.
+   * vertical axis. The value is between 0 and 360.
    * 
    * @return The yaw of the robot in degrees.
    */
   public double getYaw() {
-    return getCurrentPose().getRotation().getDegrees();
+    double ret = getPigeon2().getYaw().getValueAsDouble() % 360;
+    return ret *= Math.signum(ret);
   }
 
   /**
@@ -178,16 +180,38 @@ public class Swerve extends CommandSwerveDrivetrain {
   /**
    * Container for SwerveRequests to be used in building swerve commands.
    */
-  private class SwerveRequestStash {
+  public class SwerveRequestStash {
     public static final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
         .withDeadband(MAX_SPEED * 0.1)
         .withRotationalDeadband(MAX_ROTATION_SPEED * 0.06);
     public static final SwerveRequest.FieldCentric driveWithoutDeadband = new SwerveRequest.FieldCentric()
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
-    public static final SwerveRequest.FieldCentricFacingAngle autoAlign = new SwerveRequest.FieldCentricFacingAngle()
+    public static final SwerveRequest.FieldCentricFacingAngle autoAlign = new FieldCentricFacingAngle()
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
         .withDeadband(MAX_SPEED * 0.1);
+
+    /**
+     * Helper method that sets up the {@link #autoAlign} swerve request to be used
+     * in the super structure factory. This is needed because using an intermediary
+     * swerve factory is impossible; the fields of the swerve request must be
+     * modified in terms of {@link Limelight#getTv()} for the command to function as
+     * intended, so the super structure factory must directly modify the swerve
+     * request before turning it into a command via {@link Swerve#applyRequest}.
+     * <p>
+     * This method also formats the internal PID controller with
+     * {@link PIDController#enableContinuousInput} to turn the shortest
+     * distance to the target.
+     * 
+     * @param controller The driver controller.
+     * @return The {@link #autoAlign} swerve request formatted for use in the super
+     *         structure factory.
+     */
+    public static FieldCentricFacingAngle autoAlignBaseline(CommandXboxController controller) {
+      autoAlign.HeadingController.enableContinuousInput(180, -180);
+      return autoAlign.withVelocityX(controller.getLeftY() * MAX_SPEED)
+          .withVelocityY(controller.getLeftX() * MAX_SPEED);
+    }
   }
 
 }
