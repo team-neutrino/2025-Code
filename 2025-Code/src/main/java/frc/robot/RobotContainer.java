@@ -45,7 +45,7 @@ public class RobotContainer {
   private void configureDefaultCommands() {
     claw.setDefaultCommand(claw.clawDefaultCommand());
     wrist.setDefaultCommand(wrist.wristDefaultCommand());
-    arm.setDefaultCommand(arm.ArmDefaultCommand());
+    arm.setDefaultCommand(arm.armDefaultCommand());
     elevator.setDefaultCommand(elevator.elevatorDefaultCommand());
     LED.setDefaultCommand(LED.LEDefaultCommand());
     limelight.setDefaultCommand(limelight.limelightDefaultCommand());
