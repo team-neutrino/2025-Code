@@ -13,6 +13,6 @@ public class ClimbFactory {
 
     public static Command lowerArmCommand() {
         Climb climb = Subsystem.climb;
-        return climb.moveClimbArmCommand(ClimbConstants.ARM_DOWN_TICKS);
+        return climb.lowerClimbArmCommand(ClimbConstants.ARM_DOWN_TICKS);
     }
 }
