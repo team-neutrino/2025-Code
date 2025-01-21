@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -42,7 +43,8 @@ public class Climb extends SubsystemBase {
   private SparkLimitSwitch m_lockLimitSwitch = m_lockClimbMotor.getForwardLimitSwitch();
   private LimitSwitchConfig m_lockLimitSwitchConfig = new LimitSwitchConfig();
 
-  private int m_targetAngle = 0;
+  private Servo m_climbRatchet = new Servo(ClimbConstants.CLIMB_RATCHET_PORT);
+  private Servo m_lockRatchet = new Servo(ClimbConstants.LOCK_RATCHET_PORT);
 
   // private CANcoder m_encoder = new CANcoder(ClimbConstants.CLIMB_ENCODER_ID,
   // m_CANBus);
@@ -124,6 +126,27 @@ public class Climb extends SubsystemBase {
     PositionVoltage positionControl = new PositionVoltage(ticks);
     m_climbMotor.setControl(positionControl);
   }
+
+  public void engageLockRatchet() {
+    m_lockRatchet.set(0);
+    // subject to change
+  }
+
+  public void engageClimbRatchet() {
+    m_climbRatchet.set(0);
+    // subject to change
+  }
+
+  public void disengageLockRatchet() {
+    m_lockRatchet.set(1);
+    // subject to change
+  }
+
+  public void disengageClimbRatchet() {
+    m_climbRatchet.set(1);
+    // subject to change
+  }
+
   // private void setArmAngle(int angle) {
   // // m_climbPID.setReference(angle, ControlType.kPosition,
   // ClosedLoopSlot.kSlot0,
@@ -135,11 +158,21 @@ public class Climb extends SubsystemBase {
   // }
 
   public Command lockCommand() {
-    return new RunCommand(() -> lockClimb(), this);
+    return new RunCommand(() -> {
+      lockClimb();
+      engageLockRatchet();
+    }, this);
   }
 
-  public Command moveClimbArmCommand(double ticks) {
+  public Command raiseClimbArmCommand(double ticks) {
     return new RunCommand(() -> runMotorByTicks(ticks), this);
+  }
+
+  public Command lowerClimbArmCommand(double ticks) {
+    return new RunCommand(() -> {
+      runMotorByTicks(ticks);
+      engageClimbRatchet();
+    }, this);
   }
 
   @Override

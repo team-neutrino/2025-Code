@@ -132,6 +132,9 @@ public final class Constants {
 
     public static final double ARM_UP_TICKS = 1024;
     public static final double ARM_DOWN_TICKS = -1024;
+
+    public static final int CLIMB_RATCHET_PORT = 0;
+    public static final int LOCK_RATCHET_PORT = 1;
   }
 
   public static class LimelightConstants {

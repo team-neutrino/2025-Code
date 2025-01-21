@@ -8,7 +8,7 @@ import frc.robot.util.Subsystem;
 public class ClimbFactory {
     public static Command raiseArmCommand() {
         Climb climb = Subsystem.climb;
-        return climb.moveClimbArmCommand(ClimbConstants.ARM_UP_TICKS);
+        return climb.raiseClimbArmCommand(ClimbConstants.ARM_UP_TICKS);
     }
 
     public static Command lowerArmCommand() {
