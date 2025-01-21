@@ -44,8 +44,8 @@ public class Arm extends SubsystemBase {
     m_armPidController = m_armMotor.getClosedLoopController();
     m_armMotorConfig.idleMode(IdleMode.kBrake);
 
-    m_armMotorConfig.encoder
-        .positionConversionFactor(1)
+    m_armMotorConfig.absoluteEncoder
+        .positionConversionFactor(360)
         .velocityConversionFactor(1);
 
     m_armMotorConfig.signals.absoluteEncoderPositionPeriodMs(5);
@@ -68,7 +68,6 @@ public class Arm extends SubsystemBase {
   }
 
   public void updateArmAngle() {
-    System.out.println(m_targetAngle);
     m_armPidController.setReference(m_targetAngle,
         SparkBase.ControlType.kPosition, ClosedLoopSlot.kSlot0);
   }
