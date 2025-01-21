@@ -50,7 +50,12 @@ public class Climb extends SubsystemBase {
     m_lockLimitSwitchConfig.forwardLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen);
 
     configureMotors();
-
+    
+    setDefaultCommand(new RunCommand(() -> {
+      disengageClimbRatchet();
+      disengageLockRatchet();
+      runMotorByTicks(ClimbConstants.ARM_DOWN_TICKS);
+    }, this));
   }
 
   private void configureMotors() {
