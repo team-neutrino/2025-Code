@@ -129,6 +129,9 @@ public final class Constants {
     public static final int CLIMB_ANGLE = 30;
     public static final int CLIMB_DOWN_ANGLE = 10;
     // subject to change
+
+    public static final double ARM_UP_TICKS = 1024;
+    public static final double ARM_DOWN_TICKS = -1024;
   }
 
   public static class LimelightConstants {

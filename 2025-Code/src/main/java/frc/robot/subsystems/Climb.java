@@ -13,6 +13,7 @@ import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.spark.SparkBase.PersistMode;
@@ -31,7 +32,6 @@ public class Climb extends SubsystemBase {
   private TalonFX m_followMotor = new TalonFX(ClimbConstants.CLIMB_MOTOR_ID2);
   private TalonFXConfiguration m_climbMotorConfig = new TalonFXConfiguration();
   private TalonFXConfiguration m_followMotorConfig = new TalonFXConfiguration();
-  private Slot0Configs m_PIDConfig = new Slot0Configs();
 
   private final CurrentLimitsConfigs m_currentLimitConfig = new CurrentLimitsConfigs();
   private Follower m_followRequest = new Follower(ClimbConstants.CLIMB_MOTOR_ID, true);
@@ -42,10 +42,10 @@ public class Climb extends SubsystemBase {
   private SparkLimitSwitch m_lockLimitSwitch = m_lockClimbMotor.getForwardLimitSwitch();
   private LimitSwitchConfig m_lockLimitSwitchConfig = new LimitSwitchConfig();
 
+  private int m_targetAngle = 0;
+
   // private CANcoder m_encoder = new CANcoder(ClimbConstants.CLIMB_ENCODER_ID,
   // m_CANBus);
-
-  private int m_targetAngle = 0;
 
   // private SparkFlex m_climbMotor = new
   // SparkFlex(ClimbConstants.CLIMB_MOTOR_ID, MotorType.kBrushless);
@@ -61,7 +61,6 @@ public class Climb extends SubsystemBase {
   public Climb() {
     m_lockLimitSwitchConfig.forwardLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen);
 
-    configurePID();
     configureMotors();
 
     // m_climbMotorConfig.smartCurrentLimit(ClimbConstants.CLIMB_CURRENT_LIMIT);
@@ -92,6 +91,7 @@ public class Climb extends SubsystemBase {
 
     m_climbMotor.setNeutralMode(NeutralModeValue.Brake);
     m_climbMotor.getConfigurator().apply(m_climbMotorConfig);
+    m_climbMotor.getConfigurator().setPosition(0);
 
     m_followMotor.setNeutralMode(NeutralModeValue.Brake);
     m_followMotor.getConfigurator().apply(m_followMotorConfig);
@@ -104,13 +104,13 @@ public class Climb extends SubsystemBase {
 
   }
 
-  private void configurePID() {
-    m_PIDConfig.kP = 1.0;
-    m_PIDConfig.kI = 0.0;
-    m_PIDConfig.kD = 0.0;
-    // subject to change
-    m_climbMotorConfig.Slot0 = m_PIDConfig;
-  }
+  // private void configurePID() {
+  // m_PIDConfig.kP = 1.0;
+  // m_PIDConfig.kI = 0.0;
+  // m_PIDConfig.kD = 0.0;
+  // // subject to change
+  // m_climbMotorConfig.Slot0 = m_PIDConfig;
+  // }
 
   private void lockClimb() {
     if (!m_lockLimitSwitch.isPressed()) {
@@ -120,30 +120,30 @@ public class Climb extends SubsystemBase {
     }
   }
 
-  private void setArmAngle(int angle) {
-    // m_climbPID.setReference(angle, ControlType.kPosition, ClosedLoopSlot.kSlot0,
-    // feedForwardCalculation());
+  public void runMotorByTicks(double ticks) {
+    PositionVoltage positionControl = new PositionVoltage(ticks);
+    m_climbMotor.setControl(positionControl);
   }
+  // private void setArmAngle(int angle) {
+  // // m_climbPID.setReference(angle, ControlType.kPosition,
+  // ClosedLoopSlot.kSlot0,
+  // // feedForwardCalculation());
+  // }
 
-  private double feedForwardCalculation() {
-    return 0.0;
-    // subject to change
-  }
-
-  private void moveClimbArm(int angle) {
-    m_targetAngle = angle;
-  }
+  // private void moveClimbArm(int angle) {
+  // m_targetAngle = angle;
+  // }
 
   public Command lockCommand() {
     return new RunCommand(() -> lockClimb(), this);
   }
 
-  public Command moveClimbArmCommand(int angle) {
-    return new RunCommand(() -> moveClimbArm(angle), this);
+  public Command moveClimbArmCommand(double ticks) {
+    return new RunCommand(() -> runMotorByTicks(ticks), this);
   }
 
   @Override
   public void periodic() {
-    setArmAngle(m_targetAngle);
+    // setArmAngle(m_targetAngle);
   }
 }

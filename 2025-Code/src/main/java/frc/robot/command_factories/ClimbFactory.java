@@ -8,11 +8,11 @@ import frc.robot.util.Subsystem;
 public class ClimbFactory {
     public static Command raiseArmCommand() {
         Climb climb = Subsystem.climb;
-        return climb.moveClimbArmCommand(ClimbConstants.CLIMB_ANGLE);
+        return climb.moveClimbArmCommand(ClimbConstants.ARM_UP_TICKS);
     }
 
     public static Command lowerArmCommand() {
         Climb climb = Subsystem.climb;
-        return climb.moveClimbArmCommand(ClimbConstants.CLIMB_DOWN_ANGLE);
+        return climb.moveClimbArmCommand(ClimbConstants.ARM_DOWN_TICKS);
     }
 }
