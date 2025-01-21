@@ -20,7 +20,6 @@ import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.AbsoluteEncoder;
 
 import static frc.robot.Constants.ArmConstants.*;
-import static frc.robot.Constants.WristConstants.MOTOR_ID;
 
 public class Arm extends SubsystemBase {
 

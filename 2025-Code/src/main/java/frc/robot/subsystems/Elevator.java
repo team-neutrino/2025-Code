@@ -7,12 +7,12 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLimitSwitch;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.SparkRelativeEncoder;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
@@ -28,8 +28,8 @@ public class Elevator extends SubsystemBase {
   private SparkFlex m_motor1 = new SparkFlex(MOTOR1_ID, MotorType.kBrushless);
   private SparkFlex m_motor2 = new SparkFlex(MOTOR2_ID,
       MotorType.kBrushless);
-  private SparkRelativeEncoder m_encoder;
-  private SparkLimitSwitch m_lowLimit;
+  private RelativeEncoder m_encoder = m_motor1.getEncoder();
+  private SparkLimitSwitch m_lowLimit = m_motor1.getForwardLimitSwitch();
   private SparkClosedLoopController m_pid = m_motor1.getClosedLoopController();
   private SparkFlexConfig m_config = new SparkFlexConfig();
   private SparkFlexConfig m_followerConfig = new SparkFlexConfig();
@@ -62,7 +62,12 @@ public class Elevator extends SubsystemBase {
   }
 
   private double feedForwardCalculation() {
-    return 0.0;
+    // if (m_encoder.getPosition() <= STAGE_1_LENGTH) {
+    // return 9.8 * (ARM_AND_SCORING_MASS + STAGE_1_MASS + STAGE_2_MASS);
+    // } else {
+    // return 9.8 * (ARM_AND_SCORING_MASS + STAGE_2_MASS);
+    // }
+    return 0;
   }
 
   private void resetEncoder(double position) {
@@ -95,6 +100,8 @@ public class Elevator extends SubsystemBase {
 
   @Override
   public void periodic() {
+    System.out.println("position" + m_encoder.getPosition());
+    System.out.println("target:" + m_target);
     adjustElevator(safeHeight(m_target));
     if (isLowPosition()) {
       resetEncoder(LOW_POSITION);

@@ -48,9 +48,13 @@ public final class Constants {
     public static final double L1_TO_L2 = 13.84;
     public static final double L2_TO_L3 = 15.87;
     public static final double L3_TO_L4 = 24.28;
+    public static final double STAGE_1_MASS = 3.5;
+    public static final double STAGE_2_MASS = 1;
+    public static final double ARM_AND_SCORING_MASS = 2;
   }
 
   public static class ArmConstants {
+    public static final int MOTOR_ID = 10;
     public static final double DEFAULT_ARM_POSITION = 0.0;
     public static final double GROUND_ALGAE_ARM_POSITION = 0.0;
     public static final double CORAL_STATION_ARM_POSITION = 0.0;
