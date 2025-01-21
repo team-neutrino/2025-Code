@@ -20,7 +20,6 @@ import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.AbsoluteEncoder;
 
 import static frc.robot.Constants.ArmConstants.*;
-import frc.robot.command_factories.ArmFactory;
 
 public class Arm extends SubsystemBase {
 
