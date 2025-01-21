@@ -31,25 +31,25 @@ public class SuperstructureFactory {
     public static Command scoreCoralL1Command() {
         return new ParallelCommandGroup(
                 ElevatorFactory.moveL1(),
-                ArmFactory.armToScore(ArmConstants.L1_ARM_POSITION));
+                ArmFactory.armToScore(ArmConstants.L1_POSITION));
     }
 
     public static Command scoreCoralL2Command() {
         return new ParallelCommandGroup(
                 ElevatorFactory.moveL2(),
-                ArmFactory.armToScore(ArmConstants.L2_ARM_POSITION));
+                ArmFactory.armToScore(ArmConstants.L2_POSITION));
     }
 
     public static Command scoreCoralL3Command() {
         return new ParallelCommandGroup(
                 ElevatorFactory.moveL3(),
-                ArmFactory.armToScore(ArmConstants.L3_ARM_POSITION));
+                ArmFactory.armToScore(ArmConstants.L3_POSITION));
     }
 
     public static Command scoreCoralL4Command() {
         return new ParallelCommandGroup(
                 ElevatorFactory.moveL4(),
-                ArmFactory.armToScore(ArmConstants.L4_ARM_POSITION));
+                ArmFactory.armToScore(ArmConstants.L4_POSITION));
     }
 
 }

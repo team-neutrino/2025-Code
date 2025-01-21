@@ -27,6 +27,7 @@ public class Arm extends SubsystemBase {
   private SparkFlexConfig m_armMotorConfig = new SparkFlexConfig();
   private AbsoluteEncoder m_armEncoder;
   private SparkClosedLoopController m_armPidController;
+
   private double m_targetAngle = 0;
 
   public Arm() {
@@ -43,17 +44,17 @@ public class Arm extends SubsystemBase {
     m_armPidController = m_armMotor.getClosedLoopController();
     m_armMotorConfig.idleMode(IdleMode.kBrake);
 
-    m_armMotorConfig.encoder
-        .positionConversionFactor(1)
+    m_armMotorConfig.absoluteEncoder
+        .positionConversionFactor(360)
         .velocityConversionFactor(1);
 
     m_armMotorConfig.signals.absoluteEncoderPositionPeriodMs(5);
 
-    m_armMotorConfig.smartCurrentLimit(ARM_CURRENT_LIMIT);
+    m_armMotorConfig.smartCurrentLimit(CURRENT_LIMIT);
 
     m_armMotorConfig.closedLoop
         .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
-        .pid(Arm_kp, Arm_ki, Arm_kd, ClosedLoopSlot.kSlot0);
+        .pid(kp, ki, kd, ClosedLoopSlot.kSlot0);
     m_armPidController = m_armMotor.getClosedLoopController();
 
     m_armMotor.configure(m_armMotorConfig,
@@ -77,11 +78,11 @@ public class Arm extends SubsystemBase {
   }
 
   public Command armDefaultCommand() {
-    return run(() -> m_targetAngle = DEFAULT_ARM_POSITION);
+    return run(() -> m_targetAngle = DEFAULT_POSITION);
   }
 
   // move the arm a desired amount
-  public Command ArmRotateCommand(double targetAngle) {
+  public Command armRotateCommand(double targetAngle) {
     return run(() -> m_targetAngle = targetAngle);
   }
 
