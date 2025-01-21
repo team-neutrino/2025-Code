@@ -34,6 +34,6 @@ public class ArmFactory {
     }
 
     public static Command armToScore(double level) {
-        return arm.ArmRotateCommand(level);
+        return arm.armRotateCommand(level);
     }
 }
