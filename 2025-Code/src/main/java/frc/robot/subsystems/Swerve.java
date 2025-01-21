@@ -205,8 +205,8 @@ public class Swerve extends CommandSwerveDrivetrain {
      */
     public static FieldCentricFacingAngle autoAlignBaseline(CommandXboxController controller) {
       autoAlign.HeadingController.enableContinuousInput(180, -180);
-      return autoAlign.withVelocityX(controller.getLeftY() * MAX_SPEED)
-          .withVelocityY(controller.getLeftX() * MAX_SPEED);
+      return autoAlign.withVelocityX(-controller.getLeftY() * MAX_SPEED)
+          .withVelocityY(-controller.getLeftX() * MAX_SPEED);
     }
   }
 }
