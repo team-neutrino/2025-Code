@@ -62,6 +62,7 @@ public class Elevator extends SubsystemBase {
   }
 
   private double feedForwardCalculation() {
+    // uncomment once we have robot
     // if (m_encoder.getPosition() <= STAGE_1_LENGTH) {
     // return 9.8 * (ARM_AND_SCORING_MASS + STAGE_1_MASS + STAGE_2_MASS);
     // } else {
