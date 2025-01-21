@@ -30,18 +30,31 @@ public final class Constants {
     public static final int MOTOR1_ID = 2;
     public static final int MOTOR2_ID = 3;
     public static final double LOW_POSITION = 0.0;
-    public static final double HIGH_POSITION = 1.0;
+    public static final double HIGH_POSITION = 55.0;
     public static final double ALGAE_INTAKE = 0.0;
     public static final double CORAL_INTAKE = 0.0;
-    public static final double L1 = 1.0;
-    public static final double L2 = 2.0;
-    public static final double L3 = 3.0;
-    public static final double L4 = 4.0;
     public static final double REMOVE_ALGAE_L2 = 0.0;
     public static final double REMOVE_ALGAE_L3 = 0.0;
+    public static final double L1 = 6.0; // placeholder
+    public static final double L2 = 18.0; // placeholder
+    public static final double L3 = 30.0; // placeholder
+    public static final double L4 = 54.0; // placeholder
+    public static final double ARM_WILL_NOT_HIT_BASE_HEIGHT = 1.0; // placeholder
+    public static final double STAGE_1_LENGTH = 29; // inches
+    public static final double STAGE_2_LENGTH = 26; // inches
+    public static final double GEAR_RATIO = 50 / 7; // 7.41:1
+    public static final double FLOOR_TO_ELEVATOR_TOP = 70.88;
+    public static final double FLOOR_TO_TOP_OF_BOTTOM_TUBE = 11.88;
+    public static final double L1_TO_L2 = 13.84;
+    public static final double L2_TO_L3 = 15.87;
+    public static final double L3_TO_L4 = 24.28;
+    public static final double STAGE_1_MASS = 3.5;
+    public static final double STAGE_2_MASS = 1;
+    public static final double ARM_AND_SCORING_MASS = 2;
   }
 
   public static class ArmConstants {
+    public static final int MOTOR_ID = 10;
     public static final double DEFAULT_ARM_POSITION = 0.0;
     public static final double GROUND_ALGAE_ARM_POSITION = 0.0;
     public static final double CORAL_STATION_ARM_POSITION = 0.0;
@@ -56,8 +69,6 @@ public final class Constants {
     public static final double HITTING_RIGHT_TOP_ELEVATOR_ARM_POSITION = 0.0;
     public static final double HITTING_LEFT_BASE_ARM_POSITION = 0.0;
     public static final double HITTING_RIGHT_BASE_ARM_POSITION = 0.0;
-
-    public static final int ARM_MOTOR_ID = 10;
 
     public static final double ARM_ENCODER_ZERO_OFFSET = 0;
     public static final int ARM_CURRENT_LIMIT = 20;

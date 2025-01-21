@@ -23,7 +23,7 @@ import static frc.robot.Constants.ArmConstants.*;
 
 public class Arm extends SubsystemBase {
 
-  private SparkFlex m_armMotor = new SparkFlex(ARM_MOTOR_ID, MotorType.kBrushless);
+  private SparkFlex m_armMotor = new SparkFlex(MOTOR_ID, MotorType.kBrushless);
   private SparkFlexConfig m_armMotorConfig = new SparkFlexConfig();
   private AbsoluteEncoder m_armEncoder;
   private SparkClosedLoopController m_armPidController;
