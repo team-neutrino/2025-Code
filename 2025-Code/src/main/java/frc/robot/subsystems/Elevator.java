@@ -19,7 +19,6 @@ import com.revrobotics.spark.config.SparkFlexConfig;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ElevatorConstants;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.Constants.ElevatorConstants.*;
@@ -85,8 +84,8 @@ public class Elevator extends SubsystemBase {
 
   private double safeHeight(double targetHeight) {
     double safeTarget = targetHeight;
-    if (!Subsystem.arm.isArmInLimit() && targetHeight < ElevatorConstants.ARM_WILL_NOT_HIT_BASE_HEIGHT) {
-      safeTarget = ElevatorConstants.ARM_WILL_NOT_HIT_BASE_HEIGHT;
+    if (!Subsystem.arm.isArmInLimit() && targetHeight < ARM_WILL_NOT_HIT_BASE_HEIGHT) {
+      safeTarget = ARM_WILL_NOT_HIT_BASE_HEIGHT;
     }
     return safeTarget;
   }
