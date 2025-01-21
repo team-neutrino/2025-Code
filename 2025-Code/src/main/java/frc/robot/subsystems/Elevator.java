@@ -101,8 +101,6 @@ public class Elevator extends SubsystemBase {
 
   @Override
   public void periodic() {
-    System.out.println("position" + m_encoder.getPosition());
-    System.out.println("target:" + m_target);
     adjustElevator(safeHeight(m_target));
     if (isLowPosition()) {
       resetEncoder(LOW_POSITION);
