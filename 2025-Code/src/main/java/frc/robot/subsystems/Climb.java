@@ -6,9 +6,9 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimbConstants;
+import frc.robot.util.Subsystem;
 
 import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
@@ -51,11 +51,12 @@ public class Climb extends SubsystemBase {
 
     configureMotors();
     
-    setDefaultCommand(new RunCommand(() -> {
-      disengageClimbRatchet();
-      disengageLockRatchet();
-      runMotorByTicks(ClimbConstants.ARM_DOWN_TICKS);
-    }, this));
+    // setDefaultCommand(run(() -> {
+    //   disengageClimbRatchet();
+    //   disengageLockRatchet();
+    //   runMotorByTicks(ClimbConstants.ARM_DOWN_TICKS);
+    //   engageClimbRatchet();
+    // }));
   }
 
   private void configureMotors() {
@@ -114,14 +115,23 @@ public class Climb extends SubsystemBase {
   }
 
   public Command raiseClimbArmCommand(double ticks) {
-    return new RunCommand(() -> runMotorByTicks(ticks), this);
+    return run(() -> {
+    runMotorByTicks(ticks);
+  });
   }
 
   public Command lowerClimbArmCommand(double ticks) {
-    return new RunCommand(() -> {
+    return run(() -> {
       runMotorByTicks(ticks);
       engageClimbRatchet();
-    }, this);
+    });
+  }
+
+  public Command lockCommand() {
+    return run(() -> {
+      lockClimb(); 
+      engageLockRatchet();
+    });
   }
 
   @Override
