@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimbConstants;
-import frc.robot.util.Subsystem;
 
 import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
@@ -16,6 +15,7 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -23,7 +23,6 @@ import com.revrobotics.spark.SparkLimitSwitch;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-import com.revrobotics.spark.config.LimitSwitchConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 public class Climb extends SubsystemBase {
@@ -41,13 +40,11 @@ public class Climb extends SubsystemBase {
   private SparkMaxConfig m_lockClimbMotorConfig = new SparkMaxConfig();
 
   private SparkLimitSwitch m_lockLimitSwitch = m_lockClimbMotor.getForwardLimitSwitch();
-  private LimitSwitchConfig m_lockLimitSwitchConfig = new LimitSwitchConfig();
 
   private Servo m_climbRatchet = new Servo(ClimbConstants.CLIMB_RATCHET_PORT);
   private Servo m_lockRatchet = new Servo(ClimbConstants.LOCK_RATCHET_PORT);
 
-  public Climb() {
-    m_lockLimitSwitchConfig.forwardLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen);
+  public Climb() { 
 
     configureMotors();
     
@@ -65,6 +62,7 @@ public class Climb extends SubsystemBase {
         .withStatorCurrentLimit(ClimbConstants.CLIMB_CURRENT_LIMIT)
         .withStatorCurrentLimitEnable(true);
     m_climbMotorConfig.CurrentLimits = m_currentLimitConfig;
+    m_climbMotorConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
 
     m_climbMotor.setNeutralMode(NeutralModeValue.Brake);
     m_climbMotor.getConfigurator().apply(m_climbMotorConfig);
@@ -78,13 +76,13 @@ public class Climb extends SubsystemBase {
     m_lockClimbMotorConfig.idleMode(IdleMode.kCoast);
 
     m_lockClimbMotor.configure(m_lockClimbMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-
   }
 
   public void lockClimb() {
     if (!m_lockLimitSwitch.isPressed()) {
       m_lockClimbMotor.set(ClimbConstants.LOCK_SPEED);
-    } else {
+    } 
+    else {
       m_lockClimbMotor.stopMotor();
     }
   }
@@ -116,8 +114,8 @@ public class Climb extends SubsystemBase {
 
   public Command raiseClimbArmCommand(double ticks) {
     return run(() -> {
-    runMotorByTicks(ticks);
-  });
+      runMotorByTicks(ticks);
+    });
   }
 
   public Command lowerClimbArmCommand(double ticks) {

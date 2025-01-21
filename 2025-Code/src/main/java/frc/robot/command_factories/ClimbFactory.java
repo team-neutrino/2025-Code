@@ -15,4 +15,9 @@ public class ClimbFactory {
         Climb climb = Subsystem.climb;
         return climb.lowerClimbArmCommand(ClimbConstants.ARM_DOWN_TICKS);
     }
+
+    public static Command lockCommand() {
+        Climb climb = Subsystem.climb;
+        return climb.lockCommand();
+    }
 }
