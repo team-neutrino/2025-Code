@@ -75,7 +75,7 @@ public class Climb extends SubsystemBase {
 
   }
 
-  private void lockClimb() {
+  public void lockClimb() {
     if (!m_lockLimitSwitch.isPressed()) {
       m_lockClimbMotor.set(ClimbConstants.LOCK_SPEED);
     } else {
@@ -83,7 +83,7 @@ public class Climb extends SubsystemBase {
     }
   }
 
-  public void runMotorByTicks(double ticks) {
+  private void runMotorByTicks(double ticks) {
     PositionVoltage positionControl = new PositionVoltage(ticks);
     m_climbMotor.setControl(positionControl);
   }
@@ -106,13 +106,6 @@ public class Climb extends SubsystemBase {
   public void disengageClimbRatchet() {
     m_climbRatchet.set(1);
     // subject to change
-  }
-
-  public Command lockCommand() {
-    return new RunCommand(() -> {
-      lockClimb();
-      engageLockRatchet();
-    }, this);
   }
 
   public Command raiseClimbArmCommand(double ticks) {
