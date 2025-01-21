@@ -21,7 +21,7 @@ public class LED extends SubsystemBase {
 
   public LED() {
     color_pub = color_topic.publish();
-    color_pub.setDefault("orange");
+
   }
 
   private boolean slowDown(int rate) {
@@ -29,10 +29,12 @@ public class LED extends SubsystemBase {
     return m_counter2 % rate == 0;
   }
 
-  public Command LEDefaultCommand() {
-    return run(() -> {
+  // public Command LEDefaultCommand() {
+  // return run(() -> color_pub.setDefault("orange"));
+  // }
 
-    });
+  public Command LEDCommand() {
+    return run(() -> color_pub.set("blue"));
   }
 
   @Override
