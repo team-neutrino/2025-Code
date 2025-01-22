@@ -80,6 +80,10 @@ public final class Constants {
 
     public static final double ENCODER_ZERO_OFFSET = 0;
     public static final int CURRENT_LIMIT = 20;
+    
+    public static final double MAX_VELOCITY = 4000;
+    public static final double MAX_ACCELERATION = 1000;
+    public static final double ALLOWED_ERROR = 0.1;
 
     public static final double kp = 0.05;
     public static final double ki = 0;

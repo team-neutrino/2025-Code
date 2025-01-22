@@ -57,6 +57,11 @@ public class Arm extends SubsystemBase {
         .pid(kp, ki, kd, ClosedLoopSlot.kSlot0);
     m_armPidController = m_armMotor.getClosedLoopController();
 
+    m_armMotorConfig.closedLoop.maxMotion
+        .maxVelocity(MAX_VELOCITY)
+        .maxAcceleration(MAX_ACCELERATION)
+        .allowedClosedLoopError(ALLOWED_ERROR);
+
     m_armMotor.configure(m_armMotorConfig,
         ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
