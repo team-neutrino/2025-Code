@@ -13,5 +13,7 @@ public class ArmTest {
         var armDefault = armSubsystem.getArmPosition();
         System.out.println("armDefault " + armDefault);
 
+        assertEquals(11, 5+5);
+
     }
 }
