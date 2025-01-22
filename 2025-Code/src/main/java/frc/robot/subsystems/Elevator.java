@@ -79,7 +79,19 @@ public class Elevator extends SubsystemBase {
     m_encoder.setPosition(position);
   }
 
-  private boolean isLowPosition() {
+  public double getEncoderPosition() {
+    return m_encoder.getPosition();
+  }
+
+  public double getTargetPosition() {
+    return m_target;
+  }
+
+  public double getInputVoltage() {
+    return m_motor1.getBusVoltage();
+  }
+
+  public boolean isLowPosition() {
     return m_lowLimit.isPressed();
   }
 
