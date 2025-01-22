@@ -135,6 +135,7 @@ public final class Constants {
 
     public static final int CLIMB_RATCHET_PORT = 0;
     public static final int LOCK_RATCHET_PORT = 1;
+    // subject to change
   }
 
   public static class LimelightConstants {

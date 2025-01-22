@@ -44,16 +44,8 @@ public class Climb extends SubsystemBase {
   private Servo m_climbRatchet = new Servo(ClimbConstants.CLIMB_RATCHET_PORT);
   private Servo m_lockRatchet = new Servo(ClimbConstants.LOCK_RATCHET_PORT);
 
-  public Climb() { 
-
+  public Climb() {
     configureMotors();
-    
-    // setDefaultCommand(run(() -> {
-    //   disengageClimbRatchet();
-    //   disengageLockRatchet();
-    //   runMotorByTicks(ClimbConstants.ARM_DOWN_TICKS);
-    //   engageClimbRatchet();
-    // }));
   }
 
   private void configureMotors() {
@@ -81,8 +73,7 @@ public class Climb extends SubsystemBase {
   public void lockClimb() {
     if (!m_lockLimitSwitch.isPressed()) {
       m_lockClimbMotor.set(ClimbConstants.LOCK_SPEED);
-    } 
-    else {
+    } else {
       m_lockClimbMotor.stopMotor();
     }
   }
@@ -127,7 +118,7 @@ public class Climb extends SubsystemBase {
 
   public Command lockCommand() {
     return run(() -> {
-      lockClimb(); 
+      lockClimb();
       engageLockRatchet();
     });
   }
