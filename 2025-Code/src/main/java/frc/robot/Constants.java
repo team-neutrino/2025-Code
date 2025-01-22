@@ -161,15 +161,24 @@ public final class Constants {
       public static final int SOURCE = 1;
       public static final int SOURCE_PROCESSOR_SIDE = 2;
       public static final int PROCESSSOR = 3;
+      public static final int REEF_FACING_SOURCE = 6;
       public static final int REEF_FACING_ALLIANCE = 7;
-
+      public static final int REEF_FACING_SOURCE_PROCESSOR_SIDE = 8;
+      public static final int REEF_FACING_PROCESSOR = 9;
+      public static final int REEF_FACING_BARGE = 10;
+      public static final int REEF_FACING_CAGES = 11;
     }
 
     public final class BLUE_ALLIANCE_IDS {
       public static final int SOURCE = 13;
       public static final int SOURCE_PROCESSOR_SIDE = 12;
       public static final int PROCESSSOR = 16;
+      public static final int REEF_FACING_SOURCE = 19;
       public static final int REEF_FACING_ALLIANCE = 18;
+      public static final int REEF_FACING_SOURCE_PROCESSOR_SIDE = 17;
+      public static final int REEF_FACING_PROCESSOR = 22;
+      public static final int REEF_FACING_BARGE = 21;
+      public static final int REEF_FACING_CAGES = 20;
     }
 
   }
