@@ -70,7 +70,6 @@ public class SuperstructureFactory {
         return new ParallelCommandGroup(ElevatorFactory.moveL3(), ArmFactory.moveToL3());
     }
 
-     * @param driverController The DRIVER controller
     /**
      * Give this method the DRIVER controller.
      * 
