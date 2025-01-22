@@ -24,7 +24,7 @@ import frc.robot.util.Subsystem;
 
 import static frc.robot.Constants.ElevatorConstants.*;
 
-public class Elevator extends SubsystemBase {
+public class Elevator extends SubsystemBase implements AutoCloseable {
   private SparkFlex m_motor1 = new SparkFlex(MOTOR1_ID, MotorType.kBrushless);
   private SparkFlex m_motor2 = new SparkFlex(MOTOR2_ID,
       MotorType.kBrushless);
@@ -59,6 +59,12 @@ public class Elevator extends SubsystemBase {
     m_followerConfig.inverted(true);
     m_motor2.configure(m_followerConfig, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
+  }
+
+  @Override
+  public void close() {
+    m_motor2.close();
+    m_motor1.close();
   }
 
   private void adjustElevator(double target) {

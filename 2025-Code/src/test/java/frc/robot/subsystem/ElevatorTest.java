@@ -23,6 +23,7 @@ public class ElevatorTest {
     @SuppressWarnings("PMD.SignatureDeclareThrowsException")
     @AfterEach
     void shutdown() throws Exception {
+        elevatorSubsystem.close();
     }
 
     @Test
