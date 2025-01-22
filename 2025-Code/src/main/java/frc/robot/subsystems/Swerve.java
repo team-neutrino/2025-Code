@@ -11,7 +11,6 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import static frc.robot.Constants.SwerveConstants.*;
-import frc.robot.Constants.SwerveConstants;
 import frc.robot.util.GeneratedSwerveCode.CommandSwerveDrivetrain;
 import frc.robot.util.GeneratedSwerveCode.TunerConstants;
 
@@ -109,7 +108,7 @@ public class Swerve extends CommandSwerveDrivetrain {
   private class SwerveRequestStash {
     public static final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
-        .withDeadband(SwerveConstants.MAX_SPEED * 0.1)
-        .withRotationalDeadband(SwerveConstants.MAX_ROTATION_SPEED * 0.06);
+        .withDeadband(MAX_SPEED * 0.1)
+        .withRotationalDeadband(MAX_ROTATION_SPEED * 0.06);
   }
 }
