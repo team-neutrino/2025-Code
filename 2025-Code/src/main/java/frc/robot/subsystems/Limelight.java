@@ -22,7 +22,6 @@ public class Limelight extends SubsystemBase {
   private double[] pose = new double[11];
   private double[] targetPose = new double[6];
   private double[] targetPose2 = new double[6];
-  boolean m_hasBeenConstructed = false;
 
   /** Creates a new ExampleSubsystem. */
   public Limelight() {
