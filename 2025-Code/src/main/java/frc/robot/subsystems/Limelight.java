@@ -33,7 +33,7 @@ public class Limelight extends SubsystemBase {
 
   /** Creates a new ExampleSubsystem. */
   public Limelight() {
-    m_swerve = Subsystem.swerve;
+    // m_swerve = Subsystem.swerve;
     m_limelightHelpers = new LimelightHelpers();
     // fake pipeline number
     // LimelightHelpers.setPipelineIndex("limelight", 1);

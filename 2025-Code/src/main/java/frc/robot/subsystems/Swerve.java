@@ -99,20 +99,6 @@ public class Swerve extends CommandSwerveDrivetrain {
             .withRotationalRate(-controller.getRightX() * (MAX_ROTATION_SPEED / 2)));
   }
 
-  public Command driveForAutoAlign(CommandXboxController controller, double omega) {
-    return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(controller.getLeftY() * SwerveConstants.MAX_SPEED)
-        .withVelocityY(controller.getLeftX() * SwerveConstants.MAX_SPEED)
-        .withRotationalRate(omega * SwerveConstants.MAX_ROTATION_SPEED));
-  }
-
-  public Command driveForAutoAlignFieldFacing(CommandXboxController controller,
-      Rotation2d targetAngle) {
-    return applyRequest(
-        () -> SwerveRequestStash.facingAngleDrive.withVelocityX(controller.getLeftY() * SwerveConstants.MAX_SPEED)
-            .withVelocityY(controller.getLeftX() * SwerveConstants.MAX_SPEED)
-            .withTargetDirection(targetAngle));
-  }
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -125,9 +111,6 @@ public class Swerve extends CommandSwerveDrivetrain {
     public static final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
         .withDeadband(SwerveConstants.MAX_SPEED * 0.1)
-        .withRotationalDeadband(SwerveConstants.MAX_ROTATION_SPEED * 0.06);
-    public static final SwerveRequest.FieldCentricFacingAngle facingAngleDrive = new SwerveRequest.FieldCentricFacingAngle()
-        .withDriveRequestType(DriveRequestType.OpenLoopVoltage).withDeadband(SwerveConstants.MAX_SPEED * 0.1)
         .withRotationalDeadband(SwerveConstants.MAX_ROTATION_SPEED * 0.06);
   }
 }
