@@ -110,5 +110,7 @@ public class Swerve extends CommandSwerveDrivetrain {
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
         .withDeadband(MAX_SPEED * 0.1)
         .withRotationalDeadband(MAX_ROTATION_SPEED * 0.06);
+    public static final SwerveRequest.FieldCentric driveWithoutDeadband = new SwerveRequest.FieldCentric()
+        .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
   }
 }
