@@ -85,6 +85,8 @@ public final class Constants {
     public static final double ki = 0;
     public static final double kd = 0;
     public static final double ArmIZone = 0;
+
+    public static final double FFVOLTAGE;
   }
 
   public static class ClawConstants {
