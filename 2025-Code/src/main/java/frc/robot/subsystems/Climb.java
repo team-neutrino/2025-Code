@@ -7,7 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ClimbConstants;
+import static frc.robot.Constants.ClimbConstants.*;
 
 import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
@@ -28,30 +28,30 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 public class Climb extends SubsystemBase {
   private final CANBus m_CANBus = new CANBus("rio");
 
-  private TalonFX m_climbMotor = new TalonFX(ClimbConstants.CLIMB_MOTOR_ID, m_CANBus);
-  private TalonFX m_followMotor = new TalonFX(ClimbConstants.CLIMB_MOTOR_ID2, m_CANBus);
+  private TalonFX m_climbMotor = new TalonFX(CLIMB_MOTOR_ID, m_CANBus);
+  private TalonFX m_followMotor = new TalonFX(CLIMB_MOTOR_ID2, m_CANBus);
   private TalonFXConfiguration m_climbMotorConfig = new TalonFXConfiguration();
   private TalonFXConfiguration m_followMotorConfig = new TalonFXConfiguration();
 
   private final CurrentLimitsConfigs m_currentLimitConfig = new CurrentLimitsConfigs();
-  private Follower m_followRequest = new Follower(ClimbConstants.CLIMB_MOTOR_ID, true);
+  private Follower m_followRequest = new Follower(CLIMB_MOTOR_ID, true);
 
-  private SparkMax m_lockClimbMotor = new SparkMax(ClimbConstants.CLIMB_MOTOR_ID3, MotorType.kBrushless);
+  private SparkMax m_lockClimbMotor = new SparkMax(CLIMB_MOTOR_ID3, MotorType.kBrushless);
   private SparkMaxConfig m_lockClimbMotorConfig = new SparkMaxConfig();
 
   private SparkLimitSwitch m_lockLimitSwitch = m_lockClimbMotor.getForwardLimitSwitch();
 
-  private Servo m_climbRatchet = new Servo(ClimbConstants.CLIMB_RATCHET_PORT);
-  private Servo m_lockRatchet = new Servo(ClimbConstants.LOCK_RATCHET_PORT);
+  private Servo m_climbRatchet = new Servo(CLIMB_RATCHET_PORT);
+  private Servo m_lockRatchet = new Servo(LOCK_RATCHET_PORT);
 
   public Climb() {
     configureMotors();
   }
 
   private void configureMotors() {
-    m_currentLimitConfig.withSupplyCurrentLimit(ClimbConstants.CLIMB_CURRENT_LIMIT)
+    m_currentLimitConfig.withSupplyCurrentLimit(CLIMB_CURRENT_LIMIT)
         .withSupplyCurrentLimitEnable(true)
-        .withStatorCurrentLimit(ClimbConstants.CLIMB_CURRENT_LIMIT)
+        .withStatorCurrentLimit(CLIMB_CURRENT_LIMIT)
         .withStatorCurrentLimitEnable(true);
     m_climbMotorConfig.CurrentLimits = m_currentLimitConfig;
     m_climbMotorConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
@@ -64,7 +64,7 @@ public class Climb extends SubsystemBase {
     m_followMotor.getConfigurator().apply(m_followMotorConfig);
     m_followMotor.setControl(m_followRequest);
 
-    m_lockClimbMotorConfig.smartCurrentLimit(ClimbConstants.LOCK_CURRENT_LIMIT);
+    m_lockClimbMotorConfig.smartCurrentLimit(LOCK_CURRENT_LIMIT);
     m_lockClimbMotorConfig.idleMode(IdleMode.kCoast);
 
     m_lockClimbMotor.configure(m_lockClimbMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
@@ -72,7 +72,7 @@ public class Climb extends SubsystemBase {
 
   public void lockClimb() {
     if (!m_lockLimitSwitch.isPressed()) {
-      m_lockClimbMotor.set(ClimbConstants.LOCK_SPEED);
+      m_lockClimbMotor.set(LOCK_SPEED);
     } else {
       m_lockClimbMotor.stopMotor();
     }
