@@ -50,14 +50,6 @@ public class Limelight extends SubsystemBase {
         LimelightConstants.CAMERA2_YAW_OFFSET // Yaw (degrees)
     );
 
-    if (m_hasBeenConstructed) {
-      try {
-        throw new IllegalAccessException("Swerve subsystem was instantiated twice");
-      } catch (IllegalAccessException e) {
-        System.out.println("don't instantiate a subsystem twice!");
-      }
-    }
-    m_hasBeenConstructed = true;
   }
 
   // **get valid target from camera 1*/
