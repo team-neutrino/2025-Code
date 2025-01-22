@@ -55,6 +55,9 @@ public final class Constants {
     public static final double MAX_VELOCITY = 4000;
     public static final double MAX_ACCELERATION = 1000;
     public static final double ALLOWED_ERROR = 0.1;
+    public static final double P_VAL = 0.1;
+    public static final double I_VAL = 0.0;
+    public static final double D_VAL = 0.0;
   }
 
   public static class ArmConstants {

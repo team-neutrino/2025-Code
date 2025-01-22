@@ -46,7 +46,7 @@ public class Elevator extends SubsystemBase {
         .velocityConversionFactor(1);
     m_config.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-        .pid(.1, 0.0, 0.0);
+        .pid(P_VAL, I_VAL, D_VAL);
     m_config.closedLoop.maxMotion
         .maxVelocity(MAX_VELOCITY)
         .maxAcceleration(MAX_ACCELERATION)
