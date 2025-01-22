@@ -9,6 +9,7 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.ClosedLoopSlot;
+import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLimitSwitch;
@@ -45,7 +46,11 @@ public class Elevator extends SubsystemBase {
         .velocityConversionFactor(1);
     m_config.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-        .pid(0.01, 0.0, 0.0);
+        .pid(.1, 0.0, 0.0);
+    m_config.closedLoop.maxMotion
+        .maxVelocity(MAX_VELOCITY)
+        .maxAcceleration(MAX_ACCELERATION)
+        .allowedClosedLoopError(ALLOWED_ERROR);
     m_motor1.configure(m_config, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
 
@@ -57,7 +62,7 @@ public class Elevator extends SubsystemBase {
   }
 
   private void adjustElevator(double target) {
-    m_pid.setReference(target, ControlType.kPosition, ClosedLoopSlot.kSlot0, feedForwardCalculation());
+    m_pid.setReference(target, ControlType.kMAXMotionPositionControl, ClosedLoopSlot.kSlot0, feedForwardCalculation());
   }
 
   private double feedForwardCalculation() {
