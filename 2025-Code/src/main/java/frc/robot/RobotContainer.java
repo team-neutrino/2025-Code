@@ -20,7 +20,7 @@ public class RobotContainer {
   private final CommandXboxController m_driverController = new CommandXboxController(
       OperatorConstants.kDriverControllerPort);
   private final CommandXboxController m_buttonsController = new CommandXboxController(
-      OperatorConstants.kDriverControllerPort);
+      OperatorConstants.kButtonsControllerPort);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
