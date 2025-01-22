@@ -66,17 +66,15 @@ public class Arm extends SubsystemBase {
   public boolean isArmInLimit() {
     return true;
   }
-  // m_controller.setReference(setPoint,
-  // SparkBase.ControlType.kMAXMotionPositionControl);
 
   public void updateArmAngle() {
     m_armPidController.setReference(m_targetAngle,
-        SparkBase.ControlType.kPosition, ClosedLoopSlot.kSlot0, feedForwardCalculation());
+        SparkBase.ControlType.kMAXMotionPositionControl, ClosedLoopSlot.kSlot0, feedForwardCalculation());
   }
 
   public double feedForwardCalculation() {
     double currentAngle = getArmPosition();
-    double volts = FFVOLTAGE * Math.cos(currentAngle);
+    double volts = FFCONSTANT * Math.cos(currentAngle);
     return volts;
   }
 
