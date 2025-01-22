@@ -8,10 +8,8 @@ import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.LimelightHelpers;
 import frc.robot.Constants.LimelightConstants;
-import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.SwerveConstants;
 
 public class Limelight extends SubsystemBase {
@@ -25,7 +23,6 @@ public class Limelight extends SubsystemBase {
   private double[] targetPose = new double[6];
   private double[] targetPose2 = new double[6];
   boolean m_hasBeenConstructed = false;
-  CommandXboxController m_driverController;
 
   /** Creates a new ExampleSubsystem. */
   public Limelight() {
@@ -52,7 +49,6 @@ public class Limelight extends SubsystemBase {
         LimelightConstants.CAMERA2_PITCH_OFFSET, // Pitch (degrees)
         LimelightConstants.CAMERA2_YAW_OFFSET // Yaw (degrees)
     );
-    m_driverController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
     if (m_hasBeenConstructed) {
       try {
@@ -166,10 +162,6 @@ public class Limelight extends SubsystemBase {
   public double getDistanceFromPrimaryTarget() {
     return getBotPose()[9];
     // based on camera not robot
-  }
-
-  public CommandXboxController getXboxController() {
-    return m_driverController;
   }
 
   public double offsetToOmega(double offsetAngle) {
