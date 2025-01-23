@@ -44,7 +44,6 @@ public class Climb extends SubsystemBase {
   private Servo m_climbRatchet = new Servo(CLIMB_RATCHET_PORT);
   private Servo m_lockRatchet = new Servo(LOCK_RATCHET_PORT);
 
-  // test
   public Climb() {
     configureMotors();
   }
