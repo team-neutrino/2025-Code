@@ -14,7 +14,6 @@ import static frc.robot.util.Subsystem.*;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class RobotContainer {
@@ -50,7 +49,7 @@ public class RobotContainer {
     elevator.setDefaultCommand(elevator.elevatorDefaultCommand());
     LED.setDefaultCommand(LED.LEDefaultCommand());
     limelight.setDefaultCommand(limelight.limelightDefaultCommand());
-    swerve.setDefaultCommand(swerve.swerveDefaultCommand(m_driverController));
+    // swerve.setDefaultCommand(swerve.swerveDefaultCommand(m_driverController));
   }
 
   /**
