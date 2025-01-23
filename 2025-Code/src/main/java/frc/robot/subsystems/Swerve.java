@@ -95,9 +95,9 @@ public class Swerve extends CommandSwerveDrivetrain {
   }
 
   private void setControlAndApplyChassis(ChassisSpeeds speeds) {
-    SwerveRequest.ApplyRobotSpeeds applyRobotSpeeds = new SwerveRequest.ApplyRobotSpeeds();
-    applyRobotSpeeds.withSpeeds(speeds);
-    System.out.println("chassis speed" + speeds);
+    SwerveRequest.ApplyRobotSpeeds applyRobotSpeeds = new SwerveRequest.ApplyRobotSpeeds()
+        .withDriveRequestType(DriveRequestType.Velocity);
+    this.setControl(applyRobotSpeeds.withSpeeds(speeds));
   }
 
   private void configurePathPlanner() {
