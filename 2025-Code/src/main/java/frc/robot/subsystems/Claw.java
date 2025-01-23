@@ -62,6 +62,10 @@ public class Claw extends SubsystemBase {
         return colorData.blue() > 240 && colorData.red() > 240 && colorData.green() > 240;
     }
 
+    public boolean hasGamePiece() {
+        return isCoral() || isAlgae();
+    }
+
     public double getVelocityOfGrabber() {
         return m_grabberEncoder.getVelocity();
     }
@@ -72,10 +76,6 @@ public class Claw extends SubsystemBase {
 
     public double getIntakeVoltage() {
         return m_intakeVoltage;
-    }
-
-    public boolean hasGamePiece() {
-        return !m_intakeBeamBreak.get();
     }
 
     @Override
