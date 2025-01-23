@@ -17,12 +17,15 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.units.measure.MomentOfInertia;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.Inches;
+import static edu.wpi.first.units.Units.KilogramSquareMeters;
+import static edu.wpi.first.units.Units.Pounds;
 import static frc.robot.Constants.SwerveConstants.*;
 
 import frc.robot.Constants;
@@ -57,8 +60,8 @@ public class Swerve extends CommandSwerveDrivetrain {
         System.out.println("don't instantiate a subsystem twice!");
       }
     }
-    m_hasBeenConstructed = true;
     configurePathPlanner();
+    m_hasBeenConstructed = true;
   }
 
   /**
@@ -94,6 +97,7 @@ public class Swerve extends CommandSwerveDrivetrain {
   private void setControlAndApplyChassis(ChassisSpeeds speeds) {
     SwerveRequest.ApplyRobotSpeeds applyRobotSpeeds = new SwerveRequest.ApplyRobotSpeeds();
     applyRobotSpeeds.withSpeeds(speeds);
+    System.out.println("chassis speed" + speeds);
   }
 
   private void configurePathPlanner() {
@@ -113,7 +117,7 @@ public class Swerve extends CommandSwerveDrivetrain {
         new PPHolonomicDriveController(
             translationConstants,
             rotationConstants),
-        new RobotConfig(null, null,
+        new RobotConfig(Pounds.of(135), KilogramSquareMeters.of(3.92),
             new ModuleConfig(Inches.of(2), TunerConstants.kSpeedAt12Volts, 1,
                 new DCMotor(NOMINAL_VOLTAGE, STALL_TORQUE, STALL_CURRENT, FREE_CURRENT_AMPS, FREE_SPEED_RADS,
                     NUM_MOTORS_GEARBOX),
