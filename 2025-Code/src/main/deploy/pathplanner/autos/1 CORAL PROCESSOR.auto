@@ -1,0 +1,25 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1- Coral Processor"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2- Coral Processor"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "1 CORAL",
+  "choreoAuto": false
+}
