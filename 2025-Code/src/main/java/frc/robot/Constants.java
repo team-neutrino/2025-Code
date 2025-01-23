@@ -80,8 +80,8 @@ public final class Constants {
     public static final double REEF_L2_DESCORE_POSITION = 0.0;
     public static final double REEF_L3_DESCORE_POSITION = 0.0;
 
-    public static final double HITTING_LOW_LIMIT = 75;
-    public static final double HITTING_HIGH_LIMIT = 285;
+    public static final double HITTING_LOW_HARD_LIMIT = 75;
+    public static final double HITTING_HIGH_HARD_LIMIT = 285;
 
     public static final int MOTOR_ID = 10;
 
