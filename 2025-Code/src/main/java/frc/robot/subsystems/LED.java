@@ -16,6 +16,7 @@ public class LED extends SubsystemBase {
 
   NetworkTableInstance inst = NetworkTableInstance.getDefault();
   StringTopic color_topic = inst.getStringTopic("/LED/color");
+  Claw claw = new Claw();
 
   final StringPublisher color_pub;
 
@@ -33,8 +34,21 @@ public class LED extends SubsystemBase {
   return run(() -> color_pub.setDefault("orange"));
   }
 
+  // Command or void? What to return(forgot)
+  public void setToGamePieceColor() {
+    if (claw.isAlgae()) {
+      color_pub.set("teal");
+    } else if (claw.isCoral()) {
+      color_pub.set("white");
+    }
+  }
+
   @Override
   public void periodic() {
+    if (claw.hasGamePiece()) {
+      setToGamePieceColor();
+      return;
+    }
     if (slowDown(50)) {
       if (m_counter == 0) {
         color_pub.set("blue");
