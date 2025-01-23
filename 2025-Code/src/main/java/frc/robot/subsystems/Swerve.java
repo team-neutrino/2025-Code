@@ -107,8 +107,10 @@ public class Swerve extends CommandSwerveDrivetrain {
    */
   private class SwerveRequestStash {
     public static final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
+        .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
+        .withDeadband(MAX_SPEED * 0.1)
+        .withRotationalDeadband(MAX_ROTATION_SPEED * 0.06);
+    public static final SwerveRequest.FieldCentric driveWithoutDeadband = new SwerveRequest.FieldCentric()
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
-    // .withDeadband(MaxSpeed * 0.1)
-    // .withRotationalDeadband(MaxAngularRate * 0.06)
   }
 }
