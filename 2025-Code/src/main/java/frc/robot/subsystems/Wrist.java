@@ -15,7 +15,7 @@ import frc.robot.util.Subsystem;
 
 import static frc.robot.Constants.WristConstants.*;
 
-public class Wrist extends SubsystemBase {
+public class Wrist extends SubsystemBase implements AutoCloseable {
   private SparkMax m_wristMotor = new SparkMax(MOTOR_ID, MotorType.kBrushless);
   private SparkMaxConfig m_wristConfig = new SparkMaxConfig();
   private double m_wristVoltage;
@@ -34,14 +34,13 @@ public class Wrist extends SubsystemBase {
    * Moves the wrist to the given position.
    * <p>
    * Uses {@link #m_hasCurrentSpiked} to know whether or not to deny the request.
-   * If
-   * the request is denied, the wrist will stay in the last position it was in.
+   * If the request is denied, the wrist will stay in the last position it was in.
    * 
    * @param angle The angle to move to.
    */
   public void moveToPosition(double angle) {
     updateCurrentSpike(angle);
-    if (m_hasCurrentSpiked || (angle != INTAKE_POS && angle != SCORING_POS)) {
+    if (m_hasCurrentSpiked || invalidAngle(angle)) {
       m_wristVoltage = 0;
       return;
     }
@@ -53,8 +52,8 @@ public class Wrist extends SubsystemBase {
     return Math.abs(m_wristVoltage - m_wristMotor.getOutputCurrent()) < 0.1;
   }
 
-  public boolean isCurrentSpike() {
-    return m_wristMotor.getOutputCurrent() > CURRENT_LIMIT;
+  private boolean invalidAngle(double angle) {
+    return angle != INTAKE_POS && angle != SCORING_POS;
   }
 
   /**
@@ -100,6 +99,11 @@ public class Wrist extends SubsystemBase {
   @Override
   public void periodic() {
     m_wristMotor.setVoltage(m_wristVoltage);
+  }
+
+  @Override
+  public void close() {
+    m_wristMotor.close();
   }
 
 }

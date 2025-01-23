@@ -2,6 +2,7 @@ package frc.robot.subsystem;
 
 import org.junit.jupiter.api.Test;
 import frc.robot.subsystems.Arm;
+import frc.robot.util.Subsystem;
 
 import static org.junit.jupiter.api.Assertions.*;
 
