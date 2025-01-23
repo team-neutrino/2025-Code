@@ -103,8 +103,17 @@ public class Climb extends SubsystemBase {
     // subject to change
   }
 
+  public Command climbDefaultCommand() {
+    return run(() -> {
+      engageClimbRatchet();
+      disengageLockRatchet();
+      // does position need to be specified?
+    });
+  }
+
   public Command raiseClimbArmCommand(double ticks) {
     return run(() -> {
+      disengageClimbRatchet();
       runMotorByTicks(ticks);
     });
   }
