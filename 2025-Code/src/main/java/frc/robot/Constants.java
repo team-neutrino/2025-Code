@@ -98,7 +98,7 @@ public final class Constants {
     public static final double kd = 0;
     public static final double ArmIZone = 0;
 
-    public static final double FFCONSTANT = 0; //3
+    public static final double FFCONSTANT = 3;
   }
 
   public static class ClawConstants {
