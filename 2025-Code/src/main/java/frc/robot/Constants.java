@@ -25,6 +25,14 @@ public final class Constants {
   public static class SwerveConstants {
     public static final double MAX_SPEED = 5.7;
     public static final double MAX_ROTATION_SPEED = 1.5 * Math.PI;
+    public static final double STALL_TORQUE = 7.09;
+    public static final double STALL_CURRENT = 366;
+    public static final double FREE_CURRENT_AMPS = 2;
+    public static final double FREE_SPEED_RADS = (6000 / 60) * Math.PI * 2;
+    public static final int NUM_MOTORS_GEARBOX = 1;
+    public static final double NOMINAL_VOLTAGE = 12;
+    public static final double WHEEL_RADIUS = 2;
+    public static final double DRIVE_GEAR_RATIO = 5.6;
   }
 
   public static class ElevatorConstants {

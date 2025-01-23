@@ -4,13 +4,32 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.swerve.SwerveDrivetrain;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.config.ModuleConfig;
+import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.units.measure.MomentOfInertia;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+
+import static edu.wpi.first.units.Units.Amps;
+import static edu.wpi.first.units.Units.Inches;
+import static edu.wpi.first.units.Units.KilogramSquareMeters;
+import static edu.wpi.first.units.Units.Pounds;
 import static frc.robot.Constants.SwerveConstants.*;
+
+import frc.robot.Constants;
+import frc.robot.Constants.SwerveConstants;
 import frc.robot.util.GeneratedSwerveCode.CommandSwerveDrivetrain;
 import frc.robot.util.GeneratedSwerveCode.TunerConstants;
 
@@ -41,6 +60,7 @@ public class Swerve extends CommandSwerveDrivetrain {
         System.out.println("don't instantiate a subsystem twice!");
       }
     }
+    configurePathPlanner();
     m_hasBeenConstructed = true;
   }
 
@@ -68,6 +88,52 @@ public class Swerve extends CommandSwerveDrivetrain {
    */
   public void resetPigeon() {
     getPigeon2().reset();
+  }
+
+  public ChassisSpeeds getChassisSpeeds() {
+    return getState().Speeds;
+  }
+
+  private void setControlAndApplyChassis(ChassisSpeeds speeds) {
+    SwerveRequest.ApplyRobotSpeeds applyRobotSpeeds = new SwerveRequest.ApplyRobotSpeeds()
+        .withDriveRequestType(DriveRequestType.Velocity);
+    this.setControl(applyRobotSpeeds.withSpeeds(speeds));
+  }
+
+  private void configurePathPlanner() {
+    double pTranslation = TunerConstants.FrontLeft.DriveMotorGains.kP;
+    double iTranslation = TunerConstants.FrontLeft.DriveMotorGains.kI;
+    double dTranslation = TunerConstants.FrontLeft.DriveMotorGains.kD;
+    double pRotation = TunerConstants.FrontLeft.SteerMotorGains.kP;
+    double iRotation = TunerConstants.FrontLeft.SteerMotorGains.kI;
+    double dRotation = TunerConstants.FrontLeft.SteerMotorGains.kD;
+    PIDConstants translationConstants = new PIDConstants(pTranslation, iTranslation, dTranslation);
+    PIDConstants rotationConstants = new PIDConstants(pRotation, iRotation, dRotation);
+    AutoBuilder.configure(
+        this::getCurrentPose,
+        this::resetPose,
+        this::getChassisSpeeds,
+        this::setControlAndApplyChassis,
+        new PPHolonomicDriveController(
+            translationConstants,
+            rotationConstants),
+        new RobotConfig(Pounds.of(135), KilogramSquareMeters.of(3.92),
+            new ModuleConfig(Inches.of(2), TunerConstants.kSpeedAt12Volts, 1,
+                new DCMotor(NOMINAL_VOLTAGE, STALL_TORQUE, STALL_CURRENT, FREE_CURRENT_AMPS, FREE_SPEED_RADS,
+                    NUM_MOTORS_GEARBOX),
+                DRIVE_GEAR_RATIO, Amps.of(60), NUM_MOTORS_GEARBOX),
+            new Translation2d(TunerConstants.FrontLeft.LocationX, TunerConstants.FrontLeft.LocationY),
+            new Translation2d(TunerConstants.FrontRight.LocationX, TunerConstants.FrontRight.LocationY),
+            new Translation2d(TunerConstants.BackLeft.LocationX, TunerConstants.BackLeft.LocationY),
+            new Translation2d(TunerConstants.BackRight.LocationX, TunerConstants.BackRight.LocationY)),
+        () -> {
+          var alliance = DriverStation.getAlliance();
+          if (alliance.isPresent()) {
+            return alliance.get() == DriverStation.Alliance.Red;
+          }
+          return false;
+        },
+        this);
   }
 
   /**

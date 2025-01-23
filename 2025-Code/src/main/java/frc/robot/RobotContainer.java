@@ -10,8 +10,10 @@ import frc.robot.command_factories.ElevatorFactory;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.util.Subsystem.*;
+
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class RobotContainer {
@@ -56,6 +58,13 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return new InstantCommand();
+    Command auto;
+    try {
+      auto = new PathPlannerAuto("test");
+    } catch (Exception e) {
+      auto = new PathPlannerAuto("Nothing");
+    }
+
+    return auto;
   }
 }
