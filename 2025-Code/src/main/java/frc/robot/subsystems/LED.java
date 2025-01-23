@@ -29,12 +29,8 @@ public class LED extends SubsystemBase {
     return m_counter2 % rate == 0;
   }
 
-  // public Command LEDefaultCommand() {
-  // return run(() -> color_pub.setDefault("orange"));
-  // }
-
-  public Command LEDCommand() {
-    return run(() -> color_pub.set("blue"));
+  public Command LEDefaultCommand() {
+  return run(() -> color_pub.setDefault("orange"));
   }
 
   @Override
