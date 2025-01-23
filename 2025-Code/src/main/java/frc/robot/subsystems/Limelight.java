@@ -38,6 +38,7 @@ public class Limelight extends SubsystemBase {
         CAMERA_PITCH_OFFSET, // Pitch (degrees)
         CAMERA_YAW_OFFSET // Yaw (degrees)
     );
+
     // change name later
     LimelightHelpers.setLEDMode_ForceOff(LIMELIGHT_2);
     LimelightHelpers.setCameraPose_RobotSpace(LIMELIGHT_2,
@@ -48,7 +49,6 @@ public class Limelight extends SubsystemBase {
         CAMERA2_PITCH_OFFSET, // Pitch (degrees)
         CAMERA2_YAW_OFFSET // Yaw (degrees)
     );
-
   }
 
   // **get valid target from camera 1*/

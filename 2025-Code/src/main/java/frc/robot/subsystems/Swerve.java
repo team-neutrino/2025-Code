@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.swerve.SwerveDrivetrain;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
+import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.ModuleConfig;
@@ -13,14 +14,21 @@ import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.units.measure.MomentOfInertia;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.math.kinematics.Kinematics;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+
+import static edu.wpi.first.units.Units.Degrees;
 
 import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.Inches;
@@ -39,6 +47,25 @@ import frc.robot.util.GeneratedSwerveCode.TunerConstants;
  * modification of generated code.
  */
 public class Swerve extends CommandSwerveDrivetrain {
+  public SwerveDrivePoseEstimator m_PoseEstimator;
+  private Translation2d m_frontLeftLocation = new Translation2d(TunerConstants.FrontLeft.LocationX * 0.0254,
+      TunerConstants.FrontLeft.LocationY * 0.0254);
+  private Translation2d m_frontRightLocation = new Translation2d(TunerConstants.FrontRight.LocationX * 0.0254,
+      TunerConstants.FrontRight.LocationY * 0.0254);
+  private Translation2d m_backLeftLocation = new Translation2d(TunerConstants.BackLeft.LocationX * 0.0254,
+      TunerConstants.BackLeft.LocationY * 0.0254);
+  private Translation2d m_backRightLocation = new Translation2d(TunerConstants.BackRight.LocationX * 0.0254,
+      TunerConstants.BackRight.LocationY * 0.0254);
+  private SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(m_frontLeftLocation, m_frontRightLocation,
+      m_backLeftLocation, m_backRightLocation);
+  private CANcoder m_frontLeftCancoder = new CANcoder(TunerConstants.FrontLeft.EncoderId);
+  private CANcoder m_frontRightCancoder = new CANcoder(TunerConstants.FrontRight.EncoderId);
+  private CANcoder m_backLeftCancoder = new CANcoder(TunerConstants.BackLeft.EncoderId);
+  private CANcoder m_backRightCancoder = new CANcoder(TunerConstants.BackRight.EncoderId);
+  private SwerveModulePosition m_frontLeftModulePosition;
+  private SwerveModulePosition m_frontRightModulePosition;
+  private SwerveModulePosition m_backLeftModulePosition;
+  private SwerveModulePosition m_backRightModulePosition;
   private boolean m_hasBeenConstructed = false;
 
   private Telemetry m_telemetry = new Telemetry(MAX_SPEED);
@@ -52,6 +79,11 @@ public class Swerve extends CommandSwerveDrivetrain {
    *                                once, throw an exception.
    */
   public Swerve() {
+    // m_frontLeftModulePosition = new
+    // SwerveModulePosition((m_frontLeftCancoder.getPosition().getValueAsDouble(),
+    // ));
+    // m_PoseEstimator = new SwerveDrivePoseEstimator(m_kinematics,
+    // Rotation2d.fromDegrees(getYaw()), null, null);
 
     super(TunerConstants.DrivetrainConstants, TunerConstants.FrontLeft, TunerConstants.FrontRight,
         TunerConstants.BackLeft, TunerConstants.BackRight);
@@ -75,7 +107,7 @@ public class Swerve extends CommandSwerveDrivetrain {
    * @return The yaw of the robot in degrees.
    */
   public double getYaw() {
-    return getPigeon2().getYaw().getValueAsDouble();
+    return getPigeon2().getYaw().getValueAsDouble() % 360;
   }
 
   /**
