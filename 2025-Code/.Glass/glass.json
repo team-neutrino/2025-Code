@@ -1,6 +1,12 @@
 {
   "NetworkTables": {
     "transitory": {
+      "arm": {
+        "open": true
+      },
+      "elevator": {
+        "open": true
+      },
       "limelight": {
         "double[]##v_/limelight/botpose": {
           "open": true
@@ -22,6 +28,38 @@
     "visible": true
   },
   "NetworkTables Settings": {
-    "mode": "Client (NT3)"
+    "mode": "Client (NT4)",
+    "serverTeam": "3928"
+  },
+  "Plots": {
+    "Plot <0>": {
+      "plots": [
+        {
+          "axis": [
+            {
+              "autoFit": true
+            }
+          ],
+          "backgroundColor": [
+            0.0,
+            0.0,
+            0.0,
+            0.8500000238418579
+          ],
+          "height": 332,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "NT:/arm/encoder_position"
+            }
+          ]
+        }
+      ]
+    }
   }
 }
