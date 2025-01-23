@@ -34,8 +34,16 @@ public class Arm extends SubsystemBase {
     initializeMotorControllers();
   }
 
-  public double getArmPosition() {
+  public double getArmEncoderPosition() {
     return m_armEncoder.getPosition();
+  }
+
+  public double getArmTargetPosition() {
+    return m_targetAngle;
+  }
+
+  public double getArmVoltage() {
+    return m_armMotor.getBusVoltage();
   }
 
   // sets up motor controllers
@@ -74,11 +82,11 @@ public class Arm extends SubsystemBase {
 
   public void updateArmAngle() {
     m_armPidController.setReference(m_targetAngle,
-        SparkBase.ControlType.kMAXMotionPositionControl, ClosedLoopSlot.kSlot0, feedForwardCalculation());
+        SparkBase.ControlType.kPosition, ClosedLoopSlot.kSlot0, feedForwardCalculation());
   }
 
   public double feedForwardCalculation() {
-    double currentAngle = getArmPosition();
+    double currentAngle = getArmEncoderPosition();
     double volts = FFCONSTANT * Math.cos(currentAngle);
     return volts;
   }
