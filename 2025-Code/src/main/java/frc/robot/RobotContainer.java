@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.command_factories.ArmFactory;
+import frc.robot.command_factories.ClawFactory;
 import frc.robot.command_factories.ElevatorFactory;
 import frc.robot.command_factories.WristFactory;
 import frc.robot.util.Subsystem;
@@ -39,6 +40,8 @@ public class RobotContainer {
     m_driverController.y().whileTrue(ElevatorFactory.moveL2());
     m_driverController.b().whileTrue(ElevatorFactory.moveL3());
     m_driverController.a().whileTrue(ElevatorFactory.moveL4());
+
+    m_driverController.leftTrigger().whileTrue(ClawFactory.runIntake());
 
     m_driverController.leftBumper().whileTrue(ArmFactory.moveToL1());
   }
