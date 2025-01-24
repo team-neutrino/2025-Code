@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.ClawConstants;
 import com.reduxrobotics.sensors.canandcolor.Canandcolor;
+import com.reduxrobotics.sensors.canandcolor.CanandcolorSettings;
 import com.reduxrobotics.sensors.canandcolor.ColorData;
 
 public class Claw extends SubsystemBase {
@@ -29,10 +30,11 @@ public class Claw extends SubsystemBase {
 
     private RelativeEncoder m_grabberEncoder;
     private RelativeEncoder m_followerEncoder;
-
     private double m_intakeVoltage;
     private DigitalInput m_intakeBeamBreak = new DigitalInput(ClawConstants.INTAKE_MOTOR_BEAMBREAK);
-    Canandcolor colorSensor = new Canandcolor(ClawConstants.COLOR_SENSOR);
+    private Canandcolor colorSensor = new Canandcolor(ClawConstants.COLOR_SENSOR);
+    private ColorData colorData;
+    private CanandcolorSettings settings = new CanandcolorSettings();
 
     public Claw() {
         m_grabberEncoder = m_grabber.getEncoder();
@@ -50,16 +52,18 @@ public class Claw extends SubsystemBase {
                 SparkBase.PersistMode.kPersistParameters);
         m_follower.configure(m_followerConfig, SparkBase.ResetMode.kResetSafeParameters,
                 SparkBase.PersistMode.kPersistParameters);
+        settings.setLampLEDBrightness(1);
+        colorSensor.setSettings(settings);
     }
 
     public boolean isAlgae() {
-        ColorData colorData = colorSensor.getColor();
-        return colorData.blue() > 100;
+        colorData = colorSensor.getColor();
+        return colorData.blue() > 0.7;
     }
 
     public boolean isCoral() {
-        ColorData colorData = colorSensor.getColor();
-        return colorData.blue() > 240 && colorData.red() > 240 && colorData.green() > 240;
+        colorData = colorSensor.getColor();
+        return colorData.blue() > 0.7 && colorData.red() > 0.7 && colorData.green() > 0.7;
     }
 
     public boolean hasGamePiece() {
