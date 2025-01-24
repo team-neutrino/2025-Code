@@ -32,10 +32,12 @@ public class Climb extends SubsystemBase {
   private final CurrentLimitsConfigs m_currentLimitConfig = new CurrentLimitsConfigs();
   private Follower m_followRequest = new Follower(CLIMB_MOTOR_ID, true);
 
-  // private SparkMax m_lockClimbMotor = new SparkMax(CLIMB_MOTOR_ID3, MotorType.kBrushless);
+  // private SparkMax m_lockClimbMotor = new SparkMax(CLIMB_MOTOR_ID3,
+  // MotorType.kBrushless);
   // private SparkMaxConfig m_lockClimbMotorConfig = new SparkMaxConfig();
 
-  // private SparkLimitSwitch m_lockLimitSwitch = m_lockClimbMotor.getForwardLimitSwitch();
+  // private SparkLimitSwitch m_lockLimitSwitch =
+  // m_lockClimbMotor.getForwardLimitSwitch();
 
   private Servo m_climbRatchet = new Servo(CLIMB_RATCHET_PORT);
 
@@ -63,41 +65,42 @@ public class Climb extends SubsystemBase {
     // m_lockClimbMotorConfig.smartCurrentLimit(LOCK_CURRENT_LIMIT);
     // m_lockClimbMotorConfig.idleMode(IdleMode.kCoast);
 
-    // m_lockClimbMotor.configure(m_lockClimbMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    // m_lockClimbMotor.configure(m_lockClimbMotorConfig,
+    // ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
   // public void lockClimb() {
-  //   if (!m_lockLimitSwitch.isPressed()) {
-  //     m_lockClimbMotor.set(LOCK_SPEED);
-  //   } else {
-  //     m_lockClimbMotor.stopMotor();
-  //   }
+  // if (!m_lockLimitSwitch.isPressed()) {
+  // m_lockClimbMotor.set(LOCK_SPEED);
+  // } else {
+  // m_lockClimbMotor.stopMotor();
+  // }
   // }
 
   // public Command lockCommand() {
-  //   return run(() -> {
-  //     lockClimb();
-  //     engageLockRatchet();
-  //   });
+  // return run(() -> {
+  // lockClimb();
+  // engageLockRatchet();
+  // });
   // }
 
   // public void engageLockRatchet() {
-  //   m_lockRatchet.set(0);
-  //   // subject to change
+  // m_lockRatchet.set(0);
+  // // subject to change
   // }
 
   // public void disengageLockRatchet() {
-  //   m_lockRatchet.set(1);
-  //   // subject to change
+  // m_lockRatchet.set(1);
+  // // subject to change
   // }
 
   public void engageClimbRatchet() {
-    m_climbRatchet.set(0);
+    m_climbRatchet.set(0.2);
     // subject to change
   }
 
   public void disengageClimbRatchet() {
-    m_climbRatchet.set(1);
+    m_climbRatchet.set(0.8);
     // subject to change
   }
 
@@ -123,9 +126,8 @@ public class Climb extends SubsystemBase {
         new InstantCommand(() -> engageClimbRatchet(), this),
         new InstantCommand(() -> m_climbMotor.setVoltage(12), this),
         new WaitCommand(3.0),
-        new InstantCommand(() -> m_climbMotor.setVoltage(0), this)
-    );
-}
+        new InstantCommand(() -> m_climbMotor.setVoltage(0), this));
+  }
 
   public Command climbDefaultCommand() {
     return run(() -> {

@@ -126,8 +126,8 @@ public final class Constants {
     public static final int CLIMB_MOTOR_ID2 = 31;
     public static final int CLIMB_MOTOR_ID3 = 32;
 
-    public static final int CLIMB_CURRENT_LIMIT = 1;
-    public static final int LOCK_CURRENT_LIMIT = 1;
+    public static final int CLIMB_CURRENT_LIMIT = 10;
+    public static final int LOCK_CURRENT_LIMIT = 10;
     // subject to change
 
     public static final double CLIMB_UP_VOLTAGE = 0.5;
