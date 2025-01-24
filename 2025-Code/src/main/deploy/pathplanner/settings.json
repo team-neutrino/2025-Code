@@ -2,7 +2,10 @@
   "robotWidth": 0.9,
   "robotLength": 0.9,
   "holonomicMode": true,
-  "pathFolders": [],
+  "pathFolders": [
+    "Not Processor Side",
+    "Processor Side"
+  ],
   "autoFolders": [
     "1 CORAL",
     "2 CORAL"
