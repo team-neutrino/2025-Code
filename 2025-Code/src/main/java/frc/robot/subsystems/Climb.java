@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.Constants.ClimbConstants;
 
 import static frc.robot.Constants.ClimbConstants.*;
 
@@ -18,7 +17,6 @@ import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
-import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
@@ -32,9 +30,6 @@ public class Climb extends SubsystemBase {
 
   private final CurrentLimitsConfigs m_currentLimitConfig = new CurrentLimitsConfigs();
   private Follower m_followRequest = new Follower(CLIMB_MOTOR_ID, true);
-
-  public final WaitCommand waitCommand = new WaitCommand(2.0);
-  // subject to change
 
   // private SparkMax m_lockClimbMotor = new SparkMax(CLIMB_MOTOR_ID3, MotorType.kBrushless);
   // private SparkMaxConfig m_lockClimbMotorConfig = new SparkMaxConfig();
@@ -56,7 +51,6 @@ public class Climb extends SubsystemBase {
 
     m_climbMotor.setNeutralMode(NeutralModeValue.Brake);
     m_climbMotor.getConfigurator().apply(m_climbMotorConfig);
-    m_climbMotor.getConfigurator().setPosition(0);
 
     m_followMotor.setNeutralMode(NeutralModeValue.Brake);
     m_followMotor.getConfigurator().apply(m_followMotorConfig);
