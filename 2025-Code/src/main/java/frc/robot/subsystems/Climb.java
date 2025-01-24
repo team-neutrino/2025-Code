@@ -17,13 +17,6 @@ import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.spark.SparkLimitSwitch;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-import com.revrobotics.spark.config.SparkMaxConfig;
 
 public class Climb extends SubsystemBase {
   private final CANBus m_CANBus = new CANBus("rio");
@@ -32,16 +25,14 @@ public class Climb extends SubsystemBase {
   private TalonFX m_followMotor = new TalonFX(CLIMB_MOTOR_ID2, m_CANBus);
   private TalonFXConfiguration m_climbMotorConfig = new TalonFXConfiguration();
   private TalonFXConfiguration m_followMotorConfig = new TalonFXConfiguration();
-  m_climbMotorConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
-  // what the heck i hate life awergfthgjgtrewasdrfgh WHAT IS THIS
 
   private final CurrentLimitsConfigs m_currentLimitConfig = new CurrentLimitsConfigs();
   private Follower m_followRequest = new Follower(CLIMB_MOTOR_ID, true);
 
-  private SparkMax m_lockClimbMotor = new SparkMax(CLIMB_MOTOR_ID3, MotorType.kBrushless);
-  private SparkMaxConfig m_lockClimbMotorConfig = new SparkMaxConfig();
+  // private SparkMax m_lockClimbMotor = new SparkMax(CLIMB_MOTOR_ID3, MotorType.kBrushless);
+  // private SparkMaxConfig m_lockClimbMotorConfig = new SparkMaxConfig();
 
-  private SparkLimitSwitch m_lockLimitSwitch = m_lockClimbMotor.getForwardLimitSwitch();
+  // private SparkLimitSwitch m_lockLimitSwitch = m_lockClimbMotor.getForwardLimitSwitch();
 
   private Servo m_climbRatchet = new Servo(CLIMB_RATCHET_PORT);
   private Servo m_lockRatchet = new Servo(LOCK_RATCHET_PORT);
@@ -66,19 +57,26 @@ public class Climb extends SubsystemBase {
     m_followMotor.getConfigurator().apply(m_followMotorConfig);
     m_followMotor.setControl(m_followRequest);
 
-    m_lockClimbMotorConfig.smartCurrentLimit(LOCK_CURRENT_LIMIT);
-    m_lockClimbMotorConfig.idleMode(IdleMode.kCoast);
+    // m_lockClimbMotorConfig.smartCurrentLimit(LOCK_CURRENT_LIMIT);
+    // m_lockClimbMotorConfig.idleMode(IdleMode.kCoast);
 
-    m_lockClimbMotor.configure(m_lockClimbMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    // m_lockClimbMotor.configure(m_lockClimbMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
-  public void lockClimb() {
-    if (!m_lockLimitSwitch.isPressed()) {
-      m_lockClimbMotor.set(LOCK_SPEED);
-    } else {
-      m_lockClimbMotor.stopMotor();
-    }
-  }
+  // public void lockClimb() {
+  //   if (!m_lockLimitSwitch.isPressed()) {
+  //     m_lockClimbMotor.set(LOCK_SPEED);
+  //   } else {
+  //     m_lockClimbMotor.stopMotor();
+  //   }
+  // }
+
+  // public Command lockCommand() {
+  //   return run(() -> {
+  //     lockClimb();
+  //     engageLockRatchet();
+  //   });
+  // }
 
   private void runMotorByTicks(double ticks) {
     PositionVoltage positionControl = new PositionVoltage(ticks);
@@ -124,13 +122,6 @@ public class Climb extends SubsystemBase {
     return run(() -> {
       runMotorByTicks(ticks);
       engageClimbRatchet();
-    });
-  }
-
-  public Command lockCommand() {
-    return run(() -> {
-      lockClimb();
-      engageLockRatchet();
     });
   }
 
