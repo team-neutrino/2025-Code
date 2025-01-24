@@ -5,27 +5,59 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "1- Coral Processor"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "1- Coral Processor"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToScoringL4"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "2- Coral Processor"
+            "name": "Score"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "3- Coral Processor"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "2- Coral Processor"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToIntake"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "4- Coral Processor"
+            "name": "Intake"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": []
           }
         }
       ]
