@@ -25,6 +25,7 @@ public class Climb extends SubsystemBase {
 
   private TalonFX m_climbMotor = new TalonFX(CLIMB_MOTOR_ID, m_CANBus);
   private TalonFX m_followMotor = new TalonFX(CLIMB_MOTOR_ID2, m_CANBus);
+  private TalonFX m_lockMotor = new TalonFX(CLIMB_MOTOR_ID3, m_CANBus);
   private TalonFXConfiguration m_climbMotorConfig = new TalonFXConfiguration();
   private TalonFXConfiguration m_followMotorConfig = new TalonFXConfiguration();
 
@@ -55,6 +56,9 @@ public class Climb extends SubsystemBase {
     m_followMotor.setNeutralMode(NeutralModeValue.Brake);
     m_followMotor.getConfigurator().apply(m_followMotorConfig);
     m_followMotor.setControl(m_followRequest);
+
+    m_lockMotor.setNeutralMode(NeutralModeValue.Brake);
+    m_lockMotor.getConfigurator().apply(m_climbMotorConfig);
 
     // m_lockClimbMotorConfig.smartCurrentLimit(LOCK_CURRENT_LIMIT);
     // m_lockClimbMotorConfig.idleMode(IdleMode.kCoast);
