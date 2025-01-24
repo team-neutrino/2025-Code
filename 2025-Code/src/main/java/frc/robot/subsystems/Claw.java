@@ -29,8 +29,8 @@ public class Claw extends SubsystemBase {
     private RelativeEncoder m_grabberEncoder;
     private RelativeEncoder m_followerEncoder;
     private double m_intakeVoltage;
-    private Canandcolor colorSensor = new Canandcolor(ClawConstants.COLOR_SENSOR);
-    private CanandcolorSettings settings = new CanandcolorSettings();
+    private Canandcolor m_colorSensor = new Canandcolor(ClawConstants.COLOR_SENSOR);
+    private CanandcolorSettings m_settings = new CanandcolorSettings();
 
     public Claw() {
         m_grabberEncoder = m_grabber.getEncoder();
@@ -48,16 +48,16 @@ public class Claw extends SubsystemBase {
                 SparkBase.PersistMode.kPersistParameters);
         m_follower.configure(m_followerConfig, SparkBase.ResetMode.kResetSafeParameters,
                 SparkBase.PersistMode.kPersistParameters);
-        settings.setLampLEDBrightness(1);
-        colorSensor.setSettings(settings);
+        m_settings.setLampLEDBrightness(1);
+        m_colorSensor.setSettings(m_settings);
     }
 
     private boolean withinProximity(double distance) {
-        return colorSensor.getProximity() < distance;
+        return m_colorSensor.getProximity() < distance;
     }
 
     private double getBlueToRed() {
-        return colorSensor.getBlue() / colorSensor.getRed();
+        return m_colorSensor.getBlue() / m_colorSensor.getRed();
     }
 
     public boolean isAlgae() {
