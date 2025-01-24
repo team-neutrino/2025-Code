@@ -5,7 +5,7 @@ import frc.robot.subsystems.NetworkTables.*;
 
 public class Subsystem {
     public static final Claw claw = new Claw();
-    public static final Wrist wrist = new Wrist();
+    public static final Wrist wrist = new WristNT();
     public static final Elevator elevator = new ElevatorNT();
     // public static final Swerve swerve = new Swerve();
     public static final Climb climb = new Climb();
