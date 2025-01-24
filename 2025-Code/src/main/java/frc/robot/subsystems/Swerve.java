@@ -5,7 +5,11 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.swerve.SwerveDrivetrain;
+import com.ctre.phoenix6.swerve.SwerveModule;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
+import com.ctre.phoenix6.swerve.jni.SwerveJNI;
+import com.ctre.phoenix6.swerve.jni.SwerveJNI.DriveState;
+import com.ctre.phoenix6.swerve.jni.SwerveJNI.ModulePosition;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -34,8 +38,10 @@ import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.KilogramSquareMeters;
 import static edu.wpi.first.units.Units.Pounds;
+import static edu.wpi.first.units.Units.Rotation;
 import static frc.robot.Constants.SwerveConstants.*;
 
+import frc.robot.util.Subsystem;
 import frc.robot.Constants;
 import frc.robot.Constants.SwerveConstants;
 import frc.robot.util.GeneratedSwerveCode.CommandSwerveDrivetrain;
@@ -58,14 +64,14 @@ public class Swerve extends CommandSwerveDrivetrain {
       TunerConstants.BackRight.LocationY * 0.0254);
   private SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(m_frontLeftLocation, m_frontRightLocation,
       m_backLeftLocation, m_backRightLocation);
-  private CANcoder m_frontLeftCancoder = new CANcoder(TunerConstants.FrontLeft.EncoderId);
-  private CANcoder m_frontRightCancoder = new CANcoder(TunerConstants.FrontRight.EncoderId);
-  private CANcoder m_backLeftCancoder = new CANcoder(TunerConstants.BackLeft.EncoderId);
-  private CANcoder m_backRightCancoder = new CANcoder(TunerConstants.BackRight.EncoderId);
-  private SwerveModulePosition m_frontLeftModulePosition;
-  private SwerveModulePosition m_frontRightModulePosition;
-  private SwerveModulePosition m_backLeftModulePosition;
-  private SwerveModulePosition m_backRightModulePosition;
+  private SwerveModulePosition m_frontLeftModulePosition = new SwerveModulePosition();
+  private SwerveModulePosition m_frontRightModulePosition = new SwerveModulePosition();
+  private SwerveModulePosition m_backLeftModulePosition = new SwerveModulePosition();
+  private SwerveModulePosition m_backRightModulePosition = new SwerveModulePosition();
+  private SwerveModulePosition[] m_modulePositions = new SwerveModulePosition[4];
+  private double angle[] = new double[4];
+  private double distance[] = new double[4];
+  private DriveState m_driveState = m_jni.driveState;
   private boolean m_hasBeenConstructed = false;
 
   private Telemetry m_telemetry = new Telemetry(MAX_SPEED);
@@ -79,14 +85,11 @@ public class Swerve extends CommandSwerveDrivetrain {
    *                                once, throw an exception.
    */
   public Swerve() {
-    // m_frontLeftModulePosition = new
-    // SwerveModulePosition((m_frontLeftCancoder.getPosition().getValueAsDouble(),
-    // ));
-    // m_PoseEstimator = new SwerveDrivePoseEstimator(m_kinematics,
-    // Rotation2d.fromDegrees(getYaw()), null, null);
-
     super(TunerConstants.DrivetrainConstants, TunerConstants.FrontLeft, TunerConstants.FrontRight,
         TunerConstants.BackLeft, TunerConstants.BackRight);
+
+    m_PoseEstimator = new SwerveDrivePoseEstimator(m_kinematics,
+        Rotation2d.fromDegrees(getYaw()), m_modulePositions, new Pose2d());
 
     if (m_hasBeenConstructed) {
       try {
@@ -202,6 +205,26 @@ public class Swerve extends CommandSwerveDrivetrain {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    angle[0] = m_driveState.ModulePositions[0].angle;
+    angle[1] = m_driveState.ModulePositions[1].angle;
+    angle[2] = m_driveState.ModulePositions[2].angle;
+    angle[3] = m_driveState.ModulePositions[3].angle;
+    distance[0] = m_driveState.ModulePositions[0].distance;
+    distance[1] = m_driveState.ModulePositions[1].distance;
+    distance[2] = m_driveState.ModulePositions[2].distance;
+    distance[3] = m_driveState.ModulePositions[3].distance;
+    // TODO
+    // absolutely no clue what unit anything is in we'll have to find this out from
+    // testing (the docs are useless)
+    m_frontLeftModulePosition = new SwerveModulePosition(distance[0], Rotation2d.fromDegrees(angle[0] * 360));
+    m_frontRightModulePosition = new SwerveModulePosition(distance[1], Rotation2d.fromDegrees(angle[1] * 360));
+    m_backLeftModulePosition = new SwerveModulePosition(distance[2], Rotation2d.fromDegrees(angle[2] * 360));
+    m_backRightModulePosition = new SwerveModulePosition(distance[3], Rotation2d.fromDegrees(angle[3] * 360));
+    m_modulePositions[0] = m_frontLeftModulePosition;
+    m_modulePositions[1] = m_frontRightModulePosition;
+    m_modulePositions[2] = m_backLeftModulePosition;
+    m_modulePositions[3] = m_backRightModulePosition;
   }
 
   /**
