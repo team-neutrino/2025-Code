@@ -12,7 +12,7 @@ public class WristNT extends Wrist {
     NetworkTableInstance nt = NetworkTableInstance.getDefault();
     DoubleTopic voltage = nt.getDoubleTopic("/wrist/motor_input_voltage");
     DoubleTopic lastAngle = nt.getDoubleTopic("/wrist/last_input_angle");
-    BooleanTopic isCurrentSpiked = nt.getBooleanTopic("/arm/motor_has_current_spiked");
+    BooleanTopic isCurrentSpiked = nt.getBooleanTopic("/wrist/motor_is_current_spiked");
     final DoublePublisher voltagePub;
     final DoublePublisher lastAnglePub;
     final BooleanPublisher isCurrentSpikedPub;
