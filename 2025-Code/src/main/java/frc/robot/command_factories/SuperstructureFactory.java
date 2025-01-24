@@ -2,6 +2,7 @@ package frc.robot.command_factories;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.*;
 
 import static frc.robot.util.Subsystem.*;
@@ -29,27 +30,27 @@ public class SuperstructureFactory {
     }
 
     public static Command scoreCoralL1Command() {
-        return new ParallelCommandGroup(
+        return new SequentialCommandGroup(new ParallelCommandGroup(
                 ElevatorFactory.moveL1(),
-                ArmFactory.armToScore(ArmConstants.L1_POSITION));
+                ArmFactory.moveToL1()), ClawFactory.runOuttake());
     }
 
     public static Command scoreCoralL2Command() {
-        return new ParallelCommandGroup(
+        return new SequentialCommandGroup(new ParallelCommandGroup(
                 ElevatorFactory.moveL2(),
-                ArmFactory.armToScore(ArmConstants.L2_POSITION));
+                ArmFactory.moveToL2()), ClawFactory.runOuttake());
     }
 
     public static Command scoreCoralL3Command() {
-        return new ParallelCommandGroup(
+        return new SequentialCommandGroup(new ParallelCommandGroup(
                 ElevatorFactory.moveL3(),
-                ArmFactory.armToScore(ArmConstants.L3_POSITION));
+                ArmFactory.moveToL3()), ClawFactory.runOuttake());
     }
 
     public static Command scoreCoralL4Command() {
-        return new ParallelCommandGroup(
+        return new SequentialCommandGroup(new ParallelCommandGroup(
                 ElevatorFactory.moveL4(),
-                ArmFactory.armToScore(ArmConstants.L4_POSITION));
+                ArmFactory.moveToL4()), ClawFactory.runOuttake());
     }
 
 }
