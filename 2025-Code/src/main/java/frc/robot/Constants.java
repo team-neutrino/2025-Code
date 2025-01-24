@@ -80,9 +80,8 @@ public final class Constants {
     public static final double REEF_L2_DESCORE_POSITION = 0.0;
     public static final double REEF_L3_DESCORE_POSITION = 0.0;
 
-    public static final double HITTING_BOTTOM_ELEVATOR_POSITION = 0.0;
-    public static final double HITTING_TOP_ELEVATOR_POSITION = 0.0;
-    public static final double HITTING_BASE_POSITION = 0.0;
+    public static final double HITTING_LOW_HARD_LIMIT = 75;
+    public static final double HITTING_HIGH_HARD_LIMIT = 285;
 
     public static final int MOTOR_ID = 10;
 
@@ -99,6 +98,8 @@ public final class Constants {
     public static final double ArmIZone = 0;
 
     public static final double FFCONSTANT = 0;
+
+    public static final double GEAR_RATIO = 166.67;
   }
 
   public static class ClawConstants {
