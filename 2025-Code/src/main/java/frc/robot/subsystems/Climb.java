@@ -6,7 +6,11 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+
 import static frc.robot.Constants.ClimbConstants.*;
 
 import com.ctre.phoenix6.CANBus;
@@ -15,7 +19,6 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 public class Climb extends SubsystemBase {
@@ -28,6 +31,9 @@ public class Climb extends SubsystemBase {
 
   private final CurrentLimitsConfigs m_currentLimitConfig = new CurrentLimitsConfigs();
   private Follower m_followRequest = new Follower(CLIMB_MOTOR_ID, true);
+
+  public final WaitCommand waitCommand = new WaitCommand(2.0);
+  // subject to change
 
   // private SparkMax m_lockClimbMotor = new SparkMax(CLIMB_MOTOR_ID3, MotorType.kBrushless);
   // private SparkMaxConfig m_lockClimbMotorConfig = new SparkMaxConfig();
@@ -47,7 +53,6 @@ public class Climb extends SubsystemBase {
         .withStatorCurrentLimit(CLIMB_CURRENT_LIMIT)
         .withStatorCurrentLimitEnable(true);
     m_climbMotorConfig.CurrentLimits = m_currentLimitConfig;
-    m_climbMotorConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
 
     m_climbMotor.setNeutralMode(NeutralModeValue.Brake);
     m_climbMotor.getConfigurator().apply(m_climbMotorConfig);
@@ -78,11 +83,6 @@ public class Climb extends SubsystemBase {
   //   });
   // }
 
-  private void runMotorByTicks(double ticks) {
-    PositionVoltage positionControl = new PositionVoltage(ticks);
-    m_climbMotor.setControl(positionControl);
-  }
-
   public void engageLockRatchet() {
     m_lockRatchet.set(0);
     // subject to change
@@ -103,25 +103,35 @@ public class Climb extends SubsystemBase {
     // subject to change
   }
 
+  public void climbUp() {
+    m_climbMotor.setVoltage(0);
+  }
+
+  public void climbDown() {
+    m_climbMotor.setVoltage(12);
+    // subject to change!!!!!!
+  }
+
+  public Command raiseClimbArmCommand() {
+    return run(() -> {
+      disengageClimbRatchet();
+      climbUp();
+    });
+  }
+
+  public Command lowerClimbArmCommand() {
+    return new SequentialCommandGroup(
+        new InstantCommand(this::engageClimbRatchet, this),
+        new InstantCommand(() -> m_climbMotor.setVoltage(12), this),
+        new WaitCommand(3.0),
+        new InstantCommand(() -> m_climbMotor.setVoltage(0), this)
+    );
+}
+
   public Command climbDefaultCommand() {
     return run(() -> {
       engageClimbRatchet();
-      disengageLockRatchet();
-      // put encoder stuff here later
-    });
-  }
-
-  public Command raiseClimbArmCommand(double ticks) {
-    return run(() -> {
-      disengageClimbRatchet();
-      runMotorByTicks(ticks);
-    });
-  }
-
-  public Command lowerClimbArmCommand(double ticks) {
-    return run(() -> {
-      runMotorByTicks(ticks);
-      engageClimbRatchet();
+      m_climbMotor.setVoltage(0);
     });
   }
 
