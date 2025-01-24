@@ -31,7 +31,6 @@ public class Claw extends SubsystemBase {
     private RelativeEncoder m_grabberEncoder;
     private RelativeEncoder m_followerEncoder;
     private double m_intakeVoltage;
-    private DigitalInput m_intakeBeamBreak = new DigitalInput(ClawConstants.INTAKE_MOTOR_BEAMBREAK);
     private Canandcolor colorSensor = new Canandcolor(ClawConstants.COLOR_SENSOR);
     private ColorData colorData;
     private CanandcolorSettings settings = new CanandcolorSettings();
