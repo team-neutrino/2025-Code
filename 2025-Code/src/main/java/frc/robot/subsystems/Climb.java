@@ -32,8 +32,8 @@ public class Climb extends SubsystemBase {
   private TalonFX m_followMotor = new TalonFX(CLIMB_MOTOR_ID2, m_CANBus);
   private TalonFXConfiguration m_climbMotorConfig = new TalonFXConfiguration();
   private TalonFXConfiguration m_followMotorConfig = new TalonFXConfiguration();
-  m_climbMotorConfig.Feedback = FeedbackSensorSourceValue.RotorSensor;
-
+  m_climbMotorConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
+  // what the heck i hate life awergfthgjgtrewasdrfgh WHAT IS THIS
 
   private final CurrentLimitsConfigs m_currentLimitConfig = new CurrentLimitsConfigs();
   private Follower m_followRequest = new Follower(CLIMB_MOTOR_ID, true);
@@ -109,7 +109,7 @@ public class Climb extends SubsystemBase {
     return run(() -> {
       engageClimbRatchet();
       disengageLockRatchet();
-      // does position need to be specified?
+      // put encoder stuff here later
     });
   }
 
