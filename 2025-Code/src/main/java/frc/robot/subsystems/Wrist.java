@@ -57,6 +57,10 @@ public class Wrist extends SubsystemBase {
     return m_wristMotor.getOutputCurrent() > CURRENT_LIMIT;
   }
 
+  public boolean hasCurrentSpike() {
+    return m_hasCurrentSpiked;
+  }
+
   public double getWristVoltage() {
     return m_wristVoltage;
   }

@@ -34,6 +34,6 @@ public class WristNT extends Wrist {
         final long now = NetworkTablesJNI.now();
         voltagePub.set(getWristVoltage(), now);
         lastAnglePub.set(getLastAngle(), now);
-        isCurrentSpikedPub.set(isCurrentSpike(), now);
+        isCurrentSpikedPub.set(hasCurrentSpike(), now);
     }
 }
