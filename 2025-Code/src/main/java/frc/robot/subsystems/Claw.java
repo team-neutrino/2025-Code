@@ -11,11 +11,12 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.ClawConstants;
+import com.reduxrobotics.sensors.canandcolor.Canandcolor;
+import com.reduxrobotics.sensors.canandcolor.CanandcolorSettings;
 
 public class Claw extends SubsystemBase {
 
@@ -27,9 +28,9 @@ public class Claw extends SubsystemBase {
 
     private RelativeEncoder m_grabberEncoder;
     private RelativeEncoder m_followerEncoder;
-
     private double m_intakeVoltage;
-    private DigitalInput m_intakeBeamBreak = new DigitalInput(ClawConstants.INTAKE_MOTOR_BEAMBREAK);
+    private Canandcolor m_colorSensor = new Canandcolor(ClawConstants.COLOR_SENSOR);
+    private CanandcolorSettings m_settings = new CanandcolorSettings();
 
     public Claw() {
         m_grabberEncoder = m_grabber.getEncoder();
@@ -47,6 +48,30 @@ public class Claw extends SubsystemBase {
                 SparkBase.PersistMode.kPersistParameters);
         m_follower.configure(m_followerConfig, SparkBase.ResetMode.kResetSafeParameters,
                 SparkBase.PersistMode.kPersistParameters);
+        m_settings.setLampLEDBrightness(1);
+        m_colorSensor.setSettings(m_settings);
+    }
+
+    private boolean withinProximity(double distance) {
+        return m_colorSensor.getProximity() < distance;
+    }
+
+    private double getBlueToRed() {
+        return m_colorSensor.getBlue() / m_colorSensor.getRed();
+    }
+
+    public boolean isAlgae() {
+        return withinProximity(0.15) && getBlueToRed() > 1.5;
+    }
+
+    public boolean isCoral() {
+        return withinProximity(0.15) && getBlueToRed() > 0.6 && getBlueToRed() < 1.15;
+
+    }
+
+    public boolean hasGamePiece() {
+        boolean ret = isCoral() && isAlgae() ? false : true;
+        return ret && (isCoral() || isAlgae());
     }
 
     public double getVelocityOfGrabber() {
@@ -59,10 +84,6 @@ public class Claw extends SubsystemBase {
 
     public double getIntakeVoltage() {
         return m_intakeVoltage;
-    }
-
-    public boolean hasGamePiece() {
-        return !m_intakeBeamBreak.get();
     }
 
     @Override
