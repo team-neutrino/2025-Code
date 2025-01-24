@@ -130,14 +130,14 @@ public final class Constants {
     public static final int LOCK_CURRENT_LIMIT = 1;
     // subject to change
 
-    public static final double LOCK_SPEED = 0.1;
+    public static final double CLIMB_UP_VOLTAGE = 0.5;
+    public static final double CLIMB_DOWN_VOLTAGE = 5;
     // subject to change
 
-    public static final double ARM_UP_TICKS = 1024;
-    public static final double ARM_DOWN_TICKS = -1024;
+    // public static final double LOCK_SPEED = 0.1;
 
     public static final int CLIMB_RATCHET_PORT = 0;
-    public static final int LOCK_RATCHET_PORT = 1;
+    // public static final int LOCK_RATCHET_PORT = 1;
     // subject to change
   }
 

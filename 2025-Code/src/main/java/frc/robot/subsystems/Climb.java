@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants.ClimbConstants;
 
 import static frc.robot.Constants.ClimbConstants.*;
 
@@ -41,7 +42,6 @@ public class Climb extends SubsystemBase {
   // private SparkLimitSwitch m_lockLimitSwitch = m_lockClimbMotor.getForwardLimitSwitch();
 
   private Servo m_climbRatchet = new Servo(CLIMB_RATCHET_PORT);
-  private Servo m_lockRatchet = new Servo(LOCK_RATCHET_PORT);
 
   public Climb() {
     configureMotors();
@@ -83,18 +83,18 @@ public class Climb extends SubsystemBase {
   //   });
   // }
 
-  public void engageLockRatchet() {
-    m_lockRatchet.set(0);
-    // subject to change
-  }
+  // public void engageLockRatchet() {
+  //   m_lockRatchet.set(0);
+  //   // subject to change
+  // }
+
+  // public void disengageLockRatchet() {
+  //   m_lockRatchet.set(1);
+  //   // subject to change
+  // }
 
   public void engageClimbRatchet() {
     m_climbRatchet.set(0);
-    // subject to change
-  }
-
-  public void disengageLockRatchet() {
-    m_lockRatchet.set(1);
     // subject to change
   }
 
@@ -104,11 +104,12 @@ public class Climb extends SubsystemBase {
   }
 
   public void climbUp() {
-    m_climbMotor.setVoltage(0);
+    m_climbMotor.setVoltage(CLIMB_UP_VOLTAGE);
+    // subject to change!!!!!!
   }
 
   public void climbDown() {
-    m_climbMotor.setVoltage(12);
+    m_climbMotor.setVoltage(CLIMB_DOWN_VOLTAGE);
     // subject to change!!!!!!
   }
 
@@ -121,7 +122,7 @@ public class Climb extends SubsystemBase {
 
   public Command lowerClimbArmCommand() {
     return new SequentialCommandGroup(
-        new InstantCommand(this::engageClimbRatchet, this),
+        new InstantCommand(() -> engageClimbRatchet(), this),
         new InstantCommand(() -> m_climbMotor.setVoltage(12), this),
         new WaitCommand(3.0),
         new InstantCommand(() -> m_climbMotor.setVoltage(0), this)
