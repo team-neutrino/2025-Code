@@ -57,6 +57,14 @@ public class Wrist extends SubsystemBase {
     return m_wristMotor.getOutputCurrent() > CURRENT_LIMIT;
   }
 
+  public double getWristVoltage() {
+    return m_wristVoltage;
+  }
+
+  public double getLastAngle() {
+    return m_lastAngle;
+  }
+
   /**
    * Updates {@link #m_hasCurrentSpiked} using the following criteria:
    * <p>
