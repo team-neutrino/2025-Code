@@ -67,8 +67,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("MoveToScoringL4", SuperstructureFactory.moveToScoreL4Command());
     NamedCommands.registerCommand("MoveToScoringL3", SuperstructureFactory.moveToScoreL3Command());
     NamedCommands.registerCommand("MoveToIntake", SuperstructureFactory.moveToIntake());
-    NamedCommands.registerCommand("Score", ClawFactory.runOuttake());
-    NamedCommands.registerCommand("Intake", ClawFactory.runIntake());
+    NamedCommands.registerCommand("ScoreL4", SuperstructureFactory.scoreCoralL4Command());
+    NamedCommands.registerCommand("ScoreL3", SuperstructureFactory.scoreCoralL3Command());
+    NamedCommands.registerCommand("Intake", SuperstructureFactory.intakeCoral());
   }
 
   /**
