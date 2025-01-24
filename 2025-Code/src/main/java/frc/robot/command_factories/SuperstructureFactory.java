@@ -15,6 +15,10 @@ public class SuperstructureFactory {
         return elevatorCom.alongWith(armCom, clawCom).until(() -> claw.hasGamePiece());
     }
 
+    public static Command moveToIntake() {
+        return new ParallelCommandGroup(ElevatorFactory.moveToIntake(), ArmFactory.armToIntake());
+    }
+
     public static Command descoreAlgaeL2() {
         Command elevatorCom = ElevatorFactory.movetoRemoveAlgaeL2();
         Command armCom = ArmFactory.armToDescoreL2();

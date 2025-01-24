@@ -66,7 +66,9 @@ public class RobotContainer {
   private void configureNamedCommands() {
     NamedCommands.registerCommand("MoveToScoringL4", SuperstructureFactory.moveToScoreL4Command());
     NamedCommands.registerCommand("MoveToScoringL3", SuperstructureFactory.moveToScoreL3Command());
+    NamedCommands.registerCommand("MoveToIntake", SuperstructureFactory.moveToIntake());
     NamedCommands.registerCommand("Score", ClawFactory.runOuttake());
+    NamedCommands.registerCommand("Intake", ClawFactory.runIntake());
   }
 
   /**
