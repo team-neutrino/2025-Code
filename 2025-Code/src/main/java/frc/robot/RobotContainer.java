@@ -11,10 +11,12 @@ import frc.robot.command_factories.ClawFactory;
 import frc.robot.command_factories.ElevatorFactory;
 import frc.robot.command_factories.WristFactory;
 import frc.robot.subsystems.Climb;
+import frc.robot.command_factories.SuperstructureFactory;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.util.Subsystem.*;
 
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj2.command.Command;
@@ -33,11 +35,11 @@ public class RobotContainer {
    */
   public RobotContainer() {
     configureBindings();
+    configureDefaultCommands();
+    configureNamedCommands();
   }
 
   private void configureBindings() {
-    configureDefaultCommands();
-
     m_driverController.x().whileTrue(ElevatorFactory.moveL1());
     m_driverController.y().whileTrue(ElevatorFactory.moveL2());
     m_driverController.b().whileTrue(ElevatorFactory.moveL3());
@@ -59,6 +61,12 @@ public class RobotContainer {
     limelight.setDefaultCommand(limelight.limelightDefaultCommand());
     climb.setDefaultCommand(climb.climbDefaultCommand());
     // swerve.setDefaultCommand(swerve.swerveDefaultCommand(m_driverController));
+  }
+
+  private void configureNamedCommands() {
+    NamedCommands.registerCommand("MoveToScoringL4", SuperstructureFactory.moveToScoreL4Command());
+    NamedCommands.registerCommand("MoveToScoringL3", SuperstructureFactory.moveToScoreL3Command());
+    NamedCommands.registerCommand("Score", ClawFactory.runOuttake());
   }
 
   /**
