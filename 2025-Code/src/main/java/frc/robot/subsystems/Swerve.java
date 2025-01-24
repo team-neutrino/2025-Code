@@ -11,6 +11,7 @@ import com.ctre.phoenix6.swerve.jni.SwerveJNI;
 import com.ctre.phoenix6.swerve.jni.SwerveJNI.DriveState;
 import com.ctre.phoenix6.swerve.jni.SwerveJNI.ModulePosition;
 import com.ctre.phoenix6.hardware.CANcoder;
+import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.ModuleConfig;
@@ -32,18 +33,12 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
-import static edu.wpi.first.units.Units.Degrees;
-
 import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.KilogramSquareMeters;
 import static edu.wpi.first.units.Units.Pounds;
-import static edu.wpi.first.units.Units.Rotation;
 import static frc.robot.Constants.SwerveConstants.*;
 
-import frc.robot.util.Subsystem;
-import frc.robot.Constants;
-import frc.robot.Constants.SwerveConstants;
 import frc.robot.util.GeneratedSwerveCode.CommandSwerveDrivetrain;
 import frc.robot.util.GeneratedSwerveCode.Telemetry;
 import frc.robot.util.GeneratedSwerveCode.TunerConstants;
@@ -88,9 +83,6 @@ public class Swerve extends CommandSwerveDrivetrain {
     super(TunerConstants.DrivetrainConstants, TunerConstants.FrontLeft, TunerConstants.FrontRight,
         TunerConstants.BackLeft, TunerConstants.BackRight);
 
-    m_PoseEstimator = new SwerveDrivePoseEstimator(m_kinematics,
-        Rotation2d.fromDegrees(getYaw()), m_modulePositions, new Pose2d());
-
     if (m_hasBeenConstructed) {
       try {
         throw new IllegalAccessException("Swerve subsystem was instantiated twice");
@@ -120,6 +112,10 @@ public class Swerve extends CommandSwerveDrivetrain {
    */
   public Pose2d getCurrentPose() {
     return getState().Pose;
+  }
+
+  public double getRotationalRate() {
+    return getPigeon2().getAngularVelocityZWorld().getValueAsDouble();
   }
 
   /**
@@ -225,6 +221,9 @@ public class Swerve extends CommandSwerveDrivetrain {
     m_modulePositions[1] = m_frontRightModulePosition;
     m_modulePositions[2] = m_backLeftModulePosition;
     m_modulePositions[3] = m_backRightModulePosition;
+
+    m_PoseEstimator = new SwerveDrivePoseEstimator(m_kinematics,
+        Rotation2d.fromDegrees(getYaw()), m_modulePositions, new Pose2d());
   }
 
   /**
