@@ -11,14 +11,12 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.ClawConstants;
 import com.reduxrobotics.sensors.canandcolor.Canandcolor;
 import com.reduxrobotics.sensors.canandcolor.CanandcolorSettings;
-import com.reduxrobotics.sensors.canandcolor.ColorData;
 
 public class Claw extends SubsystemBase {
 
@@ -32,7 +30,6 @@ public class Claw extends SubsystemBase {
     private RelativeEncoder m_followerEncoder;
     private double m_intakeVoltage;
     private Canandcolor colorSensor = new Canandcolor(ClawConstants.COLOR_SENSOR);
-    private ColorData colorData;
     private CanandcolorSettings settings = new CanandcolorSettings();
 
     public Claw() {
@@ -55,18 +52,26 @@ public class Claw extends SubsystemBase {
         colorSensor.setSettings(settings);
     }
 
+    private boolean withinProximity(double distance) {
+        return colorSensor.getProximity() < distance;
+    }
+
+    private double getBlueToRed() {
+        return colorSensor.getBlue() / colorSensor.getRed();
+    }
+
     public boolean isAlgae() {
-        colorData = colorSensor.getColor();
-        return colorData.blue() > 0.7;
+        return withinProximity(0.15) && getBlueToRed() > 1.5;
     }
 
     public boolean isCoral() {
-        colorData = colorSensor.getColor();
-        return colorData.blue() > 0.7 && colorData.red() > 0.7 && colorData.green() > 0.7;
+        return withinProximity(0.15) && getBlueToRed() > 0.6 && getBlueToRed() < 1.15;
+
     }
 
     public boolean hasGamePiece() {
-        return isCoral() || isAlgae();
+        boolean ret = isCoral() && isAlgae() ? false : true;
+        return ret && (isCoral() || isAlgae());
     }
 
     public double getVelocityOfGrabber() {
@@ -83,7 +88,10 @@ public class Claw extends SubsystemBase {
 
     @Override
     public void periodic() {
-        m_grabber.set(m_intakeVoltage);
+        // m_grabber.set(m_intakeVoltage);
+        System.out.println("is coral " + isCoral());
+        // System.out.println("is algae " + isAlgae());
+        System.out.println("blue/red " + getBlueToRed());
     }
 
     public Command clawDefaultCommand() {
