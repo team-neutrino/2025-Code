@@ -19,22 +19,25 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 public class Climb extends SubsystemBase {
   private final CANBus m_CANBus = new CANBus("rio");
 
   private TalonFX m_climbMotor = new TalonFX(CLIMB_MOTOR_ID, m_CANBus);
   private TalonFX m_followMotor = new TalonFX(CLIMB_MOTOR_ID2, m_CANBus);
-  private TalonFX m_lockMotor = new TalonFX(CLIMB_MOTOR_ID3, m_CANBus);
   private TalonFXConfiguration m_climbMotorConfig = new TalonFXConfiguration();
   private TalonFXConfiguration m_followMotorConfig = new TalonFXConfiguration();
 
   private final CurrentLimitsConfigs m_currentLimitConfig = new CurrentLimitsConfigs();
   private Follower m_followRequest = new Follower(CLIMB_MOTOR_ID, true);
 
-  // private SparkMax m_lockMotor = new SparkMax(CLIMB_MOTOR_ID3, MotorType.kBrushless);
-
-  // private SparkMaxConfig m_lockMotorConfig = new SparkMaxConfig();
+  private SparkMax m_lockMotor = new SparkMax(CLIMB_MOTOR_ID3, MotorType.kBrushless);
+  private SparkMaxConfig m_lockMotorConfig = new SparkMaxConfig();
 
   private Servo m_climbRatchet = new Servo(CLIMB_RATCHET_PORT);
   private Servo m_lockRatchet = new Servo(LOCK_RATCHET_PORT);
@@ -57,14 +60,9 @@ public class Climb extends SubsystemBase {
     m_followMotor.getConfigurator().apply(m_followMotorConfig);
     m_followMotor.setControl(m_followRequest);
 
-    m_lockMotor.setNeutralMode(NeutralModeValue.Brake);
-    m_lockMotor.getConfigurator().apply(m_climbMotorConfig);
+    m_lockMotorConfig.smartCurrentLimit(LOCK_CURRENT_LIMIT);
 
-    // m_lockMotorConfig.smartCurrentLimit(LOCK_CURRENT_LIMIT);
-    // m_lockClimbMotorConfig.idleMode(IdleMode.kCoast);
-
-    // m_lockClimbMotor.configure(m_lockClimbMotorConfig,
-    // ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    m_lockMotor.configure(m_lockMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
   public void engageLockRatchet() {
