@@ -21,7 +21,6 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import static edu.wpi.first.units.Units.Amps;
@@ -50,10 +49,10 @@ public class Swerve extends CommandSwerveDrivetrain {
    *                                once, throw an exception.
    */
   public Swerve() {
-
     super(TunerConstants.DrivetrainConstants, TunerConstants.FrontLeft, TunerConstants.FrontRight,
         TunerConstants.BackLeft, TunerConstants.BackRight);
 
+    SwerveRequestStash.configureRequestsPID();
     if (m_hasBeenConstructed) {
       try {
         throw new IllegalAccessException("Swerve subsystem was instantiated twice");
@@ -74,6 +73,13 @@ public class Swerve extends CommandSwerveDrivetrain {
    */
   public double getYaw() {
     return getCurrentPose().getRotation().getDegrees();
+  }
+
+  /**
+   * Gets yaw from 0-360, going to the right
+   */
+  public double getYaw360() {
+    return getPigeon2().getYaw().getValueAsDouble() % 360;
   }
 
   /**
@@ -208,16 +214,13 @@ public class Swerve extends CommandSwerveDrivetrain {
      *         structure factory.
      */
     public static FieldCentricFacingAngle autoAlignBaseline(CommandXboxController controller) {
-      autoAlign.HeadingController.enableContinuousInput(-180, 180);
-      autoAlign.HeadingController.setPID(9, 0, 1);
       return autoAlign.withVelocityX(-controller.getLeftY() * MAX_SPEED)
           .withVelocityY(-controller.getLeftX() * MAX_SPEED);
     }
 
-    public static FieldCentricFacingAngle driveAssistBaseline() {
-      autoAlign.HeadingController.setPID(9, 0, 1);
-      // autoAlign.HeadingController.enableContinuousInput(0, 360);
-      return autoAlign;
+    public static void configureRequestsPID() {
+      autoAlign.HeadingController.enableContinuousInput(-180, 180);
+      autoAlign.HeadingController.setPID(AUTO_ALIGN_P, 0, AUTO_ALIGN_D);
     }
   }
 }

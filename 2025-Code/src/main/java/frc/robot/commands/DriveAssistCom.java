@@ -31,24 +31,32 @@ public class DriveAssistCom extends Command {
 
   @Override
   public void execute() {
-    FieldCentricFacingAngle req = SwerveRequestStash.driveAssistBaseline();
+    FieldCentricFacingAngle req = SwerveRequestStash.autoAlign;
     // int id = limelight.getID();
     int id = 7;
     double tagAngle = swerve.getTagAngle(id);
+    double yaw = swerve.getYaw180();
     double yVel = 0;
     double xVel = 0;
 
     if (id == 7 || id == 10) {
-      xVel = MathUtil.clamp(SwerveConstants.APRILTAG_ALIGN_KP * ((swerve.getYaw() - swerve.getTagAngle(id)) / 2), -.5,
+      xVel = MathUtil.clamp(SwerveConstants.APRILTAG_ALIGN_KP * ((yaw - tagAngle) / 2), -.5,
           .5);
       yVel = controller.getLeftX() * SwerveConstants.MAX_SPEED;
     } else {
-      yVel = MathUtil.clamp(SwerveConstants.APRILTAG_ALIGN_KP * ((swerve.getYaw() - swerve.getTagAngle(id)) / 2), -.5,
+      yVel = MathUtil.clamp(SwerveConstants.APRILTAG_ALIGN_KP * ((yaw - tagAngle) / 2), -.5,
           .5);
       xVel = -controller.getLeftY() * SwerveConstants.MAX_SPEED;
     }
 
-    swerve.setControl(req.withTargetDirection(Rotation2d.fromDegrees(swerve.getYaw() - limelight.getTx())));
+    swerve.setControl(req.withTargetDirection(Rotation2d.fromDegrees(yaw - limelight.getTx())));
+  }
+
+  private double getRadialDistance() {
+    double distance = limelight.getTy();
+    double angle = swerve.getYaw180() - limelight.getTx();
+    
+    return 0;
   }
 
   @Override
