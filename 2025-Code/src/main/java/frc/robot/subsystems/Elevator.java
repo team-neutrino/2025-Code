@@ -115,6 +115,12 @@ public class Elevator extends SubsystemBase {
     return run(() -> m_target = height);
   }
 
+  public void changePID(double p, double i, double d) {
+    m_config.closedLoop.pid(p, i, d);
+    m_motor1.configure(m_config, ResetMode.kResetSafeParameters,
+        PersistMode.kPersistParameters);
+  }
+
   @Override
   public void periodic() {
     adjustElevator(safeHeight(m_target));
