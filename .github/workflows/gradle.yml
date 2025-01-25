@@ -36,11 +36,11 @@ jobs:
         echo "HELllllllllllllllllllllllllllllllllllooooooooooooooo"
         pwd
         ls -al
-        echo "HELllllllllllllllllllllllllllllllllllooooooooooooooo"
         touch help.txt
         echo "HELllllllllllllllllllllllllllllllllllooooooooooooooo"
         git status
         git add .
         git status
+        git commit -m"chore: added new file to do something with"
         echo "HELllllllllllllllllllllllllllllllllllooooooooooooooo"
         du -h build/libs/2025-Code.jar
