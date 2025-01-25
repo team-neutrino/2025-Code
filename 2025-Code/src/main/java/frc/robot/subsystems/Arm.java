@@ -14,11 +14,10 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.config.SparkBaseConfigAccessor;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
-import com.ctre.phoenix6.mechanisms.swerve.LegacySwerveModule.ClosedLoopOutputType;
+import com.revrobotics.spark.config.SparkFlexConfigAccessor;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.spark.config.ClosedLoopConfigAccessor;
 import static frc.robot.Constants.ArmConstants.*;
@@ -29,15 +28,15 @@ public class Arm extends SubsystemBase {
   private SparkFlexConfig m_armMotorConfig = new SparkFlexConfig();
   private AbsoluteEncoder m_armEncoder;
   private SparkClosedLoopController m_armPidController;
-  private SparkBaseConfigAccessor m_sparkBaseConfigAccessor;
+  private SparkFlexConfigAccessor m_sparkFlexConfigAccessor;
   public ClosedLoopConfigAccessor m_armPidAccessor;
 
   private double m_targetAngle = 0;
 
   public Arm() {
     initializeMotorControllers();
-    m_sparkBaseConfigAccessor = SOMETHINGDFSJDS
-    m_armPidAccessor = m_sparkBaseConfigAccessor.closedLoop;
+    m_sparkFlexConfigAccessor = m_armMotor.configAccessor;
+    m_armPidAccessor = m_sparkFlexConfigAccessor.closedLoop;
   }
 
   public double getArmEncoderPosition() {
@@ -69,6 +68,7 @@ public class Arm extends SubsystemBase {
     m_armMotorConfig.closedLoop
         .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
         .pid(kp, ki, kd, ClosedLoopSlot.kSlot0);
+    m_armPidController = m_armMotor.getClosedLoopController();
 
     m_armMotorConfig.closedLoop.maxMotion
         .maxVelocity(MAX_VELOCITY)
@@ -115,5 +115,4 @@ public class Arm extends SubsystemBase {
   public Command armRotateCommand(double targetAngle) {
     return run(() -> m_targetAngle = targetAngle);
   }
-
 }
