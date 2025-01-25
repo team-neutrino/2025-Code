@@ -32,12 +32,9 @@ public class Climb extends SubsystemBase {
   private final CurrentLimitsConfigs m_currentLimitConfig = new CurrentLimitsConfigs();
   private Follower m_followRequest = new Follower(CLIMB_MOTOR_ID, true);
 
-  // private SparkMax m_lockClimbMotor = new SparkMax(CLIMB_MOTOR_ID3,
-  // MotorType.kBrushless);
-  // private SparkMaxConfig m_lockClimbMotorConfig = new SparkMaxConfig();
+  // private SparkMax m_lockMotor = new SparkMax(CLIMB_MOTOR_ID3, MotorType.kBrushless);
 
-  // private SparkLimitSwitch m_lockLimitSwitch =
-  // m_lockClimbMotor.getForwardLimitSwitch();
+  // private SparkMaxConfig m_lockMotorConfig = new SparkMaxConfig();
 
   private Servo m_climbRatchet = new Servo(CLIMB_RATCHET_PORT);
   private Servo m_lockRatchet = new Servo(LOCK_RATCHET_PORT);
@@ -63,7 +60,7 @@ public class Climb extends SubsystemBase {
     m_lockMotor.setNeutralMode(NeutralModeValue.Brake);
     m_lockMotor.getConfigurator().apply(m_climbMotorConfig);
 
-    // m_lockClimbMotorConfig.smartCurrentLimit(LOCK_CURRENT_LIMIT);
+    // m_lockMotorConfig.smartCurrentLimit(LOCK_CURRENT_LIMIT);
     // m_lockClimbMotorConfig.idleMode(IdleMode.kCoast);
 
     // m_lockClimbMotor.configure(m_lockClimbMotorConfig,
