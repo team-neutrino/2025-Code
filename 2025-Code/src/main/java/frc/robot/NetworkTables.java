@@ -8,10 +8,10 @@ import frc.robot.util.PDH;
 
 public class NetworkTables {
     PDH m_Pdh = new PDH();
-
+    // fms for match time: wpilib.org -- getMatchTime()
     NetworkTableInstance nt = NetworkTableInstance.getDefault();
 
-    DoubleTopic total_current = nt.getDoubleTopic("/PDH/total_current");
+    DoubleTopic total_current = nt.getDoubleTopic("/PDH/total_current"); // of battery
     final DoublePublisher totalCurrent;
 
     public NetworkTables() {
