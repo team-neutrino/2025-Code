@@ -1,5 +1,9 @@
 package frc.robot.subsystems.NetworkTables;
 
+import static frc.robot.Constants.ArmConstants.kd;
+import static frc.robot.Constants.ArmConstants.ki;
+import static frc.robot.Constants.ArmConstants.kp;
+
 import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -17,6 +21,9 @@ public class ArmNT extends Arm {
     final DoublePublisher targetPositionPub;
     final DoublePublisher motorVoltagePub;
     PIDTuner m_PIDTuner;
+    private double previousP;
+    private double previousI;
+    private double previousD;
 
     public ArmNT() {
         encoderPositionPub = encoderPosition.publish();
@@ -29,7 +36,12 @@ public class ArmNT extends Arm {
         motorVoltagePub.setDefault(0.0);
         m_PIDTuner = new PIDTuner("arm");
 
-        m_PIDTuner.setP(1);
+        m_PIDTuner.setP(kp);
+        m_PIDTuner.setI(ki);
+        m_PIDTuner.setD(kd);
+        previousP = kp;
+        previousI = ki;
+        previousD = kd;
     }
 
     @Override
@@ -40,11 +52,12 @@ public class ArmNT extends Arm {
         targetPositionPub.set(getArmTargetPosition(), now);
         motorVoltagePub.set(getArmVoltage(), now);
 
-        changePID(m_PIDTuner.getP(), m_PIDTuner.getI(), m_PIDTuner.getD());
-
-        System.out.println("p" + m_armPidAccessor.getP());
-        System.out.println("i" + m_armPidAccessor.getI());
-        System.out.println("d" + m_armPidAccessor.getD());
+        if (m_PIDTuner.getP() != previousP || m_PIDTuner.getI() != previousI || m_PIDTuner.getD() != previousD) {
+            changePID(m_PIDTuner.getP(), m_PIDTuner.getI(), m_PIDTuner.getD());
+            previousP = m_PIDTuner.getP();
+            previousI = m_PIDTuner.getI();
+            previousD = m_PIDTuner.getD();
+        }
     }
 
 }
