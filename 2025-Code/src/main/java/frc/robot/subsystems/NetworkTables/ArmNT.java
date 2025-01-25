@@ -4,7 +4,7 @@ import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTablesJNI;
-
+import frc.robot.Constants.ArmConstants;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.PIDTuner;
 
@@ -28,6 +28,8 @@ public class ArmNT extends Arm {
         motorVoltagePub = voltage.publish();
         motorVoltagePub.setDefault(0.0);
         m_PIDTuner = new PIDTuner("arm");
+
+        m_PIDTuner.setP(1);
     }
 
     @Override
@@ -39,6 +41,10 @@ public class ArmNT extends Arm {
         motorVoltagePub.set(getArmVoltage(), now);
 
         changePID(m_PIDTuner.getP(), m_PIDTuner.getI(), m_PIDTuner.getD());
+
+        System.out.println("p" + m_armPidAccessor.getP());
+        System.out.println("i" + m_armPidAccessor.getI());
+        System.out.println("d" + m_armPidAccessor.getD());
     }
 
 }
