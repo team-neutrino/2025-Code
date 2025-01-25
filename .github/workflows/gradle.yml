@@ -33,4 +33,5 @@ jobs:
         cd 2025-Code
         chmod +x ./gradlew
         ./gradlew build
+        echo "HELllllllllllllllllllllllllllllllllllooooooooooooooo"
         du -h build/libs/2025-Code.jar
