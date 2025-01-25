@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.util.Subsystem;
 
-public class PIDTuner extends SubsystemBase {
+public class PIDTuner {
     NetworkTableInstance nt = NetworkTableInstance.getDefault();
     String subsystem;
     DoubleTopic P;
@@ -53,7 +53,18 @@ public class PIDTuner extends SubsystemBase {
         return D_Sub.get();
     }
 
-    @Override
+    public void setP(double p) {
+        P_Pub.set(p);
+    }
+
+    public void setI(double i) {
+        I_Pub.set(i);
+    }
+
+    public void setD(double d) {
+        D_Pub.set(d);
+    }
+
     public void periodic() {
     }
 }
