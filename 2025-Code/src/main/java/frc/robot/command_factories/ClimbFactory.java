@@ -15,8 +15,8 @@ public class ClimbFactory {
         return climb.lowerClimbArmCommand();
     }
 
-    // public static Command lockCommand() {
-    //     Climb climb = Subsystem.climb;
-    //     return climb.lockCommand();
-    // }
+    public static Command lockCommand() {
+        Climb climb = Subsystem.climb;
+        return climb.lockCommand();
+    }
 }

@@ -46,6 +46,7 @@ public class RobotContainer {
 
     m_buttonsController.y().toggleOnTrue(ClimbFactory.raiseClimbArmCommand());
     m_buttonsController.x().toggleOnTrue(ClimbFactory.lowerClimbArmCommand());
+    m_buttonsController.a().toggleOnTrue(ClimbFactory.lockCommand());
   }
 
   private void configureDefaultCommands() {

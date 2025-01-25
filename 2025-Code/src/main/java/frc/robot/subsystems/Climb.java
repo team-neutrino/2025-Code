@@ -40,6 +40,7 @@ public class Climb extends SubsystemBase {
   // m_lockClimbMotor.getForwardLimitSwitch();
 
   private Servo m_climbRatchet = new Servo(CLIMB_RATCHET_PORT);
+  private Servo m_lockRatchet = new Servo(LOCK_RATCHET_PORT);
 
   public Climb() {
     configureMotors();
@@ -69,30 +70,15 @@ public class Climb extends SubsystemBase {
     // ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
-  // public void lockClimb() {
-  // if (!m_lockLimitSwitch.isPressed()) {
-  // m_lockClimbMotor.set(LOCK_SPEED);
-  // } else {
-  // m_lockClimbMotor.stopMotor();
-  // }
-  // }
+  public void engageLockRatchet() {
+  m_lockRatchet.set(0.2);
+  // subject to change
+  }
 
-  // public Command lockCommand() {
-  // return run(() -> {
-  // lockClimb();
-  // engageLockRatchet();
-  // });
-  // }
-
-  // public void engageLockRatchet() {
-  // m_lockRatchet.set(0);
-  // // subject to change
-  // }
-
-  // public void disengageLockRatchet() {
-  // m_lockRatchet.set(1);
-  // // subject to change
-  // }
+  public void disengageLockRatchet() {
+  m_lockRatchet.set(0.8);
+  // subject to change
+  }
 
   public void engageClimbRatchet() {
     m_climbRatchet.set(0.2);
@@ -104,6 +90,17 @@ public class Climb extends SubsystemBase {
     // subject to change
   }
 
+  public void engageLock() {
+    m_lockMotor.setVoltage(LOCK_VOLTAGE);
+
+    double current = m_lockMotor.getSupplyCurrent().getValueAsDouble();
+    if (current > LOCK_CURRENT_THRESHOLD) {
+      m_lockMotor.setVoltage(0);
+      engageLockRatchet();
+      System.out.println("Lock engaged. Current spike detected: " + current + "A");
+    }
+  }
+
   public void climbUp() {
     m_climbMotor.setVoltage(CLIMB_UP_VOLTAGE);
     // subject to change!!!!!!
@@ -112,6 +109,12 @@ public class Climb extends SubsystemBase {
   public void climbDown() {
     m_climbMotor.setVoltage(CLIMB_DOWN_VOLTAGE);
     // subject to change!!!!!!
+  }
+
+  public Command lockCommand() {
+    return run(() -> {
+      engageLock();
+    });
   }
 
   public Command raiseClimbArmCommand() {
