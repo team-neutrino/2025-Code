@@ -122,20 +122,21 @@ public final class Constants {
   }
 
   public static class ClimbConstants {
-    public static final int CLIMB_MOTOR_ID = 30;
-    public static final int CLIMB_MOTOR_ID2 = 31;
-    public static final int CLIMB_MOTOR_ID3 = 32;
-    public static final int CLIMB_ENCODER_ID = 33;
+    public static final int MAIN_MOTOR_ID = 30;
+    public static final int FOLLOW_MOTOR_ID = 31;
+    public static final int LOCK_MOTOR_ID = 32;
 
-    public static final int CLIMB_CURRENT_LIMIT = 0;
-    public static final int LOCK_CURRENT_LIMIT = 1;
+    public static final int CLIMB_CURRENT_LIMIT = 10;
+    public static final int LOCK_CURRENT_LIMIT = 10;
     // subject to change
 
-    public static final double LOCK_SPEED = 0.1;
+    public static final double LOCK_CURRENT_THRESHOLD = 20;
     // subject to change
 
-    public static final double ARM_UP_TICKS = 1024;
-    public static final double ARM_DOWN_TICKS = -1024;
+    public static final double CLIMB_UP_VOLTAGE = 0.5;
+    public static final double CLIMB_DOWN_VOLTAGE = 5;
+    public static final double LOCK_VOLTAGE = 2;
+    // subject to change
 
     public static final int CLIMB_RATCHET_PORT = 0;
     public static final int LOCK_RATCHET_PORT = 1;

@@ -6,9 +6,11 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.command_factories.ArmFactory;
+import frc.robot.command_factories.ClimbFactory;
 import frc.robot.command_factories.ClawFactory;
 import frc.robot.command_factories.ElevatorFactory;
 import frc.robot.command_factories.WristFactory;
+import frc.robot.subsystems.Climb;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.util.Subsystem.*;
@@ -42,6 +44,10 @@ public class RobotContainer {
     m_driverController.a().whileTrue(ElevatorFactory.moveL4());
 
     m_driverController.leftBumper().whileTrue(ArmFactory.moveToL1());
+
+    m_buttonsController.y().toggleOnTrue(ClimbFactory.raiseClimb());
+    m_buttonsController.x().toggleOnTrue(ClimbFactory.lowerClimb());
+    m_buttonsController.a().toggleOnTrue(ClimbFactory.lockGrabber());
   }
 
   private void configureDefaultCommands() {
@@ -51,6 +57,7 @@ public class RobotContainer {
     elevator.setDefaultCommand(elevator.elevatorDefaultCommand());
     LED.setDefaultCommand(LED.LEDefaultCommand());
     limelight.setDefaultCommand(limelight.limelightDefaultCommand());
+    climb.setDefaultCommand(climb.climbDefaultCommand());
     // swerve.setDefaultCommand(swerve.swerveDefaultCommand(m_driverController));
   }
 
