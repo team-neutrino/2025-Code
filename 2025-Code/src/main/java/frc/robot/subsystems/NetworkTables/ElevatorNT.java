@@ -5,6 +5,7 @@ import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTablesJNI;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.PIDTuner;
 
 public class ElevatorNT extends Elevator {
 
@@ -15,6 +16,7 @@ public class ElevatorNT extends Elevator {
     final DoublePublisher encoderPositionPub;
     final DoublePublisher targetPositionPub;
     final DoublePublisher motorVoltagePub;
+    PIDTuner m_PIDTuner;
 
     public ElevatorNT() {
         encoderPositionPub = encoderPosition.publish();
@@ -25,6 +27,8 @@ public class ElevatorNT extends Elevator {
 
         motorVoltagePub = voltage.publish();
         motorVoltagePub.setDefault(0.0);
+
+        m_PIDTuner = new PIDTuner("elevator");
     }
 
     @Override

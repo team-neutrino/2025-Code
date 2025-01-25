@@ -6,6 +6,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTablesJNI;
 
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.PIDTuner;
 
 public class ArmNT extends Arm {
     NetworkTableInstance nt = NetworkTableInstance.getDefault();
@@ -15,6 +16,7 @@ public class ArmNT extends Arm {
     final DoublePublisher encoderPositionPub;
     final DoublePublisher targetPositionPub;
     final DoublePublisher motorVoltagePub;
+    PIDTuner m_PIDTuner;
 
     public ArmNT() {
         encoderPositionPub = encoderPosition.publish();
@@ -25,6 +27,7 @@ public class ArmNT extends Arm {
 
         motorVoltagePub = voltage.publish();
         motorVoltagePub.setDefault(0.0);
+        m_PIDTuner = new PIDTuner("arm");
     }
 
     @Override
@@ -34,6 +37,8 @@ public class ArmNT extends Arm {
         encoderPositionPub.set(getArmEncoderPosition(), now);
         targetPositionPub.set(getArmTargetPosition(), now);
         motorVoltagePub.set(getArmVoltage(), now);
+
+        changePID(m_PIDTuner.getP(), m_PIDTuner.getI(), m_PIDTuner.getD());
     }
 
 }

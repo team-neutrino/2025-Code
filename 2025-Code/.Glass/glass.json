@@ -7,6 +7,9 @@
       "claw": {
         "open": true
       },
+      "elevator": {
+        "open": true
+      },
       "limelight": {
         "double[]##v_/limelight/botpose": {
           "open": true

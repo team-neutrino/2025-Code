@@ -6,6 +6,7 @@ import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTablesJNI;
+import frc.robot.subsystems.PIDTuner;
 import frc.robot.subsystems.Wrist;
 
 public class WristNT extends Wrist {
@@ -16,6 +17,7 @@ public class WristNT extends Wrist {
     final DoublePublisher voltagePub;
     final DoublePublisher lastAnglePub;
     final BooleanPublisher isCurrentSpikedPub;
+    PIDTuner m_PIDTuner;
 
     public WristNT() {
         voltagePub = voltage.publish();
@@ -26,6 +28,7 @@ public class WristNT extends Wrist {
 
         isCurrentSpikedPub = isCurrentSpiked.publish();
         isCurrentSpikedPub.setDefault(false);
+        m_PIDTuner = new PIDTuner("wrist");
     }
 
     @Override
