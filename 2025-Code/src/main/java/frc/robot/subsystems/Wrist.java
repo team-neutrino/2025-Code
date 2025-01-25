@@ -82,7 +82,7 @@ public class Wrist extends SubsystemBase {
    * @return Whether or not the wrist can move.
    */
   private void updateCurrentSpike(double requestedAngle) {
-    m_hasCurrentSpiked = !m_hasCurrentSpiked ? m_wristMotor.getOutputCurrent() > HARDSTOP_CURRENT_LIMIT
+    m_hasCurrentSpiked = !m_hasCurrentSpiked ? m_wristMotor.getOutputCurrent() > CURRENT_LIMIT
         : (requestedAngle == m_lastAngle);
   }
 
