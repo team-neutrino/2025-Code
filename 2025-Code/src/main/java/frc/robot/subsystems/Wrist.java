@@ -112,7 +112,6 @@ public class Wrist extends SubsystemBase {
   @Override
   public void periodic() {
     m_wristMotor.setVoltage(m_wristVoltage);
-    System.out.println(m_wristMotor.getOutputCurrent());
   }
 
 }
