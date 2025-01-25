@@ -1,5 +1,6 @@
 package frc.robot.util;
 
+import frc.robot.NetworkTables;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.NetworkTables.*;
 
@@ -16,4 +17,5 @@ public class Subsystem {
     public static final Limelight limelight = new Limelight();
     public static final LED LED = new LED();
     public static final Arm arm = new ArmNT();
+    public static final NetworkTables networkTables = new NetworkTables();
 }
