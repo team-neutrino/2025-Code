@@ -91,6 +91,12 @@ public class Arm extends SubsystemBase {
     return volts;
   }
 
+  public void changePID(double p, double i, double d) {
+    m_armMotorConfig.closedLoop.pid(p, i, d);
+    m_armMotor.configure(m_armMotorConfig, ResetMode.kResetSafeParameters,
+        PersistMode.kPersistParameters);
+  }
+
   @Override
   public void periodic() {
     updateArmAngle();
