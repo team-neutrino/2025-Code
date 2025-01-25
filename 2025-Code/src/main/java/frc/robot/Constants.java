@@ -122,9 +122,9 @@ public final class Constants {
   }
 
   public static class ClimbConstants {
-    public static final int CLIMB_MOTOR_ID = 30;
-    public static final int CLIMB_MOTOR_ID2 = 31;
-    public static final int CLIMB_MOTOR_ID3 = 32;
+    public static final int MAIN_MOTOR_ID = 30;
+    public static final int FOLLOW_MOTOR_ID = 31;
+    public static final int LOCK_MOTOR_ID = 32;
 
     public static final int CLIMB_CURRENT_LIMIT = 10;
     public static final int LOCK_CURRENT_LIMIT = 10;

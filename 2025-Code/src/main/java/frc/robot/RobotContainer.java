@@ -10,6 +10,7 @@ import frc.robot.command_factories.ClimbFactory;
 import frc.robot.command_factories.ClawFactory;
 import frc.robot.command_factories.ElevatorFactory;
 import frc.robot.command_factories.WristFactory;
+import frc.robot.subsystems.Climb;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.util.Subsystem.*;
@@ -44,9 +45,9 @@ public class RobotContainer {
 
     m_driverController.leftBumper().whileTrue(ArmFactory.moveToL1());
 
-    m_buttonsController.y().toggleOnTrue(ClimbFactory.raiseClimbArmCommand());
-    m_buttonsController.x().toggleOnTrue(ClimbFactory.lowerClimbArmCommand());
-    m_buttonsController.a().toggleOnTrue(ClimbFactory.lockCommand());
+    m_buttonsController.y().toggleOnTrue(ClimbFactory.raiseClimb());
+    m_buttonsController.x().toggleOnTrue(ClimbFactory.lowerClimb());
+    m_buttonsController.a().toggleOnTrue(ClimbFactory.lockGrabber());
   }
 
   private void configureDefaultCommands() {

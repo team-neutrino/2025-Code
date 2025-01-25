@@ -28,15 +28,15 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 public class Climb extends SubsystemBase {
   private final CANBus m_CANBus = new CANBus("rio");
 
-  private TalonFX m_climbMotor = new TalonFX(CLIMB_MOTOR_ID, m_CANBus);
-  private TalonFX m_followMotor = new TalonFX(CLIMB_MOTOR_ID2, m_CANBus);
+  private TalonFX m_climbMotor = new TalonFX(MAIN_MOTOR_ID, m_CANBus);
+  private TalonFX m_followMotor = new TalonFX(FOLLOW_MOTOR_ID, m_CANBus);
   private TalonFXConfiguration m_climbMotorConfig = new TalonFXConfiguration();
   private TalonFXConfiguration m_followMotorConfig = new TalonFXConfiguration();
 
   private final CurrentLimitsConfigs m_currentLimitConfig = new CurrentLimitsConfigs();
-  private Follower m_followRequest = new Follower(CLIMB_MOTOR_ID, true);
+  private Follower m_followRequest = new Follower(MAIN_MOTOR_ID, true);
 
-  private SparkMax m_lockMotor = new SparkMax(CLIMB_MOTOR_ID3, MotorType.kBrushless);
+  private SparkMax m_lockMotor = new SparkMax(LOCK_MOTOR_ID, MotorType.kBrushless);
   private SparkMaxConfig m_lockMotorConfig = new SparkMaxConfig();
 
   private Servo m_climbRatchet = new Servo(CLIMB_RATCHET_PORT);
@@ -66,13 +66,13 @@ public class Climb extends SubsystemBase {
   }
 
   public void engageLockRatchet() {
-  m_lockRatchet.set(0.2);
-  // subject to change
+    m_lockRatchet.set(0.2);
+    // subject to change
   }
 
   public void disengageLockRatchet() {
-  m_lockRatchet.set(0.8);
-  // subject to change
+    m_lockRatchet.set(0.8);
+    // subject to change
   }
 
   public void engageClimbRatchet() {
@@ -92,7 +92,6 @@ public class Climb extends SubsystemBase {
     if (current > LOCK_CURRENT_THRESHOLD) {
       m_lockMotor.setVoltage(0);
       engageLockRatchet();
-      System.out.println("Lock engaged. Current spike detected: " + current + "A");
     }
   }
 
