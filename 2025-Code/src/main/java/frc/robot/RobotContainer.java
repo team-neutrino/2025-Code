@@ -41,8 +41,6 @@ public class RobotContainer {
     m_driverController.b().whileTrue(ElevatorFactory.moveL3());
     m_driverController.a().whileTrue(ElevatorFactory.moveL4());
 
-    m_driverController.leftTrigger().whileTrue(ClawFactory.runIntake());
-
     m_driverController.leftBumper().whileTrue(ArmFactory.moveToL1());
   }
 
