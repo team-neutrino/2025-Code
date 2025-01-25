@@ -88,7 +88,7 @@ public class Climb extends SubsystemBase {
   public void engageLock() {
     m_lockMotor.setVoltage(LOCK_VOLTAGE);
 
-    double current = m_lockMotor.getSupplyCurrent().getValueAsDouble();
+    double current = m_lockMotor.getOutputCurrent();
     if (current > LOCK_CURRENT_THRESHOLD) {
       m_lockMotor.setVoltage(0);
       engageLockRatchet();
