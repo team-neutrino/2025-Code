@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.command_factories.ArmFactory;
+import frc.robot.command_factories.ClawFactory;
 import frc.robot.command_factories.ElevatorFactory;
 import frc.robot.command_factories.WristFactory;
 import frc.robot.util.Subsystem;
