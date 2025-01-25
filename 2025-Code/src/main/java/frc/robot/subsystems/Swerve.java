@@ -70,7 +70,7 @@ public class Swerve extends CommandSwerveDrivetrain {
    * Returns the yaw of the robot, which is the rotation of the robot around the
    * vertical axis, from -180 -> 180 as defined by the SWERVE, not pigeon.
    * 
-   * @return The yaw of the robot in degrees.
+   * @return
    */
   public double getYaw() {
     return getCurrentPose().getRotation().getDegrees();
@@ -208,10 +208,16 @@ public class Swerve extends CommandSwerveDrivetrain {
      *         structure factory.
      */
     public static FieldCentricFacingAngle autoAlignBaseline(CommandXboxController controller) {
-      // autoAlign.HeadingController.enableContinuousInput(180, -180);
+      autoAlign.HeadingController.enableContinuousInput(-180, 180);
       autoAlign.HeadingController.setPID(9, 0, 1);
       return autoAlign.withVelocityX(-controller.getLeftY() * MAX_SPEED)
           .withVelocityY(-controller.getLeftX() * MAX_SPEED);
+    }
+
+    public static FieldCentricFacingAngle driveAssistBaseline() {
+      autoAlign.HeadingController.setPID(9, 0, 1);
+      // autoAlign.HeadingController.enableContinuousInput(0, 360);
+      return autoAlign;
     }
   }
 }

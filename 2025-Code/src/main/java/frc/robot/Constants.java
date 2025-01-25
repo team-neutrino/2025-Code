@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Translation2d;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean
@@ -30,6 +32,13 @@ public final class Constants {
   public static class SwerveConstants {
     public static final double MAX_SPEED = 5.7;
     public static final double MAX_ROTATION_SPEED = 1.5 * Math.PI;
+    public static final Translation2d[] APRILTAG_POSITIONS = { null, new Translation2d(), new Translation2d(),
+        new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(0, 0),
+        new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(),
+        new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(),
+        new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d() };
+    public static final double APRILTAG_ALIGN_KP = .2;
+    public static final double APRILTAG_ALIGN_LIMIT = .7;
     public static final double STALL_TORQUE = 7.09;
     public static final double STALL_CURRENT = 366;
     public static final double FREE_CURRENT_AMPS = 2;
