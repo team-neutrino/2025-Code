@@ -41,6 +41,7 @@ public class RobotContainer {
     m_driverController.a().whileTrue(ElevatorFactory.moveL4());
 
     m_driverController.rightBumper().whileTrue(SuperstructureFactory.autoAlign(m_driverController));
+    m_driverController.leftStick().toggleOnTrue(new DriveAssistCom(m_driverController));
 
     m_driverController.leftBumper().whileTrue(ArmFactory.moveToL1());
 

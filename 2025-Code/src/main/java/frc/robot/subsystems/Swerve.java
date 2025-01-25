@@ -73,13 +73,14 @@ public class Swerve extends CommandSwerveDrivetrain {
   }
 
   /**
-   * Returns the yaw of the robot, which is the rotation of the robot around the
-   * vertical axis. The value is between 0 and 360.
+   * Gets yaw from -180 to 180, negative to the right
    * 
-   * @return The yaw of the robot in degrees.
+   * @return
    */
   public double getYaw() {
-    return getPigeon2().getYaw().getValueAsDouble() % 360;
+    double wrappedYaw = getPigeon2().getYaw().getValueAsDouble() % 360;
+    wrappedYaw += wrappedYaw < -180 ? 360 : wrappedYaw > 180 ? -360 : 0;
+    return wrappedYaw;
   }
 
   /**
@@ -171,6 +172,16 @@ public class Swerve extends CommandSwerveDrivetrain {
             .withRotationalRate(-controller.getRightX() * (MAX_ROTATION_SPEED / 2)));
   }
 
+  /**
+   * Gets the angle of the given apriltag ID relative to the field in degrees.
+   * 
+   * @param ID The id of the apriltag whose angle is desired.
+   * @return Its angle relative to the field in degrees.
+   */
+  public double getTagAngle(int ID) {
+    return getCurrentPose().getX() - SwerveConstants.APRILTAG_POSITIONS[ID].getAngle().getDegrees();
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -207,10 +218,16 @@ public class Swerve extends CommandSwerveDrivetrain {
      *         structure factory.
      */
     public static FieldCentricFacingAngle autoAlignBaseline(CommandXboxController controller) {
-      // autoAlign.HeadingController.enableContinuousInput(180, -180);
+      autoAlign.HeadingController.enableContinuousInput(-180, 180);
       autoAlign.HeadingController.setPID(9, 0, 1);
       return autoAlign.withVelocityX(-controller.getLeftY() * MAX_SPEED)
           .withVelocityY(-controller.getLeftX() * MAX_SPEED);
+    }
+
+    public static FieldCentricFacingAngle driveAssistBaseline() {
+      autoAlign.HeadingController.setPID(9, 0, 1);
+      // autoAlign.HeadingController.enableContinuousInput(0, 360);
+      return autoAlign;
     }
   }
 }
