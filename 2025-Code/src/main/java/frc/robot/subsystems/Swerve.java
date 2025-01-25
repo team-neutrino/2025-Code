@@ -21,6 +21,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import static edu.wpi.first.units.Units.Amps;
@@ -29,7 +30,13 @@ import static edu.wpi.first.units.Units.KilogramSquareMeters;
 import static edu.wpi.first.units.Units.Pounds;
 import static frc.robot.Constants.SwerveConstants.*;
 
-import frc.robot.util.GeneratedSwerveCode.*;
+import java.util.function.Supplier;
+
+import frc.robot.Constants.SwerveConstants;
+import frc.robot.Constants;
+import frc.robot.util.GeneratedSwerveCode.CommandSwerveDrivetrain;
+import frc.robot.util.GeneratedSwerveCode.Telemetry;
+import frc.robot.util.GeneratedSwerveCode.TunerConstants;
 
 /**
  * Main swerve subsystem file; wraps CommandSwerveDriveTrain to avoid
@@ -72,8 +79,7 @@ public class Swerve extends CommandSwerveDrivetrain {
    * @return The yaw of the robot in degrees.
    */
   public double getYaw() {
-    double ret = getPigeon2().getYaw().getValueAsDouble() % 360;
-    return ret *= Math.signum(ret);
+    return getPigeon2().getYaw().getValueAsDouble() % 360;
   }
 
   /**
@@ -208,7 +214,8 @@ public class Swerve extends CommandSwerveDrivetrain {
      *         structure factory.
      */
     public static FieldCentricFacingAngle autoAlignBaseline(CommandXboxController controller) {
-      autoAlign.HeadingController.enableContinuousInput(180, -180);
+      // autoAlign.HeadingController.enableContinuousInput(180, -180);
+      autoAlign.HeadingController.setPID(9, 0, 1);
       return autoAlign.withVelocityX(-controller.getLeftY() * MAX_SPEED)
           .withVelocityY(-controller.getLeftX() * MAX_SPEED);
     }
