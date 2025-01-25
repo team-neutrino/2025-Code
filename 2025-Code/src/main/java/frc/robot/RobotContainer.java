@@ -58,6 +58,7 @@ public class RobotContainer {
     limelight.setDefaultCommand(limelight.limelightDefaultCommand());
     climb.setDefaultCommand(climb.climbDefaultCommand());
     // swerve.setDefaultCommand(swerve.swerveDefaultCommand(m_driverController));
+    swerve.setDefaultCommand(swerve.swerveDefaultCommand(m_driverController));
   }
 
   private void configureNamedCommands() {
