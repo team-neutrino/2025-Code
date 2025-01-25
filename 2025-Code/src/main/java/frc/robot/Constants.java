@@ -139,7 +139,7 @@ public final class Constants {
     // subject to change
 
     public static final int CLIMB_RATCHET_PORT = 0;
-    // public static final int LOCK_RATCHET_PORT = 1;
+    public static final int LOCK_RATCHET_PORT = 1;
     // subject to change
   }
 
