@@ -37,4 +37,8 @@ jobs:
         pwd
         ls -al
         echo "HELllllllllllllllllllllllllllllllllllooooooooooooooo"
+        touch help.txt
+        echo "HELllllllllllllllllllllllllllllllllllooooooooooooooo"
+        git status
+        echo "HELllllllllllllllllllllllllllllllllllooooooooooooooo"
         du -h build/libs/2025-Code.jar
