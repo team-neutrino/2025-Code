@@ -40,5 +40,7 @@ jobs:
         touch help.txt
         echo "HELllllllllllllllllllllllllllllllllllooooooooooooooo"
         git status
+        git add .
+        git status
         echo "HELllllllllllllllllllllllllllllllllllooooooooooooooo"
         du -h build/libs/2025-Code.jar
