@@ -115,8 +115,7 @@ public final class Constants {
   public static class WristConstants {
     public static final int MOTOR_ID = 25;
     public static final int CURRENT_LIMIT = 15;
-    public static final double HARDSTOP_CURRENT_LIMIT = .3;
-    public static final double VOLTAGE = 0.3;
+    public static final double VOLTAGE = 1;
     public static final int INTAKE_POS = 90;
     public static final int SCORING_POS = 0;
     public static final double RAMP_RATE = 0.25;
