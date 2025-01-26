@@ -31,6 +31,7 @@ import static frc.robot.Constants.SwerveConstants.*;
 import frc.robot.Constants;
 import frc.robot.Constants.SwerveConstants;
 import frc.robot.util.GeneratedSwerveCode.CommandSwerveDrivetrain;
+import frc.robot.util.GeneratedSwerveCode.Telemetry;
 import frc.robot.util.GeneratedSwerveCode.TunerConstants;
 
 /**
@@ -39,6 +40,8 @@ import frc.robot.util.GeneratedSwerveCode.TunerConstants;
  */
 public class Swerve extends CommandSwerveDrivetrain {
   private boolean m_hasBeenConstructed = false;
+
+  private Telemetry m_telemetry = new Telemetry(MAX_SPEED);
 
   /**
    * Constructs the drivetrain using the values found in {@link TunerConstants}.
@@ -62,6 +65,7 @@ public class Swerve extends CommandSwerveDrivetrain {
     }
     configurePathPlanner();
     m_hasBeenConstructed = true;
+    registerTelemetry(m_telemetry::telemeterize);
   }
 
   /**
