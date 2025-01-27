@@ -41,9 +41,6 @@ public final class Constants {
     public static final double APRILTAG_ALIGN_LIMIT = .5;
     public static final double AUTO_ALIGN_P = 9;
     public static final double AUTO_ALIGN_D = 1;
-    // reef ids starting with the one facing alliance wall and going
-    // counterclockwise. Currently using red alliance; will be changed.
-    public static final int[] REEF_IDS = { 7, 8, 9, 10, 11, 6 };
     public static final double STALL_TORQUE = 7.09;
     public static final double STALL_CURRENT = 366;
     public static final double FREE_CURRENT_AMPS = 2;

@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.command_factories.*;
+import frc.robot.commands.DriveAssistCom;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.util.Subsystem.*;
