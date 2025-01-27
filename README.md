@@ -50,8 +50,8 @@
 | 1    | BLS         | 40 A    | 8 AWG  |
 | 2    | FLA         | 40 A    | 12 AWG |
 | 3    | BLA         | 40 A    | 12 AWG |
-| 4    | Climb 1     | 40 A    | 10 AWG |
-| 5    | Climb 2     | 40 A    | 10 AWG |
+| 4    | Climb 1     | 40 A    | 8 AWG  |
+| 5    | Climb 2     | 40 A    | 8 AWG  |
 | 6    | Climb Hook  | 30 A    | 14 AWG |
 | 7    |             |         |        |
 | 8    |             |         |        |
