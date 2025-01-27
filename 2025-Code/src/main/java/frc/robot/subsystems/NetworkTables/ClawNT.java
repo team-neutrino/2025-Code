@@ -5,7 +5,6 @@ import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTablesJNI;
 import frc.robot.subsystems.Claw;
-import frc.robot.util.PIDTuner;
 
 public class ClawNT extends Claw {
     NetworkTableInstance nt = NetworkTableInstance.getDefault();
@@ -13,7 +12,6 @@ public class ClawNT extends Claw {
     DoubleTopic voltage = nt.getDoubleTopic("/claw/motor_input_voltage");
     final DoublePublisher encoderVelocityPub;
     final DoublePublisher motorVoltagePub;
-    PIDTuner m_PIDTuner;
 
     public ClawNT() {
         encoderVelocityPub = encoderVelocity.publish();
@@ -21,8 +19,6 @@ public class ClawNT extends Claw {
 
         motorVoltagePub = voltage.publish();
         motorVoltagePub.setDefault(0.0);
-
-        m_PIDTuner = new PIDTuner("claw");
     }
 
     @Override
