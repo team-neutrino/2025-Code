@@ -55,5 +55,4 @@ public class ArmNT extends Arm {
             m_previousD = m_PIDTuner.getD();
         }
     }
-
 }

@@ -66,13 +66,6 @@ public class PIDTuner {
                 getD() != previousD;
     }
 
-    public void ChangeValues(double previousP, double previousI, double previousD) {
-        if (getP() != previousP || getI() != previousI ||
-                getD() != previousD) {
-
-        }
-    }
-
     public void periodic() {
     }
 }
