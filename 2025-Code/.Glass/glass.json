@@ -7,6 +7,9 @@
       "claw": {
         "open": true
       },
+      "elevator": {
+        "open": true
+      },
       "limelight": {
         "double[]##v_/limelight/botpose": {
           "open": true
@@ -28,6 +31,9 @@
     }
   },
   "NetworkTables Info": {
+    "Clients": {
+      "open": true
+    },
     "visible": true
   },
   "NetworkTables Settings": {

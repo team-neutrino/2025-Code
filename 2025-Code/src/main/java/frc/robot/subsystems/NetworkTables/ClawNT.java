@@ -4,7 +4,6 @@ import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTablesJNI;
-
 import frc.robot.subsystems.Claw;
 
 public class ClawNT extends Claw {

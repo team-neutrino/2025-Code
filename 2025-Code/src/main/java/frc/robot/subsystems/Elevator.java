@@ -9,7 +9,6 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.ClosedLoopSlot;
-import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLimitSwitch;
@@ -113,6 +112,12 @@ public class Elevator extends SubsystemBase {
 
   public Command moveElevatorCommand(double height) {
     return run(() -> m_target = height);
+  }
+
+  public void changePID(double p, double i, double d) {
+    m_config.closedLoop.pid(p, i, d);
+    m_motor1.configure(m_config, ResetMode.kResetSafeParameters,
+        PersistMode.kPersistParameters);
   }
 
   @Override

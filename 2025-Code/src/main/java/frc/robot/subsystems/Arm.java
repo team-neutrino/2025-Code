@@ -17,8 +17,9 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
+import com.revrobotics.spark.config.SparkFlexConfigAccessor;
 import com.revrobotics.AbsoluteEncoder;
-
+import com.revrobotics.spark.config.ClosedLoopConfigAccessor;
 import static frc.robot.Constants.ArmConstants.*;
 
 public class Arm extends SubsystemBase {
@@ -27,11 +28,15 @@ public class Arm extends SubsystemBase {
   private SparkFlexConfig m_armMotorConfig = new SparkFlexConfig();
   private AbsoluteEncoder m_armEncoder;
   private SparkClosedLoopController m_armPidController;
+  private SparkFlexConfigAccessor m_sparkFlexConfigAccessor;
+  public ClosedLoopConfigAccessor m_armPidAccessor;
 
   private double m_targetAngle = 0;
 
   public Arm() {
     initializeMotorControllers();
+    m_sparkFlexConfigAccessor = m_armMotor.configAccessor;
+    m_armPidAccessor = m_sparkFlexConfigAccessor.closedLoop;
   }
 
   public double getArmEncoderPosition() {
@@ -91,6 +96,12 @@ public class Arm extends SubsystemBase {
     return volts;
   }
 
+  public void changePID(double p, double i, double d) {
+    m_armMotorConfig.closedLoop.pid(p, i, d);
+    m_armMotor.configure(m_armMotorConfig, ResetMode.kResetSafeParameters,
+        PersistMode.kPersistParameters);
+  }
+
   @Override
   public void periodic() {
     updateArmAngle();
@@ -104,5 +115,4 @@ public class Arm extends SubsystemBase {
   public Command armRotateCommand(double targetAngle) {
     return run(() -> m_targetAngle = targetAngle);
   }
-
 }
