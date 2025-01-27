@@ -10,7 +10,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTablesJNI;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.PIDTuner;
+import frc.robot.util.PIDTuner;
 
 public class ArmNT extends Arm {
     NetworkTableInstance nt = NetworkTableInstance.getDefault();

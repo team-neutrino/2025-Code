@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.util;
 
 import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.DoubleSubscriber;
@@ -7,7 +7,6 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTablesJNI;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.util.Subsystem;
 
 public class PIDTuner {
     NetworkTableInstance nt = NetworkTableInstance.getDefault();

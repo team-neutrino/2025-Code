@@ -6,7 +6,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTablesJNI;
 
 import frc.robot.subsystems.Claw;
-import frc.robot.subsystems.PIDTuner;
+import frc.robot.util.PIDTuner;
 
 public class ClawNT extends Claw {
     NetworkTableInstance nt = NetworkTableInstance.getDefault();
