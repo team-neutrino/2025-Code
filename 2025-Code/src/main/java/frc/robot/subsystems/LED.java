@@ -21,7 +21,7 @@ public class LED extends SubsystemBase {
 
   public LED() {
     color_pub = color_topic.publish();
-    color_pub.setDefault("orange");
+
   }
 
   private boolean slowDown(int rate) {
@@ -30,25 +30,19 @@ public class LED extends SubsystemBase {
   }
 
   public Command LEDefaultCommand() {
-    return run(() -> {
-
-    });
+  return run(() -> color_pub.setDefault("orange"));
   }
 
   @Override
   public void periodic() {
     if (slowDown(50)) {
       if (m_counter == 0) {
-        color_pub.set("white");
+        color_pub.set("blue");
         m_counter++;
       } else if (m_counter == 1) {
-        color_pub.set("orange");
-        m_counter++;
-      } else if (m_counter == 2) {
-        color_pub.set("blue");
+        color_pub.set("white");
         m_counter = 0;
       }
     }
   }
-
 }
