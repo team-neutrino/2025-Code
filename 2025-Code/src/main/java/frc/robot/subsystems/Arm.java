@@ -54,6 +54,7 @@ public class Arm extends SubsystemBase {
    * Target angle that the arm is going towards
    */
   private double m_targetAngle = 0;
+  private double m_FFConstant = FFCONSTANT;
 
   /**
    * Class constructor
@@ -148,7 +149,7 @@ public class Arm extends SubsystemBase {
    */
   public double feedForwardCalculation() {
     double currentAngle = getArmEncoderPosition();
-    double volts = FFCONSTANT * Math.cos(currentAngle);
+    double volts = m_FFConstant * Math.cos(currentAngle);
     return volts;
   }
 
@@ -163,6 +164,10 @@ public class Arm extends SubsystemBase {
     m_armMotorConfig.closedLoop.pid(p, i, d);
     m_armMotor.configure(m_armMotorConfig, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
+  }
+
+  public void changeFF(double newFF) {
+    m_FFConstant = newFF;
   }
 
   @Override
