@@ -18,9 +18,9 @@ public class ElevatorNT extends Elevator {
     final DoublePublisher targetPositionPub;
     final DoublePublisher motorVoltagePub;
     PIDTuner m_PIDTuner;
-    private double previousP;
-    private double previousI;
-    private double previousD;
+    private double m_previousP;
+    private double m_previousI;
+    private double m_previousD;
 
     public ElevatorNT() {
         encoderPositionPub = encoderPosition.publish();
@@ -37,9 +37,9 @@ public class ElevatorNT extends Elevator {
         m_PIDTuner.setP(ElevatorConstants.P_VAL);
         m_PIDTuner.setI(ElevatorConstants.I_VAL);
         m_PIDTuner.setD(ElevatorConstants.D_VAL);
-        previousP = ElevatorConstants.P_VAL;
-        previousI = ElevatorConstants.I_VAL;
-        previousD = ElevatorConstants.D_VAL;
+        m_previousP = ElevatorConstants.P_VAL;
+        m_previousI = ElevatorConstants.I_VAL;
+        m_previousD = ElevatorConstants.D_VAL;
     }
 
     @Override
@@ -50,12 +50,11 @@ public class ElevatorNT extends Elevator {
         targetPositionPub.set(getTargetPosition(), now);
         motorVoltagePub.set(getInputVoltage(), now);
 
-        if (m_PIDTuner.getP() != previousP || m_PIDTuner.getI() != previousI ||
-                m_PIDTuner.getD() != previousD) {
+        if (m_PIDTuner.isDifferentValues(m_previousP, m_previousI, m_previousD)) {
             changePID(m_PIDTuner.getP(), m_PIDTuner.getI(), m_PIDTuner.getD());
-            previousP = m_PIDTuner.getP();
-            previousI = m_PIDTuner.getI();
-            previousD = m_PIDTuner.getD();
+            m_previousP = m_PIDTuner.getP();
+            m_previousI = m_PIDTuner.getI();
+            m_previousD = m_PIDTuner.getD();
         }
     }
 

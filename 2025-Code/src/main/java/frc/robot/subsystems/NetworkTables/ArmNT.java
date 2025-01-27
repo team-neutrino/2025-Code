@@ -17,9 +17,9 @@ public class ArmNT extends Arm {
     final DoublePublisher targetPositionPub;
     final DoublePublisher motorVoltagePub;
     PIDTuner m_PIDTuner;
-    private double previousP;
-    private double previousI;
-    private double previousD;
+    private double m_previousP;
+    private double m_previousI;
+    private double m_previousD;
 
     public ArmNT() {
         encoderPositionPub = encoderPosition.publish();
@@ -35,9 +35,9 @@ public class ArmNT extends Arm {
         m_PIDTuner.setP(ArmConstants.kp);
         m_PIDTuner.setI(ArmConstants.ki);
         m_PIDTuner.setD(ArmConstants.kd);
-        previousP = ArmConstants.kp;
-        previousI = ArmConstants.ki;
-        previousD = ArmConstants.kd;
+        m_previousP = ArmConstants.kp;
+        m_previousI = ArmConstants.ki;
+        m_previousD = ArmConstants.kd;
     }
 
     @Override
@@ -48,12 +48,11 @@ public class ArmNT extends Arm {
         targetPositionPub.set(getArmTargetPosition(), now);
         motorVoltagePub.set(getArmVoltage(), now);
 
-        if (m_PIDTuner.getP() != previousP || m_PIDTuner.getI() != previousI ||
-                m_PIDTuner.getD() != previousD) {
+        if (m_PIDTuner.isDifferentValues(m_previousP, m_previousI, m_previousD)) {
             changePID(m_PIDTuner.getP(), m_PIDTuner.getI(), m_PIDTuner.getD());
-            previousP = m_PIDTuner.getP();
-            previousI = m_PIDTuner.getI();
-            previousD = m_PIDTuner.getD();
+            m_previousP = m_PIDTuner.getP();
+            m_previousI = m_PIDTuner.getI();
+            m_previousD = m_PIDTuner.getD();
         }
     }
 

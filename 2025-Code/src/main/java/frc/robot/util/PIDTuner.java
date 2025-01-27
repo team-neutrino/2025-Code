@@ -61,6 +61,18 @@ public class PIDTuner {
         D_Pub.set(d);
     }
 
+    public boolean isDifferentValues(double previousP, double previousI, double previousD) {
+        return getP() != previousP || getI() != previousI ||
+                getD() != previousD;
+    }
+
+    public void ChangeValues(double previousP, double previousI, double previousD) {
+        if (getP() != previousP || getI() != previousI ||
+                getD() != previousD) {
+
+        }
+    }
+
     public void periodic() {
     }
 }
