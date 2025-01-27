@@ -8,6 +8,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest.FieldCentricFacingAngle;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.SwerveConstants;
@@ -52,11 +53,25 @@ public class DriveAssistCom extends Command {
     swerve.setControl(req.withTargetDirection(Rotation2d.fromDegrees(yaw - limelight.getTx())));
   }
 
-  private double getRadialDistance() {
+  /**
+   * Uses limelight values to solve for the legs of the right triangle formed by
+   * the robot and the reef apriltag the robot is currently facing. Still needs to
+   * be converted in terms of field centric movement
+   * 
+   * @return A translation2d containing the legs of the right triangle according
+   *         to wpilb conventions (left is positive Y, up is positive X)
+   */
+  private Translation2d reefRelativeDistances() {
     double distance = limelight.getTy();
     double angle = swerve.getYaw180() - limelight.getTx();
-    
-    return 0;
+
+    // in terms of wpilb conventions, so positive is left
+    double yDist = distance * Math.cos(Math.toRadians(angle));
+
+    // in terms of wpilb conventions, so positive is up
+    double xDist = distance * Math.sin(Math.toRadians(angle));
+
+    return new Translation2d(xDist, yDist);
   }
 
   @Override
