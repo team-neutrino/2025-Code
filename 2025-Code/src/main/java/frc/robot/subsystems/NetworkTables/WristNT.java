@@ -6,8 +6,8 @@ import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTablesJNI;
-import frc.robot.subsystems.PIDTuner;
 import frc.robot.subsystems.Wrist;
+import frc.robot.util.PIDTuner;
 
 public class WristNT extends Wrist {
     NetworkTableInstance nt = NetworkTableInstance.getDefault();

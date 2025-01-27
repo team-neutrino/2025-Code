@@ -5,7 +5,7 @@ import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTablesJNI;
 import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.PIDTuner;
+import frc.robot.util.PIDTuner;
 
 public class ElevatorNT extends Elevator {
 
