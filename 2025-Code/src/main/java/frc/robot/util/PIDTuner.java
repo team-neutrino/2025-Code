@@ -7,7 +7,6 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class PIDTuner {
     NetworkTableInstance nt = NetworkTableInstance.getDefault();
-    String subsystem;
     DoubleTopic P;
     DoubleTopic I;
     DoubleTopic D;
@@ -19,11 +18,10 @@ public class PIDTuner {
     DoubleSubscriber D_Sub;
 
     public PIDTuner(String subsystemName) {
-        subsystem = subsystemName;
 
-        P = nt.getDoubleTopic("/" + subsystem + "/P");
-        I = nt.getDoubleTopic("/" + subsystem + "/I");
-        D = nt.getDoubleTopic("/" + subsystem + "/D");
+        P = nt.getDoubleTopic("/" + subsystemName + "/P");
+        I = nt.getDoubleTopic("/" + subsystemName + "/I");
+        D = nt.getDoubleTopic("/" + subsystemName + "/D");
 
         P_Pub = P.publish();
         P_Pub.setDefault(0.0);

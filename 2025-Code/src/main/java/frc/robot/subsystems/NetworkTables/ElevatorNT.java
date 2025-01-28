@@ -5,8 +5,10 @@ import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTablesJNI;
 import frc.robot.subsystems.Elevator;
+import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.util.FFTuner;
+import frc.robot.util.MaxMotionTuner;
 import frc.robot.util.PIDTuner;
 
 public class ElevatorNT extends Elevator {
@@ -19,11 +21,15 @@ public class ElevatorNT extends Elevator {
     final DoublePublisher targetPositionPub;
     final DoublePublisher motorVoltagePub;
     private PIDTuner m_PIDTuner;
-    private double m_previousP;
-    private double m_previousI;
-    private double m_previousD;
+    private double m_previousP = ElevatorConstants.P_VAL;
+    private double m_previousI = ElevatorConstants.I_VAL;
+    private double m_previousD = ElevatorConstants.D_VAL;
     private FFTuner m_FFTuner;
     private double m_previousFF;
+    private MaxMotionTuner m_MaxMotionTuner;
+    private double m_previousMaxVelocity = ArmConstants.MAX_VELOCITY;
+    private double m_previousMaxAcceleration = ArmConstants.MAX_ACCELERATION;
+    private double m_previousAllowedError = ArmConstants.ALLOWED_ERROR;
 
     public ElevatorNT() {
         encoderPositionPub = encoderPosition.publish();
@@ -37,16 +43,19 @@ public class ElevatorNT extends Elevator {
 
         m_PIDTuner = new PIDTuner("elevator");
 
-        m_PIDTuner.setP(ElevatorConstants.P_VAL);
-        m_PIDTuner.setI(ElevatorConstants.I_VAL);
-        m_PIDTuner.setD(ElevatorConstants.D_VAL);
-        m_previousP = ElevatorConstants.P_VAL;
-        m_previousI = ElevatorConstants.I_VAL;
-        m_previousD = ElevatorConstants.D_VAL;
+        m_PIDTuner.setP(m_previousP);
+        m_PIDTuner.setI(m_previousI);
+        m_PIDTuner.setD(m_previousD);
 
         m_FFTuner = new FFTuner("elevator");
         m_FFTuner.setFF(ElevatorConstants.FF_VAL);
         m_previousFF = ElevatorConstants.FF_VAL;
+
+        m_MaxMotionTuner = new MaxMotionTuner("elevator");
+
+        m_MaxMotionTuner.setMaxVelocity(m_previousMaxVelocity);
+        m_MaxMotionTuner.setMaxAcceleration(m_previousMaxAcceleration);
+        m_MaxMotionTuner.setAllowedError(m_previousAllowedError);
     }
 
     @Override
@@ -67,6 +76,15 @@ public class ElevatorNT extends Elevator {
         if (m_FFTuner.getFF() != m_previousFF) {
             changeFF(m_FFTuner.getFF());
             m_previousFF = m_FFTuner.getFF();
+        }
+
+        if (m_MaxMotionTuner.isDifferentValues(m_previousMaxVelocity, m_previousMaxAcceleration,
+                m_previousAllowedError)) {
+            changeMaxMotion(m_MaxMotionTuner.getMaxVelocity(), m_MaxMotionTuner.getMaxAcceleration(),
+                    m_MaxMotionTuner.getAllowedError());
+            m_previousMaxVelocity = m_MaxMotionTuner.getMaxVelocity();
+            m_previousMaxAcceleration = m_MaxMotionTuner.getMaxAcceleration();
+            m_previousAllowedError = m_MaxMotionTuner.getAllowedError();
         }
     }
 

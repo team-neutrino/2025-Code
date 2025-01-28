@@ -170,6 +170,10 @@ public class Arm extends SubsystemBase {
     m_FFConstant = newFF;
   }
 
+  public void changeMaxMotion(double mv, double ma, double ae) {
+    m_armMotorConfig.closedLoop.maxMotion.maxVelocity(mv).maxAcceleration(ma).allowedClosedLoopError(ae);
+  }
+
   @Override
   public void periodic() {
     updateArmAngle();
