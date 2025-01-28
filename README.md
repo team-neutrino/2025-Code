@@ -53,9 +53,9 @@
 | 4    | Climb 1     | 40 A    | 8 AWG  |
 | 5    | Climb 2     | 40 A    | 8 AWG  |
 | 6    | Climb Hook  | 30 A    | 14 AWG |
-| 7    |             |         |        |
+| 7    | LL, Pi, LED | 20 A    | 18 AWG |
 | 8    |             |         |        |
-| 9    |             |         |        |
+| 9    | Switch      | 10 A    | 22 AWG |
 | 10   | Intake 1    | 30 A    | 14 AWG |
 | 11   | Intake 2    | 30 A    | 14 AWG |
 | 12   | Wrist       | 30 A    | 14 AWG |
@@ -68,7 +68,7 @@
 | 19   | FRS         | 40 A    | 8 AWG  |
 | ---- | ----------- | ------- | ------ |
 | 20   | Canandcolor | 3 A     | 18 AWG |
-| 21   | Pi & LEDs   | 10 A    | 18 AWG |
+| 21   | RPM         | 10 A    | 22 AWG |
 | 22   | VRM         | 20 A    | 18 AWG |
 | 23   | RoboRIO     | 10 A    | 18 AWG |
 
