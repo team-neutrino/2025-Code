@@ -5,19 +5,16 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.command_factories.ArmFactory;
-import frc.robot.command_factories.ClimbFactory;
-import frc.robot.command_factories.ClawFactory;
-import frc.robot.command_factories.ElevatorFactory;
-import frc.robot.command_factories.WristFactory;
-import frc.robot.subsystems.Climb;
+import frc.robot.command_factories.*;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.util.Subsystem.*;
 
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class RobotContainer {
@@ -33,11 +30,11 @@ public class RobotContainer {
    */
   public RobotContainer() {
     configureBindings();
+    configureDefaultCommands();
+    configureNamedCommands();
   }
 
   private void configureBindings() {
-    configureDefaultCommands();
-
     m_driverController.x().whileTrue(ElevatorFactory.moveL1());
     m_driverController.y().whileTrue(ElevatorFactory.moveL2());
     m_driverController.b().whileTrue(ElevatorFactory.moveL3());
@@ -61,6 +58,18 @@ public class RobotContainer {
     // swerve.setDefaultCommand(swerve.swerveDefaultCommand(m_driverController));
   }
 
+  private void configureNamedCommands() {
+    NamedCommands.registerCommand("MoveToScoringL4", SuperstructureFactory.moveToScoreL4Command());
+    NamedCommands.registerCommand("MoveToScoringL3", SuperstructureFactory.moveToScoreL3Command());
+    NamedCommands.registerCommand("MoveToIntake", SuperstructureFactory.moveToIntake()); // this command should rely on
+                                                                                         // vision: move the arm to the
+                                                                                         // side that sees the player
+                                                                                         // station
+    NamedCommands.registerCommand("ScoreL4", SuperstructureFactory.scoreCoralL4Command());
+    NamedCommands.registerCommand("ScoreL3", SuperstructureFactory.scoreCoralL3Command());
+    NamedCommands.registerCommand("Intake", SuperstructureFactory.intakeCoral());
+  }
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -68,6 +77,10 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     Command auto;
+
+    if (Subsystem.swerve == null) {
+      return new InstantCommand();
+    }
     try {
       auto = new PathPlannerAuto("test");
     } catch (Exception e) {
