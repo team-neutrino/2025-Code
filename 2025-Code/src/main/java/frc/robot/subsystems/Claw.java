@@ -149,10 +149,6 @@ public class Claw extends SubsystemBase {
     @Override
     public void periodic() {
         m_grabber.set(m_intakeVoltage);
-        System.out.println(isAlgae());
-        System.out.println(isCoral());
-        System.out.println(m_colorSensor.getBlue());
-        System.out.println(m_colorSensor.getRed());
     }
 
     /**
