@@ -13,9 +13,7 @@ public class FFTuner {
     DoubleSubscriber FF_Sub;
 
     public FFTuner(String subsystemName) {
-        subsystem = subsystemName;
-
-        FF = nt.getDoubleTopic("/" + subsystem + "/FF");
+        FF = nt.getDoubleTopic("/" + subsystemName + "/FF");
 
         FF_Pub = FF.publish();
         FF_Pub.setDefault(0.0);

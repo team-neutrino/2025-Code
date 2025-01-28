@@ -6,6 +6,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTablesJNI;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.subsystems.Arm;
+import frc.robot.util.FFTuner;
 import frc.robot.util.PIDTuner;
 
 public class ArmNT extends Arm {
@@ -20,6 +21,7 @@ public class ArmNT extends Arm {
     private double m_previousP;
     private double m_previousI;
     private double m_previousD;
+    FFTuner m_FFTuner;
 
     public ArmNT() {
         encoderPositionPub = encoderPosition.publish();
@@ -38,6 +40,8 @@ public class ArmNT extends Arm {
         m_previousP = ArmConstants.kp;
         m_previousI = ArmConstants.ki;
         m_previousD = ArmConstants.kd;
+
+        m_FFTuner = new FFTuner("arm");
     }
 
     @Override
