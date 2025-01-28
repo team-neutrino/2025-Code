@@ -49,14 +49,15 @@ public class LED extends SubsystemBase {
       setToGamePieceColor();
       return;
     }
-    if (slowDown(50)) {
-      if (m_counter == 0) {
-        color_pub.set("blue");
-        m_counter++;
-      } else if (m_counter == 1) {
-        color_pub.set("white");
-        m_counter = 0;
-      }
-    }
+    // if (slowdown(50)) {
+    // if (m_counter == 0) {
+    // color_pub.set("white");
+    // m_counter++;
+    // } else if (m_counter == 1) {
+    // color_pub.set("orange");
+    // m_counter++;
+    // } else if (m_counter == 2) {
+    // color_pub.set("blue");
+    // m_counter = 0;
   }
 }
