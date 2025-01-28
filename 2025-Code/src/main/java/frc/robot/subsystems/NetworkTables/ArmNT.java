@@ -17,11 +17,11 @@ public class ArmNT extends Arm {
     final DoublePublisher encoderPositionPub;
     final DoublePublisher targetPositionPub;
     final DoublePublisher motorVoltagePub;
-    PIDTuner m_PIDTuner;
+    private PIDTuner m_PIDTuner;
     private double m_previousP;
     private double m_previousI;
     private double m_previousD;
-    FFTuner m_FFTuner;
+    private FFTuner m_FFTuner;
     private double m_previousFF;
 
     public ArmNT() {
@@ -43,6 +43,8 @@ public class ArmNT extends Arm {
         m_previousD = ArmConstants.kd;
 
         m_FFTuner = new FFTuner("arm");
+        m_FFTuner.setFF(ArmConstants.FFCONSTANT);
+        m_previousFF = ArmConstants.FFCONSTANT;
     }
 
     @Override

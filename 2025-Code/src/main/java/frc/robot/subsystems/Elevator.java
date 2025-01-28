@@ -34,6 +34,7 @@ public class Elevator extends SubsystemBase {
   private SparkFlexConfig m_followerConfig = new SparkFlexConfig();
 
   private double m_target = 0.0;
+  private double m_FFConstant = FF_VAL;
 
   public Elevator() {
     m_config
@@ -70,6 +71,13 @@ public class Elevator extends SubsystemBase {
     // return 9.8 * (ARM_AND_SCORING_MASS + STAGE_1_MASS + STAGE_2_MASS);
     // } else {
     // return 9.8 * (ARM_AND_SCORING_MASS + STAGE_2_MASS);
+    // }
+
+    // FF CODE WITH CONSTANT
+    // if (m_encoder.getPosition() <= STAGE_1_LENGTH) {
+    // return m_FFConstant * (ARM_AND_SCORING_MASS + STAGE_1_MASS + STAGE_2_MASS);
+    // } else {
+    // return m_FFConstant * (ARM_AND_SCORING_MASS + STAGE_2_MASS);
     // }
     return 0;
   }
@@ -118,6 +126,10 @@ public class Elevator extends SubsystemBase {
     m_config.closedLoop.pid(p, i, d);
     m_motor1.configure(m_config, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
+  }
+
+  public void changeFF(double newFF) {
+    m_FFConstant = newFF;
   }
 
   @Override
