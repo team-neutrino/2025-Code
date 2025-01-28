@@ -1,9 +1,6 @@
 {
   "NetworkTables": {
     "transitory": {
-      "arm": {
-        "open": true
-      },
       "claw": {
         "open": true
       },
