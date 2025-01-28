@@ -22,6 +22,7 @@ public class ArmNT extends Arm {
     private double m_previousI;
     private double m_previousD;
     FFTuner m_FFTuner;
+    private double m_previousFF;
 
     public ArmNT() {
         encoderPositionPub = encoderPosition.publish();
@@ -57,6 +58,11 @@ public class ArmNT extends Arm {
             m_previousP = m_PIDTuner.getP();
             m_previousI = m_PIDTuner.getI();
             m_previousD = m_PIDTuner.getD();
+        }
+
+        if (m_FFTuner.getFF() != m_previousFF) {
+            changeFF(m_FFTuner.getFF());
+            m_previousFF = m_FFTuner.getFF();
         }
     }
 }
