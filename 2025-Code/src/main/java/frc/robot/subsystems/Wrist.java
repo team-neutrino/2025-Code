@@ -15,13 +15,34 @@ import frc.robot.util.Subsystem;
 
 import static frc.robot.Constants.WristConstants.*;
 
+/**
+ * Class that represents the claw subsystem on the robot.
+ */
 public class Wrist extends SubsystemBase {
+  /**
+   * Wrist motor
+   */
   private SparkMax m_wristMotor = new SparkMax(MOTOR_ID, MotorType.kBrushless);
+  /**
+   * Configuration object for the wrist motor
+   */
   private SparkMaxConfig m_wristConfig = new SparkMaxConfig();
+  /**
+   * Voltage for the intake (controls power of the motor)
+   */
   private double m_wristVoltage;
+  /*
+   * Last recorded angle that is passed into the wrist
+   */
   private double m_lastAngle;
+  /**
+   * Whether the current has spiked
+   */
   private boolean m_hasCurrentSpiked;
 
+  /**
+   * Class constructor
+   */
   public Wrist() {
     m_wristConfig.smartCurrentLimit(CURRENT_LIMIT);
     m_wristConfig.idleMode(IdleMode.kBrake);
@@ -49,22 +70,38 @@ public class Wrist extends SubsystemBase {
     m_wristVoltage = (angle == INTAKE_POS ? VOLTAGE : -VOLTAGE);
   }
 
-  public boolean voltageAgrees() {
-    return Math.abs(m_wristVoltage - m_wristMotor.getOutputCurrent()) < 0.1;
-  }
-
+  /**
+   * Determines if their is a current spike
+   * 
+   * @return if current spike
+   */
   public boolean isCurrentSpike() {
     return m_wristMotor.getOutputCurrent() > CURRENT_LIMIT;
   }
 
+  /**
+   * Returns if their has been a current spike in the last passed angle.
+   * 
+   * @return m_hasCurrentSpiked
+   */
   public boolean hasCurrentSpike() {
     return m_hasCurrentSpiked;
   }
 
+  /**
+   * Returns the wrist motor's voltage
+   * 
+   * @return m_wristVoltage
+   */
   public double getWristVoltage() {
     return m_wristVoltage;
   }
 
+  /**
+   * Returns the last angle the wrist is put to
+   * 
+   * @return m_lastAngle
+   */
   public double getLastAngle() {
     return m_lastAngle;
   }
