@@ -22,37 +22,80 @@ import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.spark.config.ClosedLoopConfigAccessor;
 import static frc.robot.Constants.ArmConstants.*;
 
+/**
+ * Class that represents the arm subsystem on the robot.
+ */
 public class Arm extends SubsystemBase {
-
+  /**
+   * Arm motor
+   */
   private SparkFlex m_armMotor = new SparkFlex(MOTOR_ID, MotorType.kBrushless);
+  /**
+   * Configuration object for the arm motor
+   */
   private SparkFlexConfig m_armMotorConfig = new SparkFlexConfig();
+  /**
+   * Encoder for the arm motor
+   */
   private AbsoluteEncoder m_armEncoder;
+  /**
+   * Closed loop controller for the arm motor
+   */
   private SparkClosedLoopController m_armPidController;
+  /**
+   * Acessor for the arm motor
+   */
   private SparkFlexConfigAccessor m_sparkFlexConfigAccessor;
+  /**
+   * Acessor for the arm configuration object
+   */
   public ClosedLoopConfigAccessor m_armPidAccessor;
-
+  /**
+   * Target angle that the arm is going towards
+   */
   private double m_targetAngle = 0;
 
+  /**
+   * Class constructor
+   */
   public Arm() {
     initializeMotorControllers();
     m_sparkFlexConfigAccessor = m_armMotor.configAccessor;
     m_armPidAccessor = m_sparkFlexConfigAccessor.closedLoop;
   }
 
+  /**
+   * Gets the position os the arm motor
+   * 
+   * @return arm encoder position
+   */
   public double getArmEncoderPosition() {
     return m_armEncoder.getPosition();
   }
 
+  /**
+   * Gets the target position that the arm is set to
+   * 
+   * @return m_targetAngle
+   */
   public double getArmTargetPosition() {
     return m_targetAngle;
   }
 
+  /**
+   * Gets the voltage of the arm motor
+   * 
+   * @return arm motor bus voltage
+   */
   public double getArmVoltage() {
     return m_armMotor.getBusVoltage();
   }
 
-  // sets up motor controllers
-  public void initializeMotorControllers() {
+  /**
+   * Sets up motor controllers to necessary configurations. Includes maxMotion,
+   * current limits, and converstion factors.
+   */
+  private void initializeMotorControllers() {
     m_armEncoder = m_armMotor.getAbsoluteEncoder();
     m_armPidController = m_armMotor.getClosedLoopController();
     m_armMotorConfig.idleMode(IdleMode.kBrake);
@@ -80,22 +123,42 @@ public class Arm extends SubsystemBase {
         PersistMode.kPersistParameters);
   }
 
-  // finds out if the arm is in limit
+  /**
+   * Finds out if the arm is in limit
+   * 
+   * @return m_armLimit
+   */
   public boolean isArmInLimit() {
     return true;
   }
 
+  /**
+   * Updates the angle that the arm is set to
+   */
   public void updateArmAngle() {
     m_armPidController.setReference(m_targetAngle,
         SparkBase.ControlType.kPosition, ClosedLoopSlot.kSlot0, feedForwardCalculation());
   }
 
+  /**
+   * Determines the necessary volts needed for the Feedforward. Used to pass into
+   * closed loop controller
+   * 
+   * @return volts
+   */
   public double feedForwardCalculation() {
     double currentAngle = getArmEncoderPosition();
     double volts = FFCONSTANT * Math.cos(currentAngle);
     return volts;
   }
 
+  /**
+   * Changes the PID settings of the closed loop controller
+   * 
+   * @param p Proportional
+   * @param i Integral
+   * @param d Derivative
+   */
   public void changePID(double p, double i, double d) {
     m_armMotorConfig.closedLoop.pid(p, i, d);
     m_armMotor.configure(m_armMotorConfig, ResetMode.kResetSafeParameters,
@@ -107,11 +170,23 @@ public class Arm extends SubsystemBase {
     updateArmAngle();
   }
 
+  /**
+   * Gives a instance of the arm default command. Rotates the arm to the default
+   * position
+   * 
+   * @return The rotate wrist command
+   */
   public Command armDefaultCommand() {
     return run(() -> m_targetAngle = DEFAULT_POSITION);
   }
 
-  // move the arm a desired amount
+  /**
+   * Gives a instance of the arm rotate command. Rotates the arm to the given
+   * angle
+   * 
+   * @param targetAngle
+   * @return The arm rotate command
+   */
   public Command armRotateCommand(double targetAngle) {
     return run(() -> m_targetAngle = targetAngle);
   }
