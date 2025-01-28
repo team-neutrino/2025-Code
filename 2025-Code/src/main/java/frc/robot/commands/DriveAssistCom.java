@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import com.ctre.phoenix6.swerve.SwerveRequest.FieldCentricFacingAngle;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -38,8 +39,8 @@ public class DriveAssistCom extends Command {
     FieldCentricFacingAngle req = SwerveRequestStash.autoAlign;
 
     Translation2d error = getFieldRelativeDistances();
-    double yVel = error.getY() * APRILTAG_ALIGN_KP;
-    double xVel = error.getX() * APRILTAG_ALIGN_KP;
+    double yVel = MathUtil.clamp(APRILTAG_ALIGN_KP * error.getY(), -APRILTAG_ALIGN_LIMIT / 2, APRILTAG_ALIGN_LIMIT / 2);
+    double xVel = MathUtil.clamp(APRILTAG_ALIGN_KP * error.getX(), -APRILTAG_ALIGN_LIMIT / 2, APRILTAG_ALIGN_LIMIT / 2);
     Rotation2d angle = Rotation2d.fromDegrees(swerve.getYaw180() - limelight.getTx());
 
     swerve.setControl(req.withTargetDirection(angle).withVelocityX(xVel).withVelocityY(yVel));
