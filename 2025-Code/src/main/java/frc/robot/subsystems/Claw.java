@@ -52,21 +52,13 @@ public class Claw extends SubsystemBase {
         m_colorSensor.setSettings(m_settings);
     }
 
-    private boolean withinProximity(double distance) {
-        return m_colorSensor.getProximity() < distance;
-    }
-
-    private double getBlueToRed() {
-        return m_colorSensor.getBlue() / m_colorSensor.getRed();
-    }
-
     public boolean isAlgae() {
-        return withinProximity(0.15) && getBlueToRed() > 1.5;
+        return (m_colorSensor.getProximity() > 0.6);
+
     }
 
     public boolean isCoral() {
-        return withinProximity(0.15) && getBlueToRed() > 0.6 && getBlueToRed() < 1.15;
-
+        return (m_colorSensor.getProximity() < 0.3) && (m_colorSensor.getProximity() < 0.5);
     }
 
     public boolean hasGamePiece() {
