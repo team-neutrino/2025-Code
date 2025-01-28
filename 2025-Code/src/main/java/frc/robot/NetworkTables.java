@@ -8,11 +8,11 @@ import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.util.PDH;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class NetworkTables extends SubsystemBase{
+public class NetworkTables extends SubsystemBase {
     PDH m_Pdh = new PDH();
     NetworkTableInstance nt = NetworkTableInstance.getDefault();
 
-    DoubleTopic total_current = nt.getDoubleTopic("/PDH/total_current"); // of battery
+    DoubleTopic total_current = nt.getDoubleTopic("/PDH/total_current");// battery
     DoubleTopic match_time = nt.getDoubleTopic("/FMS/match_time");
 
     final DoublePublisher totalCurrent;
