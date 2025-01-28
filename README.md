@@ -53,8 +53,8 @@
 | 4    | Climb 1     | 40 A    | 8 AWG  |
 | 5    | Climb 2     | 40 A    | 8 AWG  |
 | 6    | Climb Hook  | 30 A    | 14 AWG |
-| 7    |             |         |        |
-| 8    |             |         |        |
+| 7    | Limelight   | 20 A    | 20 AWG |
+| 8    | Switch      | 10 A    | 20 AWG |
 | 9    |             |         |        |
 | 10   | Intake 1    | 30 A    | 14 AWG |
 | 11   | Intake 2    | 30 A    | 14 AWG |
