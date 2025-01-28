@@ -42,7 +42,7 @@ public class LED extends SubsystemBase {
   // Command or void? What to return(forgot)
   public void setToGamePieceColor() {
     if (claw.isAlgae()) {
-      color_pub.set("teal");
+      color_pub.set("turquoise");
     } else if (claw.isCoral()) {
       color_pub.set("white");
     }

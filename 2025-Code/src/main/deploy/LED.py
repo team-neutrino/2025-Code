@@ -78,16 +78,16 @@ def valueChanged(table, key, value, isNew):
         setCurrentColor(0, 0, 0)
     if value == "indigo":
         setCurrentColor(75, 0, 130)
-    if value =="teal":
-        setCurrentColor(0, 128, 128)
+    if value =="turquoise":
+        setCurrentColor(27, 220, 100)
     for i in range(1):
         if value == "blinkwhite":
             pixels.fill((255,255,255))
             time.sleep(0.5)
             pixels.fill((0,0,0))
             time.sleep(0.5)
-        if value == "blinkteal":
-            pixels.fill((0,128,128))
+        if value == "blinkturquoise":
+            pixels.fill((27,220,100))
             time.sleep(0.5)
             pixels.fill((0,0,0))
             time.sleep(0.5)
