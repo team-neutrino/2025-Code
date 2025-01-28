@@ -152,7 +152,7 @@ public class Claw extends SubsystemBase {
     }
 
     /**
-     * Gives an instance of the ClawDefaultCommand. Stops intake from running
+     * Gives an instance of the claw default command. Stops intake from running
      * 
      * @return The claw default command
      */
@@ -161,10 +161,10 @@ public class Claw extends SubsystemBase {
     }
 
     /**
-     * G, sets the intake voltage to the speed provided.
+     * Gives an instance of the run intake command., sets the intake voltage to the speed provided.
      * 
      * @param speed speed claw is set to
-     * @return the run intake command
+     * @return The run intake command
      */
     public Command runIntake(double speed) {
         return run(() -> m_intakeVoltage = speed);

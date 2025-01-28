@@ -16,7 +16,7 @@ import frc.robot.util.Subsystem;
 import static frc.robot.Constants.WristConstants.*;
 
 /**
- * Class that represents the claw subsystem on the robot.
+ * Class that represents the wrist subsystem on the robot.
  */
 public class Wrist extends SubsystemBase {
   /**
@@ -141,7 +141,10 @@ public class Wrist extends SubsystemBase {
       }
     });
   }
-
+  /**
+   * Gives a instance of the rotate wrist command. Rotates the wrist to the given angle
+   * @return The rotate wrist command
+   */
   public Command rotateWrist(double angle) {
     return run(() -> moveToPosition(angle));
   }
