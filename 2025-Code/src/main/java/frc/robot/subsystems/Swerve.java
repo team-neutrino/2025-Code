@@ -48,25 +48,6 @@ import frc.robot.util.GeneratedSwerveCode.TunerConstants;
  * modification of generated code.
  */
 public class Swerve extends CommandSwerveDrivetrain {
-  public SwerveDrivePoseEstimator m_PoseEstimator;
-  private Translation2d m_frontLeftLocation = new Translation2d(TunerConstants.FrontLeft.LocationX * 0.0254,
-      TunerConstants.FrontLeft.LocationY * 0.0254);
-  private Translation2d m_frontRightLocation = new Translation2d(TunerConstants.FrontRight.LocationX * 0.0254,
-      TunerConstants.FrontRight.LocationY * 0.0254);
-  private Translation2d m_backLeftLocation = new Translation2d(TunerConstants.BackLeft.LocationX * 0.0254,
-      TunerConstants.BackLeft.LocationY * 0.0254);
-  private Translation2d m_backRightLocation = new Translation2d(TunerConstants.BackRight.LocationX * 0.0254,
-      TunerConstants.BackRight.LocationY * 0.0254);
-  private SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(m_frontLeftLocation, m_frontRightLocation,
-      m_backLeftLocation, m_backRightLocation);
-  private SwerveModulePosition m_frontLeftModulePosition = new SwerveModulePosition();
-  private SwerveModulePosition m_frontRightModulePosition = new SwerveModulePosition();
-  private SwerveModulePosition m_backLeftModulePosition = new SwerveModulePosition();
-  private SwerveModulePosition m_backRightModulePosition = new SwerveModulePosition();
-  private SwerveModulePosition[] m_modulePositions = new SwerveModulePosition[4];
-  private double angle[] = new double[4];
-  private double distance[] = new double[4];
-  private DriveState m_driveState = m_jni.driveState;
   private boolean m_hasBeenConstructed = false;
 
   private Telemetry m_telemetry = new Telemetry(MAX_SPEED);
@@ -201,29 +182,6 @@ public class Swerve extends CommandSwerveDrivetrain {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-
-    angle[0] = m_driveState.ModulePositions[0].angle;
-    angle[1] = m_driveState.ModulePositions[1].angle;
-    angle[2] = m_driveState.ModulePositions[2].angle;
-    angle[3] = m_driveState.ModulePositions[3].angle;
-    distance[0] = m_driveState.ModulePositions[0].distance;
-    distance[1] = m_driveState.ModulePositions[1].distance;
-    distance[2] = m_driveState.ModulePositions[2].distance;
-    distance[3] = m_driveState.ModulePositions[3].distance;
-    // TODO
-    // absolutely no clue what unit anything is in we'll have to find this out from
-    // testing (the docs are useless)
-    m_frontLeftModulePosition = new SwerveModulePosition(distance[0], Rotation2d.fromDegrees(angle[0] * 360));
-    m_frontRightModulePosition = new SwerveModulePosition(distance[1], Rotation2d.fromDegrees(angle[1] * 360));
-    m_backLeftModulePosition = new SwerveModulePosition(distance[2], Rotation2d.fromDegrees(angle[2] * 360));
-    m_backRightModulePosition = new SwerveModulePosition(distance[3], Rotation2d.fromDegrees(angle[3] * 360));
-    m_modulePositions[0] = m_frontLeftModulePosition;
-    m_modulePositions[1] = m_frontRightModulePosition;
-    m_modulePositions[2] = m_backLeftModulePosition;
-    m_modulePositions[3] = m_backRightModulePosition;
-
-    m_PoseEstimator = new SwerveDrivePoseEstimator(m_kinematics,
-        Rotation2d.fromDegrees(getYaw()), m_modulePositions, new Pose2d());
   }
 
   /**

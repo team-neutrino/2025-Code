@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.VecBuilder;
-import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,7 +15,6 @@ import frc.robot.util.Subsystem;
 
 public class Limelight extends SubsystemBase {
   LimelightHelpers m_limelightHelpers;
-  SwerveDrivePoseEstimator m_poseEstimator;
   boolean doRejectUpdate;
   double m_robotYaw;
   Swerve m_swerve;
@@ -188,7 +186,7 @@ public class Limelight extends SubsystemBase {
 
   @Override
   public void periodic() {
-    LimelightHelpers.SetRobotOrientation("limelight", m_poseEstimator.getEstimatedPosition().getRotation().getDegrees(),
+    LimelightHelpers.SetRobotOrientation("limelight", m_swerve.getCurrentPose().getRotation().getDegrees(),
         0, 0, 0, 0, 0);
     m_limelightMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
     if (Math.abs(m_swerve.getRotationalRate()) > 720) // if our angular velocity is greater than 720 degrees per second,
@@ -201,11 +199,34 @@ public class Limelight extends SubsystemBase {
       doRejectUpdate = true;
     }
     if (!doRejectUpdate) {
-      m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7, .7, 9999999));
-      m_poseEstimator.addVisionMeasurement(
+      m_swerve.setVisionMeasurementStdDevs(VecBuilder.fill(.7, .7, 9999999));
+      m_swerve.addVisionMeasurement(
           m_limelightMeasurement.pose,
           m_limelightMeasurement.timestampSeconds);
     }
+
+    // Update with 2nd limelight as well
+    // LimelightHelpers.SetRobotOrientation("limelight-2",
+    // m_swerve.getCurrentPose().getRotation().getDegrees(),
+    // 0, 0, 0, 0, 0);
+    // m_limelightMeasurement =
+    // LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-2");
+    // if (Math.abs(m_swerve.getRotationalRate()) > 720) // if our angular velocity
+    // is greater than 720 degrees per second,
+    // // ignore
+    // // vision updates
+    // {
+    // doRejectUpdate = true;
+    // }
+    // if (m_limelightMeasurement.tagCount == 0) {
+    // doRejectUpdate = true;
+    // }
+    // if (!doRejectUpdate) {
+    // m_swerve.setVisionMeasurementStdDevs(VecBuilder.fill(.7, .7, 9999999));
+    // m_swerve.addVisionMeasurement(
+    // m_limelightMeasurement.pose,
+    // m_limelightMeasurement.timestampSeconds);
+    // }
   }
 
   @Override
