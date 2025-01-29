@@ -6,6 +6,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTablesJNI;
 import frc.robot.subsystems.Elevator;
 import frc.robot.Constants.ElevatorConstants;
+import frc.robot.util.FFTuner;
 import frc.robot.util.PIDTuner;
 
 public class ElevatorNT extends Elevator {
@@ -17,10 +18,12 @@ public class ElevatorNT extends Elevator {
     final DoublePublisher encoderPositionPub;
     final DoublePublisher targetPositionPub;
     final DoublePublisher motorVoltagePub;
-    PIDTuner m_PIDTuner;
+    private PIDTuner m_PIDTuner;
     private double m_previousP;
     private double m_previousI;
     private double m_previousD;
+    private FFTuner m_FFTuner;
+    private double m_previousFF;
 
     public ElevatorNT() {
         encoderPositionPub = encoderPosition.publish();
@@ -40,6 +43,10 @@ public class ElevatorNT extends Elevator {
         m_previousP = ElevatorConstants.P_VAL;
         m_previousI = ElevatorConstants.I_VAL;
         m_previousD = ElevatorConstants.D_VAL;
+
+        m_FFTuner = new FFTuner("elevator");
+        m_FFTuner.setFF(ElevatorConstants.FF_VAL);
+        m_previousFF = ElevatorConstants.FF_VAL;
     }
 
     @Override
@@ -55,6 +62,11 @@ public class ElevatorNT extends Elevator {
             m_previousP = m_PIDTuner.getP();
             m_previousI = m_PIDTuner.getI();
             m_previousD = m_PIDTuner.getD();
+        }
+
+        if (m_FFTuner.getFF() != m_previousFF) {
+            changeFF(m_FFTuner.getFF());
+            m_previousFF = m_FFTuner.getFF();
         }
     }
 
