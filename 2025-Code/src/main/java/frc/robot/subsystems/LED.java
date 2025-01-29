@@ -36,7 +36,7 @@ public class LED extends SubsystemBase {
   }
 
   public Command LEDefaultCommand() {
-    return run(() -> color_pub.setDefault("orange"));
+    return run(() -> setColor());
   }
 
   // Command or void? What to return(forgot)
@@ -48,22 +48,16 @@ public class LED extends SubsystemBase {
     }
   }
 
-  @Override
-  public void periodic() {
+  public void setColor() {
     if (claw.hasGamePiece()) {
       setToGamePieceColor();
       return;
+    } else {
+      color_pub.set("orange");
     }
+  }
 
-    // if (slowdown(50)) {
-    // if (m_counter == 0) {
-    // color_pub.set("white");
-    // m_counter++;
-    // } else if (m_counter == 1) {
-    // color_pub.set("orange");
-    // m_counter++;
-    // } else if (m_counter == 2) {
-    // color_pub.set("blue");
-    // m_counter = 0;
+  @Override
+  public void periodic() {
   }
 }
