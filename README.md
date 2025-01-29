@@ -87,3 +87,18 @@
 | 5V/500 mA  |             |
 |            |             |
 |            |             |
+
+## Raspberry Pi
+contains code intended to be run on an FRC robot's coprocessor
+
+``` bash
+
+pip install pynetworktables
+pip install ntcore # don't acutally need this
+pip3 install rpi_ws281x adafruit-circuitpython-neopixel
+python3 -m pip install --force-reinstall adafruit-blinka
+pip install adafruit-board-toolkit
+
+add sudo and --break-system-packages to all pip installs
+(ex. sudo pip install pynetworktables --break-system-packages)
+python main.py 192.168.88.135 # robot or simulator IP address
