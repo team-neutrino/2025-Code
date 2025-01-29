@@ -182,8 +182,14 @@ public class Limelight extends SubsystemBase {
     LimelightHelpers.setPipelineIndex("limelight-2", id);
   }
 
-  public void setLimelight4IMU(int mode) {
-    // LimelightHelpers.
+  // only works for LL4
+  public void setIMUMode(int mode) {
+    LimelightHelpers.SetIMUMode("limelight", mode);
+  }
+
+  // only works for LL4
+  public void setIMUModeForCamera2(int mode) {
+    LimelightHelpers.SetIMUMode("limelight-2", mode);
   }
 
   public Command limelightDefaultCommand() {
