@@ -138,7 +138,7 @@ public class Arm extends SubsystemBase {
    */
   public void updateArmAngle() {
     m_armPidController.setReference(m_targetAngle,
-        SparkBase.ControlType.kPosition, ClosedLoopSlot.kSlot0, feedForwardCalculation());
+        SparkBase.ControlType.kMAXMotionPositionControl, ClosedLoopSlot.kSlot0, feedForwardCalculation());
   }
 
   /**
@@ -172,6 +172,9 @@ public class Arm extends SubsystemBase {
 
   public void changeMaxMotion(double mv, double ma, double ae) {
     m_armMotorConfig.closedLoop.maxMotion.maxVelocity(mv).maxAcceleration(ma).allowedClosedLoopError(ae);
+    m_armMotor.configure(m_armMotorConfig,
+        ResetMode.kResetSafeParameters,
+        PersistMode.kPersistParameters);
   }
 
   @Override

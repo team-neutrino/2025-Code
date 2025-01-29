@@ -5,7 +5,6 @@ import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTablesJNI;
 import frc.robot.subsystems.Elevator;
-import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.util.FFTuner;
 import frc.robot.util.MaxMotionTuner;
@@ -27,9 +26,9 @@ public class ElevatorNT extends Elevator {
     private FFTuner m_FFTuner;
     private double m_previousFF;
     private MaxMotionTuner m_MaxMotionTuner;
-    private double m_previousMaxVelocity = ArmConstants.MAX_VELOCITY;
-    private double m_previousMaxAcceleration = ArmConstants.MAX_ACCELERATION;
-    private double m_previousAllowedError = ArmConstants.ALLOWED_ERROR;
+    private double m_previousMaxVelocity = ElevatorConstants.MAX_VELOCITY;
+    private double m_previousMaxAcceleration = ElevatorConstants.MAX_ACCELERATION;
+    private double m_previousAllowedError = ElevatorConstants.ALLOWED_ERROR;
 
     public ElevatorNT() {
         encoderPositionPub = encoderPosition.publish();

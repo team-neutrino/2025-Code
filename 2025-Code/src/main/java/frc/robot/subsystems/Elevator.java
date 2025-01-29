@@ -48,8 +48,8 @@ public class Elevator extends SubsystemBase {
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
         .pid(P_VAL, I_VAL, D_VAL);
     m_config.closedLoop.maxMotion
-        .maxVelocity(MAX_VELOCITY)
-        .maxAcceleration(MAX_ACCELERATION)
+        .maxVelocity(0)
+        .maxAcceleration(0)
         .allowedClosedLoopError(ALLOWED_ERROR);
     m_motor1.configure(m_config, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
@@ -134,6 +134,8 @@ public class Elevator extends SubsystemBase {
 
   public void changeMaxMotion(double mv, double ma, double ae) {
     m_config.closedLoop.maxMotion.maxVelocity(mv).maxAcceleration(ma).allowedClosedLoopError(ae);
+    m_motor1.configure(m_config, ResetMode.kResetSafeParameters,
+        PersistMode.kPersistParameters);
   }
 
   @Override
