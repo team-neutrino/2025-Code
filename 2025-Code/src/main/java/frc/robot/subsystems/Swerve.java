@@ -194,8 +194,8 @@ public class Swerve extends CommandSwerveDrivetrain {
     public static final SwerveRequest.FieldCentric driveWithoutDeadband = new SwerveRequest.FieldCentric()
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
     public static final SwerveRequest.FieldCentricFacingAngle autoAlign = new FieldCentricFacingAngle()
-        .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
-        .withDeadband(MAX_SPEED * 0.1);
+        .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
+    // .withDeadband(MAX_SPEED * 0.1);
 
     /**
      * Helper method that sets up the {@link #autoAlign} swerve request to be used
@@ -214,8 +214,8 @@ public class Swerve extends CommandSwerveDrivetrain {
      *         structure factory.
      */
     public static FieldCentricFacingAngle autoAlignBaseline(CommandXboxController controller) {
-      return autoAlign.withVelocityX(-controller.getLeftY() * MAX_SPEED)
-          .withVelocityY(-controller.getLeftX() * MAX_SPEED);
+      return autoAlign.withVelocityX(controller.getLeftY() * MAX_SPEED)
+          .withVelocityY(controller.getLeftX() * MAX_SPEED);
     }
 
     public static void configureRequestsPID() {

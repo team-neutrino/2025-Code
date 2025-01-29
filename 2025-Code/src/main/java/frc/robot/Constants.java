@@ -33,14 +33,15 @@ public final class Constants {
     public static final double MAX_SPEED = 5.7;
     public static final double MAX_ROTATION_SPEED = 1.5 * Math.PI;
     public static final Translation2d[] APRILTAG_POSITIONS = { null, new Translation2d(), new Translation2d(),
-        new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(0, 0),
+        new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(2, 0),
         new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(),
         new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(),
         new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d() };
-    public static final double APRILTAG_ALIGN_KP = .2;
+    public static final double APRILTAG_ALIGN_KP = .5;
     public static final double APRILTAG_ALIGN_LIMIT = .5;
-    public static final double AUTO_ALIGN_P = 9;
-    public static final double AUTO_ALIGN_D = 1;
+    public static final double AUTO_ALIGN_P = 5;
+    public static final double AUTO_ALIGN_D = 0;
+    public static final double TY_TO_DISTANCE = .1;
     public static final double STALL_TORQUE = 7.09;
     public static final double STALL_CURRENT = 366;
     public static final double FREE_CURRENT_AMPS = 2;

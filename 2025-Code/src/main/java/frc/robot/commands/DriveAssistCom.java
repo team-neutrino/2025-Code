@@ -36,13 +36,14 @@ public class DriveAssistCom extends Command {
     // need to test if below "tagangle" is correct or not - I think it won't be.
     // double tagAngle = swerve.getTagAngle(id);
 
-    FieldCentricFacingAngle req = SwerveRequestStash.autoAlign;
+    FieldCentricFacingAngle req = SwerveRequestStash.autoAlign.withDeadband(0);
 
     Translation2d error = getFieldRelativeDistances();
-    double yVel = MathUtil.clamp(APRILTAG_ALIGN_KP * error.getY(), -APRILTAG_ALIGN_LIMIT / 2, APRILTAG_ALIGN_LIMIT / 2);
-    double xVel = MathUtil.clamp(APRILTAG_ALIGN_KP * error.getX(), -APRILTAG_ALIGN_LIMIT / 2, APRILTAG_ALIGN_LIMIT / 2);
+    // System.out.println("X: " + (-error.getX()) + " Y: " + -error.getY());
+    double yVel = MathUtil.clamp(APRILTAG_ALIGN_KP * -error.getY(), -APRILTAG_ALIGN_LIMIT,
+        APRILTAG_ALIGN_LIMIT);
+    double xVel = MathUtil.clamp(APRILTAG_ALIGN_KP * (-error.getX()), -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
     Rotation2d angle = Rotation2d.fromDegrees(swerve.getYaw180() - limelight.getTx());
-
     swerve.setControl(req.withTargetDirection(angle).withVelocityX(xVel).withVelocityY(yVel));
   }
 
@@ -58,12 +59,17 @@ public class DriveAssistCom extends Command {
   private Translation2d getFieldRelativeDistances() {
     int idMod = limelight.getID() % 7;
     // angle the reef side makes with the field-plane
-    double reefSideAngle = idMod == 6 ? 300 : idMod * 60;
+    double reefSideAngle = Math.toRadians(idMod == 6 ? 300 : idMod * 60);
+    reefSideAngle = 0;
 
     // angle of the robot-reef-target right triangle
-    double triangle1angle = (swerve.getYaw360() - limelight.getTx()) + reefSideAngle;
+    double triangle1angle = Math.toRadians((swerve.getYaw360() - limelight.getTx()) + reefSideAngle);
+    // System.out.println(Math.toDegrees(triangle1angle));
     // hypotenuse of above triangle
-    double targetError = limelight.getTy() * Math.cos(Math.toRadians(triangle1angle));
+    double tagToRobot = Math.hypot(swerve.getCurrentPose().getX() - APRILTAG_POSITIONS[7].getX(),
+        swerve.getCurrentPose().getY() - APRILTAG_POSITIONS[7].getY());
+    double targetError = (tagToRobot - 1) * Math.cos(triangle1angle);
+    System.out.println(targetError);
 
     return new Translation2d(targetError * Math.sin(reefSideAngle), targetError * Math.cos(reefSideAngle));
   }
