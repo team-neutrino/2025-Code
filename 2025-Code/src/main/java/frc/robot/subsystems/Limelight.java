@@ -178,6 +178,14 @@ public class Limelight extends SubsystemBase {
     LimelightHelpers.setPipelineIndex(LIMELIGHT_1, id);
   }
 
+  public void setPipelineIDForCamera2(int id) {
+    LimelightHelpers.setPipelineIndex("limelight-2", id);
+  }
+
+  public void setLimelight4IMU(int mode) {
+    // LimelightHelpers.
+  }
+
   public Command limelightDefaultCommand() {
     return run(() -> {
 
