@@ -7,8 +7,13 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.StringTopic;
+
+import static frc.robot.util.Subsystem.claw;
+
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
+import frc.robot.subsystems.*;
+import frc.robot.util.Subsystem;
 
 public class LED extends SubsystemBase {
   private int m_counter = 0;
@@ -16,6 +21,7 @@ public class LED extends SubsystemBase {
 
   NetworkTableInstance inst = NetworkTableInstance.getDefault();
   StringTopic color_topic = inst.getStringTopic("/LED/color");
+  Claw claw = Subsystem.claw;
 
   final StringPublisher color_pub;
 
@@ -30,19 +36,28 @@ public class LED extends SubsystemBase {
   }
 
   public Command LEDefaultCommand() {
-  return run(() -> color_pub.setDefault("orange"));
+    return run(() -> setColor());
+  }
+
+  // Command or void? What to return(forgot)
+  public void setToGamePieceColor() {
+    if (claw.isAlgae()) {
+      color_pub.set("turquoise");
+    } else if (claw.isCoral()) {
+      color_pub.set("white");
+    }
+  }
+
+  public void setColor() {
+    if (claw.hasGamePiece()) {
+      setToGamePieceColor();
+      return;
+    } else {
+      color_pub.set("orange");
+    }
   }
 
   @Override
   public void periodic() {
-    if (slowDown(50)) {
-      if (m_counter == 0) {
-        color_pub.set("blue");
-        m_counter++;
-      } else if (m_counter == 1) {
-        color_pub.set("white");
-        m_counter = 0;
-      }
-    }
   }
 }
