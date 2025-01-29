@@ -48,8 +48,8 @@ public class Elevator extends SubsystemBase {
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
         .pid(P_VAL, I_VAL, D_VAL);
     m_config.closedLoop.maxMotion
-        .maxVelocity(0)
-        .maxAcceleration(0)
+        .maxVelocity(MAX_VELOCITY)
+        .maxAcceleration(MAX_ACCELERATION)
         .allowedClosedLoopError(ALLOWED_ERROR);
     m_motor1.configure(m_config, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
