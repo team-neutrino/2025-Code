@@ -7,6 +7,7 @@ import edu.wpi.first.networktables.NetworkTablesJNI;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.subsystems.Arm;
 import frc.robot.util.FFTuner;
+import frc.robot.util.MaxMotionTuner;
 import frc.robot.util.PIDTuner;
 
 public class ArmNT extends Arm {
@@ -22,7 +23,7 @@ public class ArmNT extends Arm {
     private double m_previousI = ArmConstants.ki;
     private double m_previousD = ArmConstants.kd;
     private FFTuner m_FFTuner;
-    private double m_previousFF;
+    private double m_previousFF = ArmConstants.FFCONSTANT;
     private MaxMotionTuner m_MaxMotionTuner;
     private double m_previousMaxAcceleration = ArmConstants.MAX_ACCELERATION;
     private double m_previousMaxVelocity = ArmConstants.MAX_VELOCITY;
@@ -44,8 +45,8 @@ public class ArmNT extends Arm {
         m_PIDTuner.setD(m_previousD);
 
         m_FFTuner = new FFTuner("arm");
-        m_FFTuner.setFF(ArmConstants.FFCONSTANT);
-        m_previousFF = ArmConstants.FFCONSTANT;
+
+        m_FFTuner.setFF(m_previousFF);
 
         m_MaxMotionTuner = new MaxMotionTuner("arm");
 
