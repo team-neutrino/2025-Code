@@ -154,6 +154,7 @@ public class Limelight extends SubsystemBase {
   }
 
   public double getDistanceFromPrimaryTarget() {
+    // System.out.println(getBotPose()[9]);
     return getBotPose()[9];
     // based on camera not robot
   }

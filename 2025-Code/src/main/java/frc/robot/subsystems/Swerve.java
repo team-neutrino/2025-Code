@@ -21,6 +21,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import static edu.wpi.first.units.Units.Amps;
@@ -79,7 +80,7 @@ public class Swerve extends CommandSwerveDrivetrain {
    * Gets yaw from 0-360, going to the right
    */
   public double getYaw360() {
-    return getPigeon2().getYaw().getValueAsDouble() % 360;
+    return Math.abs(getPigeon2().getYaw().getValueAsDouble() % 360);
   }
 
   /**
@@ -158,7 +159,8 @@ public class Swerve extends CommandSwerveDrivetrain {
   public Command swerveDefaultCommand(CommandXboxController controller) {
     return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(controller.getLeftY() * MAX_SPEED)
         .withVelocityY(controller.getLeftX() * MAX_SPEED)
-        .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED));
+        .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED))
+        .alongWith(new RunCommand(() -> System.out.println(getYaw360())));
   }
 
   /**
