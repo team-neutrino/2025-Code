@@ -63,12 +63,12 @@ public class DriveAssistCom extends Command {
     reefSideAngle = 0;
 
     // angle of the robot-reef-target right triangle
-    double triangle1angle = Math.toRadians((swerve.getYaw360() - limelight.getTx()) + reefSideAngle);
+    double triangle1angle = Math.toRadians((swerve.getYaw180() - limelight.getTx()) + reefSideAngle);
     // System.out.println(Math.toDegrees(triangle1angle));
     // hypotenuse of above triangle
     double limelightTagToRobot = limelight.getDistanceFromPrimaryTarget();
-    double targetError = (limelightTagToRobot) * Math.cos(triangle1angle);
-    // System.out.println(targetError);
+    double targetError = (limelightTagToRobot) * Math.sin(triangle1angle);
+    System.out.println(targetError);
 
     return new Translation2d(targetError * Math.sin(reefSideAngle), targetError * Math.cos(reefSideAngle));
   }
