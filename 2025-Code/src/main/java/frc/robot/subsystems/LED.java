@@ -39,22 +39,22 @@ public class LED extends SubsystemBase {
     return run(() -> setColor());
   }
 
-  // Command or void? What to return(forgot)
   public void setToGamePieceColor() {
     if (claw.isAlgae()) {
       color_pub.set("turquoise");
     } else if (claw.isCoral()) {
       color_pub.set("white");
+      color_pub.set("blink");
     }
   }
 
   public void setColor() {
     if (claw.hasGamePiece()) {
       setToGamePieceColor();
-      return;
     } else {
       color_pub.set("orange");
     }
+    return;
   }
 
   @Override
