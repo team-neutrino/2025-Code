@@ -9,7 +9,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
-import frc.robot.Constants.LimelightConstants;
+import static frc.robot.Constants.LimelightConstants.*;
 import frc.robot.Constants.SwerveConstants;
 
 public class Limelight extends SubsystemBase {
@@ -28,37 +28,37 @@ public class Limelight extends SubsystemBase {
     // m_swerve = Subsystem.swerve;
     m_limelightHelpers = new LimelightHelpers();
     // fake pipeline number
-    // LimelightHelpers.setPipelineIndex("limelight", 1);
-    LimelightHelpers.setLEDMode_ForceOff("limelight");
-    LimelightHelpers.setCameraPose_RobotSpace("limelight",
-        LimelightConstants.CAMERA_FORWARD_OFFSET, // Forward offset (meters)
-        LimelightConstants.CAMERA_SIDE_OFFSET, // Side offset (meters) left is positive
-        LimelightConstants.CAMERA_HEIGHT_OFFSET, // Height offset (meters)
-        LimelightConstants.CAMERA_ROLL_OFFSET, // Roll (degrees)
-        LimelightConstants.CAMERA_PITCH_OFFSET, // Pitch (degrees)
-        LimelightConstants.CAMERA_YAW_OFFSET // Yaw (degrees)
+    // LimelightHelpers.setPipelineIndex(LIMELIGHT_1, 1);
+    LimelightHelpers.setLEDMode_ForceOff(LIMELIGHT_1);
+    LimelightHelpers.setCameraPose_RobotSpace(LIMELIGHT_1,
+        CAMERA_FORWARD_OFFSET, // Forward offset (meters)
+        CAMERA_SIDE_OFFSET, // Side offset (meters) left is positive
+        CAMERA_HEIGHT_OFFSET, // Height offset (meters)
+        CAMERA_ROLL_OFFSET, // Roll (degrees)
+        CAMERA_PITCH_OFFSET, // Pitch (degrees)
+        CAMERA_YAW_OFFSET // Yaw (degrees)
     );
     // change name later
-    LimelightHelpers.setLEDMode_ForceOff("limelight-2");
-    LimelightHelpers.setCameraPose_RobotSpace("limelight-2",
-        LimelightConstants.CAMERA2_FORWARD_OFFSET, // Forward offset (meters)
-        LimelightConstants.CAMERA2_SIDE_OFFSET, // Side offset (meters) left is positive
-        LimelightConstants.CAMERA2_HEIGHT_OFFSET, // Height offset (meters)
-        LimelightConstants.CAMERA2_ROLL_OFFSET, // Roll (degrees)
-        LimelightConstants.CAMERA2_PITCH_OFFSET, // Pitch (degrees)
-        LimelightConstants.CAMERA2_YAW_OFFSET // Yaw (degrees)
+    LimelightHelpers.setLEDMode_ForceOff(LIMELIGHT_2);
+    LimelightHelpers.setCameraPose_RobotSpace(LIMELIGHT_2,
+        CAMERA2_FORWARD_OFFSET, // Forward offset (meters)
+        CAMERA2_SIDE_OFFSET, // Side offset (meters) left is positive
+        CAMERA2_HEIGHT_OFFSET, // Height offset (meters)
+        CAMERA2_ROLL_OFFSET, // Roll (degrees)
+        CAMERA2_PITCH_OFFSET, // Pitch (degrees)
+        CAMERA2_YAW_OFFSET // Yaw (degrees)
     );
 
   }
 
   // **get valid target from camera 1*/
   public boolean getTv() {
-    return LimelightHelpers.getTV("limelight");
+    return LimelightHelpers.getTV(LIMELIGHT_1);
   }
 
   // **get valid target from camera 2*/
   public boolean getTvFromCamera2() {
-    return LimelightHelpers.getTV("limelight-2");
+    return LimelightHelpers.getTV(LIMELIGHT_2);
   }
 
   /**
@@ -66,7 +66,7 @@ public class Limelight extends SubsystemBase {
    * degrees / LL2: -29.8 to 29.8 degrees)
    */
   public double getTx() {
-    return LimelightHelpers.getTX("limelight");
+    return LimelightHelpers.getTX(LIMELIGHT_1);
   }
 
   /**
@@ -75,7 +75,7 @@ public class Limelight extends SubsystemBase {
    * degrees / LL2: -29.8 to 29.8 degrees)
    */
   public double getTxFromCamera2() {
-    return LimelightHelpers.getTX("limelight-2");
+    return LimelightHelpers.getTX(LIMELIGHT_2);
   }
 
   /**
@@ -83,7 +83,7 @@ public class Limelight extends SubsystemBase {
    * degrees / LL2: -24.85 to 24.85 degrees)
    */
   public double getTy() {
-    return LimelightHelpers.getTY("limelight");
+    return LimelightHelpers.getTY(LIMELIGHT_1);
   }
 
   /**
@@ -92,29 +92,29 @@ public class Limelight extends SubsystemBase {
    * degrees / LL2: -24.85 to 24.85 degrees)
    */
   public double getTyFromCamera2() {
-    return LimelightHelpers.getTY("limelight-2");
+    return LimelightHelpers.getTY(LIMELIGHT_2);
   }
 
   /** get ID of the primary in-view AprilTag */
   public int getID() {
-    return (int) LimelightHelpers.getFiducialID("limelight");
+    return (int) LimelightHelpers.getFiducialID(LIMELIGHT_1);
   }
 
   /** get ID of the primary in-view AprilTag from the Second Camera */
   public int getIDFromCamera2() {
-    return (int) LimelightHelpers.getFiducialID("limelight-2");
+    return (int) LimelightHelpers.getFiducialID(LIMELIGHT_2);
   }
 
   public double[] getTargetPose() {
     if (getTv()) {
-      targetPose = LimelightHelpers.getTargetPose_RobotSpace("limelight");
+      targetPose = LimelightHelpers.getTargetPose_RobotSpace(LIMELIGHT_1);
     }
     return targetPose;
   }
 
   public double[] getTargetPoseFromCamera2() {
     if (getTv()) {
-      targetPose2 = LimelightHelpers.getTargetPose_RobotSpace("limelight-2");
+      targetPose2 = LimelightHelpers.getTargetPose_RobotSpace(LIMELIGHT_2);
     }
     return targetPose2;
   }
@@ -142,9 +142,9 @@ public class Limelight extends SubsystemBase {
   public double[] getBotPose() {
     // depending on how we do want to do our vision we could have regular getBotPose
     if (getTv()) {
-      pose = LimelightHelpers.getBotPose_wpiBlue("limelight");
+      pose = LimelightHelpers.getBotPose_wpiBlue(LIMELIGHT_1);
     } else if (getTvFromCamera2()) {
-      pose = LimelightHelpers.getBotPose_wpiBlue("limelight-2");
+      pose = LimelightHelpers.getBotPose_wpiBlue(LIMELIGHT_2);
     }
     return pose;
     // currently defaults to 0 if there's no pose
@@ -165,15 +165,15 @@ public class Limelight extends SubsystemBase {
   }
 
   public void setPriorityID(int id) {
-    LimelightHelpers.setPriorityTagID("limelight", id);
+    LimelightHelpers.setPriorityTagID(LIMELIGHT_1, id);
   }
 
   public void setPriorityIDForCamera2(int id) {
-    LimelightHelpers.setPriorityTagID("limelight", id);
+    LimelightHelpers.setPriorityTagID(LIMELIGHT_1, id);
   }
 
   public void setPipelineID(int id) {
-    LimelightHelpers.setPipelineIndex("limelight", id);
+    LimelightHelpers.setPipelineIndex(LIMELIGHT_1, id);
   }
 
   public Command limelightDefaultCommand() {
@@ -188,7 +188,7 @@ public class Limelight extends SubsystemBase {
     // Field Localization code below
     // m_robotYaw = m_swerve.getRobotYaw
     // LimelightHelpers.PoseEstimate limelightMeasurement =
-    // LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
+    // LimelightHelpers.getBotPoseEstimate_wpiBlue(LIMELIGHT_1);
     // if (limelightMeasurement.tagCount >= 2) { // Only trust measurement if we see
     // multiple tags
     // m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7,
@@ -197,6 +197,19 @@ public class Limelight extends SubsystemBase {
     // limelightMeasurement.pose,
     // limelightMeasurement.timestampSeconds);
     //
+    setPriorityID(7);
+    setPriorityIDForCamera2(7);
+
+    if (getTv()) {
+      System.out.println("limelight 1 getting target");
+    } else {
+      System.out.println("limelight 1 no target");
+    }
+    if (getTvFromCamera2()) {
+      System.out.println("limelight 2 getting target");
+    } else {
+      System.out.println("limelight 2 no target");
+    }
   }
 
   @Override
