@@ -85,6 +85,8 @@ public final class Constants {
 
     public static final double HITTING_LOW_HARD_LIMIT = 75;
     public static final double HITTING_HIGH_HARD_LIMIT = 285;
+    public static final double ARM_HIGHEST_SAFE_LIMIT = 39; // placeholder
+    public static final double ARM_LOWEST_SAFE_LIMIT = 28; // placeholder
 
     public static final int MOTOR_ID = 10;
 
