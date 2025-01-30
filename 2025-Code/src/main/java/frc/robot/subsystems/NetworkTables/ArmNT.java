@@ -7,6 +7,7 @@ import edu.wpi.first.networktables.NetworkTablesJNI;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.subsystems.Arm;
 import frc.robot.util.FFTuner;
+import frc.robot.util.MaxMotionTuner;
 import frc.robot.util.PIDTuner;
 
 public class ArmNT extends Arm {
@@ -18,11 +19,15 @@ public class ArmNT extends Arm {
     final DoublePublisher targetPositionPub;
     final DoublePublisher motorVoltagePub;
     private PIDTuner m_PIDTuner;
-    private double m_previousP;
-    private double m_previousI;
-    private double m_previousD;
+    private double m_previousP = ArmConstants.kp;
+    private double m_previousI = ArmConstants.ki;
+    private double m_previousD = ArmConstants.kd;
     private FFTuner m_FFTuner;
-    private double m_previousFF;
+    private double m_previousFF = ArmConstants.FFCONSTANT;
+    private MaxMotionTuner m_MaxMotionTuner;
+    private double m_previousMaxAcceleration = ArmConstants.MAX_ACCELERATION;
+    private double m_previousMaxVelocity = ArmConstants.MAX_VELOCITY;
+    private double m_previousAllowedError = ArmConstants.ALLOWED_ERROR;
 
     public ArmNT() {
         encoderPositionPub = encoderPosition.publish();
@@ -35,16 +40,19 @@ public class ArmNT extends Arm {
         motorVoltagePub.setDefault(0.0);
         m_PIDTuner = new PIDTuner("arm");
 
-        m_PIDTuner.setP(ArmConstants.kp);
-        m_PIDTuner.setI(ArmConstants.ki);
-        m_PIDTuner.setD(ArmConstants.kd);
-        m_previousP = ArmConstants.kp;
-        m_previousI = ArmConstants.ki;
-        m_previousD = ArmConstants.kd;
+        m_PIDTuner.setP(m_previousP);
+        m_PIDTuner.setI(m_previousI);
+        m_PIDTuner.setD(m_previousD);
 
         m_FFTuner = new FFTuner("arm");
-        m_FFTuner.setFF(ArmConstants.FFCONSTANT);
-        m_previousFF = ArmConstants.FFCONSTANT;
+
+        m_FFTuner.setFF(m_previousFF);
+
+        m_MaxMotionTuner = new MaxMotionTuner("arm");
+
+        m_MaxMotionTuner.setMaxVelocity(m_previousMaxVelocity);
+        m_MaxMotionTuner.setMaxAcceleration(m_previousMaxAcceleration);
+        m_MaxMotionTuner.setAllowedError(m_previousAllowedError);
     }
 
     @Override
@@ -65,6 +73,15 @@ public class ArmNT extends Arm {
         if (m_FFTuner.getFF() != m_previousFF) {
             changeFF(m_FFTuner.getFF());
             m_previousFF = m_FFTuner.getFF();
+        }
+
+        if (m_MaxMotionTuner.isDifferentValues(m_previousMaxVelocity, m_previousMaxAcceleration,
+                m_previousAllowedError)) {
+            changeMaxMotion(m_MaxMotionTuner.getMaxVelocity(), m_MaxMotionTuner.getMaxAcceleration(),
+                    m_MaxMotionTuner.getAllowedError());
+            m_previousMaxVelocity = m_MaxMotionTuner.getMaxVelocity();
+            m_previousMaxAcceleration = m_MaxMotionTuner.getMaxAcceleration();
+            m_previousAllowedError = m_MaxMotionTuner.getAllowedError();
         }
     }
 }
