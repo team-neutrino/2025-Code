@@ -41,6 +41,7 @@
 
 ## PWM
 | Subsystem | Description          | Port   |
+| --------- | -------------------- | ------ |
 | Climb     | Servo for ratchet    | 0      |
 
 ## PDH
