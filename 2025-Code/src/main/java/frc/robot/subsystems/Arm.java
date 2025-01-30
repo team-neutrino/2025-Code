@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
@@ -147,6 +148,12 @@ public class Arm extends SubsystemBase {
    * 
    * @return volts
    */
+
+  private void adjustArm(double targetAngle) {
+    m_armPidController.setReference(targetAngle, ControlType.kMAXMotionPositionControl, ClosedLoopSlot.kSlot0,
+        feedForwardCalculation());
+  }
+
   public double feedForwardCalculation() {
     double currentAngle = getArmEncoderPosition();
     double volts = m_FFConstant * Math.cos(currentAngle);
@@ -177,8 +184,17 @@ public class Arm extends SubsystemBase {
         PersistMode.kPersistParameters);
   }
 
+  private double safeAngle(double targetAngle) {
+    double safeAngle = targetAngle;
+    if (ARM_LOWEST_SAFE_LIMIT <= targetAngle && ARM_HIGHEST_SAFE_LIMIT >= targetAngle) {
+      safeAngle = targetAngle;
+    }
+    return safeAngle;
+  }
+
   @Override
   public void periodic() {
+    adjustArm(safeAngle(m_targetAngle));
     updateArmAngle();
   }
 
