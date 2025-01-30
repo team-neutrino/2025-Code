@@ -28,6 +28,8 @@ import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.KilogramSquareMeters;
 import static edu.wpi.first.units.Units.Pounds;
 import static frc.robot.Constants.SwerveConstants.*;
+import static frc.robot.util.Subsystem.limelight;
+
 import frc.robot.util.GeneratedSwerveCode.CommandSwerveDrivetrain;
 import frc.robot.util.GeneratedSwerveCode.Telemetry;
 import frc.robot.util.GeneratedSwerveCode.TunerConstants;
@@ -79,7 +81,7 @@ public class Swerve extends CommandSwerveDrivetrain {
    * Gets yaw from 0-360, going to the right
    */
   public double getYaw360() {
-    return Math.abs(getPigeon2().getYaw().getValueAsDouble() % 360);
+    return getPigeon2().getYaw().getValueAsDouble() % 360;
   }
 
   /**
@@ -154,8 +156,11 @@ public class Swerve extends CommandSwerveDrivetrain {
   public Command swerveDefaultCommand(CommandXboxController controller) {
     return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(controller.getLeftY() * MAX_SPEED)
         .withVelocityY(controller.getLeftX() * MAX_SPEED)
-        .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED));
-    // .alongWith(new RunCommand(() -> System.out.println(getYaw360())));
+        .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED))
+        .alongWith(new RunCommand(() -> {
+          System.out.println("yaw " + getYaw180());
+          System.out.println("TX " + limelight.getTx());
+        }));
   }
 
   /**
@@ -218,8 +223,9 @@ public class Swerve extends CommandSwerveDrivetrain {
      *         structure factory.
      */
     public static FieldCentricFacingAngle autoAlignBaseline(CommandXboxController controller) {
-      return autoAlign.withVelocityX(controller.getLeftY() * MAX_SPEED)
-          .withVelocityY(controller.getLeftX() * MAX_SPEED);
+      return autoAlign;
+      // return autoAlign.withVelocityX(controller.getLeftY() * MAX_SPEED)
+      // .withVelocityY(controller.getLeftX() * MAX_SPEED);
     }
 
     public static void configureRequestsPID() {

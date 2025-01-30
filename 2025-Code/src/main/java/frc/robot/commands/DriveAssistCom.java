@@ -43,7 +43,7 @@ public class DriveAssistCom extends Command {
     double yVel = MathUtil.clamp(APRILTAG_ALIGN_KP * -error.getY(), -APRILTAG_ALIGN_LIMIT,
         APRILTAG_ALIGN_LIMIT);
     double xVel = MathUtil.clamp(APRILTAG_ALIGN_KP * (-error.getX()), -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
-    Rotation2d angle = Rotation2d.fromDegrees(swerve.getYaw180() - limelight.getTx());
+    Rotation2d angle = Rotation2d.fromDegrees(swerve.getYaw180() + limelight.getTx());
     swerve.setControl(req.withTargetDirection(angle).withVelocityX(xVel).withVelocityY(yVel));
   }
 
@@ -60,10 +60,11 @@ public class DriveAssistCom extends Command {
     int idMod = limelight.getID() % 7;
     // angle the reef side makes with the field-plane
     double reefSideAngle = idMod == 6 ? 300 : idMod * 60;
-    reefSideAngle = 0;
+    reefSideAngle = 60;
 
     // angle of the robot-reef-target right triangle
-    double triangle1angle = Math.toRadians((swerve.getYaw180() - limelight.getTx()) + reefSideAngle);
+    double triangle1angle = Math
+        .toRadians((swerve.getYaw180() - limelight.getTx()) + reefSideAngle);
     // System.out.println(Math.toDegrees(triangle1angle));
     // hypotenuse of above triangle
     double limelightTagToRobot = limelight.getDistanceFromPrimaryTarget();
