@@ -85,16 +85,6 @@ public class Climb extends SubsystemBase {
     // subject to change
   }
 
-  public void engageLock() {
-    m_lockMotor.setVoltage(LOCK_VOLTAGE);
-
-    double current = m_lockMotor.getOutputCurrent();
-    if (current > LOCK_CURRENT_THRESHOLD) {
-      m_lockMotor.setVoltage(0);
-      engageLockRatchet();
-    }
-  }
-
   public void climbUp() {
     m_climbMotor.setVoltage(CLIMB_UP_VOLTAGE);
     // subject to change!!!!!!
@@ -106,9 +96,12 @@ public class Climb extends SubsystemBase {
   }
 
   public Command lockCommand() {
-    return run(() -> {
-      engageLock();
-    });
+    return runEnd(() -> 
+    {m_lockMotor.setVoltage(LOCK_VOLTAGE);
+    }, () -> {
+      m_lockMotor.setVoltage(0); 
+      engageLockRatchet();
+    }).until(() -> m_lockMotor.getOutputCurrent() > LOCK_CURRENT_THRESHOLD);
   }
 
   public Command raiseClimbArmCommand() {
