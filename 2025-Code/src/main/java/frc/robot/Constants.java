@@ -37,9 +37,9 @@ public final class Constants {
         new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(),
         new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(),
         new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d() };
-    public static final double APRILTAG_ALIGN_KP = .5;
+    public static final double APRILTAG_ALIGN_KP = .9;
     public static final double APRILTAG_ALIGN_LIMIT = .5;
-    public static final double AUTO_ALIGN_P = 5;
+    public static final double AUTO_ALIGN_P = 10;
     public static final double AUTO_ALIGN_D = 0;
     public static final double TY_TO_DISTANCE = .1;
     public static final double STALL_TORQUE = 7.09;
