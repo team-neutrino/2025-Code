@@ -197,19 +197,6 @@ public class Limelight extends SubsystemBase {
     // limelightMeasurement.pose,
     // limelightMeasurement.timestampSeconds);
     //
-    setPriorityID(7);
-    setPriorityIDForCamera2(7);
-
-    if (getTv()) {
-      System.out.println("limelight 1 getting target");
-    } else {
-      System.out.println("limelight 1 no target");
-    }
-    if (getTvFromCamera2()) {
-      System.out.println("limelight 2 getting target");
-    } else {
-      System.out.println("limelight 2 no target");
-    }
   }
 
   @Override
