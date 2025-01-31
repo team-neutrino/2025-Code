@@ -21,7 +21,6 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import static edu.wpi.first.units.Units.Amps;
@@ -149,6 +148,24 @@ public class Swerve extends CommandSwerveDrivetrain {
         this);
   }
 
+  public void resetSwerveYaw() {
+    resetRotation(new Rotation2d(0));
+    getPigeon2().reset();
+  }
+
+  /**
+   * gets yaw -180 - 180 according to swerve
+   * 
+   * @return yaw in degrees
+   */
+  public double getYawDegrees() {
+    return getCurrentPose().getRotation().getDegrees();
+  }
+
+  public double getYawRadians() {
+    return Math.toRadians(getYawDegrees());
+  }
+
   /**
    * Returns the default command for the swerve - drives the robot according to
    * the stick values on the driver's controller.
@@ -159,11 +176,7 @@ public class Swerve extends CommandSwerveDrivetrain {
   public Command swerveDefaultCommand(CommandXboxController controller) {
     return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(controller.getLeftY() * MAX_SPEED)
         .withVelocityY(controller.getLeftX() * MAX_SPEED)
-        .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED))
-        .alongWith(new RunCommand(() -> {
-          System.out.println("yaw " + getYaw180());
-          System.out.println("TX " + limelight.getTx());
-        }));
+        .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED));
   }
 
   /**

@@ -40,8 +40,8 @@ public final class Constants {
     public static final double[] APRILTAG_OFFSETS = { 1.0, 0, 0, 0, 0, 0, -60, 0, 60, 120, 180, -120 };
     public static final double APRILTAG_ALIGN_KP = .9;
     public static final double APRILTAG_ALIGN_LIMIT = .5;
-    public static final double AUTO_ALIGN_P = 2;
-    public static final double AUTO_ALIGN_D = 0;
+    public static final double AUTO_ALIGN_P = 9;
+    public static final double AUTO_ALIGN_D = 1;
     public static final double TY_TO_DISTANCE = .1;
     public static final double STALL_TORQUE = 7.09;
     public static final double STALL_CURRENT = 366;
