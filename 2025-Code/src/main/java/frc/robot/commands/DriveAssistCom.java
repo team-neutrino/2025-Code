@@ -65,7 +65,7 @@ public class DriveAssistCom extends Command {
     // hypotenuse of above triangle
     double limelightTagToRobot = limelight.getDistanceFromPrimaryTarget();
     double targetError = (limelightTagToRobot) * Math.sin(triangle1angle);
-    System.out.println(limelightTagToRobot);
+    System.out.println(targetError);
 
     return new Translation2d(targetError * Math.cos(reefSideAngle), targetError * Math.sin(reefSideAngle));
   }
