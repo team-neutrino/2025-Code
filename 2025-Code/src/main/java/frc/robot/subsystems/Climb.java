@@ -96,10 +96,10 @@ public class Climb extends SubsystemBase {
   }
 
   public Command lockCommand() {
-    return runEnd(() -> 
-    {m_lockMotor.setVoltage(LOCK_VOLTAGE);
+    return runEnd(() -> {
+      m_lockMotor.setVoltage(LOCK_VOLTAGE);
     }, () -> {
-      m_lockMotor.setVoltage(0); 
+      m_lockMotor.setVoltage(0);
       engageLockRatchet();
     }).until(() -> m_lockMotor.getOutputCurrent() > LOCK_CURRENT_THRESHOLD);
   }
