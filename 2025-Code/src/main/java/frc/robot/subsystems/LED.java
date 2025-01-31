@@ -41,10 +41,9 @@ public class LED extends SubsystemBase {
 
   public void setToGamePieceColor() {
     if (claw.isAlgae()) {
-      color_pub.set("turquoise");
+      color_pub.set("blinkturquoise");
     } else if (claw.isCoral()) {
-      color_pub.set("white");
-      color_pub.set("blink");
+      color_pub.set("blinkwhite");
     }
   }
 

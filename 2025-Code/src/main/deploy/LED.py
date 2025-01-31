@@ -21,10 +21,7 @@ targetColorRGB = [0, 0, 0]
 newColorRGB = [0, 0, 0]
 blink = False
 pixels = neopixel.NeoPixel(board.D18, 19, auto_write=False)
-rchange = 0
-gchange = 0
-bchange = 0
-running = False
+counter = 0
 
 NetworkTables.setDashboardMode(1735)
 NetworkTables.initialize(server=ip)
@@ -61,20 +58,21 @@ def setNewColor(r, g, b):
     newColorRGB[1] = min(255,max(g, 0))
     newColorRGB[2] = min(255,max(b, 0))
 
-def blinkColor(r, g, b):
-    global newColorRGB
-    print("blink blink blink")
-    setNewColor(r, g, b)
-    for i in range(10):
-        pixels.fill((r,g,b))
-        time.sleep(0.05)
-        pixels.fill((0,0,0))
-        time.sleep(0.05)
+def blinkColor(rgb):
+    global counter
+    counter += 1
+    if(counter <= 10):
+        setNewColor(rgb[0],rgb[1],rgb[2])
+    elif(counter <= 20):
+        setNewColor(0,0,0)
+    else:
+        counter = 0
 
 def valueChanged(table, key, value, isNew):
     print("valueChanged: key: '%s'; value: %s; isNew: %s" % (key, value, isNew))
     global targetColorRGB
     global blink
+    blink = False
     if value == "white":
         setTargetColor(255, 255, 255)
     if value == "red":
@@ -97,10 +95,12 @@ def valueChanged(table, key, value, isNew):
         setTargetColor(75, 0, 130)
     if value =="turquoise":
         setTargetColor(27, 220, 85)
-    if value == "blink":
+    if value == "blinkturquoise":
         blink = True
-    else:
-        blink = False
+        setTargetColor(27,220,85)
+    if value == "blinkwhite":
+        blink=True
+        setTargetColor(255,255,255)
     for t in range(19,0,-1):
         for i in range(t, t + 19):
             if value == "rainbow":
@@ -121,7 +121,7 @@ led = NetworkTables.getTable("/LED")
 color = led.getAutoUpdateValue("color", "")
 color.addListener(valueChanged, NetworkTables.NotifyFlags.UPDATE)
 
-# def printRGB():
+#def printRGB():
     # print("rc %d" % targetColorRGB[0])
     # print("gc %d" % targetColorRGB[1])
     # print("bc %d" % targetColorRGB[2])
@@ -134,8 +134,7 @@ color.addListener(valueChanged, NetworkTables.NotifyFlags.UPDATE)
 while True:
     time.sleep(0.01)
     ramp(targetColorRGB[0],targetColorRGB[1], targetColorRGB[2])
-    pixels.fill((newColorRGB[0],newColorRGB[1], newColorRGB[2]))
     if (blink):
-        blinkColor(newColorRGB[0], newColorRGB[1], newColorRGB[2])
-    # printRGB()
+        blinkColor(newColorRGB)
+    pixels.fill((newColorRGB[0],newColorRGB[1], newColorRGB[2]))
     pixels.show()
