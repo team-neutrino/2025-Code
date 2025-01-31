@@ -33,17 +33,14 @@ public class DriveAssistCom extends Command {
 
   @Override
   public void execute() {
-    // need to test if below "tagangle" is correct or not - I think it won't be.
-    // double tagAngle = swerve.getTagAngle(id);
-
-    FieldCentricFacingAngle req = SwerveRequestStash.autoAlign.withDeadband(0);
+    FieldCentricFacingAngle req = SwerveRequestStash.driveAssist;
+    req.HeadingController.setPID(5, 0, .5);
 
     Translation2d error = getFieldRelativeDistances();
-    // System.out.println("X: " + (-error.getX()) + " Y: " + -error.getY());
-    double yVel = MathUtil.clamp(APRILTAG_ALIGN_KP * -error.getY(), -APRILTAG_ALIGN_LIMIT,
+    double yVel = MathUtil.clamp(APRILTAG_ALIGN_KP * error.getY(), -APRILTAG_ALIGN_LIMIT,
         APRILTAG_ALIGN_LIMIT);
-    double xVel = MathUtil.clamp(APRILTAG_ALIGN_KP * (-error.getX()), -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
-    Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() + limelight.getTx());
+    double xVel = MathUtil.clamp(APRILTAG_ALIGN_KP * (error.getX()), -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
+    Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() - limelight.getTx());
     swerve.setControl(req.withTargetDirection(angle).withVelocityX(xVel).withVelocityY(yVel));
   }
 
@@ -68,13 +65,14 @@ public class DriveAssistCom extends Command {
     // hypotenuse of above triangle
     double limelightTagToRobot = limelight.getDistanceFromPrimaryTarget();
     double targetError = (limelightTagToRobot) * Math.sin(triangle1angle);
-    System.out.println(targetError);
+    System.out.println(limelightTagToRobot);
 
-    return new Translation2d(targetError * Math.sin(reefSideAngle), targetError * Math.cos(reefSideAngle));
+    return new Translation2d(targetError * Math.cos(reefSideAngle), targetError * Math.sin(reefSideAngle));
   }
 
   @Override
   public void end(boolean interrupted) {
+    SwerveRequestStash.autoAlign.withDeadband(MAX_SPEED * 0.1);
   }
 
   @Override
