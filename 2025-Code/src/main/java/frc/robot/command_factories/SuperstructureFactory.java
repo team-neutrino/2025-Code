@@ -6,8 +6,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.Swerve.SwerveRequestStash;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.RepeatCommand;
-import frc.robot.Constants.*;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 import static frc.robot.util.Subsystem.*;
@@ -75,8 +73,10 @@ public class SuperstructureFactory {
      * 
      * @param driverController The DRIVER controller
      */
-    public static RepeatCommand autoAlign(CommandXboxController driverController) {
-        return new RepeatCommand(swerve.applyRequest(() -> SwerveRequestStash.autoAlignBaseline(driverController)
-                .withTargetDirection(Rotation2d.fromDegrees(swerve.getYaw180() - limelight.getTx()))));
+    public static Command autoAlign(CommandXboxController driverController) {
+        return swerve.applyRequest(() -> SwerveRequestStash.autoAlignBaseline(driverController)
+                // .withTargetDirection(new Rotation2d(-Math.PI / 3)));
+                .withTargetDirection(Rotation2d.fromDegrees(swerve.getYawDegrees() -
+                        limelight.getTx())));
     }
 }

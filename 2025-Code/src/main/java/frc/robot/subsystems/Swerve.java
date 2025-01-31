@@ -15,12 +15,12 @@ import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import static edu.wpi.first.units.Units.Amps;
@@ -28,7 +28,6 @@ import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.KilogramSquareMeters;
 import static edu.wpi.first.units.Units.Pounds;
 import static frc.robot.Constants.SwerveConstants.*;
-import static frc.robot.util.Subsystem.limelight;
 
 import frc.robot.util.GeneratedSwerveCode.CommandSwerveDrivetrain;
 import frc.robot.util.GeneratedSwerveCode.Telemetry;
@@ -69,35 +68,12 @@ public class Swerve extends CommandSwerveDrivetrain {
   }
 
   /**
-   * Gets yaw from -180 to 180, negative to the right
-   */
-  public double getYaw180() {
-    double wrappedYaw = getYaw360();
-    wrappedYaw += wrappedYaw < -180 ? 360 : wrappedYaw > 180 ? -360 : 0;
-    return wrappedYaw;
-  }
-
-  /**
-   * Gets yaw from 0-360, going to the right
-   */
-  public double getYaw360() {
-    return getPigeon2().getYaw().getValueAsDouble() % 360;
-  }
-
-  /**
    * Gets the current Pose of the robot.
    * 
    * @return The {@link Pose2d} representation of the robot's current position.
    */
   public Pose2d getCurrentPose() {
     return getState().Pose;
-  }
-
-  /**
-   * Resets the pigeon's headings to 0.
-   */
-  public void resetPigeon() {
-    getPigeon2().reset();
   }
 
   public ChassisSpeeds getChassisSpeeds() {
@@ -146,6 +122,24 @@ public class Swerve extends CommandSwerveDrivetrain {
         this);
   }
 
+  public void resetSwerveYaw() {
+    resetRotation(new Rotation2d(0));
+    getPigeon2().reset();
+  }
+
+  /**
+   * gets yaw -180 - 180 according to swerve
+   * 
+   * @return yaw in degrees
+   */
+  public double getYawDegrees() {
+    return getCurrentPose().getRotation().getDegrees();
+  }
+
+  public double getYawRadians() {
+    return Math.toRadians(getYawDegrees());
+  }
+
   /**
    * Returns the default command for the swerve - drives the robot according to
    * the stick values on the driver's controller.
@@ -156,11 +150,7 @@ public class Swerve extends CommandSwerveDrivetrain {
   public Command swerveDefaultCommand(CommandXboxController controller) {
     return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(controller.getLeftY() * MAX_SPEED)
         .withVelocityY(controller.getLeftX() * MAX_SPEED)
-        .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED))
-        .alongWith(new RunCommand(() -> {
-          System.out.println("yaw " + getYaw180());
-          System.out.println("TX " + limelight.getTx());
-        }));
+        .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED));
   }
 
   /**
