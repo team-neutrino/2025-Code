@@ -21,6 +21,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import static edu.wpi.first.units.Units.Amps;
@@ -149,7 +150,9 @@ public class Swerve extends CommandSwerveDrivetrain {
   }
 
   public void resetSwerveYaw() {
-    resetRotation(new Rotation2d(0));
+    for (int i = 0; i < 5; i++) {
+      resetRotation(new Rotation2d(0));
+    }
     getPigeon2().reset();
   }
 
@@ -174,14 +177,15 @@ public class Swerve extends CommandSwerveDrivetrain {
    * @return The default command.
    */
   public Command swerveDefaultCommand(CommandXboxController controller) {
-    return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(controller.getLeftY() * MAX_SPEED)
-        .withVelocityY(controller.getLeftX() * MAX_SPEED)
-        .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED));
+    return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(-controller.getLeftY() * MAX_SPEED)
+        .withVelocityY(-controller.getLeftX() * MAX_SPEED)
+        .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED))
+        .alongWith(new RunCommand(() -> System.out.println(getYawDegrees())));
   }
 
   /**
    * Creates and returns a slower-driving version (but not rotating) version of
-   * the default command. See {@link #getDefaultCommand} for details.
+   * the default command. See {@link #swerveDefaultCommand} for details.
    * 
    * @param controller The driver controller.
    * @return A slow-driving default command.
@@ -212,8 +216,13 @@ public class Swerve extends CommandSwerveDrivetrain {
     public static final SwerveRequest.FieldCentric driveWithoutDeadband = new SwerveRequest.FieldCentric()
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
     public static final SwerveRequest.FieldCentricFacingAngle autoAlign = new FieldCentricFacingAngle()
-        .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
-    // .withDeadband(MAX_SPEED * 0.1);
+        .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
+        .withDeadband(MAX_SPEED * 0.05)
+        .withRotationalDeadband(MAX_ROTATION_SPEED * .06);
+    public static final SwerveRequest.FieldCentricFacingAngle driveAssist = new FieldCentricFacingAngle()
+        .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
+        .withDeadband(MAX_SPEED * 0.05)
+        .withRotationalDeadband(MAX_ROTATION_SPEED * .06);
 
     /**
      * Helper method that sets up the {@link #autoAlign} swerve request to be used
@@ -232,9 +241,8 @@ public class Swerve extends CommandSwerveDrivetrain {
      *         structure factory.
      */
     public static FieldCentricFacingAngle autoAlignBaseline(CommandXboxController controller) {
-      return autoAlign;
-      // return autoAlign.withVelocityX(controller.getLeftY() * MAX_SPEED)
-      // .withVelocityY(controller.getLeftX() * MAX_SPEED);
+      return autoAlign.withVelocityX(-controller.getLeftY() * MAX_SPEED)
+          .withVelocityY(-controller.getLeftX() * MAX_SPEED);
     }
 
     public static void configureRequestsPID() {

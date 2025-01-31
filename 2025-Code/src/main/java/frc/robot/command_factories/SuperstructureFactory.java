@@ -75,7 +75,6 @@ public class SuperstructureFactory {
      */
     public static Command autoAlign(CommandXboxController driverController) {
         return swerve.applyRequest(() -> SwerveRequestStash.autoAlignBaseline(driverController)
-                // .withTargetDirection(new Rotation2d(-Math.PI / 3)));
                 .withTargetDirection(Rotation2d.fromDegrees(swerve.getYawDegrees() -
                         limelight.getTx())));
     }
