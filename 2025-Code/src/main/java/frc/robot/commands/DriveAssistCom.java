@@ -83,6 +83,6 @@ public class DriveAssistCom extends Command {
 
   @Override
   public boolean isFinished() {
-    return false;
+    return Math.abs(controller.getRightX()) >= .5 || Math.abs(controller.getLeftY()) >= .75;
   }
 }
