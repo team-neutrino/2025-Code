@@ -171,16 +171,16 @@ public class Limelight extends SubsystemBase {
   }
 
   public boolean updateOdometry() {
-    Swerve swerve = Subsystem.swerve;
     LimelightHelpers.PoseEstimate limePoseEst = LimelightHelpers
         .getBotPoseEstimate_wpiBlue_MegaTag2(LIMELIGHT_1);
-    if (limePoseEst == null || limePoseEst.tagCount == 0 || swerve.getState().Speeds.omegaRadiansPerSecond > 4 * Math.PI
+    if (limePoseEst == null || limePoseEst.tagCount == 0
+        || m_swerve.getState().Speeds.omegaRadiansPerSecond > 4 * Math.PI
         || getFrame() <= m_lastFrame) {
       return false;
     }
 
-    swerve.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999)); // need to change vec values?
-    swerve.addVisionMeasurement(limePoseEst.pose, limePoseEst.timestampSeconds);
+    m_swerve.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999)); // need to change vec values?
+    m_swerve.addVisionMeasurement(limePoseEst.pose, limePoseEst.timestampSeconds);
 
     return true;
   }
@@ -197,6 +197,9 @@ public class Limelight extends SubsystemBase {
 
   @Override
   public void periodic() {
+    if (m_swerve == null) {
+      return;
+    }
     // according to limelight docs, this needs to be called before using
     // .getBotPoseEstimate_wpiBlue_MegaTag2
     LimelightHelpers.SetRobotOrientation(LIMELIGHT_1, Subsystem.swerve.getCurrentPose().getRotation().getDegrees(), 0,
