@@ -22,7 +22,7 @@ public class Limelight extends SubsystemBase {
   private double[] pose = new double[11];
   private double[] targetPose = new double[6];
   private double[] targetPose2 = new double[6];
-  private double lastFrame = -2;
+  private double m_lastFrame = -2;
 
   /** Creates a new ExampleSubsystem. */
   public Limelight() {
@@ -175,7 +175,7 @@ public class Limelight extends SubsystemBase {
     LimelightHelpers.PoseEstimate limePoseEst = LimelightHelpers
         .getBotPoseEstimate_wpiBlue_MegaTag2(LIMELIGHT_1);
     if (limePoseEst == null || limePoseEst.tagCount == 0 || swerve.getState().Speeds.omegaRadiansPerSecond > 4 * Math.PI
-        || getFrame() <= lastFrame) {
+        || getFrame() <= m_lastFrame) {
       return false;
     }
 
@@ -185,7 +185,7 @@ public class Limelight extends SubsystemBase {
     return true;
   }
 
-  public double getFrame() {
+  private double getFrame() {
     return NetworkTableInstance.getDefault().getTable("limelight").getEntry("hb").getDouble(-1);
   }
 
