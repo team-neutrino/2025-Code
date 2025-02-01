@@ -16,7 +16,6 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class RobotContainer {
@@ -43,8 +42,7 @@ public class RobotContainer {
     m_driverController.a().whileTrue(ElevatorFactory.moveL4());
 
     m_driverController.rightBumper().whileTrue(SuperstructureFactory.autoAlign(m_driverController));
-    Command driveAssist = new DriveAssistCom(m_driverController);
-    m_driverController.leftStick().toggleOnTrue(driveAssist);
+    m_driverController.leftStick().toggleOnTrue(new DriveAssistCom(m_driverController));
 
     m_driverController.leftBumper().whileTrue(ArmFactory.moveToL1());
     m_driverController.back().whileTrue(swerve.resetYawCommand());

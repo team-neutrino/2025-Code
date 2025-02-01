@@ -34,14 +34,14 @@ public class DriveAssistCom extends Command {
   @Override
   public void execute() {
     FieldCentricFacingAngle req = SwerveRequestStash.driveAssist;
-    req.HeadingController.setPID(5, 0, .5);
+    req.HeadingController.setPID(4, 0, .5);
 
     Translation2d error = getFieldRelativeDistances();
     double yVel = MathUtil.clamp(APRILTAG_ALIGN_KP * error.getY(), -APRILTAG_ALIGN_LIMIT,
         APRILTAG_ALIGN_LIMIT);
     double xVel = MathUtil.clamp(APRILTAG_ALIGN_KP * (error.getX()), -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
     Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() - limelight.getTx());
-    swerve.setControl(req.withTargetDirection(angle).withVelocityX(-xVel).withVelocityY(-yVel));
+    swerve.setControl(req.withTargetDirection(angle).withVelocityX(xVel).withVelocityY(-yVel));
   }
 
   /**
@@ -59,30 +59,32 @@ public class DriveAssistCom extends Command {
     // point of interest offset
     POIoffset = (pov == 270 ? -SwerveConstants.REEF_OFFSET : pov == 90 ? REEF_OFFSET : POIoffset);
     limelight.setPointOfInterest(0, POIoffset);
-    System.out.println(POIoffset);
     int idMod = id % 7;
 
     // angle the reef side makes with the field-plane
     double reefSideAngle = idMod == 6 ? 300 : idMod * 60;
+    // reefSideAngle = Math.PI / 3;
+    reefSideAngle = 0;
 
     // angle of the robot-reef-target right triangle
     double triangle1angle = Math
-        .toRadians((swerve.getYawDegrees() - limelight.getTx()) + reefSideAngle);
+        .toRadians(swerve.getYawDegrees() - limelight.getTx()) - reefSideAngle;
+    System.out.println(Math.toDegrees(triangle1angle));
     // hypotenuse of above triangle
     double limelightTagToRobot = limelight.getDistanceFromPrimaryTarget();
     double targetError = (limelightTagToRobot) * Math.sin(triangle1angle);
-    // System.out.println(targetError);
 
     return new Translation2d(targetError * Math.sin(reefSideAngle), targetError * Math.cos(reefSideAngle));
   }
 
   @Override
   public void end(boolean interrupted) {
-    SwerveRequestStash.autoAlign.withDeadband(MAX_SPEED * 0.1);
+    POIoffset = 0;
+    limelight.setPointOfInterest(0, POIoffset);
   }
 
   @Override
   public boolean isFinished() {
-    return Math.abs(controller.getRightX()) >= .5 || Math.abs(controller.getLeftY()) >= .75;
+    return Math.abs(controller.getRightX()) >= .75;
   }
 }
