@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
@@ -188,6 +189,22 @@ public class Limelight extends SubsystemBase {
     swerve.addVisionMeasurement(limePoseEst.pose, limePoseEst.timestampSeconds);
     // }
     return true;
+  }
+
+  /**
+   * from CTRE example code - main takeaway is that the timestamp need to be
+   * modified because limelight and kraken swerve expect and use different values
+   */
+  public void fudge() {
+    var driveState = Subsystem.swerve.getState();
+    double headingDeg = Subsystem.swerve.getCurrentPose().getRotation().getDegrees();
+    double omegaRps = Units.radiansToRotations(driveState.Speeds.omegaRadiansPerSecond);
+
+    LimelightHelpers.SetRobotOrientation("limelight", headingDeg, 0, 0, 0, 0, 0);
+    var llMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
+    if (llMeasurement.tagCount > 0 && Math.abs(omegaRps) < 2.0) {
+      Subsystem.swerve.addVisionMeasurement(llMeasurement.pose, llMeasurement.timestampSeconds);
+    }
   }
 
   public Command limelightDefaultCommand() {
