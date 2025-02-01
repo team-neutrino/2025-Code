@@ -6,11 +6,12 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
 import static frc.robot.Constants.LimelightConstants.*;
+
 import frc.robot.util.Subsystem;
 
 public class Limelight extends SubsystemBase {
@@ -21,6 +22,7 @@ public class Limelight extends SubsystemBase {
   private double[] pose = new double[11];
   private double[] targetPose = new double[6];
   private double[] targetPose2 = new double[6];
+  private double lastFrame = -2;
 
   /** Creates a new ExampleSubsystem. */
   public Limelight() {
@@ -169,42 +171,22 @@ public class Limelight extends SubsystemBase {
   }
 
   public boolean updateOdometry() {
-    // check this yaw code - does it need to be from a pose estimator? Other options
-    // commented below for testing:
-    // double Yaw = Subsystem.swerve.getState().RawHeading.getDegrees();
-    // ^^^ should be 0 - 360
-    // double YAw = Subsystem.swerve.getPigeon2().getYaw().getValueAsDouble();
-    // ^^^ will not have updated accross deploys/loss of coms
-
     Swerve swerve = Subsystem.swerve;
     LimelightHelpers.PoseEstimate limePoseEst = LimelightHelpers
         .getBotPoseEstimate_wpiBlue_MegaTag2(LIMELIGHT_1);
-    if (limePoseEst.tagCount == 0 || swerve.getState().Speeds.omegaRadiansPerSecond > 4 * Math.PI) {
+    if (limePoseEst == null || limePoseEst.tagCount == 0 || swerve.getState().Speeds.omegaRadiansPerSecond > 4 * Math.PI
+        || getFrame() <= lastFrame) {
       return false;
     }
 
-    // if (limelightMeasurement.tagCount >= 2) { // Only trust measurement if we see
-    // multiple tags
     swerve.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999)); // need to change vec values?
     swerve.addVisionMeasurement(limePoseEst.pose, limePoseEst.timestampSeconds);
-    // }
+
     return true;
   }
 
-  /**
-   * from CTRE example code - main takeaway is that the timestamp need to be
-   * modified because limelight and kraken swerve expect and use different values
-   */
-  public void fudge() {
-    var driveState = Subsystem.swerve.getState();
-    double headingDeg = Subsystem.swerve.getCurrentPose().getRotation().getDegrees();
-    double omegaRps = Units.radiansToRotations(driveState.Speeds.omegaRadiansPerSecond);
-
-    LimelightHelpers.SetRobotOrientation("limelight", headingDeg, 0, 0, 0, 0, 0);
-    var llMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
-    if (llMeasurement.tagCount > 0 && Math.abs(omegaRps) < 2.0) {
-      Subsystem.swerve.addVisionMeasurement(llMeasurement.pose, llMeasurement.timestampSeconds);
-    }
+  public double getFrame() {
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("hb").getDouble(-1);
   }
 
   public Command limelightDefaultCommand() {
@@ -219,6 +201,7 @@ public class Limelight extends SubsystemBase {
     // .getBotPoseEstimate_wpiBlue_MegaTag2
     LimelightHelpers.SetRobotOrientation(LIMELIGHT_1, Subsystem.swerve.getCurrentPose().getRotation().getDegrees(), 0,
         0, 0, 0, 0);
+    updateOdometry();
   }
 
   @Override
