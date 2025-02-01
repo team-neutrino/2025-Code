@@ -100,7 +100,7 @@ public final class Constants {
 
     public static final double FFCONSTANT = 0;
 
-    public static final double GEAR_RATIO = 166.67;
+    public static final double GEAR_RATIO = 125;
   }
 
   public static class ClawConstants {
