@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.VecBuilder;
-import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -185,8 +184,8 @@ public class Limelight extends SubsystemBase {
 
     // if (limelightMeasurement.tagCount >= 2) { // Only trust measurement if we see
     // multiple tags
-    Subsystem.swerve.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999)); // need to change vec values?
-    Subsystem.swerve.addVisionMeasurement(limePoseEst.pose, limePoseEst.timestampSeconds);
+    swerve.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999)); // need to change vec values?
+    swerve.addVisionMeasurement(limePoseEst.pose, limePoseEst.timestampSeconds);
     // }
     return true;
   }
@@ -199,8 +198,8 @@ public class Limelight extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // according to limelight docs, this needs to be called every frame in order to
-    // use .getBotPoseEstimate_wpiBlue_MegaTag2
+    // according to limelight docs, this needs to be called before using
+    // .getBotPoseEstimate_wpiBlue_MegaTag2
     LimelightHelpers.SetRobotOrientation(LIMELIGHT_1, Subsystem.swerve.getCurrentPose().getRotation().getDegrees(), 0,
         0, 0, 0, 0);
   }

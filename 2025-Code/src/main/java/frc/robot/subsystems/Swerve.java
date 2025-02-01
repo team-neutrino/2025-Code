@@ -148,8 +148,8 @@ public class Swerve extends CommandSwerveDrivetrain {
    * @return The default command.
    */
   public Command swerveDefaultCommand(CommandXboxController controller) {
-    return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(controller.getLeftY() * MAX_SPEED)
-        .withVelocityY(controller.getLeftX() * MAX_SPEED)
+    return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(-controller.getLeftY() * MAX_SPEED)
+        .withVelocityY(-controller.getLeftX() * MAX_SPEED)
         .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED));
   }
 
