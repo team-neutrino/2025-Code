@@ -7,11 +7,13 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.StringTopic;
+import edu.wpi.first.wpilibj.DriverStation;
 
 import static frc.robot.util.Subsystem.claw;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
+import frc.robot.commands.Autos;
 import frc.robot.subsystems.*;
 import frc.robot.util.Subsystem;
 
@@ -59,5 +61,8 @@ public class LED extends SubsystemBase {
 
   @Override
   public void periodic() {
+    if (DriverStation.isAutonomousEnabled()) {
+      color_pub.set("cyan");
+    }
   }
 }
