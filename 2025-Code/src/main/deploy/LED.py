@@ -23,49 +23,52 @@ blink = False
 pixels = neopixel.NeoPixel(board.D18, 19, auto_write=False)
 counter = 0
 
+white = (255, 255, 255)
+red = (255, 0, 0)
+orange = (255, 80, 0)
+green = (0, 255, 0)
+black = (0, 0, 0)
+turquoise = (27, 220, 75)
+
 NetworkTables.setDashboardMode(1735)
 NetworkTables.initialize(server=ip)
 
-def ramp( r2, g2, b2):
+def ramp(rgb):
     global newColorRGB
-    r = newColorRGB[0]
-    g = newColorRGB[1]
-    b = newColorRGB[2]
+    rgb2 = newColorRGB
     rate = 10
-    if(r < r2):
-        r = r + rate
-    if(r > r2):
-        r = r - rate
-    if(g < g2):
-        g = g + rate
-    if(g > g2):
-        g = g - rate
-    if(b < b2):
-        b = b + rate
-    if(b > b2):
-        b = b - rate
-    setNewColor(r,g,b)
+    if(rgb2[0] < rgb[0]):
+       rgb2[0] += rate
+    if(rgb2[0] > rgb[0]):
+       rgb2[0] -= rate
+    if(rgb2[1] < rgb[1]):
+        rgb2[1] += rate
+    if(rgb2[1] > rgb[1]):
+        rgb2[1] -= rate
+    if(rgb2[2] < rgb[2]):
+        rgb2[2] += rate
+    if(rgb2[2] > rgb[2]):
+        rgb2[2] -= rate
+    setNewColor(rgb2)
 
-def setTargetColor(r, g, b):
+def setTargetColor(rgb):
     global targetColorRGB
-    targetColorRGB[0] = r
-    targetColorRGB[1] = g
-    targetColorRGB[2] = b
+    targetColorRGB = rgb
 
-def setNewColor(r, g, b):
+def setNewColor(rgb):
     global newColorRGB
-    newColorRGB[0] = min(255,max(r, 0))
-    newColorRGB[1] = min(255,max(g, 0))
-    newColorRGB[2] = min(255,max(b, 0))
+    newColorRGB[0] = min(255,max(rgb[0], 0))
+    newColorRGB[1] = min(255,max(rgb[1], 0))
+    newColorRGB[2] = min(255,max(rgb[2], 0))
 
 def blinkColor(rgb):
     global counter
     counter += 1
     speed = 20
     if(counter <= speed):
-        setNewColor(rgb[0],rgb[1],rgb[2])
+        setNewColor(rgb)
     elif(counter <= speed*2):
-        setNewColor(0,0,0)
+        setNewColor(black)
     else:
         counter = 0
 
@@ -75,33 +78,23 @@ def valueChanged(table, key, value, isNew):
     global blink
     blink = False
     if value == "white":
-        setTargetColor(255, 255, 255)
+        setTargetColor(white)
     if value == "red":
-        setTargetColor(255, 0, 0)
+        setTargetColor(red)
     if value == "orange":
-        setTargetColor(255, 80, 0)
-    if value == "yellow":
-        setTargetColor(255, 255, 0)
+        setTargetColor(orange)
     if value == "green":
-        setTargetColor(0, 255, 0)
-    if value == "blue":
-        setTargetColor(0, 0, 255)
-    if value =="purple":
-        setTargetColor(255, 0, 255)
-    if value == "cyan":
-        setTargetColor(0, 255, 255)
+        setTargetColor(green)
     if value == "black":
-        setTargetColor(0, 0, 0)
-    if value == "indigo":
-        setTargetColor(75, 0, 130)
+        setTargetColor(black)
     if value =="turquoise":
-        setTargetColor(27, 220, 85)
+        setTargetColor(turquoise)
     if value == "blinkturquoise":
         blink = True
-        setTargetColor(27,220,85)
+        setTargetColor(turquoise)
     if value == "blinkwhite":
         blink=True
-        setTargetColor(255,255,255)
+        setTargetColor(white)
     for t in range(19,0,-1):
         for i in range(t, t + 19):
             if value == "rainbow":
@@ -117,24 +110,13 @@ def connectionListener(connected, info):
     print(info, "; Connected=%s" % connected)
 
 NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
-    # the robot needs to publish "/LED/color"
 led = NetworkTables.getTable("/LED")
 color = led.getAutoUpdateValue("color", "")
 color.addListener(valueChanged, NetworkTables.NotifyFlags.UPDATE)
 
-#def printRGB():
-    # print("rc %d" % targetColorRGB[0])
-    # print("gc %d" % targetColorRGB[1])
-    # print("bc %d" % targetColorRGB[2])
-    # print(" ")
-    # print("rp %d" % newColorRGB[0])
-    # print("gp %d" % newColorRGB[1])
-    # print("bp %d" % newColorRGB[2])
-    # print(" ")
-
 while True:
     time.sleep(0.01)
-    ramp(targetColorRGB[0],targetColorRGB[1], targetColorRGB[2])
+    ramp(targetColorRGB)
     if (blink):
         blinkColor(newColorRGB)
     pixels.fill((newColorRGB[0],newColorRGB[1], newColorRGB[2]))
