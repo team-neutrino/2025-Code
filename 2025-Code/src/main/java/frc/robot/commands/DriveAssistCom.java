@@ -13,15 +13,15 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import static frc.robot.Constants.SwerveConstants.*;
+
+import frc.robot.Constants.SwerveConstants;
 import frc.robot.subsystems.Swerve.SwerveRequestStash;
 import static frc.robot.util.Subsystem.*;
 
 public class DriveAssistCom extends Command {
   private CommandXboxController controller;
+  private double POIoffset = 0;
 
-  // (swerve.getTagDx(id) + (driverController.getHID().getPOV() == 270 ?
-  // LEFT_REEF_OFFSET
-  // : driverController.getHID().getPOV() == 90 ? RIGHT_REEF_OFFSET : 0))
   public DriveAssistCom(CommandXboxController p_controller) {
     addRequirements(swerve);
     controller = p_controller;
@@ -41,7 +41,7 @@ public class DriveAssistCom extends Command {
         APRILTAG_ALIGN_LIMIT);
     double xVel = MathUtil.clamp(APRILTAG_ALIGN_KP * (error.getX()), -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
     Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() - limelight.getTx());
-    swerve.setControl(req.withTargetDirection(angle).withVelocityX(xVel).withVelocityY(yVel));
+    swerve.setControl(req.withTargetDirection(angle).withVelocityX(-xVel).withVelocityY(-yVel));
   }
 
   /**
@@ -54,10 +54,16 @@ public class DriveAssistCom extends Command {
    *         y and up is positive x).
    */
   private Translation2d getFieldRelativeDistances() {
-    int idMod = limelight.getID() % 7;
+    int id = limelight.getID();
+    int pov = controller.getHID().getPOV();
+    // point of interest offset
+    POIoffset = (pov == 270 ? -SwerveConstants.REEF_OFFSET : pov == 90 ? REEF_OFFSET : POIoffset);
+    limelight.setPointOfInterest(0, POIoffset);
+    System.out.println(POIoffset);
+    int idMod = id % 7;
+
     // angle the reef side makes with the field-plane
     double reefSideAngle = idMod == 6 ? 300 : idMod * 60;
-    reefSideAngle = 60;
 
     // angle of the robot-reef-target right triangle
     double triangle1angle = Math
@@ -65,9 +71,9 @@ public class DriveAssistCom extends Command {
     // hypotenuse of above triangle
     double limelightTagToRobot = limelight.getDistanceFromPrimaryTarget();
     double targetError = (limelightTagToRobot) * Math.sin(triangle1angle);
-    System.out.println(targetError);
+    // System.out.println(targetError);
 
-    return new Translation2d(targetError * Math.cos(reefSideAngle), targetError * Math.sin(reefSideAngle));
+    return new Translation2d(targetError * Math.sin(reefSideAngle), targetError * Math.cos(reefSideAngle));
   }
 
   @Override

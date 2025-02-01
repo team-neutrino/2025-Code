@@ -158,6 +158,10 @@ public class Limelight extends SubsystemBase {
     // based on camera not robot
   }
 
+  public void setPointOfInterest(double x, double y) {
+    LimelightHelpers.setFiducial3DOffset("limelight", x, y, 0);
+  }
+
   public void setPriorityID(int id) {
     LimelightHelpers.setPriorityTagID(LIMELIGHT_1, id);
   }
