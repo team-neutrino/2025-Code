@@ -41,6 +41,8 @@ public class RobotContainer {
     m_driverController.a().whileTrue(ElevatorFactory.moveL4());
 
     m_driverController.leftBumper().whileTrue(ArmFactory.moveToL1());
+    m_driverController.back().onTrue(new InstantCommand(() -> swerve.resetYaw()));
+    m_driverController.start().onTrue(new InstantCommand(() -> limelight.updateOdometry()));
 
     m_buttonsController.y().toggleOnTrue(ClimbFactory.raiseClimb());
     m_buttonsController.x().toggleOnTrue(ClimbFactory.lowerClimb());
