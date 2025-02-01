@@ -4,8 +4,8 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.swerve.SwerveDrivetrain;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
+import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.ModuleConfig;
@@ -14,10 +14,10 @@ import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.system.plant.DCMotor;
-import edu.wpi.first.units.measure.MomentOfInertia;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -28,11 +28,7 @@ import static edu.wpi.first.units.Units.KilogramSquareMeters;
 import static edu.wpi.first.units.Units.Pounds;
 import static frc.robot.Constants.SwerveConstants.*;
 
-import frc.robot.Constants;
-import frc.robot.Constants.SwerveConstants;
-import frc.robot.util.GeneratedSwerveCode.CommandSwerveDrivetrain;
-import frc.robot.util.GeneratedSwerveCode.Telemetry;
-import frc.robot.util.GeneratedSwerveCode.TunerConstants;
+import frc.robot.util.GeneratedSwerveCode.*;
 
 /**
  * Main swerve subsystem file; wraps CommandSwerveDriveTrain to avoid
@@ -88,10 +84,14 @@ public class Swerve extends CommandSwerveDrivetrain {
   }
 
   /**
-   * Resets the pigeon's headings to 0.
+   * Resets the yaw to 0, so the direction you're currently facing is the new
+   * forwards.
    */
-  public void resetPigeon() {
+  public void resetYaw() {
+    resetRotation(new Rotation2d(0));
     getPigeon2().reset();
+    // need more research on the following
+    // seedFieldCentric();
   }
 
   public ChassisSpeeds getChassisSpeeds() {
@@ -169,7 +169,6 @@ public class Swerve extends CommandSwerveDrivetrain {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
   }
 
   /**

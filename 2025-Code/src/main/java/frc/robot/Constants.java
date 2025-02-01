@@ -146,13 +146,13 @@ public final class Constants {
 
   public static class LimelightConstants {
     // placeholder values (in meters)
-    public static final double CAMERA_FORWARD_OFFSET = 0.0;
+    public static final double CAMERA_FORWARD_OFFSET = .3;
     public static final double CAMERA_SIDE_OFFSET = 0.0;
-    public static final double CAMERA_HEIGHT_OFFSET = 0.0;
+    public static final double CAMERA_HEIGHT_OFFSET = .6;
     // placeholder values (in degrees)
     public static final double CAMERA_ROLL_OFFSET = 0.0;
-    public static final double CAMERA_PITCH_OFFSET = 0.0;
-    public static final double CAMERA_YAW_OFFSET = 0.0;
+    public static final double CAMERA_PITCH_OFFSET = 30;
+    public static final double CAMERA_YAW_OFFSET = 180;
     // placeholder values (in meters)
     public static final double CAMERA2_FORWARD_OFFSET = 0.0;
     public static final double CAMERA2_SIDE_OFFSET = 0.0;
@@ -162,7 +162,7 @@ public final class Constants {
     public static final double CAMERA2_PITCH_OFFSET = 0.0;
     public static final double CAMERA2_YAW_OFFSET = 0.0;
 
-    public static final String LIMELIGHT_1 = "limelight-limeade";
+    public static final String LIMELIGHT_1 = "limelight";
     public static final String LIMELIGHT_2 = "limelight-limebee";
   }
 

@@ -15,6 +15,7 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class RobotContainer {
@@ -41,6 +42,8 @@ public class RobotContainer {
     m_driverController.a().whileTrue(ElevatorFactory.moveL4());
 
     m_driverController.leftBumper().whileTrue(ArmFactory.moveToL1());
+    m_driverController.back().onTrue(new InstantCommand(() -> swerve.resetYaw()));
+    m_driverController.start().onTrue(new InstantCommand(() -> limelight.updateOdometry()));
 
     m_buttonsController.y().toggleOnTrue(ClimbFactory.raiseClimb());
     m_buttonsController.x().toggleOnTrue(ClimbFactory.lowerClimb());
@@ -55,7 +58,7 @@ public class RobotContainer {
     LED.setDefaultCommand(LED.LEDefaultCommand());
     limelight.setDefaultCommand(limelight.limelightDefaultCommand());
     climb.setDefaultCommand(climb.climbDefaultCommand());
-    // swerve.setDefaultCommand(swerve.swerveDefaultCommand(m_driverController));
+    swerve.setDefaultCommand(swerve.swerveDefaultCommand(m_driverController));
   }
 
   private void configureNamedCommands() {

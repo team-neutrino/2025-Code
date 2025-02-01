@@ -4,24 +4,25 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
 import static frc.robot.Constants.LimelightConstants.*;
-import frc.robot.Constants.SwerveConstants;
+
+import frc.robot.util.Subsystem;
 
 public class Limelight extends SubsystemBase {
   LimelightHelpers m_limelightHelpers;
-  SwerveDrivePoseEstimator m_poseEstimator;
   double m_robotYaw;
   Swerve m_swerve;
   Rotation2d m_targetYaw;
-  LimelightHelpers.PoseEstimate m_limelightMeasurement;
   private double[] pose = new double[11];
   private double[] targetPose = new double[6];
   private double[] targetPose2 = new double[6];
+  private double m_lastFrame = -2;
 
   /** Creates a new ExampleSubsystem. */
   public Limelight() {
@@ -38,6 +39,8 @@ public class Limelight extends SubsystemBase {
         CAMERA_PITCH_OFFSET, // Pitch (degrees)
         CAMERA_YAW_OFFSET // Yaw (degrees)
     );
+    LimelightHelpers.SetFiducialDownscalingOverride(LIMELIGHT_1, 3);
+
     // change name later
     LimelightHelpers.setLEDMode_ForceOff(LIMELIGHT_2);
     LimelightHelpers.setCameraPose_RobotSpace(LIMELIGHT_2,
@@ -155,15 +158,6 @@ public class Limelight extends SubsystemBase {
     // based on camera not robot
   }
 
-  public double offsetToOmega(double offsetAngle) {
-    offsetAngle /= 32; // maximum possible tx value is 29.8 in either direc
-
-    double scaler = SwerveConstants.MAX_ROTATION_SPEED * .5;
-
-    // Use power proportional to the offset angle
-    return offsetAngle * scaler;
-  }
-
   public void setPriorityID(int id) {
     LimelightHelpers.setPriorityTagID(LIMELIGHT_1, id);
   }
@@ -176,6 +170,25 @@ public class Limelight extends SubsystemBase {
     LimelightHelpers.setPipelineIndex(LIMELIGHT_1, id);
   }
 
+  public boolean updateOdometry() {
+    Swerve swerve = Subsystem.swerve;
+    LimelightHelpers.PoseEstimate limePoseEst = LimelightHelpers
+        .getBotPoseEstimate_wpiBlue_MegaTag2(LIMELIGHT_1);
+    if (limePoseEst == null || limePoseEst.tagCount == 0 || swerve.getState().Speeds.omegaRadiansPerSecond > 4 * Math.PI
+        || getFrame() <= m_lastFrame) {
+      return false;
+    }
+
+    swerve.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999)); // need to change vec values?
+    swerve.addVisionMeasurement(limePoseEst.pose, limePoseEst.timestampSeconds);
+
+    return true;
+  }
+
+  private double getFrame() {
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("hb").getDouble(-1);
+  }
+
   public Command limelightDefaultCommand() {
     return run(() -> {
 
@@ -184,19 +197,11 @@ public class Limelight extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    // Field Localization code below
-    // m_robotYaw = m_swerve.getRobotYaw
-    // LimelightHelpers.PoseEstimate limelightMeasurement =
-    // LimelightHelpers.getBotPoseEstimate_wpiBlue(LIMELIGHT_1);
-    // if (limelightMeasurement.tagCount >= 2) { // Only trust measurement if we see
-    // multiple tags
-    // m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7,
-    // 9999999));
-    // m_poseEstimator.addVisionMeasurement(
-    // limelightMeasurement.pose,
-    // limelightMeasurement.timestampSeconds);
-    //
+    // according to limelight docs, this needs to be called before using
+    // .getBotPoseEstimate_wpiBlue_MegaTag2
+    LimelightHelpers.SetRobotOrientation(LIMELIGHT_1, Subsystem.swerve.getCurrentPose().getRotation().getDegrees(), 0,
+        0, 0, 0, 0);
+    updateOdometry();
   }
 
   @Override
