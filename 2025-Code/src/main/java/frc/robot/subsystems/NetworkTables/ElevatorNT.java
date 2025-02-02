@@ -1,11 +1,12 @@
 package frc.robot.subsystems.NetworkTables;
 
+import edu.wpi.first.networktables.BooleanPublisher;
+import edu.wpi.first.networktables.BooleanTopic;
 import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTablesJNI;
 import frc.robot.subsystems.Elevator;
-import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.util.FFTuner;
 import frc.robot.util.MaxMotionTuner;
@@ -16,10 +17,12 @@ public class ElevatorNT extends Elevator {
     NetworkTableInstance nt = NetworkTableInstance.getDefault();
     DoubleTopic encoderPosition = nt.getDoubleTopic("/elevator/encoder_position");
     DoubleTopic targetPosition = nt.getDoubleTopic("/elevator/target_position");
-    DoubleTopic voltage = nt.getDoubleTopic("/elevator/motor_input_voltage");
+    DoubleTopic voltage = nt.getDoubleTopic("/elevator/motor_voltage");
+    BooleanTopic at_limit = nt.getBooleanTopic("/elevator/at_limit");
     final DoublePublisher encoderPositionPub;
     final DoublePublisher targetPositionPub;
     final DoublePublisher motorVoltagePub;
+    final BooleanPublisher lowLimitPub;
     private PIDTuner m_PIDTuner;
     private double m_previousP = ElevatorConstants.P_VAL;
     private double m_previousI = ElevatorConstants.I_VAL;
@@ -40,6 +43,9 @@ public class ElevatorNT extends Elevator {
 
         motorVoltagePub = voltage.publish();
         motorVoltagePub.setDefault(0.0);
+
+        lowLimitPub = at_limit.publish();
+        lowLimitPub.setDefault(false);
 
         m_PIDTuner = new PIDTuner("elevator");
 
@@ -64,6 +70,7 @@ public class ElevatorNT extends Elevator {
         encoderPositionPub.set(getEncoderPosition(), now);
         targetPositionPub.set(getTargetPosition(), now);
         motorVoltagePub.set(getInputVoltage(), now);
+        lowLimitPub.set(isLowPosition(), now);
 
         if (m_PIDTuner.isDifferentValues(m_previousP, m_previousI, m_previousD)) {
             changePID(m_PIDTuner.getP(), m_PIDTuner.getI(), m_PIDTuner.getD());

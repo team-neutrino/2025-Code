@@ -39,6 +39,7 @@ public final class Constants {
     public static final int MOTOR1_ID = 2;
     public static final int MOTOR2_ID = 3;
     public static final double LOW_POSITION = 0.0;
+    public static final double STAGE_ONE_UP = 26.0;
     public static final double HIGH_POSITION = 55.0;
     public static final double ALGAE_INTAKE = 0.0;
     public static final double CORAL_INTAKE = 0.0;
@@ -60,13 +61,13 @@ public final class Constants {
     public static final double STAGE_1_MASS = 3.5;
     public static final double STAGE_2_MASS = 1;
     public static final double ARM_AND_SCORING_MASS = 2;
-    public static final double MAX_VELOCITY = 4000;
-    public static final double MAX_ACCELERATION = 1000;
+    public static final double MAX_VELOCITY = 3000;
+    public static final double MAX_ACCELERATION = 4000;
     public static final double ALLOWED_ERROR = 0.1;
-    public static final double P_VAL = 0.1;
+    public static final double P_VAL = 0.11;
     public static final double I_VAL = 0.0;
     public static final double D_VAL = 0.0;
-    public static final double FF_VAL = 9.8;
+    public static final double FF_VAL = 0.15;
   }
 
   public static class ArmConstants {

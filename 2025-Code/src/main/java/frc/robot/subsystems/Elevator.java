@@ -28,7 +28,7 @@ public class Elevator extends SubsystemBase {
   private SparkFlex m_motor2 = new SparkFlex(MOTOR2_ID,
       MotorType.kBrushless);
   private RelativeEncoder m_encoder = m_motor1.getEncoder();
-  private SparkLimitSwitch m_lowLimit = m_motor1.getForwardLimitSwitch();
+  private SparkLimitSwitch m_lowLimit = m_motor1.getReverseLimitSwitch();
   private SparkClosedLoopController m_pid = m_motor1.getClosedLoopController();
   private SparkFlexConfig m_config = new SparkFlexConfig();
   private SparkFlexConfig m_followerConfig = new SparkFlexConfig();
@@ -38,7 +38,7 @@ public class Elevator extends SubsystemBase {
 
   public Elevator() {
     m_config
-        .inverted(false)
+        .inverted(true)
         .idleMode(IdleMode.kBrake);
     m_config.encoder
         .positionConversionFactor(
@@ -51,14 +51,17 @@ public class Elevator extends SubsystemBase {
         .maxVelocity(MAX_VELOCITY)
         .maxAcceleration(MAX_ACCELERATION)
         .allowedClosedLoopError(ALLOWED_ERROR);
+    m_config.smartCurrentLimit(50);
     m_motor1.configure(m_config, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
 
-    m_followerConfig.follow(MOTOR1_ID);
-    m_followerConfig.apply(m_config);
-    m_followerConfig.inverted(true);
+    m_followerConfig.follow(MOTOR1_ID, true);
+    m_followerConfig
+        .idleMode(IdleMode.kBrake);
+    m_followerConfig.smartCurrentLimit(50);
     m_motor2.configure(m_followerConfig, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
+
   }
 
   private void adjustElevator(double target) {
@@ -79,7 +82,8 @@ public class Elevator extends SubsystemBase {
     // } else {
     // return m_FFConstant * (ARM_AND_SCORING_MASS + STAGE_2_MASS);
     // }
-    return 0;
+    // return 0;
+    return m_FFConstant;
   }
 
   private void resetEncoder(double position) {
@@ -95,7 +99,7 @@ public class Elevator extends SubsystemBase {
   }
 
   public double getInputVoltage() {
-    return m_motor1.getBusVoltage();
+    return m_motor1.getAppliedOutput();
   }
 
   public boolean isLowPosition() {
