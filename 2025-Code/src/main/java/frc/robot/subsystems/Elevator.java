@@ -51,14 +51,14 @@ public class Elevator extends SubsystemBase {
         .maxVelocity(MAX_VELOCITY)
         .maxAcceleration(MAX_ACCELERATION)
         .allowedClosedLoopError(ALLOWED_ERROR);
-    m_config.smartCurrentLimit(50);
+    m_config.smartCurrentLimit(CURRENT_LIMIT);
     m_motor1.configure(m_config, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
 
     m_followerConfig.follow(MOTOR1_ID, true);
     m_followerConfig
         .idleMode(IdleMode.kBrake);
-    m_followerConfig.smartCurrentLimit(50);
+    m_followerConfig.smartCurrentLimit(CURRENT_LIMIT);
     m_motor2.configure(m_followerConfig, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
 
