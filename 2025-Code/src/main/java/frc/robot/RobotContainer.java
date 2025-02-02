@@ -58,6 +58,9 @@ public class RobotContainer {
     LED.setDefaultCommand(LED.LEDefaultCommand());
     limelight.setDefaultCommand(limelight.limelightDefaultCommand());
     climb.setDefaultCommand(climb.climbDefaultCommand());
+    if (swerve == null) {
+      return;
+    }
     swerve.setDefaultCommand(swerve.swerveDefaultCommand(m_driverController));
   }
 
