@@ -117,6 +117,16 @@ led = NetworkTables.getTable("/LED")
 color = led.getAutoUpdateValue("color", "")
 color.addListener(valueChanged, NetworkTables.NotifyFlags.UPDATE)
 
+# def printRGB():
+    # print("rc %d" % targetColorRGB[0])
+    # print("gc %d" % targetColorRGB[1])
+    # print("bc %d" % targetColorRGB[2])
+    # print(" ")
+    # print("rp %d" % newColorRGB[0])
+    # print("gp %d" % newColorRGB[1])
+    # print("bp %d" % newColorRGB[2])
+    # print(" ")
+
 while True:
     time.sleep(0.01)
     ramp(targetColorRGB)
