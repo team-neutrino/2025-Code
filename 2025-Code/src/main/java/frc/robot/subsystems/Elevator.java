@@ -98,10 +98,6 @@ public class Elevator extends SubsystemBase {
     return m_target;
   }
 
-  public double getInputVoltage() {
-    return m_motor1.getAppliedOutput();
-  }
-
   public boolean isLowPosition() {
     return m_lowLimit.isPressed();
   }

@@ -17,11 +17,9 @@ public class ElevatorNT extends Elevator {
     NetworkTableInstance nt = NetworkTableInstance.getDefault();
     DoubleTopic encoderPosition = nt.getDoubleTopic("/elevator/encoder_position");
     DoubleTopic targetPosition = nt.getDoubleTopic("/elevator/target_position");
-    DoubleTopic voltage = nt.getDoubleTopic("/elevator/motor_voltage");
     BooleanTopic at_limit = nt.getBooleanTopic("/elevator/at_limit");
     final DoublePublisher encoderPositionPub;
     final DoublePublisher targetPositionPub;
-    final DoublePublisher motorVoltagePub;
     final BooleanPublisher lowLimitPub;
     private PIDTuner m_PIDTuner;
     private double m_previousP = ElevatorConstants.P_VAL;
@@ -40,9 +38,6 @@ public class ElevatorNT extends Elevator {
 
         targetPositionPub = targetPosition.publish();
         targetPositionPub.setDefault(0.0);
-
-        motorVoltagePub = voltage.publish();
-        motorVoltagePub.setDefault(0.0);
 
         lowLimitPub = at_limit.publish();
         lowLimitPub.setDefault(false);
@@ -69,7 +64,6 @@ public class ElevatorNT extends Elevator {
         final long now = NetworkTablesJNI.now();
         encoderPositionPub.set(getEncoderPosition(), now);
         targetPositionPub.set(getTargetPosition(), now);
-        motorVoltagePub.set(getInputVoltage(), now);
         lowLimitPub.set(isLowPosition(), now);
 
         if (m_PIDTuner.isDifferentValues(m_previousP, m_previousI, m_previousD)) {
