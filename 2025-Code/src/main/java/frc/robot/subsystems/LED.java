@@ -60,7 +60,6 @@ public class LED extends SubsystemBase {
         color_pub.set("orange");
       }
     }
-    return;
   }
 
   @Override
