@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
@@ -134,19 +135,17 @@ public class Arm extends SubsystemBase {
   }
 
   /**
-   * Updates the angle that the arm is set to
-   */
-  public void updateArmAngle() {
-    m_armPidController.setReference(m_targetAngle,
-        SparkBase.ControlType.kMAXMotionPositionControl, ClosedLoopSlot.kSlot0, feedForwardCalculation());
-  }
-
-  /**
    * Determines the necessary volts needed for the Feedforward. Used to pass into
    * closed loop controller
    * 
    * @return volts
    */
+
+  private void adjustArm(double targetAngle) {
+    m_armPidController.setReference(targetAngle, ControlType.kMAXMotionPositionControl, ClosedLoopSlot.kSlot0,
+        feedForwardCalculation());
+  }
+
   public double feedForwardCalculation() {
     double currentAngle = getArmEncoderPosition();
     double volts = m_FFConstant * Math.cos(currentAngle);
@@ -177,9 +176,23 @@ public class Arm extends SubsystemBase {
         PersistMode.kPersistParameters);
   }
 
+  private double safeAngle(double targetAngle) {
+    double safeAngle = targetAngle;
+    if (targetAngle < 180) {
+      if (targetAngle < FRONT_ARM_LOWEST_SAFE_LIMIT && targetAngle > FRONT_ARM_HIGHEST_SAFE_LIMIT) {
+        safeAngle = FRONT_ARM_HIGHEST_SAFE_LIMIT;
+      }
+    } else if (targetAngle >= 180) {
+      if (targetAngle > BACK_ARM_LOWEST_SAFE_LIMIT && targetAngle < BACK_ARM_HIGHEST_SAFE_LIMIT) {
+        safeAngle = BACK_ARM_HIGHEST_SAFE_LIMIT;
+      }
+    }
+    return safeAngle;
+  }
+
   @Override
   public void periodic() {
-    updateArmAngle();
+    adjustArm(safeAngle(m_targetAngle));
   }
 
   /**
