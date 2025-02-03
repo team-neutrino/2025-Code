@@ -39,9 +39,6 @@ public class Climb extends SubsystemBase {
   private SparkMax m_lockMotor = new SparkMax(LOCK_MOTOR_ID, MotorType.kBrushless);
   private SparkMaxConfig m_lockMotorConfig = new SparkMaxConfig();
 
-  private Servo m_climbRatchet = new Servo(CLIMB_RATCHET_PORT);
-  private Servo m_lockRatchet = new Servo(LOCK_RATCHET_PORT);
-
   public Climb() {
     configureMotors();
   }
@@ -65,26 +62,6 @@ public class Climb extends SubsystemBase {
     m_lockMotor.configure(m_lockMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
-  public void engageLockRatchet() {
-    m_lockRatchet.set(0.2);
-    // subject to change
-  }
-
-  public void disengageLockRatchet() {
-    m_lockRatchet.set(0.8);
-    // subject to change
-  }
-
-  public void engageClimbRatchet() {
-    m_climbRatchet.set(0.2);
-    // subject to change
-  }
-
-  public void disengageClimbRatchet() {
-    m_climbRatchet.set(0.8);
-    // subject to change
-  }
-
   public void climbUp() {
     m_climbMotor.setVoltage(CLIMB_UP_VOLTAGE);
     // subject to change!!!!!!
@@ -99,21 +76,18 @@ public class Climb extends SubsystemBase {
     return runEnd(() -> {
       m_lockMotor.setVoltage(LOCK_VOLTAGE);
     }, () -> {
-      m_lockMotor.setVoltage(0);
-      engageLockRatchet();
+      m_lockMotor.setVoltage(0); 
     }).until(() -> m_lockMotor.getOutputCurrent() > LOCK_CURRENT_THRESHOLD);
   }
 
   public Command raiseClimbArmCommand() {
     return run(() -> {
-      disengageClimbRatchet();
       climbUp();
     });
   }
 
   public Command lowerClimbArmCommand() {
     return new SequentialCommandGroup(
-        new InstantCommand(() -> engageClimbRatchet(), this),
         new InstantCommand(() -> m_climbMotor.setVoltage(12), this),
         new WaitCommand(3.0),
         new InstantCommand(() -> m_climbMotor.setVoltage(0), this));
@@ -121,7 +95,6 @@ public class Climb extends SubsystemBase {
 
   public Command climbDefaultCommand() {
     return run(() -> {
-      engageClimbRatchet();
       m_climbMotor.setVoltage(0);
     });
   }

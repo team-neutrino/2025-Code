@@ -146,8 +146,8 @@ public final class Constants {
     // subject to change
 
     public static final double CLIMB_UP_VOLTAGE = 0.5;
-    public static final double CLIMB_DOWN_VOLTAGE = 5;
-    public static final double LOCK_VOLTAGE = 2;
+    public static final double CLIMB_DOWN_VOLTAGE = -5;
+    public static final double LOCK_VOLTAGE = 1;
     // subject to change
 
     public static final int CLIMB_RATCHET_PORT = 0;
