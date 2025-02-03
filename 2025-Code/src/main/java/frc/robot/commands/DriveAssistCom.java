@@ -54,6 +54,7 @@ public class DriveAssistCom extends Command {
    *         y and up is positive x).
    */
   private Translation2d getFieldRelativeDistances() {
+    System.out.println("(" + limelight.getTargetPose()[0] + ", " + limelight.getTargetPose()[1] + ")");
     int id = limelight.getID();
     int pov = controller.getHID().getPOV();
     // point of interest offset
