@@ -42,16 +42,16 @@ public class ElevatorNT extends Elevator {
         lowLimitPub = at_limit.publish();
         lowLimitPub.setDefault(false);
 
-        m_PIDTuner = new PIDTuner("elevator");
+        m_PIDTuner = new PIDTuner("elevator/{tuning}PIDF");
 
         m_PIDTuner.setP(m_previousP);
         m_PIDTuner.setI(m_previousI);
         m_PIDTuner.setD(m_previousD);
 
-        m_FFTuner = new FFTuner("elevator");
+        m_FFTuner = new FFTuner("elevator/{tuning}PIDF");
         m_FFTuner.setFF(m_previousFF);
 
-        m_MaxMotionTuner = new MaxMotionTuner("elevator");
+        m_MaxMotionTuner = new MaxMotionTuner("elevator/{tuning}MaxMotion");
 
         m_MaxMotionTuner.setMaxVelocity(m_previousMaxVelocity);
         m_MaxMotionTuner.setMaxAcceleration(m_previousMaxAcceleration);
