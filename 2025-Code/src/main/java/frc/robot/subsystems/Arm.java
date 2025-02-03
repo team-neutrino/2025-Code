@@ -182,8 +182,7 @@ public class Arm extends SubsystemBase {
       if (targetAngle < FRONT_ARM_LOWEST_SAFE_LIMIT && targetAngle > FRONT_ARM_HIGHEST_SAFE_LIMIT) {
         safeAngle = FRONT_ARM_HIGHEST_SAFE_LIMIT;
       }
-    } 
-    else if (targetAngle > 180) {
+    } else if (targetAngle >= 180) {
       if (targetAngle > BACK_ARM_LOWEST_SAFE_LIMIT && targetAngle < BACK_ARM_HIGHEST_SAFE_LIMIT) {
         safeAngle = BACK_ARM_HIGHEST_SAFE_LIMIT;
       }
