@@ -22,6 +22,11 @@ public final class Constants {
     public static final int kButtonsControllerPort = 1;
   }
 
+  public final class ConfigSignals {
+    public static final int PeriodMSFast = 5;
+    public static final int PeriodMSlow = 10;
+  }
+
   public static class SwerveConstants {
     public static final double MAX_SPEED = 5.7;
     public static final double MAX_ROTATION_SPEED = 1.5 * Math.PI;
