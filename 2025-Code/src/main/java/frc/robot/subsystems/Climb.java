@@ -54,6 +54,10 @@ public class Climb extends SubsystemBase {
         .withStatorCurrentLimitEnable(true);
     m_climbMotorConfig.CurrentLimits = m_currentLimitConfig;
 
+    m_climbMotorConfig.Slot0.kP = 1;
+    m_climbMotorConfig.Slot0.kI = 0;
+    m_climbMotorConfig.Slot0.kD = 0;
+
     m_climbMotor.setNeutralMode(NeutralModeValue.Brake);
     m_climbMotor.getConfigurator().apply(m_climbMotorConfig);
 
@@ -66,28 +70,16 @@ public class Climb extends SubsystemBase {
     m_lockMotor.configure(m_lockMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
-    private void resetEncoderPosition() {
-        m_climbMotor.setPosition(0);
-    }
-    
-    public Command moveToPositionCommand(double targetRotations) {
-        return new RunCommand(() -> {
-            PositionVoltage positionControl = new PositionVoltage(targetRotations);
-            m_climbMotor.setControl(positionControl);
-        }, this);
-    }
+  private void resetEncoderPosition() {
+    m_climbMotor.setPosition(0);
+  }
 
-
-
-
-
-
-
-
-
-
-
-
+  public Command moveToPositionCommand(double targetRotations) {
+    return new RunCommand(() -> {
+      PositionVoltage positionControl = new PositionVoltage(targetRotations);
+      m_climbMotor.setControl(positionControl);
+    }, this);
+  }
 
   public void climbUp() {
     m_climbMotor.setVoltage(CLIMB_UP_VOLTAGE);
@@ -103,7 +95,7 @@ public class Climb extends SubsystemBase {
     return runEnd(() -> {
       m_lockMotor.setVoltage(LOCK_VOLTAGE);
     }, () -> {
-      m_lockMotor.setVoltage(0); 
+      m_lockMotor.setVoltage(0);
     }).until(() -> m_lockMotor.getOutputCurrent() > LOCK_CURRENT_THRESHOLD);
   }
 
