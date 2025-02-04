@@ -51,7 +51,8 @@ public class Limelight extends SubsystemBase {
         CAMERA2_PITCH_OFFSET, // Pitch (degrees)
         CAMERA2_YAW_OFFSET // Yaw (degrees)
     );
-
+    LimelightHelpers.SetIMUMode(LIMELIGHT_1, 2);
+    LimelightHelpers.SetIMUMode(LIMELIGHT_2, 2);
   }
 
   // **get valid target from camera 1*/
@@ -167,7 +168,7 @@ public class Limelight extends SubsystemBase {
   }
 
   public void setPriorityIDForCamera2(int id) {
-    LimelightHelpers.setPriorityTagID(LIMELIGHT_1, id);
+    LimelightHelpers.setPriorityTagID(LIMELIGHT_2, id);
   }
 
   public void setPipelineID(int id) {
@@ -183,7 +184,7 @@ public class Limelight extends SubsystemBase {
       return false;
     }
 
-    m_swerve.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999)); // need to change vec values?
+    m_swerve.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
     m_swerve.addVisionMeasurement(limePoseEst.pose, limePoseEst.timestampSeconds);
 
     return true;
