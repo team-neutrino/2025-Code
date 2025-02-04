@@ -9,8 +9,13 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
 import static frc.robot.Constants.LimelightConstants.*;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import frc.robot.util.Subsystem;
 
@@ -23,6 +28,22 @@ public class Limelight extends SubsystemBase {
   private double[] targetPose = new double[6];
   private double[] targetPose2 = new double[6];
   private double m_lastFrame = -2;
+
+  private static final Set<Integer> BLUE_ALLIANCE_IDS = new HashSet<>(Arrays.asList(
+      Constants.AprilTagConstants.BLUE_ALLIANCE_IDS.REEF_FACING_ALLIANCE,
+      Constants.AprilTagConstants.BLUE_ALLIANCE_IDS.REEF_FACING_BARGE,
+      Constants.AprilTagConstants.BLUE_ALLIANCE_IDS.REEF_FACING_SOURCE,
+      Constants.AprilTagConstants.BLUE_ALLIANCE_IDS.SOURCE_PROCESSOR_SIDE,
+      Constants.AprilTagConstants.BLUE_ALLIANCE_IDS.REEF_FACING_SOURCE,
+      Constants.AprilTagConstants.BLUE_ALLIANCE_IDS.REEF_FACING_CAGES));
+
+  private static final Set<Integer> RED_ALLIANCE_IDS = new HashSet<>(Arrays.asList(
+      Constants.AprilTagConstants.RED_ALLIANCE_IDS.REEF_FACING_ALLIANCE,
+      Constants.AprilTagConstants.RED_ALLIANCE_IDS.REEF_FACING_BARGE,
+      Constants.AprilTagConstants.RED_ALLIANCE_IDS.REEF_FACING_SOURCE,
+      Constants.AprilTagConstants.RED_ALLIANCE_IDS.SOURCE_PROCESSOR_SIDE,
+      Constants.AprilTagConstants.RED_ALLIANCE_IDS.REEF_FACING_SOURCE,
+      Constants.AprilTagConstants.RED_ALLIANCE_IDS.REEF_FACING_CAGES));
 
   /** Creates a new ExampleSubsystem. */
   public Limelight() {
@@ -168,6 +189,14 @@ public class Limelight extends SubsystemBase {
 
   public void setPipelineID(int id) {
     LimelightHelpers.setPipelineIndex(LIMELIGHT_1, id);
+  }
+
+  public boolean isFacingReefTagCamera1() {
+    return BLUE_ALLIANCE_IDS.contains(getID()) || RED_ALLIANCE_IDS.contains(getID());
+  }
+
+  public boolean isFacingReefTagCamera2() {
+    return RED_ALLIANCE_IDS.contains(getIDFromCamera2()) || BLUE_ALLIANCE_IDS.contains(getIDFromCamera2());
   }
 
   public boolean updateOdometry() {
