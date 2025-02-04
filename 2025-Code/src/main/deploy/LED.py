@@ -110,7 +110,6 @@ def valueStateChanged(table, key, value, isNew):
     global blink
     global amount
     global previousBlinkTime
-    print("working")
     if value == "blink":
         blink = True
         previousBlinkTime = time.time()

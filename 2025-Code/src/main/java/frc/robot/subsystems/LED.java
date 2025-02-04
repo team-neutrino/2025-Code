@@ -9,17 +9,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.StringTopic;
 import edu.wpi.first.wpilibj.DriverStation;
 
-import static frc.robot.util.Subsystem.claw;
-
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
-import frc.robot.commands.Autos;
-import frc.robot.subsystems.*;
 import frc.robot.util.Subsystem;
 
 public class LED extends SubsystemBase {
-  private int m_counter = 0;
-  private int m_counter2 = 0;
 
   NetworkTableInstance inst = NetworkTableInstance.getDefault();
   StringTopic color_topic = inst.getStringTopic("/LED/color");
@@ -32,11 +26,6 @@ public class LED extends SubsystemBase {
   public LED() {
     color_pub = color_topic.publish();
     state_pub = state_topic.publish();
-  }
-
-  private boolean slowDown(int rate) {
-    m_counter2++;
-    return m_counter2 % rate == 0;
   }
 
   public Command LEDefaultCommand() {
