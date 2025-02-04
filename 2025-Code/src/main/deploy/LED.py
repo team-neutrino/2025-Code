@@ -21,7 +21,8 @@ targetColorRGB = [0, 0, 0]
 newColorRGB = [0, 0, 0]
 blink = False
 pixels = neopixel.NeoPixel(board.D18, 19, auto_write=False)
-counter = 0
+previousBlinkTime = 0
+amount = 0
 
 white = (255, 255, 255)
 red = (255, 0, 0)
@@ -63,21 +64,23 @@ def setNewColor(rgb):
     newColorRGB[2] = min(255,max(rgb[2], 0))
 
 def blinkColor(rgb):
-    global counter
-    counter += 1
-    speed = 20
-    if(counter <= speed):
+    global previousBlinkTime
+    global amount
+    global blink
+    timePassed = time.time() - previousBlinkTime
+    if timePassed < 1:
         setNewColor(rgb)
-    elif(counter <= speed*2):
+    elif timePassed > 1 and timePassed < 2:
         setNewColor(black)
     else:
-        counter = 0
+        amount -= 1
+        if amount == 0:
+            blink = False
+            setNewColor(rgb)
 
-def valueChanged(table, key, value, isNew):
-    print("valueChanged: key: '%s'; value: %s; isNew: %s" % (key, value, isNew))
+def valueColorChanged(table, key, value, isNew):
+    print("valueColorChanged: key: '%s'; value: %s; isNew: %s" % (key, value, isNew))
     global targetColorRGB
-    global blink
-    blink = False
     if value == "white":
         setTargetColor(white)
     if value == "red":
@@ -92,12 +95,6 @@ def valueChanged(table, key, value, isNew):
         setTargetColor(cyan)
     if value =="turquoise":
         setTargetColor(turquoise)
-    if value == "blinkturquoise":
-        blink = True
-        setTargetColor(turquoise)
-    if value == "blinkwhite":
-        blink=True
-        setTargetColor(white)
     for t in range(19,0,-1):
         for i in range(t, t + 19):
             if value == "rainbow":
@@ -107,7 +104,23 @@ def valueChanged(table, key, value, isNew):
                 else:
                     pixels[i - 19] = (c.red, c.green, c.blue)
                     
-        
+
+def valueStateChanged(table, key, value, isNew):
+    print("valueStateChanged: key: '%s'; value: %s; isNew: %s" % (key, value, isNew))
+    global blink
+    global amount
+    global previousBlinkTime
+    print("working")
+    if value == "blink":
+        blink = True
+        previousBlinkTime = time.time()
+        amount = 1
+    if value== "blinktwice":
+        blink = True
+        previousBlinkTime = time.time()
+        amount = 2 
+    if value == "solid":
+        blink = False
 
 def connectionListener(connected, info):
     print(info, "; Connected=%s" % connected)
@@ -115,7 +128,9 @@ def connectionListener(connected, info):
 NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
 led = NetworkTables.getTable("/LED")
 color = led.getAutoUpdateValue("color", "")
-color.addListener(valueChanged, NetworkTables.NotifyFlags.UPDATE)
+state = led.getAutoUpdateValue("state", "")
+color.addListener(valueColorChanged, NetworkTables.NotifyFlags.UPDATE)
+state.addListener(valueStateChanged, NetworkTables.NotifyFlags.UPDATE)
 
 # def printRGB():
     # print("rc %d" % targetColorRGB[0])

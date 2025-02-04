@@ -23,13 +23,15 @@ public class LED extends SubsystemBase {
 
   NetworkTableInstance inst = NetworkTableInstance.getDefault();
   StringTopic color_topic = inst.getStringTopic("/LED/color");
+  StringTopic state_topic = inst.getStringTopic("/LED/state");
   Claw claw = Subsystem.claw;
 
   final StringPublisher color_pub;
+  final StringPublisher state_pub;
 
   public LED() {
     color_pub = color_topic.publish();
-
+    state_pub = state_topic.publish();
   }
 
   private boolean slowDown(int rate) {
@@ -43,9 +45,12 @@ public class LED extends SubsystemBase {
 
   public void setToGamePieceColor() {
     if (claw.isAlgae()) {
-      color_pub.set("blinkturquoise");
+      state_pub.set("blinktwice");
+      color_pub.set("turquoise");
+      // color_pub.set(action:"blink", color:"turquoise");
     } else if (claw.isCoral()) {
-      color_pub.set("blinkwhite");
+      state_pub.set("blinktwice");
+      color_pub.set("white");
     }
   }
 
@@ -58,6 +63,7 @@ public class LED extends SubsystemBase {
         return;
       } else {
         color_pub.set("orange");
+        state_pub.set("solid");
       }
     }
   }
