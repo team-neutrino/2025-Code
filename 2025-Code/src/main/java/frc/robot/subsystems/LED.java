@@ -9,32 +9,23 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.StringTopic;
 import edu.wpi.first.wpilibj.DriverStation;
 
-import static frc.robot.util.Subsystem.claw;
-
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
-import frc.robot.commands.Autos;
-import frc.robot.subsystems.*;
 import frc.robot.util.Subsystem;
 
 public class LED extends SubsystemBase {
-  private int m_counter = 0;
-  private int m_counter2 = 0;
 
   NetworkTableInstance inst = NetworkTableInstance.getDefault();
   StringTopic color_topic = inst.getStringTopic("/LED/color");
+  StringTopic state_topic = inst.getStringTopic("/LED/state");
   Claw claw = Subsystem.claw;
 
   final StringPublisher color_pub;
+  final StringPublisher state_pub;
 
   public LED() {
     color_pub = color_topic.publish();
-
-  }
-
-  private boolean slowDown(int rate) {
-    m_counter2++;
-    return m_counter2 % rate == 0;
+    state_pub = state_topic.publish();
   }
 
   public Command LEDefaultCommand() {
@@ -43,9 +34,12 @@ public class LED extends SubsystemBase {
 
   public void setToGamePieceColor() {
     if (claw.isAlgae()) {
-      color_pub.set("blinkturquoise");
+      state_pub.set("blinktwice");
+      color_pub.set("turquoise");
+      // color_pub.set(action:"blink", color:"turquoise");
     } else if (claw.isCoral()) {
-      color_pub.set("blinkwhite");
+      state_pub.set("blinktwice");
+      color_pub.set("white");
     }
   }
 
@@ -58,6 +52,7 @@ public class LED extends SubsystemBase {
         return;
       } else {
         color_pub.set("orange");
+        state_pub.set("solid");
       }
     }
   }
