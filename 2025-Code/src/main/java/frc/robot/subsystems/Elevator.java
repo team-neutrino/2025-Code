@@ -69,6 +69,20 @@ public class Elevator extends SubsystemBase {
         .outputCurrentPeriodMs(Period_MS_Fast)
         .primaryEncoderPositionPeriodMs(Period_MS_Slow)
         .primaryEncoderVelocityPeriodMs(Period_MS_Slow);
+    m_followerConfig.signals.absoluteEncoderPositionAlwaysOn(false)
+        .absoluteEncoderVelocityAlwaysOn(false)
+        .analogPositionAlwaysOn(false)
+        .analogVelocityAlwaysOn(false)
+        .analogVoltageAlwaysOn(false)
+        .appliedOutputPeriodMs(Period_MS_Fast)
+        .busVoltagePeriodMs(Period_MS_Fast)
+        .externalOrAltEncoderPositionAlwaysOn(false)
+        .externalOrAltEncoderVelocityAlwaysOn(false)
+        .limitsPeriodMs(Period_MS_Fast)
+        .motorTemperaturePeriodMs(Period_MS_Fast)
+        .outputCurrentPeriodMs(Period_MS_Fast)
+        .primaryEncoderPositionPeriodMs(Period_MS_Slow)
+        .primaryEncoderVelocityPeriodMs(Period_MS_Slow);
     m_config.smartCurrentLimit(CURRENT_LIMIT);
     m_motor1.configure(m_config, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
