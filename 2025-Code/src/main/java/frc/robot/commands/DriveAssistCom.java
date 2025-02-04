@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import static frc.robot.Constants.SwerveConstants.*;
 
-import frc.robot.Constants.SwerveConstants;
 import frc.robot.subsystems.Swerve.SwerveRequestStash;
 import static frc.robot.util.Subsystem.*;
 
@@ -37,45 +36,64 @@ public class DriveAssistCom extends Command {
     req.HeadingController.setPID(4, 0, .5);
 
     Translation2d error = getFieldRelativeDistances();
-    double yVel = MathUtil.clamp(APRILTAG_ALIGN_KP * error.getY(), -APRILTAG_ALIGN_LIMIT,
-        APRILTAG_ALIGN_LIMIT);
-    double xVel = MathUtil.clamp(APRILTAG_ALIGN_KP * (error.getX()), -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
+    double xVel = MathUtil.clamp(error.getX() * DRIVE_ASSIST_KP, -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
+    double yVel = MathUtil.clamp(error.getY() * DRIVE_ASSIST_KP, -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
     Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() - limelight.getTx());
-    swerve.setControl(req.withTargetDirection(angle).withVelocityX(xVel).withVelocityY(-yVel));
+    req.withVelocityX(xVel).withVelocityY(yVel).withTargetDirection(angle);
   }
 
   /**
    * Uses limelight values to solve for the appropriate leg of the right triangle
    * formed by the robot, the reef apriltag the robot is currently facing, and the
-   * desired line to move the robot to. Then converts into field relative values.
+   * desired line to move the robot to. Then converts into field relative values
+   * with more trig.
    * 
    * @return A translation2d containing the shortest possible field-oriented x and
    *         y distances from the target line in the wpilb plane (left is positive
    *         y and up is positive x).
    */
   private Translation2d getFieldRelativeDistances() {
-    System.out.println("(" + limelight.getTargetPose()[0] + ", " + limelight.getTargetPose()[1] + ")");
     int id = limelight.getID();
-    int pov = controller.getHID().getPOV();
-    // point of interest offset
-    POIoffset = (pov == 270 ? -SwerveConstants.REEF_OFFSET : pov == 90 ? REEF_OFFSET : POIoffset);
-    limelight.setPointOfInterest(0, POIoffset);
-    int idMod = id % 7;
-
-    // angle the reef side makes with the field-plane
-    double reefSideAngle = idMod == 6 ? 300 : idMod * 60;
-    // reefSideAngle = Math.PI / 3;
-    reefSideAngle = 0;
-
-    // angle of the robot-reef-target right triangle
-    double triangle1angle = Math
-        .toRadians(swerve.getYawDegrees() - limelight.getTx()) - reefSideAngle;
-    System.out.println(Math.toDegrees(triangle1angle));
-    // hypotenuse of above triangle
+    double yaw = swerve.getYaw();
     double limelightTagToRobot = limelight.getDistanceFromPrimaryTarget();
-    double targetError = (limelightTagToRobot) * Math.sin(triangle1angle);
 
-    return new Translation2d(targetError * Math.sin(reefSideAngle), targetError * Math.cos(reefSideAngle));
+    // int pov = controller.getHID().getPOV();
+    // POIoffset = (pov == 270 ? -SwerveConstants.REEF_OFFSET : pov == 90 ?
+    // REEF_OFFSET : POIoffset);
+    // limelight.setPointOfInterest(0, POIoffset);
+
+    double hexagonAngle = Integer.MAX_VALUE;
+    switch (id) {
+      case 10:
+        hexagonAngle = 0;
+        break;
+      case 9:
+        hexagonAngle = -60;
+        break;
+      case 8:
+        hexagonAngle = -120;
+        break;
+      case 7:
+        hexagonAngle = yaw > 0 ? 180 : -180;
+        break;
+      case 11:
+        hexagonAngle = 60;
+        break;
+      case 6:
+        hexagonAngle = 120;
+        break;
+    }
+    double triangle1Angle = Math.toRadians(hexagonAngle - yaw);
+    double error = Math.abs(Math.sin(triangle1Angle) * limelightTagToRobot);
+
+    double audaciousTri2Angle = hexagonAngle + (triangle1Angle > 0 ? 180 : 0);
+    audaciousTri2Angle = id == 7 ? -audaciousTri2Angle : audaciousTri2Angle;
+
+    // wpilb y axis is inverted
+    double yError = -(error * Math.cos(audaciousTri2Angle));
+    double xError = error * Math.sin(audaciousTri2Angle);
+
+    return new Translation2d(xError, yError);
   }
 
   @Override
