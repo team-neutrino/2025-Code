@@ -18,8 +18,4 @@ public class ClimbFactory {
     public static Command lockGrabber() {
         return climb.lockCommand();
     }
-
-    public static Command test() {
-        return climb.moveClimbArmCommand(2);
-    }
 }
