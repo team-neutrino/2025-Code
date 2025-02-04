@@ -23,8 +23,8 @@ public final class Constants {
   }
 
   public final class ConfigSignals {
-    public static final int PeriodMSFast = 5;
-    public static final int PeriodMSlow = 10;
+    public static final int Period_MS_Fast = 5;
+    public static final int Period_MS_Slow = 10;
   }
 
   public static class SwerveConstants {
