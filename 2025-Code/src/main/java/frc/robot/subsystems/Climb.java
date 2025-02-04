@@ -51,6 +51,7 @@ public class Climb extends SubsystemBase {
     m_climbMotorConfig.Slot0.kP = 1;
     m_climbMotorConfig.Slot0.kI = 0;
     m_climbMotorConfig.Slot0.kD = 0;
+    // subject to change
 
     m_climbMotor.setNeutralMode(NeutralModeValue.Brake);
     m_climbMotor.getConfigurator().apply(m_climbMotorConfig);
@@ -68,27 +69,10 @@ public class Climb extends SubsystemBase {
     m_climbMotor.setPosition(0);
   }
 
-  public Command moveToPositionCommand(double targetRotations) {
-    return run(() -> {
-      PositionVoltage positionControl = new PositionVoltage(targetRotations);
-      m_climbMotor.setControl(positionControl);
-    });
-  }
-
   public void moveToPosition(double targetPosition) {
     PositionVoltage positionControl = new PositionVoltage(targetPosition);
     m_climbMotor.setControl(positionControl);
   }
-
-  // public void climbUp() {
-  //   m_climbMotor.setVoltage(CLIMB_UP_VOLTAGE);
-  //   // subject to change!!!!!!
-  // }
-
-  // public void climbDown() {
-  //   m_climbMotor.setVoltage(CLIMB_DOWN_VOLTAGE);
-  //   // subject to change!!!!!!
-  // }
 
   public Command lockCommand() {
     return runEnd(() -> {
