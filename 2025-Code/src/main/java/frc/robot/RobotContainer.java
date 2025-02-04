@@ -48,7 +48,6 @@ public class RobotContainer {
     m_buttonsController.y().toggleOnTrue(ClimbFactory.raiseClimb());
     m_buttonsController.x().toggleOnTrue(ClimbFactory.lowerClimb());
     m_buttonsController.a().toggleOnTrue(ClimbFactory.lockGrabber());
-    m_buttonsController.b().toggleOnTrue(ClimbFactory.test());
   }
 
   private void configureDefaultCommands() {

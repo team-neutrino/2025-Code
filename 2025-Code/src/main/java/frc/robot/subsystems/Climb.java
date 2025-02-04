@@ -4,18 +4,12 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 import static frc.robot.Constants.ClimbConstants.*;
 
 import com.ctre.phoenix6.CANBus;
-import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
@@ -74,22 +68,27 @@ public class Climb extends SubsystemBase {
     m_climbMotor.setPosition(0);
   }
 
-  public Command moveToPositionCommand(double targetRotations) {
-    return new RunCommand(() -> {
-      PositionVoltage positionControl = new PositionVoltage(targetRotations);
-      m_climbMotor.setControl(positionControl);
-    }, this);
+  // public Command moveToPositionCommand(double targetRotations) {
+  //   return new RunCommand(() -> {
+  //     PositionVoltage positionControl = new PositionVoltage(targetRotations);
+  //     m_climbMotor.setControl(positionControl);
+  //   }, this);
+  // }
+
+  public void moveToPosition(double targetPosition) {
+    PositionVoltage positionControl = new PositionVoltage(targetPosition);
+    m_climbMotor.setControl(positionControl);
   }
 
-  public void climbUp() {
-    m_climbMotor.setVoltage(CLIMB_UP_VOLTAGE);
-    // subject to change!!!!!!
-  }
+  // public void climbUp() {
+  //   m_climbMotor.setVoltage(CLIMB_UP_VOLTAGE);
+  //   // subject to change!!!!!!
+  // }
 
-  public void climbDown() {
-    m_climbMotor.setVoltage(CLIMB_DOWN_VOLTAGE);
-    // subject to change!!!!!!
-  }
+  // public void climbDown() {
+  //   m_climbMotor.setVoltage(CLIMB_DOWN_VOLTAGE);
+  //   // subject to change!!!!!!
+  // }
 
   public Command lockCommand() {
     return runEnd(() -> {
@@ -99,22 +98,15 @@ public class Climb extends SubsystemBase {
     }).until(() -> m_lockMotor.getOutputCurrent() > LOCK_CURRENT_THRESHOLD);
   }
 
-  public Command raiseClimbArmCommand() {
+  public Command moveClimbArmCommand(double targetPosition) {
     return run(() -> {
-      climbUp();
+      moveToPosition(targetPosition);
     });
-  }
-
-  public Command lowerClimbArmCommand() {
-    return new SequentialCommandGroup(
-        new InstantCommand(() -> m_climbMotor.setVoltage(12), this),
-        new WaitCommand(3.0),
-        new InstantCommand(() -> m_climbMotor.setVoltage(0), this));
   }
 
   public Command climbDefaultCommand() {
     return run(() -> {
-      m_climbMotor.setVoltage(0);
+      moveToPosition(0);
     });
   }
 
