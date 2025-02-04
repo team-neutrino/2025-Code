@@ -1,9 +1,12 @@
 package frc.robot.command_factories;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.subsystems.Swerve;
+import frc.robot.util.Subsystem;
 
 import static frc.robot.util.Subsystem.*;
 
@@ -84,6 +87,25 @@ public class SuperstructureFactory {
         return new ParallelCommandGroup(ElevatorFactory.moveL3(), ArmFactory.moveToL3());
     }
 
+    public static Command moveArmToScore() {
+        Command armCom = new Command() {
+        };
+        if (Subsystem.claw.hasGamePiece()) {
+            if (Subsystem.limelight.isFacingReefTagCamera1()) {
+                armCom = ArmFactory.moveToL2();
+            } else if (Subsystem.limelight.isFacingReefTagCamera2()) {
+                // fix when new commands have been create for arm
+                armCom = ArmFactory.moveToL2();
+            }
+            Pose2d pose = Subsystem.swerve.getCurrentPose();
+
+        }
+        if (swerve == null) {
+            armCom = new Command() {
+            };
+        }
+        return armCom;
+    }
     public static Command moveToScoreL2Command() {
         return new ParallelCommandGroup(ElevatorFactory.moveL2(), ArmFactory.moveToL2());
     }
