@@ -68,12 +68,12 @@ public class Climb extends SubsystemBase {
     m_climbMotor.setPosition(0);
   }
 
-  // public Command moveToPositionCommand(double targetRotations) {
-  //   return new RunCommand(() -> {
-  //     PositionVoltage positionControl = new PositionVoltage(targetRotations);
-  //     m_climbMotor.setControl(positionControl);
-  //   }, this);
-  // }
+  public Command moveToPositionCommand(double targetRotations) {
+    return run(() -> {
+      PositionVoltage positionControl = new PositionVoltage(targetRotations);
+      m_climbMotor.setControl(positionControl);
+    });
+  }
 
   public void moveToPosition(double targetPosition) {
     PositionVoltage positionControl = new PositionVoltage(targetPosition);
