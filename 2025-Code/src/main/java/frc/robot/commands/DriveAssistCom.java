@@ -14,16 +14,18 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import static frc.robot.Constants.SwerveConstants.*;
 
+import frc.robot.Constants.AprilTagConstants.*;
 import frc.robot.subsystems.Swerve.SwerveRequestStash;
 import static frc.robot.util.Subsystem.*;
 
 public class DriveAssistCom extends Command {
-  private CommandXboxController controller;
+  FieldCentricFacingAngle req = SwerveRequestStash.driveAssist;
+  private CommandXboxController m_controller;
   private double POIoffset = 0;
 
   public DriveAssistCom(CommandXboxController p_controller) {
     addRequirements(swerve);
-    controller = p_controller;
+    m_controller = p_controller;
   }
 
   @Override
@@ -32,14 +34,19 @@ public class DriveAssistCom extends Command {
 
   @Override
   public void execute() {
-    FieldCentricFacingAngle req = SwerveRequestStash.driveAssist;
-    req.HeadingController.setPID(4, 0, .5);
+    if (!limelight.getTv()) {
+      return;
+    }
+    int pov = m_controller.getHID().getPOV();
+    POIoffset = pov == 270 ? -REEF_OFFSET : pov == 90 ? REEF_OFFSET : POIoffset;
+    limelight.setPointOfInterest(0, POIoffset);
 
     Translation2d error = getFieldRelativeDistances();
     double xVel = MathUtil.clamp(error.getX() * DRIVE_ASSIST_KP, -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
     double yVel = MathUtil.clamp(error.getY() * DRIVE_ASSIST_KP, -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
     Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() - limelight.getTx());
-    swerve.setControl(req.withVelocityX(xVel).withVelocityY(yVel).withTargetDirection(angle));
+    swerve.setControl(req.withVelocityX(xVel + -m_controller.getLeftY() * MAX_SPEED)
+        .withVelocityY(yVel + -m_controller.getLeftX() * MAX_SPEED).withTargetDirection(angle));
   }
 
   /**
@@ -61,15 +68,16 @@ public class DriveAssistCom extends Command {
     double yaw = swerve.getYaw();
     double limelightTagToRobot = limelight.getDistanceFromPrimaryTarget();
 
-    double hexagonAngle = id == 7 ? (Math.signum(yaw) * HEXAGON_ANGLES[id]) : HEXAGON_ANGLES[id];
+    double hexagonAngle = id == RED_ALLIANCE_IDS.REEF_FACING_ALLIANCE ? (Math.signum(yaw) * HEXAGON_ANGLES[id])
+        : HEXAGON_ANGLES[id];
 
     double triangle1Angle = Math.toRadians(hexagonAngle - yaw);
     double error = Math.abs(Math.sin(triangle1Angle) * limelightTagToRobot);
 
     double audaciousTri2Angle = Math.toRadians(hexagonAngle + (triangle1Angle > 0 ? 180 : 0));
-    audaciousTri2Angle = id == 7 ? -audaciousTri2Angle : audaciousTri2Angle;
+    audaciousTri2Angle = id == RED_ALLIANCE_IDS.REEF_FACING_ALLIANCE ? -audaciousTri2Angle : audaciousTri2Angle;
 
-    // wpilb y axis is inverted
+    // wpilb y and x axis are switched and the y axis is inverted
     double yError = -(error * Math.cos(audaciousTri2Angle));
     double xError = error * Math.sin(audaciousTri2Angle);
 
@@ -84,6 +92,6 @@ public class DriveAssistCom extends Command {
 
   @Override
   public boolean isFinished() {
-    return Math.abs(controller.getRightX()) >= .75;
+    return Math.abs(m_controller.getRightX()) >= .75;
   }
 }

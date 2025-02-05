@@ -51,6 +51,8 @@ public class Swerve extends CommandSwerveDrivetrain {
     super(TunerConstants.DrivetrainConstants, TunerConstants.FrontLeft, TunerConstants.FrontRight,
         TunerConstants.BackLeft, TunerConstants.BackRight);
 
+    configureRequestPID();
+
     if (m_hasBeenConstructed) {
       try {
         throw new IllegalAccessException("Swerve subsystem was instantiated twice");
@@ -213,5 +215,9 @@ public class Swerve extends CommandSwerveDrivetrain {
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
         .withDeadband(MAX_SPEED * 0.05)
         .withRotationalDeadband(MAX_ROTATION_SPEED * .06);
+  }
+
+  public void configureRequestPID() {
+    SwerveRequestStash.driveAssist.HeadingController.setPID(AUTO_ALIGN_P, 0, AUTO_ALIGN_D);
   }
 }
