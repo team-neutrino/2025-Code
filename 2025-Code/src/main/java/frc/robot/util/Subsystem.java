@@ -4,10 +4,14 @@ import frc.robot.subsystems.*;
 import frc.robot.subsystems.NetworkTables.*;
 
 public class Subsystem {
+    public Subsystem(boolean is_valkyrie) {
+        swerve = new Swerve(is_valkyrie);
+    }
+
     public static final Claw claw = new ClawNT();
     public static final Wrist wrist = new WristNT();
     public static final Elevator elevator = new ElevatorNT();
-    public static final Swerve swerve = new Swerve();
+    public static Swerve swerve = null;
     public static final Climb climb = new Climb();
     public static final Limelight limelight = new Limelight();
     public static final LED LED = new LED();
