@@ -17,6 +17,10 @@ public class ArmFactory {
         return arm.armRotateCommand(L3_POSITION);
     }
 
+    public static Command moveToPlayerStation() {
+        return arm.armRotateCommand(PLAYER_STATION_POSITION);
+    }
+
     public static Command moveToL4() {
         return arm.armRotateCommand(L4_POSITION);
     }
