@@ -21,7 +21,7 @@ import static frc.robot.util.Subsystem.*;
 public class DriveAssistCom extends Command {
   FieldCentricFacingAngle req = SwerveRequestStash.driveAssist;
   private CommandXboxController m_controller;
-  private double POIoffset = 0;
+  private double m_POIoffset = 0;
 
   public DriveAssistCom(CommandXboxController p_controller) {
     addRequirements(swerve);
@@ -38,8 +38,8 @@ public class DriveAssistCom extends Command {
       return;
     }
     int pov = m_controller.getHID().getPOV();
-    POIoffset = pov == 270 ? -REEF_OFFSET : pov == 90 ? REEF_OFFSET : POIoffset;
-    limelight.setPointOfInterest(0, POIoffset);
+    m_POIoffset = pov == 270 ? -REEF_OFFSET : pov == 90 ? REEF_OFFSET : m_POIoffset;
+    limelight.setPointOfInterest(0, m_POIoffset);
 
     Translation2d error = getFieldRelativeDistances();
     double xVel = MathUtil.clamp(error.getX() * DRIVE_ASSIST_KP, -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
@@ -86,8 +86,8 @@ public class DriveAssistCom extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    POIoffset = 0;
-    limelight.setPointOfInterest(0, POIoffset);
+    m_POIoffset = 0;
+    limelight.setPointOfInterest(0, m_POIoffset);
   }
 
   @Override
