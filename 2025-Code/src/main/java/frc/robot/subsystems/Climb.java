@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.ClimbConstants;
 
 import static frc.robot.Constants.ClimbConstants.*;
 
@@ -48,10 +49,9 @@ public class Climb extends SubsystemBase {
         .withStatorCurrentLimitEnable(true);
     m_climbMotorConfig.CurrentLimits = m_currentLimitConfig;
 
-    m_climbMotorConfig.Slot0.kP = 1;
-    m_climbMotorConfig.Slot0.kI = 0;
-    m_climbMotorConfig.Slot0.kD = 0;
-    // subject to change
+    m_climbMotorConfig.Slot0.kP = ClimbConstants.kP;
+    m_climbMotorConfig.Slot0.kI = ClimbConstants.kI;
+    m_climbMotorConfig.Slot0.kD = ClimbConstants.kD;
 
     m_climbMotor.setNeutralMode(NeutralModeValue.Brake);
     m_climbMotor.getConfigurator().apply(m_climbMotorConfig);
