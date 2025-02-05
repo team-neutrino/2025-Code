@@ -145,13 +145,11 @@ public final class Constants {
     public static final double LOCK_CURRENT_THRESHOLD = 20;
     // subject to change
 
-    public static final double CLIMB_UP_VOLTAGE = 0.5;
-    public static final double CLIMB_DOWN_VOLTAGE = 5;
-    public static final double LOCK_VOLTAGE = 2;
+    public static final double LOCK_VOLTAGE = 1;
     // subject to change
 
-    public static final int CLIMB_RATCHET_PORT = 0;
-    public static final int LOCK_RATCHET_PORT = 1;
+    public static final int CLIMB_UP_POSITION = 2;
+    public static final int CLIMB_DOWN_POSITION = 0;
     // subject to change
   }
 
