@@ -92,7 +92,7 @@ public class RobotContainer {
       return new InstantCommand();
     }
     try {
-      auto = new PathPlannerAuto("test");
+      auto = new PathPlannerAuto("Leave");
     } catch (Exception e) {
       auto = new PathPlannerAuto("Nothing");
     }

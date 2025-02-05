@@ -4,12 +4,13 @@
   "holonomicMode": true,
   "pathFolders": [
     "Middle",
-    "Not Processor Side",
+    "Top",
     "Processor Side"
   ],
   "autoFolders": [
     "1 CORAL",
-    "2 CORAL"
+    "2 CORAL",
+    "LEAVE"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
