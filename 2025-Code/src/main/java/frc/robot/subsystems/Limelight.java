@@ -29,21 +29,21 @@ public class Limelight extends SubsystemBase {
   private double[] targetPose2 = new double[6];
   private double m_lastFrame = -2;
 
-  private static final Set<Integer> BLUE_ALLIANCE_IDS = new HashSet<>(Arrays.asList(
+  private static final Set<Integer> BLUE_ALLIANCE_IDS_REEF = new HashSet<>(Arrays.asList(
       Constants.AprilTagConstants.BLUE_ALLIANCE_IDS.REEF_FACING_ALLIANCE,
       Constants.AprilTagConstants.BLUE_ALLIANCE_IDS.REEF_FACING_BARGE,
       Constants.AprilTagConstants.BLUE_ALLIANCE_IDS.REEF_FACING_SOURCE,
-      Constants.AprilTagConstants.BLUE_ALLIANCE_IDS.SOURCE_PROCESSOR_SIDE,
-      Constants.AprilTagConstants.BLUE_ALLIANCE_IDS.REEF_FACING_SOURCE,
-      Constants.AprilTagConstants.BLUE_ALLIANCE_IDS.REEF_FACING_CAGES));
+      Constants.AprilTagConstants.BLUE_ALLIANCE_IDS.PROCESSSOR,
+      Constants.AprilTagConstants.BLUE_ALLIANCE_IDS.REEF_FACING_CAGES,
+      Constants.AprilTagConstants.BLUE_ALLIANCE_IDS.REEF_FACING_SOURCE_PROCESSOR_SIDE));
 
-  private static final Set<Integer> RED_ALLIANCE_IDS = new HashSet<>(Arrays.asList(
+  private static final Set<Integer> RED_ALLIANCE_IDS_REEF = new HashSet<>(Arrays.asList(
       Constants.AprilTagConstants.RED_ALLIANCE_IDS.REEF_FACING_ALLIANCE,
       Constants.AprilTagConstants.RED_ALLIANCE_IDS.REEF_FACING_BARGE,
       Constants.AprilTagConstants.RED_ALLIANCE_IDS.REEF_FACING_SOURCE,
-      Constants.AprilTagConstants.RED_ALLIANCE_IDS.SOURCE_PROCESSOR_SIDE,
-      Constants.AprilTagConstants.RED_ALLIANCE_IDS.REEF_FACING_SOURCE,
-      Constants.AprilTagConstants.RED_ALLIANCE_IDS.REEF_FACING_CAGES));
+      Constants.AprilTagConstants.RED_ALLIANCE_IDS.REEF_FACING_PROCESSOR,
+      Constants.AprilTagConstants.RED_ALLIANCE_IDS.REEF_FACING_CAGES,
+      Constants.AprilTagConstants.RED_ALLIANCE_IDS.REEF_FACING_SOURCE_PROCESSOR_SIDE));
 
   /** Creates a new ExampleSubsystem. */
   public Limelight() {
@@ -192,11 +192,25 @@ public class Limelight extends SubsystemBase {
   }
 
   public boolean isFacingReefTagCamera1() {
-    return BLUE_ALLIANCE_IDS.contains(getID()) || RED_ALLIANCE_IDS.contains(getID());
+    return BLUE_ALLIANCE_IDS_REEF.contains(getID()) || RED_ALLIANCE_IDS_REEF.contains(getID());
   }
 
   public boolean isFacingReefTagCamera2() {
-    return RED_ALLIANCE_IDS.contains(getIDFromCamera2()) || BLUE_ALLIANCE_IDS.contains(getIDFromCamera2());
+    return RED_ALLIANCE_IDS_REEF.contains(getIDFromCamera2()) || BLUE_ALLIANCE_IDS_REEF.contains(getIDFromCamera2());
+  }
+
+  public boolean isFacingPlayerStationCamera1() {
+    return getID() == Constants.AprilTagConstants.BLUE_ALLIANCE_IDS.SOURCE
+        || getID() == Constants.AprilTagConstants.RED_ALLIANCE_IDS.SOURCE
+        || getID() == Constants.AprilTagConstants.BLUE_ALLIANCE_IDS.SOURCE_PROCESSOR_SIDE
+        || getID() == Constants.AprilTagConstants.RED_ALLIANCE_IDS.SOURCE_PROCESSOR_SIDE;
+  }
+
+  public boolean isFacingPlayerStationCamera2() {
+    return getIDFromCamera2() == Constants.AprilTagConstants.BLUE_ALLIANCE_IDS.SOURCE
+        || getIDFromCamera2() == Constants.AprilTagConstants.RED_ALLIANCE_IDS.SOURCE
+        || getIDFromCamera2() == Constants.AprilTagConstants.BLUE_ALLIANCE_IDS.SOURCE_PROCESSOR_SIDE
+        || getIDFromCamera2() == Constants.AprilTagConstants.RED_ALLIANCE_IDS.SOURCE_PROCESSOR_SIDE;
   }
 
   public boolean updateOdometry() {
