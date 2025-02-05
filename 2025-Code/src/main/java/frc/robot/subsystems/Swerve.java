@@ -13,7 +13,6 @@ import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -21,7 +20,6 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import static edu.wpi.first.units.Units.Amps;
@@ -53,7 +51,6 @@ public class Swerve extends CommandSwerveDrivetrain {
     super(TunerConstants.DrivetrainConstants, TunerConstants.FrontLeft, TunerConstants.FrontRight,
         TunerConstants.BackLeft, TunerConstants.BackRight);
 
-    SwerveRequestStash.configureRequestsPID();
     if (m_hasBeenConstructed) {
       try {
         throw new IllegalAccessException("Swerve subsystem was instantiated twice");
@@ -150,9 +147,7 @@ public class Swerve extends CommandSwerveDrivetrain {
   }
 
   public void resetSwerveYaw() {
-    for (int i = 0; i < 5; i++) {
-      resetRotation(new Rotation2d(0));
-    }
+    resetRotation(new Rotation2d(0));
     getPigeon2().reset();
   }
 
@@ -179,8 +174,7 @@ public class Swerve extends CommandSwerveDrivetrain {
   public Command swerveDefaultCommand(CommandXboxController controller) {
     return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(-controller.getLeftY() * MAX_SPEED)
         .withVelocityY(-controller.getLeftX() * MAX_SPEED)
-        .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED))
-        .alongWith(new RunCommand(() -> System.out.println(getYawDegrees())));
+        .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED));
   }
 
   /**
@@ -215,39 +209,9 @@ public class Swerve extends CommandSwerveDrivetrain {
         .withRotationalDeadband(MAX_ROTATION_SPEED * 0.06);
     public static final SwerveRequest.FieldCentric driveWithoutDeadband = new SwerveRequest.FieldCentric()
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
-    public static final SwerveRequest.FieldCentricFacingAngle autoAlign = new FieldCentricFacingAngle()
-        .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
-        .withDeadband(MAX_SPEED * 0.05)
-        .withRotationalDeadband(MAX_ROTATION_SPEED * .06);
     public static final SwerveRequest.FieldCentricFacingAngle driveAssist = new FieldCentricFacingAngle()
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
         .withDeadband(MAX_SPEED * 0.05)
         .withRotationalDeadband(MAX_ROTATION_SPEED * .06);
-
-    /**
-     * Helper method that sets up the {@link #autoAlign} swerve request to be used
-     * in the super structure factory. This is needed because using an intermediary
-     * swerve factory is impossible; the fields of the swerve request must be
-     * modified in terms of {@link Limelight#getTv()} for the command to function as
-     * intended, so the super structure factory must directly modify the swerve
-     * request before turning it into a command via {@link Swerve#applyRequest}.
-     * <p>
-     * This method also formats the internal PID controller with
-     * {@link PIDController#enableContinuousInput} to turn the shortest
-     * distance to the target.
-     * 
-     * @param controller The driver controller.
-     * @return The {@link #autoAlign} swerve request formatted for use in the super
-     *         structure factory.
-     */
-    public static FieldCentricFacingAngle autoAlignBaseline(CommandXboxController controller) {
-      return autoAlign.withVelocityX(-controller.getLeftY() * MAX_SPEED)
-          .withVelocityY(-controller.getLeftX() * MAX_SPEED);
-    }
-
-    public static void configureRequestsPID() {
-      autoAlign.HeadingController.enableContinuousInput(-180, 180);
-      autoAlign.HeadingController.setPID(AUTO_ALIGN_P, 0, AUTO_ALIGN_D);
-    }
   }
 }

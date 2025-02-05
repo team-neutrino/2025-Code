@@ -1,9 +1,6 @@
 package frc.robot.command_factories;
 
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.subsystems.Swerve.SwerveRequestStash;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -66,16 +63,5 @@ public class SuperstructureFactory {
 
     public static Command moveToScoreL3Command() {
         return new ParallelCommandGroup(ElevatorFactory.moveL3(), ArmFactory.moveToL3());
-    }
-
-    /**
-     * Give this method the DRIVER controller.
-     * 
-     * @param driverController The DRIVER controller
-     */
-    public static Command autoAlign(CommandXboxController driverController) {
-        return swerve.applyRequest(() -> SwerveRequestStash.autoAlignBaseline(driverController)
-                .withTargetDirection(Rotation2d.fromDegrees(swerve.getYawDegrees() -
-                        limelight.getTx())));
     }
 }

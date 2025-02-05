@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.geometry.Translation2d;
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean
@@ -32,17 +30,11 @@ public final class Constants {
   public static class SwerveConstants {
     public static final double MAX_SPEED = 5.7;
     public static final double MAX_ROTATION_SPEED = 1.5 * Math.PI;
-    public static final Translation2d[] APRILTAG_POSITIONS = { null, new Translation2d(), new Translation2d(),
-        new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(2, 0),
-        new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(),
-        new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(),
-        new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d() };
-    public static final double[] APRILTAG_OFFSETS = { 1.0, 0, 0, 0, 0, 0, -60, 0, 60, 120, 180, -120 };
-    public static final double DRIVE_ASSIST_KP = 1;
+    public static final double DRIVE_ASSIST_KP = 1.5;
+    public static final double[] HEXAGON_ANGLES = { Integer.MAX_VALUE, -1, -1, -1, -1, -1, 120, 180, -120, -60, 0, 60 };
     public static final double APRILTAG_ALIGN_LIMIT = 1.5;
     public static final double AUTO_ALIGN_P = 9;
     public static final double AUTO_ALIGN_D = 1;
-    public static final double TY_TO_DISTANCE = .1;
     public static final double STALL_TORQUE = 7.09;
     public static final double STALL_CURRENT = 366;
     public static final double FREE_CURRENT_AMPS = 2;
@@ -51,7 +43,6 @@ public final class Constants {
     public static final double NOMINAL_VOLTAGE = 12;
     public static final double WHEEL_RADIUS = 2;
     public static final double DRIVE_GEAR_RATIO = 5.6;
-    public static final double REEF_OFFSET = .7;
   }
 
   public static class ElevatorConstants {
