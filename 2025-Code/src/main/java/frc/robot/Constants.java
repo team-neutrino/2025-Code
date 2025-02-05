@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.geometry.Translation2d;
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean
@@ -45,7 +43,6 @@ public final class Constants {
     public static final double NOMINAL_VOLTAGE = 12;
     public static final double WHEEL_RADIUS = 2;
     public static final double DRIVE_GEAR_RATIO = 5.6;
-    public static final double REEF_OFFSET = .7;
   }
 
   public static class ElevatorConstants {
