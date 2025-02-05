@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
 
-public class Telemetry {
+public class ValkyrieTelemetry {
         private final double MaxSpeed;
 
         /**
@@ -28,7 +28,7 @@ public class Telemetry {
          * 
          * @param maxSpeed Maximum speed in meters per second
          */
-        public Telemetry(double maxSpeed) {
+        public ValkyrieTelemetry(double maxSpeed) {
                 MaxSpeed = maxSpeed;
                 SignalLogger.start();
         }
