@@ -5,7 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
-import com.ctre.phoenix6.hardware.Pigeon2;
+import com.ctre.phoenix6.swerve.SwerveRequest.FieldCentricFacingAngle;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.ModuleConfig;
@@ -48,9 +48,10 @@ public class Swerve extends CommandSwerveDrivetrain {
    *                                once, throw an exception.
    */
   public Swerve() {
-
     super(TunerConstants.DrivetrainConstants, TunerConstants.FrontLeft, TunerConstants.FrontRight,
         TunerConstants.BackLeft, TunerConstants.BackRight);
+
+    configureRequestPID();
 
     if (m_hasBeenConstructed) {
       try {
@@ -68,10 +69,17 @@ public class Swerve extends CommandSwerveDrivetrain {
    * Returns the yaw of the robot, which is the rotation of the robot around the
    * vertical axis, from -180 -> 180 as defined by the SWERVE, not pigeon.
    * 
-   * @return The yaw of the robot in degrees.
+   * @return
    */
   public double getYaw() {
     return getCurrentPose().getRotation().getDegrees();
+  }
+
+  /**
+   * Gets yaw from 0-360, going to the right
+   */
+  public double getYaw360() {
+    return getPigeon2().getYaw().getValueAsDouble() % 360;
   }
 
   /**
@@ -140,6 +148,24 @@ public class Swerve extends CommandSwerveDrivetrain {
         this);
   }
 
+  public void resetSwerveYaw() {
+    resetRotation(new Rotation2d(0));
+    getPigeon2().reset();
+  }
+
+  /**
+   * gets yaw -180 - 180 according to swerve
+   * 
+   * @return yaw in degrees
+   */
+  public double getYawDegrees() {
+    return getCurrentPose().getRotation().getDegrees();
+  }
+
+  public double getYawRadians() {
+    return Math.toRadians(getYawDegrees());
+  }
+
   /**
    * Returns the default command for the swerve - drives the robot according to
    * the stick values on the driver's controller.
@@ -148,14 +174,14 @@ public class Swerve extends CommandSwerveDrivetrain {
    * @return The default command.
    */
   public Command swerveDefaultCommand(CommandXboxController controller) {
-    return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(controller.getLeftY() * MAX_SPEED)
-        .withVelocityY(controller.getLeftX() * MAX_SPEED)
+    return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(-controller.getLeftY() * MAX_SPEED)
+        .withVelocityY(-controller.getLeftX() * MAX_SPEED)
         .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED));
   }
 
   /**
    * Creates and returns a slower-driving version (but not rotating) version of
-   * the default command. See {@link #getDefaultCommand} for details.
+   * the default command. See {@link #swerveDefaultCommand} for details.
    * 
    * @param controller The driver controller.
    * @return A slow-driving default command.
@@ -178,12 +204,20 @@ public class Swerve extends CommandSwerveDrivetrain {
   /**
    * Container for SwerveRequests to be used in building swerve commands.
    */
-  private class SwerveRequestStash {
+  public class SwerveRequestStash {
     public static final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
         .withDeadband(MAX_SPEED * 0.1)
         .withRotationalDeadband(MAX_ROTATION_SPEED * 0.06);
     public static final SwerveRequest.FieldCentric driveWithoutDeadband = new SwerveRequest.FieldCentric()
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
+    public static final SwerveRequest.FieldCentricFacingAngle driveAssist = new FieldCentricFacingAngle()
+        .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
+        .withDeadband(MAX_SPEED * 0.05)
+        .withRotationalDeadband(MAX_ROTATION_SPEED * .06);
+  }
+
+  public void configureRequestPID() {
+    SwerveRequestStash.driveAssist.HeadingController.setPID(AUTO_ALIGN_P, 0, AUTO_ALIGN_D);
   }
 }

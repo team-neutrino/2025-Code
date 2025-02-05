@@ -30,6 +30,11 @@ public final class Constants {
   public static class SwerveConstants {
     public static final double MAX_SPEED = 5.7;
     public static final double MAX_ROTATION_SPEED = 1.5 * Math.PI;
+    public static final double DRIVE_ASSIST_KP = 1.5;
+    public static final double[] HEXAGON_ANGLES = { Integer.MAX_VALUE, -1, -1, -1, -1, -1, 120, 180, -120, -60, 0, 60 };
+    public static final double APRILTAG_ALIGN_LIMIT = 1.5;
+    public static final double AUTO_ALIGN_P = 4;
+    public static final double AUTO_ALIGN_D = .5;
     public static final double STALL_TORQUE = 7.09;
     public static final double STALL_CURRENT = 366;
     public static final double FREE_CURRENT_AMPS = 2;
@@ -38,6 +43,7 @@ public final class Constants {
     public static final double NOMINAL_VOLTAGE = 12;
     public static final double WHEEL_RADIUS = 2;
     public static final double DRIVE_GEAR_RATIO = 5.6;
+    public static final double REEF_OFFSET = .7;
   }
 
   public static class ElevatorConstants {
