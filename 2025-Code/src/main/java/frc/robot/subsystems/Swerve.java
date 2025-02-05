@@ -47,12 +47,14 @@ public class Swerve extends CommandSwerveDrivetrain {
    * @throws IllegalAccessException In case this constructor was called more than
    *                                once, throw an exception.
    */
-  public Swerve() {
-    super(TunerConstants.DrivetrainConstants, TunerConstants.FrontLeft, TunerConstants.FrontRight,
-        TunerConstants.BackLeft, TunerConstants.BackRight);
+  public Swerve(boolean valkyrie) {
+    super(valkyrie ? ValkyrieTunerConstants.DrivetrainConstants : TunerConstants.DrivetrainConstants,
+        valkyrie ? ValkyrieTunerConstants.FrontLeft : TunerConstants.FrontLeft,
+        valkyrie ? ValkyrieTunerConstants.FrontRight : TunerConstants.FrontRight,
+        valkyrie ? ValkyrieTunerConstants.BackLeft : TunerConstants.BackLeft,
+        valkyrie ? ValkyrieTunerConstants.BackRight : TunerConstants.BackRight);
 
     configureRequestPID();
-
     if (m_hasBeenConstructed) {
       try {
         throw new IllegalAccessException("Swerve subsystem was instantiated twice");
@@ -60,7 +62,14 @@ public class Swerve extends CommandSwerveDrivetrain {
         System.out.println("don't instantiate a subsystem twice!");
       }
     }
-    configurePathPlanner();
+
+    if (valkyrie) {
+      System.out.println("******************** VALKYRIE ********************");
+      configurePathPlannerValkyrie();
+    } else {
+      System.out.println("******************** 2025 reefscape robot ********************");
+      configurePathPlanner();
+    }
     m_hasBeenConstructed = true;
     registerTelemetry(m_telemetry::telemeterize);
   }
@@ -138,6 +147,42 @@ public class Swerve extends CommandSwerveDrivetrain {
             new Translation2d(TunerConstants.FrontRight.LocationX, TunerConstants.FrontRight.LocationY),
             new Translation2d(TunerConstants.BackLeft.LocationX, TunerConstants.BackLeft.LocationY),
             new Translation2d(TunerConstants.BackRight.LocationX, TunerConstants.BackRight.LocationY)),
+        () -> {
+          var alliance = DriverStation.getAlliance();
+          if (alliance.isPresent()) {
+            return alliance.get() == DriverStation.Alliance.Red;
+          }
+          return false;
+        },
+        this);
+  }
+
+  private void configurePathPlannerValkyrie() {
+    double pTranslation = ValkyrieTunerConstants.FrontLeft.DriveMotorGains.kP;
+    double iTranslation = ValkyrieTunerConstants.FrontLeft.DriveMotorGains.kI;
+    double dTranslation = ValkyrieTunerConstants.FrontLeft.DriveMotorGains.kD;
+    double pRotation = ValkyrieTunerConstants.FrontLeft.SteerMotorGains.kP;
+    double iRotation = ValkyrieTunerConstants.FrontLeft.SteerMotorGains.kI;
+    double dRotation = ValkyrieTunerConstants.FrontLeft.SteerMotorGains.kD;
+    PIDConstants translationConstants = new PIDConstants(pTranslation, iTranslation, dTranslation);
+    PIDConstants rotationConstants = new PIDConstants(pRotation, iRotation, dRotation);
+    AutoBuilder.configure(
+        this::getCurrentPose,
+        this::resetPose,
+        this::getChassisSpeeds,
+        this::setControlAndApplyChassis,
+        new PPHolonomicDriveController(
+            translationConstants,
+            rotationConstants),
+        new RobotConfig(Pounds.of(135), KilogramSquareMeters.of(3.92),
+            new ModuleConfig(Inches.of(2), ValkyrieTunerConstants.kSpeedAt12Volts, 1,
+                new DCMotor(NOMINAL_VOLTAGE, STALL_TORQUE, STALL_CURRENT, FREE_CURRENT_AMPS, FREE_SPEED_RADS,
+                    NUM_MOTORS_GEARBOX),
+                DRIVE_GEAR_RATIO, Amps.of(60), NUM_MOTORS_GEARBOX),
+            new Translation2d(ValkyrieTunerConstants.FrontLeft.LocationX, ValkyrieTunerConstants.FrontLeft.LocationY),
+            new Translation2d(ValkyrieTunerConstants.FrontRight.LocationX, ValkyrieTunerConstants.FrontRight.LocationY),
+            new Translation2d(ValkyrieTunerConstants.BackLeft.LocationX, ValkyrieTunerConstants.BackLeft.LocationY),
+            new Translation2d(ValkyrieTunerConstants.BackRight.LocationX, ValkyrieTunerConstants.BackRight.LocationY)),
         () -> {
           var alliance = DriverStation.getAlliance();
           if (alliance.isPresent()) {
