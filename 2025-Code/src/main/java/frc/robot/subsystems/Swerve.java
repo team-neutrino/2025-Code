@@ -185,5 +185,9 @@ public class Swerve extends CommandSwerveDrivetrain {
         .withRotationalDeadband(MAX_ROTATION_SPEED * 0.06);
     public static final SwerveRequest.FieldCentric driveWithoutDeadband = new SwerveRequest.FieldCentric()
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
+    public static final SwerveRequest.FieldCentricFacingAngle autoAlign = new SwerveRequest.FieldCentricFacingAngle()
+        .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
+        .withDeadband(MAX_SPEED * 0.1);
   }
+
 }
