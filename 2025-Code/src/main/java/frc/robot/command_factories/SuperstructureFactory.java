@@ -87,7 +87,7 @@ public class SuperstructureFactory {
         return new ParallelCommandGroup(ElevatorFactory.moveL3(), ArmFactory.moveToL3());
     }
 
-    public static Command moveArmToScore() {
+    public static Command moveArmToNeededPosition() {
         Command armCom = new Command() {
         };
         if (Subsystem.claw.hasGamePiece()) {
@@ -98,7 +98,13 @@ public class SuperstructureFactory {
                 armCom = ArmFactory.moveToL2();
             }
             Pose2d pose = Subsystem.swerve.getCurrentPose();
-
+        } else if (!Subsystem.claw.hasGamePiece()) {
+            if (Subsystem.limelight.isFacingPlayerStationCamera1()) {
+                armCom = ArmFactory.moveToPlayerStation();
+            } else if (Subsystem.limelight.isFacingReefTagCamera2()) {
+                // fix when new commands have been create for arm
+                armCom = ArmFactory.moveToPlayerStation();
+            }
         }
         // change
         if (swerve == null) {
