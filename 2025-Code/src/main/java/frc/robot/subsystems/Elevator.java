@@ -38,7 +38,8 @@ public class Elevator extends SubsystemBase {
   private SparkFlexConfig m_followerConfig = new SparkFlexConfig();
 
   private double m_target = 0.0;
-  private double m_FFConstant = FF_VAL;
+  private double m_FFConstant1 = STAGE_1_FF_VAL;
+  private double m_FFConstant2 = STAGE_2_FF_VAL;
 
   public Elevator() {
     m_config
@@ -101,21 +102,11 @@ public class Elevator extends SubsystemBase {
   }
 
   private double feedForwardCalculation() {
-    // uncomment once we have robot
-    // if (m_encoder.getPosition() <= STAGE_1_LENGTH) {
-    // return 9.8 * (ARM_AND_SCORING_MASS + STAGE_1_MASS + STAGE_2_MASS);
-    // } else {
-    // return 9.8 * (ARM_AND_SCORING_MASS + STAGE_2_MASS);
-    // }
-
-    // FF CODE WITH CONSTANT
-    // if (m_encoder.getPosition() <= STAGE_1_LENGTH) {
-    // return m_FFConstant * (ARM_AND_SCORING_MASS + STAGE_1_MASS + STAGE_2_MASS);
-    // } else {
-    // return m_FFConstant * (ARM_AND_SCORING_MASS + STAGE_2_MASS);
-    // }
-    // return 0;
-    return m_FFConstant;
+    if (m_encoder.getPosition() < STAGE_ONE_UP) {
+      return STAGE_1_FF_VAL;
+    } else {
+      return STAGE_2_FF_VAL;
+    }
   }
 
   private void resetEncoder(double position) {
@@ -160,8 +151,12 @@ public class Elevator extends SubsystemBase {
         PersistMode.kPersistParameters);
   }
 
-  public void changeFF(double newFF) {
-    m_FFConstant = newFF;
+  public void changeFF1(double newFF) {
+    m_FFConstant1 = newFF;
+  }
+
+  public void changeFF2(double newFF) {
+    m_FFConstant2 = newFF;
   }
 
   public void changeMaxMotion(double mv, double ma, double ae) {

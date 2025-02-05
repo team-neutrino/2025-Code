@@ -73,7 +73,8 @@ public final class Constants {
     public static final double P_VAL = 0.11;
     public static final double I_VAL = 0.0;
     public static final double D_VAL = 0.0;
-    public static final double FF_VAL = 0.15;
+    public static final double STAGE_1_FF_VAL = 0.15;
+    public static final double STAGE_2_FF_VAL = 0.20;
   }
 
   public static class ArmConstants {
