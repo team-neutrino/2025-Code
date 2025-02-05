@@ -167,6 +167,10 @@ public class Swerve extends CommandSwerveDrivetrain {
             .withRotationalRate(-controller.getRightX() * (MAX_ROTATION_SPEED / 2)));
   }
 
+  public Command resetYawCommand() {
+    return run(() -> resetYaw());
+  }
+
   @Override
   public void periodic() {
   }
