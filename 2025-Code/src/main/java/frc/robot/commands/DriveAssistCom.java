@@ -39,7 +39,7 @@ public class DriveAssistCom extends Command {
     double xVel = MathUtil.clamp(error.getX() * DRIVE_ASSIST_KP, -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
     double yVel = MathUtil.clamp(error.getY() * DRIVE_ASSIST_KP, -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
     Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() - limelight.getTx());
-    req.withVelocityX(xVel).withVelocityY(yVel).withTargetDirection(angle);
+    swerve.setControl(req.withVelocityX(xVel).withVelocityY(yVel).withTargetDirection(angle));
   }
 
   /**
@@ -47,6 +47,10 @@ public class DriveAssistCom extends Command {
    * formed by the robot, the reef apriltag the robot is currently facing, and the
    * desired line to move the robot to. Then converts into field relative values
    * with more trig.
+   * <p>
+   * KNOWN UNSOLVED EDGE CASE: for IDs 6 and 8 specifically, an unexpected robot
+   * yaw sign can screw up calculation, but this could only happen if the robot is
+   * at a very unusual angle relative to the tag.
    * 
    * @return A translation2d containing the shortest possible field-oriented x and
    *         y distances from the target line in the wpilb plane (left is positive
@@ -56,11 +60,6 @@ public class DriveAssistCom extends Command {
     int id = limelight.getID();
     double yaw = swerve.getYaw();
     double limelightTagToRobot = limelight.getDistanceFromPrimaryTarget();
-
-    // int pov = controller.getHID().getPOV();
-    // POIoffset = (pov == 270 ? -SwerveConstants.REEF_OFFSET : pov == 90 ?
-    // REEF_OFFSET : POIoffset);
-    // limelight.setPointOfInterest(0, POIoffset);
 
     double hexagonAngle = Integer.MAX_VALUE;
     switch (id) {
@@ -86,7 +85,7 @@ public class DriveAssistCom extends Command {
     double triangle1Angle = Math.toRadians(hexagonAngle - yaw);
     double error = Math.abs(Math.sin(triangle1Angle) * limelightTagToRobot);
 
-    double audaciousTri2Angle = hexagonAngle + (triangle1Angle > 0 ? 180 : 0);
+    double audaciousTri2Angle = Math.toRadians(hexagonAngle + (triangle1Angle > 0 ? 180 : 0));
     audaciousTri2Angle = id == 7 ? -audaciousTri2Angle : audaciousTri2Angle;
 
     // wpilb y axis is inverted

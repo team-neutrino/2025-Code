@@ -39,7 +39,7 @@ public final class Constants {
         new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d(), new Translation2d() };
     public static final double[] APRILTAG_OFFSETS = { 1.0, 0, 0, 0, 0, 0, -60, 0, 60, 120, 180, -120 };
     public static final double DRIVE_ASSIST_KP = 1;
-    public static final double APRILTAG_ALIGN_LIMIT = 1;
+    public static final double APRILTAG_ALIGN_LIMIT = 1.5;
     public static final double AUTO_ALIGN_P = 9;
     public static final double AUTO_ALIGN_D = 1;
     public static final double TY_TO_DISTANCE = .1;
