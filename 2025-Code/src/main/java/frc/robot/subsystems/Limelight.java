@@ -177,8 +177,8 @@ public class Limelight extends SubsystemBase {
   public boolean updateOdometry() {
     LimelightHelpers.PoseEstimate limePoseEst = LimelightHelpers
         .getBotPoseEstimate_wpiBlue_MegaTag2(LIMELIGHT_1);
-    LimelightHelpers.PoseEstimate limePoseEst2 = LimelightHelpers
-        .getBotPoseEstimate_wpiBlue_MegaTag2(LIMELIGHT_2);
+    // LimelightHelpers.PoseEstimate limePoseEst2 = LimelightHelpers
+    // .getBotPoseEstimate_wpiBlue_MegaTag2(LIMELIGHT_2);
 
     if (limePoseEst == null || limePoseEst.tagCount == 0
         || m_swerve.getState().Speeds.omegaRadiansPerSecond > 4 * Math.PI
@@ -186,15 +186,16 @@ public class Limelight extends SubsystemBase {
       return false;
     }
 
-    if (limePoseEst2 == null || limePoseEst2.tagCount == 0
-        || m_swerve.getState().Speeds.omegaRadiansPerSecond > 4 * Math.PI
-        || getFrame() <= m_lastFrame) {
-      return false;
-    }
+    // if (limePoseEst2 == null || limePoseEst2.tagCount == 0
+    // || m_swerve.getState().Speeds.omegaRadiansPerSecond > 4 * Math.PI
+    // || getFrame() <= m_lastFrame) {
+    // return false;
+    // }
 
     m_swerve.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
     m_swerve.addVisionMeasurement(limePoseEst.pose, limePoseEst.timestampSeconds);
-    m_swerve.addVisionMeasurement(limePoseEst2.pose, limePoseEst2.timestampSeconds);
+    // m_swerve.addVisionMeasurement(limePoseEst2.pose,
+    // limePoseEst2.timestampSeconds);
 
     return true;
   }
