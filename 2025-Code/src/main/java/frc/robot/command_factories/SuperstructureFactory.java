@@ -4,14 +4,22 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.DriveAssistCom;
 
 import static frc.robot.util.Subsystem.*;
 
 public class SuperstructureFactory {
-    public static Command intakeCoral() {
+    public static Command intakeCoral(CommandXboxController driverController) {
+        Command swerveAdjustToPlayerStationCom;
         Command elevatorCom = ElevatorFactory.moveToIntake();
         Command armCom = ArmFactory.armToIntake();
         Command clawCom = ClawFactory.runIntake().alongWith(WristFactory.wristToIntake());
+        if (!claw.hasGamePiece()) {
+            swerveAdjustToPlayerStationCom = new DriveAssistCom(driverController);
+            return elevatorCom.alongWith(armCom, clawCom, swerveAdjustToPlayerStationCom)
+                    .until(() -> claw.hasGamePiece());
+        }
         return elevatorCom.alongWith(armCom, clawCom).until(() -> claw.hasGamePiece());
     }
 

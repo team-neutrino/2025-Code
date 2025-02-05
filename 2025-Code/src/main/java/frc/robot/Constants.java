@@ -31,7 +31,8 @@ public final class Constants {
     public static final double MAX_SPEED = 5.7;
     public static final double MAX_ROTATION_SPEED = 1.5 * Math.PI;
     public static final double DRIVE_ASSIST_KP = 1.5;
-    public static final double[] HEXAGON_ANGLES = { Integer.MAX_VALUE, -1, -1, -1, -1, -1, 120, 180, -120, -60, 0, 60 };
+    public static final double[] APRIL_TAG_ANGLES = { Integer.MAX_VALUE, -54, 54, -54, 54, -1, 120, 180, -120, -60, 0,
+        60 };
     public static final double APRILTAG_ALIGN_LIMIT = 1.5;
     public static final double AUTO_ALIGN_P = 4;
     public static final double AUTO_ALIGN_D = .5;

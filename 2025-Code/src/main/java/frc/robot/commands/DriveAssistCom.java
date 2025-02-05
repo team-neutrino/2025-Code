@@ -68,8 +68,8 @@ public class DriveAssistCom extends Command {
     double yaw = swerve.getYaw();
     double limelightTagToRobot = limelight.getDistanceFromPrimaryTarget();
 
-    double hexagonAngle = id == RED_ALLIANCE_IDS.REEF_FACING_ALLIANCE ? (Math.signum(yaw) * HEXAGON_ANGLES[id])
-        : HEXAGON_ANGLES[id];
+    double hexagonAngle = id == RED_ALLIANCE_IDS.REEF_FACING_ALLIANCE ? (Math.signum(yaw) * APRIL_TAG_ANGLES[id])
+        : APRIL_TAG_ANGLES[id];
 
     double triangle1Angle = Math.toRadians(hexagonAngle - yaw);
     double error = Math.abs(Math.sin(triangle1Angle) * limelightTagToRobot);
