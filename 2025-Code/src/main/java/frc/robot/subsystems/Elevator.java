@@ -23,6 +23,10 @@ import frc.robot.util.Subsystem;
 
 import static frc.robot.Constants.ElevatorConstants.*;
 
+import java.time.Period;
+
+import static frc.robot.Constants.ConfigSignals.*;
+
 public class Elevator extends SubsystemBase {
   private SparkFlex m_motor1 = new SparkFlex(MOTOR1_ID, MotorType.kBrushless);
   private SparkFlex m_motor2 = new SparkFlex(MOTOR2_ID,
@@ -51,6 +55,34 @@ public class Elevator extends SubsystemBase {
         .maxVelocity(MAX_VELOCITY)
         .maxAcceleration(MAX_ACCELERATION)
         .allowedClosedLoopError(ALLOWED_ERROR);
+    m_config.signals.absoluteEncoderPositionAlwaysOn(false)
+        .absoluteEncoderVelocityAlwaysOn(false)
+        .analogPositionAlwaysOn(false)
+        .analogVelocityAlwaysOn(false)
+        .analogVoltageAlwaysOn(false)
+        .appliedOutputPeriodMs(Period_MS_Fast)
+        .busVoltagePeriodMs(Period_MS_Fast)
+        .externalOrAltEncoderPositionAlwaysOn(false)
+        .externalOrAltEncoderVelocityAlwaysOn(false)
+        .limitsPeriodMs(Period_MS_Fast)
+        .motorTemperaturePeriodMs(Period_MS_Fast)
+        .outputCurrentPeriodMs(Period_MS_Fast)
+        .primaryEncoderPositionPeriodMs(Period_MS_Slow)
+        .primaryEncoderVelocityPeriodMs(Period_MS_Slow);
+    m_followerConfig.signals.absoluteEncoderPositionAlwaysOn(false)
+        .absoluteEncoderVelocityAlwaysOn(false)
+        .analogPositionAlwaysOn(false)
+        .analogVelocityAlwaysOn(false)
+        .analogVoltageAlwaysOn(false)
+        .appliedOutputPeriodMs(Period_MS_Fast)
+        .busVoltagePeriodMs(Period_MS_Fast)
+        .externalOrAltEncoderPositionAlwaysOn(false)
+        .externalOrAltEncoderVelocityAlwaysOn(false)
+        .limitsPeriodMs(Period_MS_Fast)
+        .motorTemperaturePeriodMs(Period_MS_Fast)
+        .outputCurrentPeriodMs(Period_MS_Fast)
+        .primaryEncoderPositionPeriodMs(Period_MS_Slow)
+        .primaryEncoderVelocityPeriodMs(Period_MS_Slow);
     m_config.smartCurrentLimit(CURRENT_LIMIT);
     m_motor1.configure(m_config, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
