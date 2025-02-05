@@ -9,6 +9,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.LimelightHelpers;
 import static frc.robot.Constants.LimelightConstants.*;
 
@@ -51,7 +52,6 @@ public class Limelight extends SubsystemBase {
         CAMERA2_PITCH_OFFSET, // Pitch (degrees)
         CAMERA2_YAW_OFFSET // Yaw (degrees)
     );
-
   }
 
   // **get valid target from camera 1*/
@@ -167,7 +167,7 @@ public class Limelight extends SubsystemBase {
   }
 
   public void setPriorityIDForCamera2(int id) {
-    LimelightHelpers.setPriorityTagID(LIMELIGHT_1, id);
+    LimelightHelpers.setPriorityTagID(LIMELIGHT_2, id);
   }
 
   public void setPipelineID(int id) {
@@ -177,14 +177,25 @@ public class Limelight extends SubsystemBase {
   public boolean updateOdometry() {
     LimelightHelpers.PoseEstimate limePoseEst = LimelightHelpers
         .getBotPoseEstimate_wpiBlue_MegaTag2(LIMELIGHT_1);
+    // LimelightHelpers.PoseEstimate limePoseEst2 = LimelightHelpers
+    // .getBotPoseEstimate_wpiBlue_MegaTag2(LIMELIGHT_2);
+
     if (limePoseEst == null || limePoseEst.tagCount == 0
         || m_swerve.getState().Speeds.omegaRadiansPerSecond > 4 * Math.PI
         || getFrame() <= m_lastFrame) {
       return false;
     }
 
-    m_swerve.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999)); // need to change vec values?
+    // if (limePoseEst2 == null || limePoseEst2.tagCount == 0
+    // || m_swerve.getState().Speeds.omegaRadiansPerSecond > 4 * Math.PI
+    // || getFrame() <= m_lastFrame) {
+    // return false;
+    // }
+
+    m_swerve.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
     m_swerve.addVisionMeasurement(limePoseEst.pose, limePoseEst.timestampSeconds);
+    // m_swerve.addVisionMeasurement(limePoseEst2.pose,
+    // limePoseEst2.timestampSeconds);
 
     return true;
   }
@@ -204,6 +215,13 @@ public class Limelight extends SubsystemBase {
     if (m_swerve == null) {
       return;
     }
+
+    if (DriverStation.isEnabled()) {
+      LimelightHelpers.SetIMUMode(LIMELIGHT_1, 1);
+      LimelightHelpers.SetIMUMode(LIMELIGHT_2, 1);
+    }
+    LimelightHelpers.SetIMUMode(LIMELIGHT_1, 2);
+    LimelightHelpers.SetIMUMode(LIMELIGHT_2, 2);
     // according to limelight docs, this needs to be called before using
     // .getBotPoseEstimate_wpiBlue_MegaTag2
     LimelightHelpers.SetRobotOrientation(LIMELIGHT_1, Subsystem.swerve.getCurrentPose().getRotation().getDegrees(), 0,
