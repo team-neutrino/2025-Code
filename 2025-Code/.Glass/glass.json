@@ -1,11 +1,14 @@
 {
   "NetworkTables": {
     "transitory": {
-      "claw": {
-        "open": true
-      },
-      "elevator": {
-        "open": true
+      "arm": {
+        "open": true,
+        "{tuning}MaxMotion": {
+          "open": true
+        },
+        "{tuning}PIDF": {
+          "open": true
+        }
       },
       "limelight": {
         "double[]##v_/limelight/botpose": {
@@ -24,7 +27,13 @@
       }
     },
     "types": {
-      "/FMSInfo": "FMSInfo"
+      "/FMSInfo": "FMSInfo",
+      "/Pose": "Field2d",
+      "/SmartDashboard/Alerts": "Alerts",
+      "/SmartDashboard/Module 0": "Mechanism2d",
+      "/SmartDashboard/Module 1": "Mechanism2d",
+      "/SmartDashboard/Module 2": "Mechanism2d",
+      "/SmartDashboard/Module 3": "Mechanism2d"
     }
   },
   "NetworkTables Info": {

@@ -93,6 +93,10 @@ public class Arm extends SubsystemBase {
     return m_armMotor.getBusVoltage();
   }
 
+  public double getArmEncoderVelocity() {
+    return m_armEncoder.getVelocity();
+  }
+
   /**
    * Sets up motor controllers to necessary configurations. Includes maxMotion,
    * current limits, and converstion factors.

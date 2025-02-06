@@ -15,9 +15,11 @@ public class ArmNT extends Arm {
     DoubleTopic encoderPosition = nt.getDoubleTopic("/arm/encoder_position");
     DoubleTopic targetPosition = nt.getDoubleTopic("/arm/target_position");
     DoubleTopic voltage = nt.getDoubleTopic("/arm/motor_input_voltage");
+    DoubleTopic encoderVelocity = nt.getDoubleTopic("/arm/encoder_velocity");
     final DoublePublisher encoderPositionPub;
     final DoublePublisher targetPositionPub;
     final DoublePublisher motorVoltagePub;
+    final DoublePublisher encoderVelocityPub;
     private PIDTuner m_PIDTuner;
     private double m_previousP = ArmConstants.kp;
     private double m_previousI = ArmConstants.ki;
@@ -35,6 +37,9 @@ public class ArmNT extends Arm {
 
         targetPositionPub = targetPosition.publish();
         targetPositionPub.setDefault(0.0);
+
+        encoderVelocityPub = encoderVelocity.publish();
+        encoderVelocityPub.setDefault(0.0);
 
         motorVoltagePub = voltage.publish();
         motorVoltagePub.setDefault(0.0);
@@ -62,6 +67,7 @@ public class ArmNT extends Arm {
         encoderPositionPub.set(getArmEncoderPosition(), now);
         targetPositionPub.set(getArmTargetPosition(), now);
         motorVoltagePub.set(getArmVoltage(), now);
+        encoderVelocityPub.set(getArmEncoderVelocity(), now);
 
         if (m_PIDTuner.isDifferentValues(m_previousP, m_previousI, m_previousD)) {
             changePID(m_PIDTuner.getP(), m_PIDTuner.getI(), m_PIDTuner.getD());
