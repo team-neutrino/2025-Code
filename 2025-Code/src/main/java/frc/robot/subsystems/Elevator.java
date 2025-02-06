@@ -113,6 +113,10 @@ public class Elevator extends SubsystemBase {
     m_encoder.setPosition(position);
   }
 
+  public double getEncoderVelocity() {
+    return m_encoder.getVelocity();
+  }
+
   public double getEncoderPosition() {
     return m_encoder.getPosition();
   }
