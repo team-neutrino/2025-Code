@@ -64,7 +64,7 @@ public class ClimbNT extends Climb{
         m_PIDTuner.setI(m_previousI);
         m_PIDTuner.setD(m_previousD);
 
-        m_motionMagicTuner = new MotionMagicTuner("climb/{tuning}MaxMotion");
+        m_motionMagicTuner = new MotionMagicTuner("climb/{tuning}MotionMagic");
         m_motionMagicTuner.setVelocity(m_previousVelocity);
         m_motionMagicTuner.setAcceleration(m_previousAcceleration);
         m_motionMagicTuner.setJerk(m_previousJerk);
