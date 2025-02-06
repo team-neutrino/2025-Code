@@ -163,6 +163,10 @@ public final class Constants {
     public static final double kI = 0;
     public static final double kD = 0;
     // subject to change
+
+    public static final double MAX_VELOCITY = 0;
+    public static final double MAX_ACCELERATION = 0;
+    public static final double MAX_JERK = 0;
   }
 
   public static class LimelightConstants {
