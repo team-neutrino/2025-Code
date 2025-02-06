@@ -19,7 +19,7 @@ import frc.robot.subsystems.Swerve.SwerveRequestStash;
 import static frc.robot.util.Subsystem.*;
 
 public class DriveAssistCom extends Command {
-  FieldCentricFacingAngle req = SwerveRequestStash.driveAssist;
+  private FieldCentricFacingAngle req = SwerveRequestStash.driveAssist;
   private CommandXboxController m_controller;
   private double m_POIoffset = 0;
   private int m_staticTagID;
@@ -80,14 +80,17 @@ public class DriveAssistCom extends Command {
     double yaw = swerve.getYaw();
     double limelightTagToRobot = limelight.getDistanceFromPrimaryTarget();
 
-    double hexagonAngle = id == RED_ALLIANCE_IDS.REEF_FACING_ALLIANCE ? (Math.signum(yaw) * HEXAGON_ANGLES[id])
-        : HEXAGON_ANGLES[id];
+    // test for ID 7/18 edge case
+    double hexagonAngle = HEXAGON_ANGLES[id] * (id == RED_ALLIANCE_IDS.REEF_FACING_ALLIANCE
+        || id == BLUE_ALLIANCE_IDS.REEF_FACING_ALLIANCE ? Math.signum(yaw) : 1);
 
     double triangle1Angle = Math.toRadians(hexagonAngle - yaw);
     double error = Math.abs(Math.sin(triangle1Angle) * limelightTagToRobot);
 
     double audaciousTri2Angle = Math.toRadians(hexagonAngle + (triangle1Angle > 0 ? 180 : 0));
-    audaciousTri2Angle = id == RED_ALLIANCE_IDS.REEF_FACING_ALLIANCE ? -audaciousTri2Angle : audaciousTri2Angle;
+    audaciousTri2Angle = (id == RED_ALLIANCE_IDS.REEF_FACING_ALLIANCE || id == BLUE_ALLIANCE_IDS.REEF_FACING_ALLIANCE)
+        ? -audaciousTri2Angle
+        : audaciousTri2Angle;
 
     // wpilb y and x axis are switched and the y axis is inverted
     double yError = -(error * Math.cos(audaciousTri2Angle));
