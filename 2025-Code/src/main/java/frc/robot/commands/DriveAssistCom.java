@@ -119,7 +119,7 @@ public class DriveAssistCom extends Command {
   }
 
   public boolean isAligned() {
-    return Math.abs(error.getX() + error.getY()) < Constants.SwerveConstants.isAlignedError;
+    return Math.abs(error.getX()) + Math.abs(error.getY()) < Constants.SwerveConstants.isAlignedError;
   }
 
   @Override
