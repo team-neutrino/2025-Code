@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import static frc.robot.Constants.SwerveConstants.*;
 
+import frc.robot.Constants;
 import frc.robot.Constants.AprilTagConstants.*;
 import frc.robot.subsystems.Swerve.SwerveRequestStash;
 import static frc.robot.util.Subsystem.*;
@@ -22,6 +23,7 @@ public class DriveAssistCom extends Command {
   FieldCentricFacingAngle req = SwerveRequestStash.driveAssist;
   private CommandXboxController m_controller;
   private double m_POIoffset = 0;
+  Translation2d error;
 
   public DriveAssistCom(CommandXboxController p_controller) {
     addRequirements(swerve);
@@ -41,12 +43,13 @@ public class DriveAssistCom extends Command {
     m_POIoffset = pov == 270 ? -REEF_OFFSET : pov == 90 ? REEF_OFFSET : m_POIoffset;
     limelight.setPointOfInterest(0, m_POIoffset);
 
-    Translation2d error = getFieldRelativeDistances();
+    error = getFieldRelativeDistances();
     double xVel = MathUtil.clamp(error.getX() * DRIVE_ASSIST_KP, -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
     double yVel = MathUtil.clamp(error.getY() * DRIVE_ASSIST_KP, -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
     Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() - limelight.getTx());
     swerve.setControl(req.withVelocityX(xVel + -m_controller.getLeftY() * MAX_SPEED)
         .withVelocityY(yVel + -m_controller.getLeftX() * MAX_SPEED).withTargetDirection(angle));
+
   }
 
   /**
@@ -82,6 +85,10 @@ public class DriveAssistCom extends Command {
     double xError = error * Math.sin(audaciousTri2Angle);
 
     return new Translation2d(xError, yError);
+  }
+
+  public boolean isAligned() {
+    return Math.abs(error.getX() + error.getY()) < Constants.SwerveConstants.isAlignedError;
   }
 
   @Override
