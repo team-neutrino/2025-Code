@@ -75,16 +75,6 @@ public class Swerve extends CommandSwerveDrivetrain {
   }
 
   /**
-   * Returns the yaw of the robot, which is the rotation of the robot around the
-   * vertical axis, from -180 -> 180 as defined by the SWERVE, not pigeon.
-   * 
-   * @return
-   */
-  public double getYaw() {
-    return getCurrentPose().getRotation().getDegrees();
-  }
-
-  /**
    * Gets yaw from 0-360, going to the right
    */
   public double getYaw360() {
