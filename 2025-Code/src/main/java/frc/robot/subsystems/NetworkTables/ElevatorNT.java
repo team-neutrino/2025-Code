@@ -15,9 +15,11 @@ import frc.robot.util.PIDTuner;
 public class ElevatorNT extends Elevator {
 
     NetworkTableInstance nt = NetworkTableInstance.getDefault();
+    DoubleTopic encoderVelocity = nt.getDoubleTopic("/elevator/encoder_velocity");
     DoubleTopic encoderPosition = nt.getDoubleTopic("/elevator/encoder_position");
     DoubleTopic targetPosition = nt.getDoubleTopic("/elevator/target_position");
     BooleanTopic at_limit = nt.getBooleanTopic("/elevator/at_limit");
+    final DoublePublisher encoderVelocityPub;
     final DoublePublisher encoderPositionPub;
     final DoublePublisher targetPositionPub;
     final BooleanPublisher lowLimitPub;
@@ -35,6 +37,9 @@ public class ElevatorNT extends Elevator {
     private double m_previousAllowedError = ElevatorConstants.ALLOWED_ERROR;
 
     public ElevatorNT() {
+        encoderVelocityPub = encoderVelocity.publish();
+        encoderVelocityPub.setDefault(0.0);
+
         encoderPositionPub = encoderPosition.publish();
         encoderPositionPub.setDefault(0.0);
 
@@ -67,6 +72,7 @@ public class ElevatorNT extends Elevator {
     public void periodic() {
         super.periodic();
         final long now = NetworkTablesJNI.now();
+        encoderVelocityPub.set(getEncoderVelocity(), now);
         encoderPositionPub.set(getEncoderPosition(), now);
         targetPositionPub.set(getTargetPosition(), now);
         lowLimitPub.set(isLowPosition(), now);
