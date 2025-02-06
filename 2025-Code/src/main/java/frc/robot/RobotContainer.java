@@ -46,12 +46,13 @@ public class RobotContainer {
 
     m_driverController.leftStick().toggleOnTrue(new DriveAssistCom(m_driverController));
 
-    m_driverController.leftBumper().whileTrue(ArmFactory.moveToL1());
     m_driverController.back().whileTrue(swerve.resetYawCommand());
 
     m_buttonsController.y().toggleOnTrue(ClimbFactory.raiseClimb());
     m_buttonsController.x().toggleOnTrue(ClimbFactory.lowerClimb());
     m_buttonsController.a().toggleOnTrue(ClimbFactory.lockGrabber());
+
+    m_buttonsController.leftBumper().whileTrue(ArmFactory.moveToL1());
   }
 
   private void configureDefaultCommands() {
