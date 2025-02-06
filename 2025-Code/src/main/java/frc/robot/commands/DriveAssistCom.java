@@ -22,8 +22,8 @@ public class DriveAssistCom extends Command {
   FieldCentricFacingAngle req = SwerveRequestStash.driveAssist;
   private CommandXboxController m_controller;
   private double m_POIoffset = 0;
-  private int m_initialTagID;
-  private boolean m_hasHadinitialID;
+  private int m_staticTagID;
+  private boolean m_hasHadInitialID = false;
 
   public DriveAssistCom(CommandXboxController p_controller) {
     addRequirements(swerve);
@@ -36,10 +36,11 @@ public class DriveAssistCom extends Command {
 
   @Override
   public void execute() {
-    if (!limelight.getTv() || !m_hasHadinitialID) {
+    if (!limelight.getTv()) {
       return;
+    } else if (!m_hasHadInitialID) {
+      setPriorityID();
     }
-    setPriorityID();
     int pov = m_controller.getHID().getPOV();
     m_POIoffset = pov == 270 ? -REEF_OFFSET : pov == 90 ? REEF_OFFSET : m_POIoffset;
     limelight.setPointOfInterest(0, m_POIoffset);
@@ -67,7 +68,7 @@ public class DriveAssistCom extends Command {
    *         y and up is positive x).
    */
   private Translation2d getFieldRelativeDistances() {
-    int id = m_initialTagID;
+    int id = m_staticTagID;
     double yaw = swerve.getYaw();
     double limelightTagToRobot = limelight.getDistanceFromPrimaryTarget();
 
@@ -88,8 +89,8 @@ public class DriveAssistCom extends Command {
   }
 
   private void setPriorityID() {
-    m_initialTagID = !m_hasHadinitialID ? limelight.getID() : m_initialTagID;
-    m_hasHadinitialID = !m_hasHadinitialID ? true : m_hasHadinitialID;
+    m_staticTagID = limelight.getID();
+    m_hasHadInitialID = true;
   }
 
   @Override
