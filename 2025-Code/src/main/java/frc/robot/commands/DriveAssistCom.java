@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import static frc.robot.Constants.SwerveConstants.*;
 
+import frc.robot.Constants;
 import frc.robot.Constants.AprilTagConstants.*;
 import frc.robot.subsystems.Swerve.SwerveRequestStash;
 import static frc.robot.util.Subsystem.*;
@@ -115,6 +116,10 @@ public class DriveAssistCom extends Command {
 
   private void setPriorityID() {
     m_staticTagID = limelight.getID();
+  }
+
+  public boolean isAligned() {
+    return Math.abs(error.getX() + error.getY()) < Constants.SwerveConstants.isAlignedError;
   }
 
   @Override
