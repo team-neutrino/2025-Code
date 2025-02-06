@@ -45,12 +45,10 @@ public class DriveAssistCom extends Command {
     m_POIoffset = pov == 270 ? -REEF_OFFSET : pov == 90 ? REEF_OFFSET : m_POIoffset;
     limelight.setPointOfInterest(0, m_POIoffset);
 
-    Translation2d error = getFieldRelativeDistances();
-    double xVel = MathUtil.clamp(error.getX() * DRIVE_ASSIST_KP, -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
-    double yVel = MathUtil.clamp(error.getY() * DRIVE_ASSIST_KP, -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
+    Translation2d velocities = getVelocities();
     Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() - limelight.getTx());
-    swerve.setControl(req.withVelocityX(xVel + -m_controller.getLeftY() * MAX_SPEED)
-        .withVelocityY(yVel + -m_controller.getLeftX() * MAX_SPEED).withTargetDirection(angle));
+    swerve.setControl(req.withVelocityX(velocities.getX() + -m_controller.getLeftY() * MAX_SPEED)
+        .withVelocityY(velocities.getY() + -m_controller.getLeftX() * MAX_SPEED).withTargetDirection(angle));
   }
 
   private boolean exitExecute() {
@@ -80,14 +78,15 @@ public class DriveAssistCom extends Command {
     double yaw = swerve.getYaw();
     double limelightTagToRobot = limelight.getDistanceFromPrimaryTarget();
 
-    // test for ID 7/18 edge case
+    // ID 7/18 edge case
     double hexagonAngle = HEXAGON_ANGLES[id] * (id == RED_ALLIANCE_IDS.REEF_FACING_ALLIANCE
-        || id == BLUE_ALLIANCE_IDS.REEF_FACING_ALLIANCE ? Math.signum(yaw) : 1);
+        || id == BLUE_ALLIANCE_IDS.REEF_FACING_ALLIANCE ? Math.signum(idealYaw) : 1);
 
-    double triangle1Angle = Math.toRadians(hexagonAngle - yaw);
+    double triangle1Angle = Math.toRadians(hexagonAngle - idealYaw);
     double error = Math.abs(Math.sin(triangle1Angle) * limelightTagToRobot);
 
     double audaciousTri2Angle = Math.toRadians(hexagonAngle + (triangle1Angle > 0 ? 180 : 0));
+    // ID 7/18 edge case
     audaciousTri2Angle = (id == RED_ALLIANCE_IDS.REEF_FACING_ALLIANCE || id == BLUE_ALLIANCE_IDS.REEF_FACING_ALLIANCE)
         ? -audaciousTri2Angle
         : audaciousTri2Angle;
@@ -97,6 +96,21 @@ public class DriveAssistCom extends Command {
     double xError = error * Math.sin(audaciousTri2Angle);
 
     return new Translation2d(xError, yError);
+  }
+
+  /**
+   * Does PID scaling and limiting on error values as returned by
+   * {@link #getFieldRelativeDistances} and returns a suitable value.
+   * 
+   * @return A translation2d in the WPiLB standard coordinate system: (left is
+   *         positive y and up is positive x).
+   */
+  private Translation2d getVelocities() {
+    Translation2d error = getFieldRelativeDistances();
+    double xVel = MathUtil.clamp(error.getX() * DRIVE_ASSIST_KP, -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
+    double yVel = MathUtil.clamp(error.getY() * DRIVE_ASSIST_KP, -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
+    Translation2d ret = new Translation2d(xVel, yVel);
+    return ret;
   }
 
   private void setPriorityID() {
