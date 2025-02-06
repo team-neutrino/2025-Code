@@ -10,8 +10,13 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
 import static frc.robot.Constants.LimelightConstants.*;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import frc.robot.util.Subsystem;
 
@@ -25,7 +30,12 @@ public class Limelight extends SubsystemBase {
   private double[] targetPose2 = new double[6];
   private double m_lastFrame = -2;
 
-  /** Creates a new ExampleSubsystem. */
+  private static final Set<Integer> PLAYER_STATION_IDS = new HashSet<>(Arrays.asList(
+      Constants.AprilTagConstants.RED_ALLIANCE_IDS.SOURCE,
+      Constants.AprilTagConstants.RED_ALLIANCE_IDS.SOURCE_PROCESSOR_SIDE,
+      Constants.AprilTagConstants.BLUE_ALLIANCE_IDS.SOURCE,
+      Constants.AprilTagConstants.BLUE_ALLIANCE_IDS.SOURCE_PROCESSOR_SIDE));
+
   public Limelight() {
     m_swerve = Subsystem.swerve;
     m_limelightHelpers = new LimelightHelpers();
@@ -172,6 +182,14 @@ public class Limelight extends SubsystemBase {
 
   public void setPipelineID(int id) {
     LimelightHelpers.setPipelineIndex(LIMELIGHT_1, id);
+  }
+
+  public boolean isFacingReefTagCamera1() {
+    return PLAYER_STATION_IDS.contains(getID());
+  }
+
+  public boolean isFacingReefTagCamera2() {
+    return PLAYER_STATION_IDS.contains(getIDFromCamera2());
   }
 
   public boolean updateOdometry() {
