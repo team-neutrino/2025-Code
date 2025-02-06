@@ -15,7 +15,7 @@ public class SuperstructureFactory {
         Command elevatorCom = ElevatorFactory.moveToIntake();
         Command armCom = ArmFactory.armToIntake();
         Command clawCom = ClawFactory.runIntake().alongWith(WristFactory.wristToIntake());
-        if (!claw.hasGamePiece()) {
+        if (limelight.isFacingReefTagCamera1()) {
             swerveAdjustToPlayerStationCom = new DriveAssistCom(driverController);
             return elevatorCom.alongWith(armCom, clawCom, swerveAdjustToPlayerStationCom)
                     .until(() -> claw.hasGamePiece());

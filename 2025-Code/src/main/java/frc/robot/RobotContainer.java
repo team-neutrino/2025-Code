@@ -77,7 +77,7 @@ public class RobotContainer {
                                                                                          // station
     NamedCommands.registerCommand("ScoreL4", SuperstructureFactory.scoreCoralL4Command());
     NamedCommands.registerCommand("ScoreL3", SuperstructureFactory.scoreCoralL3Command());
-    NamedCommands.registerCommand("Intake", SuperstructureFactory.intakeCoral());
+    NamedCommands.registerCommand("Intake", SuperstructureFactory.intakeCoral(m_driverController));
   }
 
   /**
