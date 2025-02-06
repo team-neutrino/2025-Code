@@ -142,6 +142,9 @@ public class Climb extends SubsystemBase {
     m_motionMagicConfig.MotionMagicCruiseVelocity = mv;
     m_motionMagicConfig.MotionMagicAcceleration = ma;
     m_motionMagicConfig.MotionMagicJerk = jerk;
+
+    m_climbMotorConfig.withMotionMagic(m_motionMagicConfig);
+    m_climbMotor.getConfigurator().apply(m_climbMotorConfig);
   }
 
   @Override
