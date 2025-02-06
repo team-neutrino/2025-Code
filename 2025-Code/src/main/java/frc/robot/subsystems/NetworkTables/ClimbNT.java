@@ -6,8 +6,6 @@ import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTablesJNI;
-import frc.robot.Constants.ClimbConstants;
-import frc.robot.Constants.ElevatorConstants;
 import frc.robot.subsystems.Climb;
 import frc.robot.util.MaxMotionTuner;
 import frc.robot.util.PIDTuner;
