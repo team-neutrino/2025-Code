@@ -158,6 +158,16 @@ public final class Constants {
     public static final int CLIMB_UP_POSITION = 2;
     public static final int CLIMB_DOWN_POSITION = 0;
     // subject to change
+
+    public static final double kP = 1;
+    public static final double kI = 0;
+    public static final double kD = 0;
+    // subject to change
+
+    public static final double VELOCITY = 0;
+    public static final double ACCELERATION = 0;
+    public static final double JERK = 0;
+    // subject to change
   }
 
   public static class LimelightConstants {
