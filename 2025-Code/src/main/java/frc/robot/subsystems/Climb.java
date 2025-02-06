@@ -58,9 +58,9 @@ public class Climb extends SubsystemBase {
     m_climbMotorConfig.Slot0.kI = kI;
     m_climbMotorConfig.Slot0.kD = kD;
 
-    m_motionMagicConfig.MotionMagicCruiseVelocity = MAX_VELOCITY;
-    m_motionMagicConfig.MotionMagicAcceleration = MAX_ACCELERATION;
-    m_motionMagicConfig.MotionMagicJerk = MAX_JERK;
+    m_motionMagicConfig.MotionMagicCruiseVelocity = VELOCITY;
+    m_motionMagicConfig.MotionMagicAcceleration = ACCELERATION;
+    m_motionMagicConfig.MotionMagicJerk = JERK;
 
     m_climbMotorConfig.withMotionMagic(m_motionMagicConfig);
 
@@ -138,9 +138,9 @@ public class Climb extends SubsystemBase {
   }
 
   // This is actually called MotionMagic (rev vs ctre)
-  public void changeMaxMotion(double mv, double ma, double jerk) {
-    m_motionMagicConfig.MotionMagicCruiseVelocity = mv;
-    m_motionMagicConfig.MotionMagicAcceleration = ma;
+  public void changeMotionMagic(double velocity, double acceleration, double jerk) {
+    m_motionMagicConfig.MotionMagicCruiseVelocity = velocity;
+    m_motionMagicConfig.MotionMagicAcceleration = acceleration;
     m_motionMagicConfig.MotionMagicJerk = jerk;
 
     m_climbMotorConfig.withMotionMagic(m_motionMagicConfig);

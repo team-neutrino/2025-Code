@@ -8,6 +8,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTablesJNI;
 import frc.robot.subsystems.Climb;
 import frc.robot.util.MaxMotionTuner;
+import frc.robot.util.MotionMagicTuner;
 import frc.robot.util.PIDTuner;
 
 public class ClimbNT extends Climb{
@@ -34,10 +35,10 @@ public class ClimbNT extends Climb{
     private double m_previousI = kI;
     private double m_previousD = kD;
 
-    private MaxMotionTuner m_MaxMotionTuner;
-    private double m_previousMaxVelocity = MAX_VELOCITY;
-    private double m_previousMaxAcceleration = MAX_ACCELERATION;
-    private double m_previousAllowedError = MAX_JERK;
+    private MotionMagicTuner m_motionMagicTuner;
+    private double m_previousVelocity = VELOCITY;
+    private double m_previousAcceleration = ACCELERATION;
+    private double m_previousJerk = JERK;
 
     public ClimbNT() {
         actualMotorPositionPub = actualMotorPosition.publish();
@@ -63,10 +64,10 @@ public class ClimbNT extends Climb{
         m_PIDTuner.setI(m_previousI);
         m_PIDTuner.setD(m_previousD);
 
-        m_MaxMotionTuner = new MaxMotionTuner("climb/{tuning}MaxMotion");
-        m_MaxMotionTuner.setMaxVelocity(m_previousMaxVelocity);
-        m_MaxMotionTuner.setMaxAcceleration(m_previousMaxAcceleration);
-        m_MaxMotionTuner.setAllowedError(m_previousAllowedError);
+        m_motionMagicTuner = new MotionMagicTuner("climb/{tuning}MaxMotion");
+        m_motionMagicTuner.setVelocity(m_previousVelocity);
+        m_motionMagicTuner.setAcceleration(m_previousAcceleration);
+        m_motionMagicTuner.setJerk(m_previousJerk);
     }
 
     @Override
@@ -91,11 +92,11 @@ public class ClimbNT extends Climb{
             m_previousD = m_PIDTuner.getD();
         }
 
-        if (m_MaxMotionTuner.isDifferentValues(m_previousMaxVelocity, m_previousMaxAcceleration, m_previousAllowedError)) {
-            changeMaxMotion(m_MaxMotionTuner.getMaxVelocity(), m_MaxMotionTuner.getMaxAcceleration(), m_MaxMotionTuner.getAllowedError());
-            m_previousMaxVelocity = m_MaxMotionTuner.getMaxVelocity();
-            m_previousMaxAcceleration = m_MaxMotionTuner.getMaxAcceleration();
-            m_previousAllowedError = m_MaxMotionTuner.getAllowedError();
+        if (m_motionMagicTuner.isDifferentValues(m_previousVelocity, m_previousAcceleration, m_previousJerk)) {
+            changeMotionMagic(m_motionMagicTuner.getVelocity(), m_motionMagicTuner.getAcceleration(), m_motionMagicTuner.getJerk());
+            m_previousVelocity = m_motionMagicTuner.getVelocity();
+            m_previousAcceleration = m_motionMagicTuner.getAcceleration();
+            m_previousJerk = m_motionMagicTuner.getJerk();
         }
     }
 }
