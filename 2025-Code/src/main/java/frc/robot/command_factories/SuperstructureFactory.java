@@ -64,4 +64,12 @@ public class SuperstructureFactory {
     public static Command moveToScoreL3Command() {
         return new ParallelCommandGroup(ElevatorFactory.moveL3(), ArmFactory.moveToL3());
     }
+
+    public static Command moveToScoreL2Command() {
+        return new ParallelCommandGroup(ElevatorFactory.moveL2(), ArmFactory.moveToL2());
+    }
+
+    public static Command moveToScoreL1Command() {
+        return new ParallelCommandGroup(ElevatorFactory.moveL1(), ArmFactory.moveToL1());
+    }
 }

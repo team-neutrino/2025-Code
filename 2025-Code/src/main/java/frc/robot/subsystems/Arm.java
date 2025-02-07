@@ -54,7 +54,7 @@ public class Arm extends SubsystemBase {
   /**
    * Target angle that the arm is going towards
    */
-  private double m_targetAngle = 0;
+  private double m_targetAngle = 180;
   private double m_FFConstant = FFCONSTANT;
 
   /**

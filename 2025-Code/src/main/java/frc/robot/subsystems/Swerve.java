@@ -28,6 +28,10 @@ import static edu.wpi.first.units.Units.KilogramSquareMeters;
 import static edu.wpi.first.units.Units.Pounds;
 import static frc.robot.Constants.SwerveConstants.*;
 
+import java.io.IOException;
+
+import org.json.simple.parser.ParseException;
+
 import frc.robot.util.GeneratedSwerveCode.*;
 
 /**
@@ -111,46 +115,45 @@ public class Swerve extends CommandSwerveDrivetrain {
     return getState().Speeds;
   }
 
-  private void setControlAndApplyChassis(ChassisSpeeds speeds) {
-    SwerveRequest.ApplyRobotSpeeds applyRobotSpeeds = new SwerveRequest.ApplyRobotSpeeds()
-        .withDriveRequestType(DriveRequestType.Velocity);
-    this.setControl(applyRobotSpeeds.withSpeeds(speeds));
+  public void setControlAndApplyChassis(ChassisSpeeds speeds) {
+    setControl(
+        SwerveRequestStash.autonDrive.withVelocityX(speeds.vxMetersPerSecond).withVelocityY(speeds.vyMetersPerSecond)
+            .withRotationalRate(speeds.omegaRadiansPerSecond));
   }
 
   private void configurePathPlanner() {
-    double pTranslation = TunerConstants.FrontLeft.DriveMotorGains.kP;
-    double iTranslation = TunerConstants.FrontLeft.DriveMotorGains.kI;
-    double dTranslation = TunerConstants.FrontLeft.DriveMotorGains.kD;
-    double pRotation = TunerConstants.FrontLeft.SteerMotorGains.kP;
-    double iRotation = TunerConstants.FrontLeft.SteerMotorGains.kI;
-    double dRotation = TunerConstants.FrontLeft.SteerMotorGains.kD;
+    double pTranslation = 1;
+    double iTranslation = 0;
+    double dTranslation = 0;
+    double pRotation = 1;
+    double iRotation = 0;
+    double dRotation = 0;
     PIDConstants translationConstants = new PIDConstants(pTranslation, iTranslation, dTranslation);
     PIDConstants rotationConstants = new PIDConstants(pRotation, iRotation, dRotation);
-    AutoBuilder.configure(
-        this::getCurrentPose,
-        this::resetPose,
-        this::getChassisSpeeds,
-        this::setControlAndApplyChassis,
-        new PPHolonomicDriveController(
-            translationConstants,
-            rotationConstants),
-        new RobotConfig(Pounds.of(135), KilogramSquareMeters.of(3.92),
-            new ModuleConfig(Inches.of(2), TunerConstants.kSpeedAt12Volts, 1,
-                new DCMotor(NOMINAL_VOLTAGE, STALL_TORQUE, STALL_CURRENT, FREE_CURRENT_AMPS, FREE_SPEED_RADS,
-                    NUM_MOTORS_GEARBOX),
-                DRIVE_GEAR_RATIO, Amps.of(60), NUM_MOTORS_GEARBOX),
-            new Translation2d(TunerConstants.FrontLeft.LocationX, TunerConstants.FrontLeft.LocationY),
-            new Translation2d(TunerConstants.FrontRight.LocationX, TunerConstants.FrontRight.LocationY),
-            new Translation2d(TunerConstants.BackLeft.LocationX, TunerConstants.BackLeft.LocationY),
-            new Translation2d(TunerConstants.BackRight.LocationX, TunerConstants.BackRight.LocationY)),
-        () -> {
-          var alliance = DriverStation.getAlliance();
-          if (alliance.isPresent()) {
-            return alliance.get() == DriverStation.Alliance.Red;
-          }
-          return false;
-        },
-        this);
+
+    try {
+      RobotConfig robotConfig = RobotConfig.fromGUISettings();
+      AutoBuilder.configure(
+          this::getCurrentPose,
+          this::resetPose,
+          this::getChassisSpeeds,
+          this::setControlAndApplyChassis,
+          new PPHolonomicDriveController(
+              translationConstants,
+              rotationConstants),
+          robotConfig,
+          () -> {
+            var alliance = DriverStation.getAlliance();
+            if (alliance.isPresent()) {
+              return alliance.get() == DriverStation.Alliance.Red;
+            }
+            return false;
+          },
+          this);
+    } catch (IOException | ParseException e) {
+      // TODO Auto-generated catch block
+      DriverStation.reportError("Failed to load PathPlanner config and configure AutoBuilder", e.getStackTrace());
+    }
   }
 
   private void configurePathPlannerValkyrie() {
@@ -251,6 +254,7 @@ public class Swerve extends CommandSwerveDrivetrain {
 
   @Override
   public void periodic() {
+
   }
 
   /**
@@ -267,6 +271,8 @@ public class Swerve extends CommandSwerveDrivetrain {
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
         .withDeadband(MAX_SPEED * 0.05)
         .withRotationalDeadband(MAX_ROTATION_SPEED * .06);
+    public static final SwerveRequest.RobotCentric autonDrive = new SwerveRequest.RobotCentric()
+        .withDriveRequestType(DriveRequestType.Velocity);
   }
 
   public void configureRequestPID() {
