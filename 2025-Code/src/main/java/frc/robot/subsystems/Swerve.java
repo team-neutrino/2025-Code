@@ -116,16 +116,9 @@ public class Swerve extends CommandSwerveDrivetrain {
   }
 
   public void setControlAndApplyChassis(ChassisSpeeds speeds) {
-    // SwerveRequest.ApplyRobotSpeeds applyRobotSpeeds = new
-    // SwerveRequest.ApplyRobotSpeeds();
-    // this.setControl(applyRobotSpeeds
-    // .withSpeeds(speeds)
-    // .withDriveRequestType(DriveRequestType.Velocity));
-
     setControl(
         SwerveRequestStash.autonDrive.withVelocityX(speeds.vxMetersPerSecond).withVelocityY(speeds.vyMetersPerSecond)
             .withRotationalRate(speeds.omegaRadiansPerSecond));
-    System.out.println("auton swerve running " + speeds.vxMetersPerSecond + " " + speeds.vyMetersPerSecond);
   }
 
   private void configurePathPlanner() {
