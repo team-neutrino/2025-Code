@@ -89,13 +89,34 @@
 |            |             |
 |            |             |
 
-## Button Map
-
+## Buttons Controller
 | Button     | Function       |
 | ---------- | -------------- |
-| Buttons Controller          |
 | y          | Score Coral L1 |
+| x          | Score Coral L2 |
+| b          | Score Coral L3 |
+| a          | Score Coral L4 |
+| LT         | Intake Coral   |
+| LB         | Intake Coral   |
+| RT         | Score Coral L1 |
+| RB         | Score Coral L1 |
+|           | Score Coral L1 |
+|           | Score Coral L1 |
+|           | Score Coral L1 |
+|           | Score Coral L1 |
 
+
+## Driver Controller
+| Button     | Function       |
+| ---------- | -------------- |
+| y          | Raise Climb Arm |
+| x          | Lock Climb Arm |
+| b          |  |
+| a          | Lower CLimb Arm |
+| LT         | Intake Coral   |
+| LB         | Intake Coral   |
+| RT         | Score Coral L1 |
+| RB         | Score Coral L1 |
 
 ## Raspberry Pi
 contains code intended to be run on an FRC robot's coprocessor
