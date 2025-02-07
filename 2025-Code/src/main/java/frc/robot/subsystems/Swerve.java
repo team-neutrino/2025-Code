@@ -36,6 +36,12 @@ import frc.robot.util.GeneratedSwerveCode.*;
  */
 public class Swerve extends CommandSwerveDrivetrain {
   private boolean m_hasBeenConstructed = false;
+  /**
+   * set by driveAssistCom; when the command isn't being run it should be false
+   * and otherwise it will represent whether or not the robot is within an
+   * acceptable error of its target
+   */
+  private boolean isAligned = false;
 
   private Telemetry m_telemetry = new Telemetry(MAX_SPEED);
 
@@ -199,6 +205,17 @@ public class Swerve extends CommandSwerveDrivetrain {
 
   public double getYawRadians() {
     return Math.toRadians(getYawDegrees());
+  }
+
+  public boolean getIsAlinged() {
+    return isAligned;
+  }
+
+  /**
+   * THIS SHOULD ONLY BE USED BY DRIVEASSISTCOM
+   */
+  public void setIsAligned(boolean value) {
+    isAligned = value;
   }
 
   /**

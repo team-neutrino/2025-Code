@@ -51,6 +51,7 @@ public final class Constants {
     public static final double WHEEL_RADIUS = 2;
     public static final double DRIVE_GEAR_RATIO = 5.6;
     public static final double REEF_OFFSET = Units.inchesToMeters(12.94) / 2;
+    public static final double isAlignedError = 0;
   }
 
   public static class ElevatorConstants {

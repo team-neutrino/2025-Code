@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import static frc.robot.Constants.SwerveConstants.*;
 
+import frc.robot.Constants;
 import frc.robot.Constants.AprilTagConstants.*;
 import frc.robot.subsystems.Swerve.SwerveRequestStash;
 import static frc.robot.util.Subsystem.*;
@@ -23,6 +24,7 @@ public class DriveAssistCom extends Command {
   private CommandXboxController m_controller;
   private double m_POIoffset = 0;
   private int m_staticTagID;
+  Translation2d error;
 
   public DriveAssistCom(CommandXboxController p_controller) {
     addRequirements(swerve);
@@ -46,6 +48,7 @@ public class DriveAssistCom extends Command {
     limelight.setPointOfInterest(0, m_POIoffset);
 
     Translation2d velocities = getVelocities();
+    swerve.setIsAligned(isAligned());
     Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() - limelight.getTx());
     swerve.setControl(req.withVelocityX(velocities.getX() + -m_controller.getLeftY() * MAX_SPEED)
         .withVelocityY(velocities.getY() + -m_controller.getLeftX() * MAX_SPEED).withTargetDirection(angle));
@@ -106,7 +109,7 @@ public class DriveAssistCom extends Command {
    *         positive y and up is positive x).
    */
   private Translation2d getVelocities() {
-    Translation2d error = getFieldRelativeDistances();
+    error = getFieldRelativeDistances();
     double xVel = MathUtil.clamp(error.getX() * DRIVE_ASSIST_KP, -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
     double yVel = MathUtil.clamp(error.getY() * DRIVE_ASSIST_KP, -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
     Translation2d ret = new Translation2d(xVel, yVel);
@@ -117,10 +120,15 @@ public class DriveAssistCom extends Command {
     m_staticTagID = limelight.getID();
   }
 
+  public boolean isAligned() {
+    return Math.abs(error.getX()) + Math.abs(error.getY()) < Constants.SwerveConstants.isAlignedError;
+  }
+
   @Override
   public void end(boolean interrupted) {
     m_POIoffset = 0;
     limelight.setPointOfInterest(0, m_POIoffset);
+    swerve.setIsAligned(false);
   }
 
   @Override
