@@ -88,19 +88,19 @@ public final class Constants {
     public static final double DEFAULT_POSITION = 250;
     public static final double GROUND_ALGAE_POSITION = 0.0;
     public static final double CORAL_STATION_POSITION = 0.0;
-    public static final double L1_POSITION = 180;
-    public static final double L2_POSITION = 0.5;
-    public static final double L3_POSITION = 0.0;
-    public static final double L4_POSITION = 0.0;
+    public static final double L1_POSITION = 95.0;
+    public static final double L2_POSITION = 105.0;
+    public static final double L3_POSITION = 115.0;
+    public static final double L4_POSITION = 125.0;
     public static final double REEF_L2_DESCORE_POSITION = 0.0;
     public static final double REEF_L3_DESCORE_POSITION = 0.0;
 
-    public static final double HITTING_LOW_HARD_LIMIT = 75;
-    public static final double HITTING_HIGH_HARD_LIMIT = 285;
+    public static final double HITTING_LOW_HARD_LIMIT = 90;
+    public static final double HITTING_HIGH_HARD_LIMIT = 270;
     public static final double BACK_ARM_HIGHEST_SAFE_LIMIT = 220; // placeholder
-    public static final double BACK_ARM_LOWEST_SAFE_LIMIT = 290; // placeholder
+    public static final double BACK_ARM_LOWEST_SAFE_LIMIT = 265; // placeholder
     public static final double FRONT_ARM_HIGHEST_SAFE_LIMIT = 140; // placeholder
-    public static final double FRONT_ARM_LOWEST_SAFE_LIMIT = 70; // placeholder
+    public static final double FRONT_ARM_LOWEST_SAFE_LIMIT = 100; // placeholder
 
     public static final int MOTOR_ID = 10;
 
