@@ -39,6 +39,8 @@ public class DriveAssistCom extends Command {
   @Override
   public void execute() {
     if (!limelight.getTv() || exitExecute()) {
+      swerve.setControl(req.withVelocityX(0)
+          .withVelocityY(0));
       return;
     }
     int pov = m_controller.getHID().getPOV();
@@ -58,8 +60,6 @@ public class DriveAssistCom extends Command {
       setPriorityID();
     }
     if (m_staticTagID != limelight.getID()) {
-      swerve.setControl(req.withVelocityX(0)
-          .withVelocityY(0));
       return true;
     }
     return false;
