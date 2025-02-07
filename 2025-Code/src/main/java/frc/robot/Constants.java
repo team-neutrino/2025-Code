@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.util.Units;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean
@@ -17,6 +19,10 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+  public static class GlobalConstants {
+    public static boolean redAlliance;
+  }
+
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
     public static final int kButtonsControllerPort = 1;
@@ -31,7 +37,8 @@ public final class Constants {
     public static final double MAX_SPEED = 5.7;
     public static final double MAX_ROTATION_SPEED = 1.5 * Math.PI;
     public static final double DRIVE_ASSIST_KP = 1.5;
-    public static final double[] HEXAGON_ANGLES = { Integer.MAX_VALUE, -1, -1, -1, -1, -1, 120, 180, -120, -60, 0, 60 };
+    public static final double[] HEXAGON_ANGLES = { Integer.MAX_VALUE, -1, -1, -1, -1, -1, 120, 180, -120, -60, 0, 60,
+        -1, -1, -1, -1, -1, -120, 180, 120, 60, 0, -60 };
     public static final double APRILTAG_ALIGN_LIMIT = 1.5;
     public static final double AUTO_ALIGN_P = 4;
     public static final double AUTO_ALIGN_D = .5;
@@ -43,7 +50,7 @@ public final class Constants {
     public static final double NOMINAL_VOLTAGE = 12;
     public static final double WHEEL_RADIUS = 2;
     public static final double DRIVE_GEAR_RATIO = 5.6;
-    public static final double REEF_OFFSET = .7;
+    public static final double REEF_OFFSET = Units.inchesToMeters(12.94) / 2;
   }
 
   public static class ElevatorConstants {

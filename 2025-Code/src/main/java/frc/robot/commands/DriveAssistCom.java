@@ -19,7 +19,7 @@ import frc.robot.subsystems.Swerve.SwerveRequestStash;
 import static frc.robot.util.Subsystem.*;
 
 public class DriveAssistCom extends Command {
-  FieldCentricFacingAngle req = SwerveRequestStash.driveAssist;
+  private FieldCentricFacingAngle req = SwerveRequestStash.driveAssist;
   private CommandXboxController m_controller;
   private double m_POIoffset = 0;
   private int m_staticTagID;
@@ -45,12 +45,10 @@ public class DriveAssistCom extends Command {
     m_POIoffset = pov == 270 ? -REEF_OFFSET : pov == 90 ? REEF_OFFSET : m_POIoffset;
     limelight.setPointOfInterest(0, m_POIoffset);
 
-    Translation2d error = getFieldRelativeDistances();
-    double xVel = MathUtil.clamp(error.getX() * DRIVE_ASSIST_KP, -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
-    double yVel = MathUtil.clamp(error.getY() * DRIVE_ASSIST_KP, -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
+    Translation2d velocities = getVelocities();
     Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() - limelight.getTx());
-    swerve.setControl(req.withVelocityX(xVel + -m_controller.getLeftY() * MAX_SPEED)
-        .withVelocityY(yVel + -m_controller.getLeftX() * MAX_SPEED).withTargetDirection(angle));
+    swerve.setControl(req.withVelocityX(velocities.getX() + -m_controller.getLeftY() * MAX_SPEED)
+        .withVelocityY(velocities.getY() + -m_controller.getLeftX() * MAX_SPEED).withTargetDirection(angle));
   }
 
   private boolean exitExecute() {
@@ -77,23 +75,42 @@ public class DriveAssistCom extends Command {
    */
   private Translation2d getFieldRelativeDistances() {
     int id = m_staticTagID;
-    double yaw = swerve.getYaw();
+    double idealYaw = swerve.getYawDegrees() - limelight.getTx();
     double limelightTagToRobot = limelight.getDistanceFromPrimaryTarget();
 
-    double hexagonAngle = id == RED_ALLIANCE_IDS.REEF_FACING_ALLIANCE ? (Math.signum(yaw) * HEXAGON_ANGLES[id])
-        : HEXAGON_ANGLES[id];
+    // ID 7/18 edge case
+    double hexagonAngle = HEXAGON_ANGLES[id] * (id == RED_ALLIANCE_IDS.REEF_FACING_ALLIANCE
+        || id == BLUE_ALLIANCE_IDS.REEF_FACING_ALLIANCE ? Math.signum(idealYaw) : 1);
 
-    double triangle1Angle = Math.toRadians(hexagonAngle - yaw);
+    double triangle1Angle = Math.toRadians(hexagonAngle - idealYaw);
     double error = Math.abs(Math.sin(triangle1Angle) * limelightTagToRobot);
 
     double audaciousTri2Angle = Math.toRadians(hexagonAngle + (triangle1Angle > 0 ? 180 : 0));
-    audaciousTri2Angle = id == RED_ALLIANCE_IDS.REEF_FACING_ALLIANCE ? -audaciousTri2Angle : audaciousTri2Angle;
+    // ID 7/18 edge case
+    audaciousTri2Angle = (id == RED_ALLIANCE_IDS.REEF_FACING_ALLIANCE || id == BLUE_ALLIANCE_IDS.REEF_FACING_ALLIANCE)
+        ? -audaciousTri2Angle
+        : audaciousTri2Angle;
 
     // wpilb y and x axis are switched and the y axis is inverted
     double yError = -(error * Math.cos(audaciousTri2Angle));
     double xError = error * Math.sin(audaciousTri2Angle);
 
     return new Translation2d(xError, yError);
+  }
+
+  /**
+   * Does PID scaling and limiting on error values as returned by
+   * {@link #getFieldRelativeDistances} and returns a suitable value.
+   * 
+   * @return A translation2d in the WPiLB standard coordinate system: (left is
+   *         positive y and up is positive x).
+   */
+  private Translation2d getVelocities() {
+    Translation2d error = getFieldRelativeDistances();
+    double xVel = MathUtil.clamp(error.getX() * DRIVE_ASSIST_KP, -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
+    double yVel = MathUtil.clamp(error.getY() * DRIVE_ASSIST_KP, -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
+    Translation2d ret = new Translation2d(xVel, yVel);
+    return ret;
   }
 
   private void setPriorityID() {
