@@ -22,6 +22,7 @@ public class DriveAssistCom extends Command {
   FieldCentricFacingAngle req = SwerveRequestStash.driveAssist;
   private CommandXboxController m_controller;
   private double m_POIoffset = 0;
+  private int m_staticTagID;
 
   public DriveAssistCom(CommandXboxController p_controller) {
     addRequirements(swerve);
@@ -30,11 +31,14 @@ public class DriveAssistCom extends Command {
 
   @Override
   public void initialize() {
+    m_staticTagID = -1;
   }
 
   @Override
   public void execute() {
-    if (!limelight.getTv()) {
+    if (!limelight.getTv() || exitExecute()) {
+      swerve.setControl(req.withVelocityX(0)
+          .withVelocityY(0));
       return;
     }
     int pov = m_controller.getHID().getPOV();
@@ -47,6 +51,14 @@ public class DriveAssistCom extends Command {
     Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() - limelight.getTx());
     swerve.setControl(req.withVelocityX(xVel + -m_controller.getLeftY() * MAX_SPEED)
         .withVelocityY(yVel + -m_controller.getLeftX() * MAX_SPEED).withTargetDirection(angle));
+  }
+
+  private boolean exitExecute() {
+    if (m_staticTagID == -1) {
+      setPriorityID();
+    }
+    return m_staticTagID != limelight.getID();
+
   }
 
   /**
@@ -64,7 +76,7 @@ public class DriveAssistCom extends Command {
    *         y and up is positive x).
    */
   private Translation2d getFieldRelativeDistances() {
-    int id = limelight.getID();
+    int id = m_staticTagID;
     double yaw = swerve.getYaw();
     double limelightTagToRobot = limelight.getDistanceFromPrimaryTarget();
 
@@ -82,6 +94,10 @@ public class DriveAssistCom extends Command {
     double xError = error * Math.sin(audaciousTri2Angle);
 
     return new Translation2d(xError, yError);
+  }
+
+  private void setPriorityID() {
+    m_staticTagID = limelight.getID();
   }
 
   @Override
