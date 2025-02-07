@@ -89,6 +89,13 @@
 |            |             |
 |            |             |
 
+## Button Map
+
+| Button     | Function       |
+| ---------- | -------------- |
+| y          | Score Coral L1 |
+
+
 ## Raspberry Pi
 contains code intended to be run on an FRC robot's coprocessor
 
