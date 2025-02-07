@@ -98,25 +98,37 @@
 | a          | Score Coral L4 |
 | LT         | Intake Coral   |
 | LB         | Intake Coral   |
-| RT         | Score Coral L1 |
-| RB         | Score Coral L1 |
-|           | Score Coral L1 |
-|           | Score Coral L1 |
-|           | Score Coral L1 |
-|           | Score Coral L1 |
+| RT         |                |
+| RB         |                |
+| DU         |                |
+| DD         |                |
+| DL         |                |
+| DR         |                |
+| LSB        |                |
+| RSB        |                |
+| Start      |                |
+| Back       |                |
 
 
 ## Driver Controller
-| Button     | Function       |
-| ---------- | -------------- |
+| Button     | Function        |
+| ---------- | --------------- |
 | y          | Raise Climb Arm |
-| x          | Lock Climb Arm |
-| b          |  |
+| x          | Lock Climb Arm  |
+| b          |                 |
 | a          | Lower CLimb Arm |
-| LT         | Intake Coral   |
-| LB         | Intake Coral   |
-| RT         | Score Coral L1 |
-| RB         | Score Coral L1 |
+| LT         |                 |
+| LB         |                 |
+| RT         |                 |
+| RB         |                 |
+| DU         |                 |
+| DD         |                 |
+| DL         |                 |
+| DR         |                 |
+| LSB        |                 |
+| RSB        |                 |
+| Start      |                 |
+| Back       | Reset Yaw       |
 
 ## Raspberry Pi
 contains code intended to be run on an FRC robot's coprocessor
