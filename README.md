@@ -72,7 +72,7 @@
 | 21   | RPM         | 10 A    | 22 AWG |
 | 22   | VRM         | 20 A    | 18 AWG |
 | 23   | RoboRIO     | 10 A    | 18 AWG |
-sdfljsdl
+
 ## VRM
 | Channel    | Destination |
 | ---------- | ----------- |
