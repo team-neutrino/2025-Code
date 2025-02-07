@@ -48,6 +48,7 @@ public class DriveAssistCom extends Command {
     limelight.setPointOfInterest(0, m_POIoffset);
 
     Translation2d velocities = getVelocities();
+    swerve.setIsAligned(isAligned());
     Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() - limelight.getTx());
     swerve.setControl(req.withVelocityX(velocities.getX() + -m_controller.getLeftY() * MAX_SPEED)
         .withVelocityY(velocities.getY() + -m_controller.getLeftX() * MAX_SPEED).withTargetDirection(angle));
@@ -127,6 +128,7 @@ public class DriveAssistCom extends Command {
   public void end(boolean interrupted) {
     m_POIoffset = 0;
     limelight.setPointOfInterest(0, m_POIoffset);
+    swerve.setIsAligned(false);
   }
 
   @Override
