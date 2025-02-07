@@ -122,9 +122,6 @@ public class Swerve extends CommandSwerveDrivetrain {
   }
 
   private void configurePathPlanner() {
-    // double pTranslation = TunerConstants.FrontLeft.DriveMotorGains.kP;
-    // double iTranslation = TunerConstants.FrontLeft.DriveMotorGains.kI;
-    // double dTranslation = TunerConstants.FrontLeft.DriveMotorGains.kD;
     double pTranslation = 1;
     double iTranslation = 0;
     double dTranslation = 0;
