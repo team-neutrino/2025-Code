@@ -90,7 +90,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    Command auto = null;
+    Command auto;
 
     if (Subsystem.swerve == null) {
       return new InstantCommand();
