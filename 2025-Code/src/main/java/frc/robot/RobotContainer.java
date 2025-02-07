@@ -74,10 +74,7 @@ public class RobotContainer {
   private void configureNamedCommands() {
     NamedCommands.registerCommand("MoveToScoringL4", SuperstructureFactory.moveToScoreL4Command());
     NamedCommands.registerCommand("MoveToScoringL3", SuperstructureFactory.moveToScoreL3Command());
-    NamedCommands.registerCommand("MoveToIntake", SuperstructureFactory.moveToIntake()); // this command should rely on
-                                                                                         // vision: move the arm to the
-                                                                                         // side that sees the player
-                                                                                         // station
+    NamedCommands.registerCommand("MoveToIntake", SuperstructureFactory.moveToIntake());
     NamedCommands.registerCommand("ScoreL4", SuperstructureFactory.scoreCoralL4Command());
     NamedCommands.registerCommand("ScoreL3", SuperstructureFactory.scoreCoralL3Command());
     NamedCommands.registerCommand("Intake", SuperstructureFactory.intakeCoral());
@@ -89,16 +86,18 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    Command auto;
+    Command auto = new PathPlannerAuto("LEAVE PROCESSOR");
 
-    if (Subsystem.swerve == null) {
-      return new InstantCommand();
-    }
-    try {
-      auto = new PathPlannerAuto("LEAVE PROCESSOR");
-    } catch (Exception e) {
-      auto = new PathPlannerAuto("Nothing");
-    }
+    // Command auto = null;
+
+    // if (Subsystem.swerve == null) {
+    // return new InstantCommand();
+    // }
+    // try {
+    // auto = new PathPlannerAuto("LEAVE PROCESSOR");
+    // } catch (Exception e) {
+    // auto = new PathPlannerAuto("Nothing");
+    // }
 
     return auto;
   }
