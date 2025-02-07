@@ -75,7 +75,7 @@ public class DriveAssistCom extends Command {
    */
   private Translation2d getFieldRelativeDistances() {
     int id = m_staticTagID;
-    double yaw = swerve.getYaw();
+    double idealYaw = swerve.getYawDegrees() - limelight.getTx();
     double limelightTagToRobot = limelight.getDistanceFromPrimaryTarget();
 
     // ID 7/18 edge case
