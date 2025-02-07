@@ -32,14 +32,14 @@ public class DriveAssistCom extends Command {
 
   @Override
   public void initialize() {
+    m_hasHadInitialID = false;
+    m_staticTagID = 0;
   }
 
   @Override
   public void execute() {
-    if (!limelight.getTv()) {
+    if (!limelight.getTv() || exitExecute()) {
       return;
-    } else if (!m_hasHadInitialID) {
-      setPriorityID();
     }
     int pov = m_controller.getHID().getPOV();
     m_POIoffset = pov == 270 ? -REEF_OFFSET : pov == 90 ? REEF_OFFSET : m_POIoffset;
@@ -51,6 +51,18 @@ public class DriveAssistCom extends Command {
     Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() - limelight.getTx());
     swerve.setControl(req.withVelocityX(xVel + -m_controller.getLeftY() * MAX_SPEED)
         .withVelocityY(yVel + -m_controller.getLeftX() * MAX_SPEED).withTargetDirection(angle));
+  }
+
+  private boolean exitExecute() {
+    if (!m_hasHadInitialID) {
+      setPriorityID();
+    }
+    if (m_staticTagID != limelight.getID()) {
+      swerve.setControl(req.withVelocityX(0)
+          .withVelocityY(0));
+      return true;
+    }
+    return false;
   }
 
   /**
