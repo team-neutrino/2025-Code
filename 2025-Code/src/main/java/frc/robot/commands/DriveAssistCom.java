@@ -23,7 +23,6 @@ public class DriveAssistCom extends Command {
   private CommandXboxController m_controller;
   private double m_POIoffset = 0;
   private int m_staticTagID;
-  private boolean m_hasHadInitialID = false;
 
   public DriveAssistCom(CommandXboxController p_controller) {
     addRequirements(swerve);
@@ -32,8 +31,7 @@ public class DriveAssistCom extends Command {
 
   @Override
   public void initialize() {
-    m_hasHadInitialID = false;
-    m_staticTagID = 0;
+    m_staticTagID = -1;
   }
 
   @Override
@@ -56,13 +54,11 @@ public class DriveAssistCom extends Command {
   }
 
   private boolean exitExecute() {
-    if (!m_hasHadInitialID) {
+    if (m_staticTagID == -1) {
       setPriorityID();
     }
-    if (m_staticTagID != limelight.getID()) {
-      return true;
-    }
-    return false;
+    return m_staticTagID != limelight.getID();
+
   }
 
   /**
@@ -102,7 +98,6 @@ public class DriveAssistCom extends Command {
 
   private void setPriorityID() {
     m_staticTagID = limelight.getID();
-    m_hasHadInitialID = true;
   }
 
   @Override
