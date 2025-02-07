@@ -92,10 +92,10 @@
 ## Buttons Controller
 | Button     | Function       |
 | ---------- | -------------- |
-| y          | Score Coral L1 |
-| x          | Score Coral L2 |
-| b          | Score Coral L3 |
-| a          | Score Coral L4 |
+| Y          | Score Coral L1 |
+| X          | Score Coral L2 |
+| B          | Score Coral L3 |
+| A          | Score Coral L4 |
 | LT         | Intake Coral   |
 | LB         | Intake Coral   |
 | RT         |                |
@@ -113,10 +113,10 @@
 ## Driver Controller
 | Button     | Function        |
 | ---------- | --------------- |
-| y          | Raise Climb Arm |
-| x          | Lock Climb Arm  |
-| b          |                 |
-| a          | Lower CLimb Arm |
+| Y          | Raise Climb Arm |
+| X          | Lock Climb Arm  |
+| B          |                 |
+| A          | Lower Climb Arm |
 | LT         |                 |
 | LB         |                 |
 | RT         |                 |
