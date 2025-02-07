@@ -93,6 +93,7 @@
 
 | Button     | Function       |
 | ---------- | -------------- |
+| Buttons Controller          |
 | y          | Score Coral L1 |
 
 
