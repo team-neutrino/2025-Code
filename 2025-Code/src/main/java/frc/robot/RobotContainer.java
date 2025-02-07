@@ -74,9 +74,13 @@ public class RobotContainer {
   private void configureNamedCommands() {
     NamedCommands.registerCommand("MoveToScoringL4", SuperstructureFactory.moveToScoreL4Command());
     NamedCommands.registerCommand("MoveToScoringL3", SuperstructureFactory.moveToScoreL3Command());
+    NamedCommands.registerCommand("MoveToScoringL2", SuperstructureFactory.moveToScoreL2Command());
+    NamedCommands.registerCommand("MoveToScoringL1", SuperstructureFactory.moveToScoreL1Command());
     NamedCommands.registerCommand("MoveToIntake", SuperstructureFactory.moveToIntake());
     NamedCommands.registerCommand("ScoreL4", SuperstructureFactory.scoreCoralL4Command());
     NamedCommands.registerCommand("ScoreL3", SuperstructureFactory.scoreCoralL3Command());
+    NamedCommands.registerCommand("ScoreL2", SuperstructureFactory.scoreCoralL2Command());
+    NamedCommands.registerCommand("ScoreL1", SuperstructureFactory.scoreCoralL1Command());
     NamedCommands.registerCommand("Intake", SuperstructureFactory.intakeCoral());
   }
 
@@ -86,18 +90,16 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    Command auto = new PathPlannerAuto("LEAVE PROCESSOR");
+    Command auto = null;
 
-    // Command auto = null;
-
-    // if (Subsystem.swerve == null) {
-    // return new InstantCommand();
-    // }
-    // try {
-    // auto = new PathPlannerAuto("LEAVE PROCESSOR");
-    // } catch (Exception e) {
-    // auto = new PathPlannerAuto("Nothing");
-    // }
+    if (Subsystem.swerve == null) {
+      return new InstantCommand();
+    }
+    try {
+      auto = new PathPlannerAuto("LEAVE PROCESSOR");
+    } catch (Exception e) {
+      auto = new PathPlannerAuto("Nothing");
+    }
 
     return auto;
   }

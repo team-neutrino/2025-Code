@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest.FieldCentricFacingAngle;
-import com.ctre.phoenix6.mechanisms.swerve.LegacySwerveModule.SteerRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.ModuleConfig;
@@ -153,20 +152,6 @@ public class Swerve extends CommandSwerveDrivetrain {
               translationConstants,
               rotationConstants),
           robotConfig,
-          // new RobotConfig(Pounds.of(135), KilogramSquareMeters.of(3.92),
-          // new ModuleConfig(Inches.of(2), TunerConstants.kSpeedAt12Volts, 1,
-          // new DCMotor(NOMINAL_VOLTAGE, STALL_TORQUE, STALL_CURRENT, FREE_CURRENT_AMPS,
-          // FREE_SPEED_RADS,
-          // NUM_MOTORS_GEARBOX),
-          // DRIVE_GEAR_RATIO, Amps.of(60), NUM_MOTORS_GEARBOX),
-          // new Translation2d(TunerConstants.FrontLeft.LocationX,
-          // TunerConstants.FrontLeft.LocationY),
-          // new Translation2d(TunerConstants.FrontRight.LocationX,
-          // TunerConstants.FrontRight.LocationY),
-          // new Translation2d(TunerConstants.BackLeft.LocationX,
-          // TunerConstants.BackLeft.LocationY),
-          // new Translation2d(TunerConstants.BackRight.LocationX,
-          // TunerConstants.BackRight.LocationY)),
           () -> {
             var alliance = DriverStation.getAlliance();
             if (alliance.isPresent()) {
