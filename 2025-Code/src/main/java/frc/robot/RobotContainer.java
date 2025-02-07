@@ -39,20 +39,22 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    m_driverController.x().whileTrue(ElevatorFactory.moveL1());
-    m_driverController.y().whileTrue(ElevatorFactory.moveL2());
-    m_driverController.b().whileTrue(ElevatorFactory.moveL3());
-    m_driverController.a().whileTrue(ElevatorFactory.moveL4());
+    // driver controller
+    m_driverController.y().onTrue(ClimbFactory.raiseClimb());
+    m_driverController.a().onTrue(ClimbFactory.lowerClimb());
+    m_driverController.x().onTrue(ClimbFactory.lockGrabber());
 
     m_driverController.leftStick().toggleOnTrue(new DriveAssistCom(m_driverController));
-
     m_driverController.back().whileTrue(swerve.resetYawCommand());
 
-    m_buttonsController.y().toggleOnTrue(ClimbFactory.raiseClimb());
-    m_buttonsController.x().toggleOnTrue(ClimbFactory.lowerClimb());
-    m_buttonsController.a().toggleOnTrue(ClimbFactory.lockGrabber());
+    // buttons controller
+    m_buttonsController.y().whileTrue(SuperstructureFactory.scoreCoralL1Command());
+    m_buttonsController.x().whileTrue(SuperstructureFactory.scoreCoralL2Command());
+    m_buttonsController.b().whileTrue(SuperstructureFactory.scoreCoralL3Command());
+    m_buttonsController.a().toggleOnTrue(SuperstructureFactory.scoreCoralL4Command());
 
-    m_buttonsController.leftBumper().whileTrue(ArmFactory.moveToL1());
+    m_buttonsController.leftTrigger().whileTrue(SuperstructureFactory.intakeCoral());
+    m_buttonsController.leftBumper().whileTrue(SuperstructureFactory.intakeCoral());
   }
 
   private void configureDefaultCommands() {
