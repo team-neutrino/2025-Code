@@ -96,7 +96,7 @@ public class RobotContainer {
       return new InstantCommand();
     }
     try {
-      auto = new PathPlannerAuto("LEAVE PROCESSOR");
+      auto = new PathPlannerAuto("LEAVE TOP");
     } catch (Exception e) {
       auto = new PathPlannerAuto("Nothing");
     }
