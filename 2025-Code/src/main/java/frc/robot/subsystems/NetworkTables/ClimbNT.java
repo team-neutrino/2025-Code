@@ -8,10 +8,12 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTablesJNI;
 import frc.robot.subsystems.Climb;
 import frc.robot.util.MaxMotionTuner;
-import frc.robot.util.MotionMagicTuner;
 import frc.robot.util.PIDTuner;
 
-public class ClimbNT extends Climb{
+import com.ctre.phoenix6.configs.MotionMagicConfigs;
+import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
+
+public class ClimbNT extends Climb {
     NetworkTableInstance nt = NetworkTableInstance.getDefault();
 
     DoubleTopic actualMotorPosition = nt.getDoubleTopic("/climb/actual_motor_position");
@@ -35,7 +37,7 @@ public class ClimbNT extends Climb{
     private double m_previousI = kI;
     private double m_previousD = kD;
 
-    private MotionMagicTuner m_motionMagicTuner;
+    private MotionMagicConfigs m_motionMagicTuner;
     private double m_previousVelocity = VELOCITY;
     private double m_previousAcceleration = ACCELERATION;
     private double m_previousJerk = JERK;
@@ -64,10 +66,15 @@ public class ClimbNT extends Climb{
         m_PIDTuner.setI(m_previousI);
         m_PIDTuner.setD(m_previousD);
 
-        m_motionMagicTuner = new MotionMagicTuner("climb/{tuning}MotionMagic");
-        m_motionMagicTuner.setVelocity(m_previousVelocity);
-        m_motionMagicTuner.setAcceleration(m_previousAcceleration);
-        m_motionMagicTuner.setJerk(m_previousJerk);
+        // m_motionMagicTuner = new
+        // MotionMagicVelocityVoltage("climb/{tuning}MotionMagic");
+        // m_motionMagicTuner.setVelocity(m_previousVelocity);
+        // m_motionMagicTuner.setAcceleration(m_previousAcceleration);
+        // m_motionMagicTuner.setJerk(m_previousJerk);
+
+        // m_motionMagicTuner = new MotionMagicVelocityVoltage(m_previousVelocity);
+        // m_motionMagicTuner
+
     }
 
     @Override
@@ -77,7 +84,7 @@ public class ClimbNT extends Climb{
 
         actualMotorPositionPub.set(getMotorPosition(), now);
         followerMotorPositionPub.set(getFollowerPosition(), now);
-        
+
         targetMotorPositionPub.set(getTargetPosition(), now);
 
         motorVelocityPub.set(getMotorVelocity(), now);
@@ -92,11 +99,14 @@ public class ClimbNT extends Climb{
             m_previousD = m_PIDTuner.getD();
         }
 
-        if (m_motionMagicTuner.isDifferentValues(m_previousVelocity, m_previousAcceleration, m_previousJerk)) {
-            changeMotionMagic(m_motionMagicTuner.getVelocity(), m_motionMagicTuner.getAcceleration(), m_motionMagicTuner.getJerk());
-            m_previousVelocity = m_motionMagicTuner.getVelocity();
-            m_previousAcceleration = m_motionMagicTuner.getAcceleration();
-            m_previousJerk = m_motionMagicTuner.getJerk();
-        }
+        // if (m_motionMagicTuner.isDifferentValues(m_previousVelocity,
+        // m_previousAcceleration, m_previousJerk)) {
+        // changeMotionMagic(m_motionMagicTuner.getVelocity(),
+        // m_motionMagicTuner.getAcceleration(),
+        // m_motionMagicTuner.getJerk());
+        // m_previousVelocity = m_motionMagicTuner.getVelocity();
+        // m_previousAcceleration = m_motionMagicTuner.getAcceleration();
+        // m_previousJerk = m_motionMagicTuner.getJerk();
+        // }
     }
 }
