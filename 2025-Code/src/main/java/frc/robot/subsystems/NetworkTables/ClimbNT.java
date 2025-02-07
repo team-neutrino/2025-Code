@@ -7,7 +7,6 @@ import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTablesJNI;
 import frc.robot.subsystems.Climb;
-import frc.robot.util.MaxMotionTuner;
 import frc.robot.util.MotionMagicTuner;
 import frc.robot.util.PIDTuner;
 
