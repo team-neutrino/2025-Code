@@ -135,9 +135,10 @@ public class Climb extends SubsystemBase {
     m_climbMotorConfig.Slot0.kP = p;
     m_climbMotorConfig.Slot0.kI = i;
     m_climbMotorConfig.Slot0.kD = d;
+
+    m_climbMotor.getConfigurator().apply(m_climbMotorConfig);
   }
 
-  // This is actually called MotionMagic (rev vs ctre)
   public void changeMotionMagic(double velocity, double acceleration, double jerk) {
     m_motionMagicConfig.MotionMagicCruiseVelocity = velocity;
     m_motionMagicConfig.MotionMagicAcceleration = acceleration;
