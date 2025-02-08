@@ -29,6 +29,7 @@ red = (255, 0, 0)
 orange = (255, 80, 0)
 yellow = (255, 255, 0)
 green = (0, 255, 0)
+blue = (0, 0, 255)
 black = (0, 0, 0)
 cyan = (0, 255, 255)
 turquoise = (27, 220, 75)
@@ -92,6 +93,8 @@ def valueColorChanged(table, key, value, isNew):
         setTargetColor(yellow)
     if value == "green":
         setTargetColor(green)
+    if value == "blue":
+        setTargetColor(blue)
     if value == "black":
         setTargetColor(black)
     if value== "cyan":
@@ -134,11 +137,11 @@ state = led.getAutoUpdateValue("blink", "")
 color.addListener(valueColorChanged, NetworkTables.NotifyFlags.UPDATE)
 state.addListener(valueBlinkChanged, NetworkTables.NotifyFlags.UPDATE)
 
-# def printRGB():
-    # print("rc %d" % targetColorRGB[0])
-    # print("gc %d" % targetColorRGB[1])
-    # print("bc %d" % targetColorRGB[2])
-    # print(" ")
+def printRGB():
+    print("rc %d" % targetColorRGB[0])
+    print("gc %d" % targetColorRGB[1])
+    print("bc %d" % targetColorRGB[2])
+    print(" ")
     # print("rp %d" % newColorRGB[0])
     # print("gp %d" % newColorRGB[1])
     # print("bp %d" % newColorRGB[2])
@@ -147,7 +150,9 @@ state.addListener(valueBlinkChanged, NetworkTables.NotifyFlags.UPDATE)
 while True:
     time.sleep(0.01)
     ramp(targetColorRGB)
+    printRGB()
+    print(blink)
     if (blink):
         blinkColor(newColorRGB)
-    pixels.fill((newColorRGB[0],newColorRGB[1], newColorRGB[2]))
+    pixels.fill((newColorRGB))
     pixels.show()

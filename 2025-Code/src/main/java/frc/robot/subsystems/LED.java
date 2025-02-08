@@ -38,7 +38,6 @@ public class LED extends SubsystemBase {
     if (claw.isAlgae()) {
       blink_pub.set("blinktwice");
       color_pub.set("turquoise");
-      // color_pub.set(action:"blink", color:"turquoise");
     } else if (claw.isCoral()) {
       blink_pub.set("blinktwice");
       color_pub.set("white");
@@ -52,10 +51,15 @@ public class LED extends SubsystemBase {
       if (getCommandState() == States.LOCKCLIMB) {
         color_pub.set("yellow");
         blink_pub.set("solid");
-      } else if (claw.hasGamePiece()) {
-        setToGamePieceColor();
-        return;
-      }
+      } else if (getCommandState() == States.CLIMBING) {
+        color_pub.set("blue");
+        blink_pub.set("solid");
+      } /*
+         * else if (claw.hasGamePiece()) {
+         * setToGamePieceColor();
+         * return;
+         * }
+         */
     } else {
       color_pub.set("orange");
       blink_pub.set("solid");

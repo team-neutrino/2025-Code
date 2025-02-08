@@ -13,6 +13,7 @@ public class ClimbFactory {
     }
 
     public static Command lowerClimb() {
+        LED.setCommandState(States.CLIMBING);
         return climb.moveClimbArmCommand(CLIMB_DOWN_POSITION);
     }
 
