@@ -57,9 +57,9 @@
 | 7    | LL, Pi, LED | 20 A    | 18 AWG |
 | 8    |             |         |        |
 | 9    | Switch      | 10 A    | 22 AWG |
-| 10   | Intake 1    | 30 A    | 14 AWG |
-| 11   | Intake 2    | 30 A    | 14 AWG |
-| 12   | Wrist       | 30 A    | 14 AWG |
+| 10   | Wrist       | 30 A    | 14 AWG |
+| 11   | Intake      | 30 A    | 14 AWG |
+| 12   |             | 30 A    | 14 AWG |
 | 13   | Arm         | 40 A    | 12 AWG |
 | 14   | Elevator 1  | 40 A    | 12 AWG |
 | 15   | Elevator 2  | 40 A    | 12 AWG |
