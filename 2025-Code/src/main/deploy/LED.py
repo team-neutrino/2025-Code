@@ -27,6 +27,7 @@ amount = 0
 white = (255, 255, 255)
 red = (255, 0, 0)
 orange = (255, 80, 0)
+yellow = (255, 255, 0)
 green = (0, 255, 0)
 black = (0, 0, 0)
 cyan = (0, 255, 255)
@@ -87,13 +88,15 @@ def valueColorChanged(table, key, value, isNew):
         setTargetColor(red)
     if value == "orange":
         setTargetColor(orange)
+    if value == "yellow":
+        setTargetColor(yellow)
     if value == "green":
         setTargetColor(green)
     if value == "black":
         setTargetColor(black)
-    if value=="cyan":
+    if value== "cyan":
         setTargetColor(cyan)
-    if value =="turquoise":
+    if value == "turquoise":
         setTargetColor(turquoise)
     for t in range(19,0,-1):
         for i in range(t, t + 19):
@@ -105,7 +108,7 @@ def valueColorChanged(table, key, value, isNew):
                     pixels[i - 19] = (c.red, c.green, c.blue)
                     
 
-def valueStateChanged(table, key, value, isNew):
+def valueBlinkChanged(table, key, value, isNew):
     print("valueStateChanged: key: '%s'; value: %s; isNew: %s" % (key, value, isNew))
     global blink
     global amount
@@ -127,9 +130,9 @@ def connectionListener(connected, info):
 NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
 led = NetworkTables.getTable("/LED")
 color = led.getAutoUpdateValue("color", "")
-state = led.getAutoUpdateValue("state", "")
+state = led.getAutoUpdateValue("blink", "")
 color.addListener(valueColorChanged, NetworkTables.NotifyFlags.UPDATE)
-state.addListener(valueStateChanged, NetworkTables.NotifyFlags.UPDATE)
+state.addListener(valueBlinkChanged, NetworkTables.NotifyFlags.UPDATE)
 
 # def printRGB():
     # print("rc %d" % targetColorRGB[0])

@@ -11,21 +11,23 @@ import edu.wpi.first.wpilibj.DriverStation;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
+import frc.robot.Constants.LEDConstants.States;
 import frc.robot.util.Subsystem;
 
 public class LED extends SubsystemBase {
 
   NetworkTableInstance inst = NetworkTableInstance.getDefault();
   StringTopic color_topic = inst.getStringTopic("/LED/color");
-  StringTopic state_topic = inst.getStringTopic("/LED/state");
+  StringTopic blink_topic = inst.getStringTopic("/LED/blink");
   Claw claw = Subsystem.claw;
+  private States m_state;
 
   final StringPublisher color_pub;
-  final StringPublisher state_pub;
+  final StringPublisher blink_pub;
 
   public LED() {
     color_pub = color_topic.publish();
-    state_pub = state_topic.publish();
+    blink_pub = blink_topic.publish();
   }
 
   public Command LEDefaultCommand() {
@@ -34,11 +36,11 @@ public class LED extends SubsystemBase {
 
   public void setToGamePieceColor() {
     if (claw.isAlgae()) {
-      state_pub.set("blinktwice");
+      blink_pub.set("blinktwice");
       color_pub.set("turquoise");
       // color_pub.set(action:"blink", color:"turquoise");
     } else if (claw.isCoral()) {
-      state_pub.set("blinktwice");
+      blink_pub.set("blinktwice");
       color_pub.set("white");
     }
   }
@@ -47,14 +49,25 @@ public class LED extends SubsystemBase {
     if (DriverStation.isAutonomousEnabled()) {
       color_pub.set("cyan");
     } else if (DriverStation.isTeleopEnabled()) {
-      if (claw.hasGamePiece()) {
+      if (getCommandState() == States.LOCKCLIMB) {
+        color_pub.set("yellow");
+        blink_pub.set("solid");
+      } else if (claw.hasGamePiece()) {
         setToGamePieceColor();
         return;
-      } else {
-        color_pub.set("orange");
-        state_pub.set("solid");
       }
+    } else {
+      color_pub.set("orange");
+      blink_pub.set("solid");
     }
+  }
+
+  public States getCommandState() {
+    return m_state;
+  }
+
+  public void setCommandState(States p_state) {
+    m_state = p_state;
   }
 
   @Override
