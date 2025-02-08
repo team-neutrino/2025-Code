@@ -9,6 +9,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest.FieldCentricFacingAngle;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.units.measure.Velocity;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
@@ -18,6 +19,10 @@ import frc.robot.Constants;
 import frc.robot.Constants.AprilTagConstants.*;
 import frc.robot.subsystems.Swerve.SwerveRequestStash;
 import static frc.robot.util.Subsystem.*;
+
+import java.lang.annotation.Target;
+
+import org.ejml.data.FEigenpair;
 
 public class DriveAssistCom extends Command {
   private FieldCentricFacingAngle req = SwerveRequestStash.driveAssist;
@@ -48,10 +53,14 @@ public class DriveAssistCom extends Command {
     limelight.setPointOfInterest(0, m_POIoffset);
 
     Translation2d velocities = getVelocities();
+    Translation2d updatedDriverVel = getNewDriveVelocity();
     swerve.setIsAligned(isAligned());
     Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() - limelight.getTx());
-    swerve.setControl(req.withVelocityX(velocities.getX() + -m_controller.getLeftY() * MAX_SPEED)
-        .withVelocityY(velocities.getY() + -m_controller.getLeftX() * MAX_SPEED).withTargetDirection(angle));
+    swerve.setControl(req.withVelocityX((velocities.getX() + updatedDriverVel.getX() * MAX_SPEED) / 2)
+        .withVelocityY((velocities.getY() + updatedDriverVel.getY() * MAX_SPEED) / 2).withTargetDirection(angle));
+    System.out.println("ID " + limelight.getID());
+    System.out.println("X " + updatedDriverVel.getX());
+    System.out.println("Y " + updatedDriverVel.getY());
   }
 
   private boolean exitExecute() {
@@ -99,6 +108,30 @@ public class DriveAssistCom extends Command {
     double xError = error * Math.sin(audaciousTri2Angle);
 
     return new Translation2d(xError, yError);
+  }
+
+  private Translation2d getNewDriveVelocity() {
+    double magnitude = 0;
+    double driverMagnitude = 0;
+    int id = m_staticTagID;
+    Translation2d finalVelocities = null;
+    boolean edgeCase = id == RED_ALLIANCE_IDS.REEF_FACING_ALLIANCE || id == BLUE_ALLIANCE_IDS.REEF_FACING_ALLIANCE;
+    if (m_controller.getLeftX() == 0 && m_controller.getLeftY() == 0) {
+      return getVelocities();
+    } else if (edgeCase) {
+      double xVel = m_controller.getLeftY();
+      double yVel = m_controller.getLeftX();
+      driverMagnitude = Math.sqrt(xVel * xVel + yVel * yVel);
+      magnitude = Math.cos(Math.atan2(yVel, xVel)) * driverMagnitude;
+      finalVelocities = new Translation2d(-magnitude, 0);
+    }
+    double idealYaw = swerve.getYawDegrees() - limelight.getTx();
+    double limelightTagToRobot = limelight.getDistanceFromPrimaryTarget();
+    if (finalVelocities == null) {
+      return new Translation2d(0, 0);
+    } else {
+      return finalVelocities;
+    }
   }
 
   /**
