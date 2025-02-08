@@ -115,18 +115,22 @@ public class DriveAssistCom extends Command {
     double driverMagnitude = 0;
     int id = m_staticTagID;
     Translation2d finalVelocities = null;
+    double xVel = m_controller.getLeftY();
+    double yVel = m_controller.getLeftX();
     boolean edgeCase = id == RED_ALLIANCE_IDS.REEF_FACING_ALLIANCE || id == BLUE_ALLIANCE_IDS.REEF_FACING_ALLIANCE;
     if (m_controller.getLeftX() == 0 && m_controller.getLeftY() == 0) {
       return getVelocities();
     } else if (edgeCase) {
-      double xVel = m_controller.getLeftY();
-      double yVel = m_controller.getLeftX();
-      driverMagnitude = Math.sqrt(xVel * xVel + yVel * yVel);
-      magnitude = Math.cos(Math.atan2(yVel, xVel)) * driverMagnitude;
-      finalVelocities = new Translation2d(-magnitude, 0);
+      finalVelocities = new Translation2d(-xVel, 0);
+    } else if (id == 6 || id == 19) {
+      System.out.println("correct id ");
+      magnitude = Math.sqrt(Math.pow(xVel, 2) * Math.pow(yVel, 2));
+      double inputX = Math.sin(swerve.getYawDegrees() - limelight.getTx()) * magnitude;
+      double newInputTriangleHypotenuse = Math.sqrt(Math.pow(magnitude, 2) - Math.pow(inputX, 2));
+      xVel = (2 * (newInputTriangleHypotenuse)) / Math.sqrt(3);
+      yVel = 0.5 * (newInputTriangleHypotenuse);
+      finalVelocities = new Translation2d(-yVel, -xVel);
     }
-    double idealYaw = swerve.getYawDegrees() - limelight.getTx();
-    double limelightTagToRobot = limelight.getDistanceFromPrimaryTarget();
     if (finalVelocities == null) {
       return new Translation2d(0, 0);
     } else {
