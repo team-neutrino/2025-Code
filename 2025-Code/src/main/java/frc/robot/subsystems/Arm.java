@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.ElevatorConstants;
+import frc.robot.util.Subsystem;
 
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase;
@@ -182,16 +184,15 @@ public class Arm extends SubsystemBase {
 
   private double safeAngle(double targetAngle) {
     double safeAngle = targetAngle;
-    if (targetAngle < 180) {
-      if (targetAngle < FRONT_ARM_LOWEST_SAFE_LIMIT && targetAngle > FRONT_ARM_HIGHEST_SAFE_LIMIT) {
-        safeAngle = FRONT_ARM_HIGHEST_SAFE_LIMIT;
-      }
-    } else if (targetAngle >= 180) {
-      if (targetAngle > BACK_ARM_LOWEST_SAFE_LIMIT && targetAngle < BACK_ARM_HIGHEST_SAFE_LIMIT) {
-        safeAngle = BACK_ARM_HIGHEST_SAFE_LIMIT;
-      }
+    if (targetAngle > ALMOST_FRONT_LIMIT && targetAngle <= 180
+        && Subsystem.elevator.getEncoderPosition() < ElevatorConstants.STAGE_ONE_UP) {
+      safeAngle = ALMOST_FRONT_LIMIT;
+    } else if (targetAngle < ALMOST_BACK_LIMIT && targetAngle > 180
+        && Subsystem.elevator.getEncoderPosition() < ElevatorConstants.STAGE_ONE_UP) {
+      safeAngle = ALMOST_BACK_LIMIT;
     }
     return safeAngle;
+
   }
 
   @Override
