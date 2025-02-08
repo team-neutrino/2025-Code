@@ -21,6 +21,18 @@ public class ArmFactory {
         return arm.armRotateCommand(L4_POSITION);
     }
 
+    public static Command dunkL4() {
+        return arm.armRotateCommand(L4_POSITION - 20);
+    }
+
+    public static Command dunkL3() {
+        return arm.armRotateCommand(L3_POSITION - 5);
+    }
+
+    public static Command dunkL2() {
+        return arm.armRotateCommand(L2_POSITION - 5);
+    }
+
     public static Command armToIntake() {
         return arm.armRotateCommand(CORAL_STATION_POSITION);
     }

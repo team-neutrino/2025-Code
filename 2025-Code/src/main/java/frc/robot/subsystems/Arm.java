@@ -153,7 +153,7 @@ public class Arm extends SubsystemBase {
   }
 
   public double feedForwardCalculation() {
-    double currentAngle = getArmEncoderPosition();
+    double currentAngle = (getArmEncoderPosition() - 90) * (Math.PI / 180);
     double volts = m_FFConstant * Math.cos(currentAngle);
     return volts;
   }
