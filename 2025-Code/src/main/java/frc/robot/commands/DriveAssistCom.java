@@ -21,7 +21,7 @@ import static frc.robot.util.Subsystem.*;
 
 public class DriveAssistCom extends Command {
   private FieldCentricFacingAngle req = SwerveRequestStash.driveAssist;
-  private CommandXboxController m_controller;
+  protected CommandXboxController m_controller;
   private double m_POIoffset = 0;
   private int m_staticTagID;
   Translation2d error;
@@ -54,7 +54,7 @@ public class DriveAssistCom extends Command {
         .withVelocityY(velocities.getY() + -m_controller.getLeftX() * MAX_SPEED).withTargetDirection(angle));
   }
 
-  private boolean exitExecute() {
+  public boolean exitExecute() {
     if (m_staticTagID == -1) {
       setPriorityID();
     }
@@ -116,7 +116,7 @@ public class DriveAssistCom extends Command {
     return ret;
   }
 
-  private void setPriorityID() {
+  public void setPriorityID() {
     m_staticTagID = limelight.getID();
   }
 
