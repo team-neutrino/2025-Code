@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -10,9 +11,11 @@ import static frc.robot.util.Subsystem.*;
 
 public class AprilTagDriveAssist extends DriveAssistCom {
     private com.ctre.phoenix6.swerve.SwerveRequest.FieldCentricFacingAngle req = SwerveRequestStash.driveAssist;
+    Pose2d robotPose;
 
     public AprilTagDriveAssist(CommandXboxController p_controller) {
         super(p_controller);
+        robotPose = swerve.getCurrentPose();
     }
 
     @Override
@@ -22,21 +25,25 @@ public class AprilTagDriveAssist extends DriveAssistCom {
                     .withVelocityY(0));
             return;
         }
-        double x = limelight.getRobotToTag().getX();
-        double y = limelight.getRobotToTag().getY();
-        Translation2d velocities = getVelocities();
-        swerve.setIsAligned(isAligned());
-        Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() - limelight.getTx());
-        swerve.setControl(req.withVelocityX(velocities.getX() + -m_controller.getLeftY() * MAX_SPEED)
-                .withVelocityY(velocities.getY() + -m_controller.getLeftX() * MAX_SPEED).withTargetDirection(angle));
+
+        // Translation2d velocities = getVelocities();
+        // swerve.setIsAligned(isAligned());
+        // Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() -
+        // limelight.getTx());
+        // swerve.setControl(req.withVelocityX(velocities.getX() +
+        // -m_controller.getLeftY() * MAX_SPEED)
+        // .withVelocityY(velocities.getY() + -m_controller.getLeftX() *
+        // MAX_SPEED).withTargetDirection(angle));
     }
 
-    private Translation2d getVelocities() {
-        getAprilTagFieldRelativeDistances();
-        return null;
-    }
+    // private Translation2d getVelocities() {
+    // getAprilTagFieldRelativeDistances();
+    // return null;
+    // }
 
     private Translation2d getAprilTagFieldRelativeDistances() {
+        double x = limelight.getRobotToTag().getX();
+        double y = limelight.getRobotToTag().getY();
         return null;
     }
 }
