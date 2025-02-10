@@ -2,7 +2,6 @@ package frc.robot.command_factories;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
-import static frc.robot.Constants.ArmConstants.L4_POSITION;
 import static frc.robot.Constants.ElevatorConstants.*;
 import static frc.robot.util.Subsystem.elevator;
 
