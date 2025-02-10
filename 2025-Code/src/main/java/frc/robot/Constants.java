@@ -58,16 +58,17 @@ public final class Constants {
     public static final int MOTOR1_ID = 2;
     public static final int MOTOR2_ID = 3;
     public static final int CURRENT_LIMIT = 50;
+    public static final double DEFAULT = 6.0;
     public static final double LOW_POSITION = 0.0;
     public static final double STAGE_ONE_UP = 26.0;
     public static final double HIGH_POSITION = 55.0;
-    public static final double ALGAE_INTAKE = 0.0;
+    public static final double ALGAE_INTAKE = 6.0;
     public static final double CORAL_INTAKE = 0.0;
     public static final double REMOVE_ALGAE_L2 = 0.0;
     public static final double REMOVE_ALGAE_L3 = 0.0;
     public static final double L1 = 6.0; // placeholder
-    public static final double L2 = 18.0; // placeholder
-    public static final double L3 = 30.0; // placeholder
+    public static final double L2 = 16.0; // placeholder
+    public static final double L3 = 36.0; // placeholder
     public static final double L4 = 54.0; // placeholder
     public static final double ARM_WILL_NOT_HIT_BASE_HEIGHT = 1.0; // placeholder
     public static final double STAGE_1_LENGTH = 29; // inches
@@ -87,26 +88,26 @@ public final class Constants {
     public static final double P_VAL = 0.11;
     public static final double I_VAL = 0.0;
     public static final double D_VAL = 0.0;
-    public static final double STAGE_1_FF_VAL = 0.15;
-    public static final double STAGE_2_FF_VAL = 0.20;
+    public static final double STAGE_1_FF_VAL = 0.25;
+    public static final double STAGE_2_FF_VAL = 0.30;
   }
 
   public static class ArmConstants {
     // change positions
     public static final double DEFAULT_POSITION = 110;
-    public static final double GROUND_ALGAE_POSITION = 0.0;
-    public static final double CORAL_STATION_POSITION = 0.0;
+    public static final double GROUND_ALGAE_POSITION = 95;
+    public static final double CORAL_STATION_POSITION = 160;
     public static final double L1_POSITION = 95.0;
     public static final double L2_POSITION = 105.0;
-    public static final double L3_POSITION = 115.0;
-    public static final double L4_POSITION = 160.0;
+    public static final double L3_POSITION = 120.0;
+    public static final double L4_POSITION = 130.0;
     public static final double REEF_L2_DESCORE_POSITION = 0.0;
     public static final double REEF_L3_DESCORE_POSITION = 0.0;
 
     public static final double HITTING_LOW_HARD_LIMIT = 90;
     public static final double HITTING_HIGH_HARD_LIMIT = 270;
-    public static final double ALMOST_BACK_LIMIT = 260;
-    public static final double ALMOST_FRONT_LIMIT = 100;
+    public static final double ALMOST_BACK_LIMIT = 200;
+    public static final double ALMOST_FRONT_LIMIT = 150;
 
     public static final int MOTOR_ID = 10;
 
@@ -114,15 +115,15 @@ public final class Constants {
     public static final int CURRENT_LIMIT = 40;
 
     public static final double MAX_VELOCITY = 4000;
-    public static final double MAX_ACCELERATION = 20000;
+    public static final double MAX_ACCELERATION = 10000;
     public static final double ALLOWED_ERROR = 0.7;
 
-    public static final double kp = 0.03;
+    public static final double kp = 0.05;
     public static final double ki = 0;
     public static final double kd = 0;
     public static final double ArmIZone = 0;
 
-    public static final double FFCONSTANT = 0.01;
+    public static final double FFCONSTANT = 0.04;
 
     public static final double GEAR_RATIO = 125;
   }
@@ -131,8 +132,8 @@ public final class Constants {
     public static final int LEFT_GRABBER = 21;
     public static final int RIGHT_GRABBER = 22;
     public static final int INTAKE_MOTOR_BEAMBREAK = 0;
-    public static final int GRABBER_CURRENT_LIMIT = 20;
-    public static final double INTAKE_MOTOR_VOLTAGE = 0.2;
+    public static final int GRABBER_CURRENT_LIMIT = 40;
+    public static final double INTAKE_MOTOR_VOLTAGE = 0.7;
 
     public static final int COLOR_SENSOR = 27;
   }
@@ -141,8 +142,8 @@ public final class Constants {
     public static final int MOTOR_ID = 25;
     public static final int CURRENT_LIMIT = 15;
     public static final double VOLTAGE = 1;
-    public static final int INTAKE_POS = 90;
-    public static final int SCORING_POS = 0;
+    public static final int INTAKE_POS = 0;
+    public static final int SCORING_POS = 90;
     public static final double RAMP_RATE = 0.25;
   }
 

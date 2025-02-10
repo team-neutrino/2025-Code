@@ -15,6 +15,13 @@ public class SuperstructureFactory {
         return elevatorCom.alongWith(armCom, clawCom).until(() -> claw.hasGamePiece());
     }
 
+    public static Command outtake() {
+        Command elevatorCom = ElevatorFactory.moveToIntake();
+        Command armCom = ArmFactory.armToIntake();
+        Command clawCom = ClawFactory.runOuttake().alongWith(WristFactory.wristToIntake());
+        return elevatorCom.alongWith(armCom, clawCom);
+    }
+
     public static Command moveToIntake() {
         return new ParallelCommandGroup(ElevatorFactory.moveToIntake(), ArmFactory.armToIntake());
     }
@@ -54,7 +61,19 @@ public class SuperstructureFactory {
     public static Command scoreCoralL4Command() {
         return new SequentialCommandGroup(new ParallelCommandGroup(
                 ElevatorFactory.moveL4(),
-                ArmFactory.moveToL4()), ClawFactory.runOuttake());
+                ArmFactory.moveToL4()), WristFactory.wristToScoring(), ClawFactory.runOuttake());
+    }
+
+    public static Command dunkL4Command() {
+        return new ParallelCommandGroup(ArmFactory.dunkL4(), WristFactory.wristToScoring(), ElevatorFactory.moveL4());
+    }
+
+    public static Command dunkL3Command() {
+        return new ParallelCommandGroup(ArmFactory.dunkL3(), WristFactory.wristToScoring(), ElevatorFactory.dunkL3());
+    }
+
+    public static Command dunkL2Command() {
+        return new ParallelCommandGroup(ArmFactory.dunkL2(), WristFactory.wristToScoring(), ElevatorFactory.dunkL2());
     }
 
     public static Command moveToScoreL4Command() {

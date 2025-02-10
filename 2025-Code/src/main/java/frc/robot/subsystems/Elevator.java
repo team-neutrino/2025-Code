@@ -142,7 +142,7 @@ public class Elevator extends SubsystemBase {
   }
 
   public Command elevatorDefaultCommand() {
-    return run(() -> m_target = LOW_POSITION);
+    return run(() -> m_target = DEFAULT);
   }
 
   public Command moveElevatorCommand(double height) {

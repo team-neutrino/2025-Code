@@ -1,6 +1,7 @@
 package frc.robot.command_factories;
 
 import edu.wpi.first.wpilibj2.command.Command;
+
 import static frc.robot.Constants.ElevatorConstants.*;
 import static frc.robot.util.Subsystem.elevator;
 
@@ -32,5 +33,13 @@ public class ElevatorFactory {
 
     public static Command movetoRemoveAlgaeL3() {
         return elevator.moveElevatorCommand(REMOVE_ALGAE_L3);
+    }
+
+    public static Command dunkL3() {
+        return elevator.moveElevatorCommand(L3 - 4);
+    }
+
+    public static Command dunkL2() {
+        return elevator.moveElevatorCommand(L2 - 4);
     }
 }
