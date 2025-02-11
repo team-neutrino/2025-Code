@@ -113,11 +113,4 @@ public class SuperstructureFactory {
         }
         return armCom;
     }
-    public static Command moveToScoreL2Command() {
-        return new ParallelCommandGroup(ElevatorFactory.moveL2(), ArmFactory.moveToL2());
-    }
-
-    public static Command moveToScoreL1Command() {
-        return new ParallelCommandGroup(ElevatorFactory.moveL1(), ArmFactory.moveToL1());
-    }
 }
