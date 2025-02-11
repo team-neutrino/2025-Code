@@ -1,6 +1,5 @@
 package frc.robot.subsystems.NetworkTables;
 
-<<<<<<< Updated upstream
 import static frc.robot.Constants.ClimbConstants.*;
 
 import edu.wpi.first.networktables.DoublePublisher;
@@ -11,7 +10,7 @@ import frc.robot.subsystems.Climb;
 import frc.robot.util.MotionMagicTuner;
 import frc.robot.util.PIDTuner;
 
-public class ClimbNT extends Climb{
+public class ClimbNT extends Climb {
     NetworkTableInstance nt = NetworkTableInstance.getDefault();
 
     DoubleTopic actualMotorPosition = nt.getDoubleTopic("/climb/actual_motor_position");
@@ -77,7 +76,7 @@ public class ClimbNT extends Climb{
 
         actualMotorPositionPub.set(getMotorPosition(), now);
         followerMotorPositionPub.set(getFollowerPosition(), now);
-        
+
         targetMotorPositionPub.set(getTargetPosition(), now);
 
         motorVelocityPub.set(getMotorVelocity(), now);
@@ -93,19 +92,11 @@ public class ClimbNT extends Climb{
         }
 
         if (m_motionMagicTuner.isDifferentValues(m_previousVelocity, m_previousAcceleration, m_previousJerk)) {
-            changeMotionMagic(m_motionMagicTuner.getVelocity(), m_motionMagicTuner.getAcceleration(), m_motionMagicTuner.getJerk());
+            changeMotionMagic(m_motionMagicTuner.getVelocity(), m_motionMagicTuner.getAcceleration(),
+                    m_motionMagicTuner.getJerk());
             m_previousVelocity = m_motionMagicTuner.getVelocity();
             m_previousAcceleration = m_motionMagicTuner.getAcceleration();
             m_previousJerk = m_motionMagicTuner.getJerk();
         }
     }
 }
-=======
-import edu.wpi.first.networktables.NetworkTableInstance;
-import frc.robot.subsystems.Climb;
-
-public class ClimbNT extends Climb {
-    NetworkTableInstance nt = NetworkTableInstance.getDefault();
-
-}
->>>>>>> Stashed changes
