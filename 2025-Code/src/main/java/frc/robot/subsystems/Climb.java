@@ -91,10 +91,9 @@ public class Climb extends SubsystemBase {
   public Command lockCommand() {
     return runEnd(() -> {
       if (m_voltage < LOCK_VOLTAGE) {
-        m_voltage += LOCK_RAMP;
+        m_voltage += LOCK_RAMP_INCREASE_RATE;
       }
       m_lockMotor.setVoltage(m_voltage);
-      System.out.println(m_lockMotor.getOutputCurrent());
     }, () -> {
       m_voltage = 0.0;
       m_lockMotor.setVoltage(0);
