@@ -156,7 +156,7 @@ public final class Constants {
     // subject to change
 
     public static final double LOCK_CURRENT_THRESHOLD = 22;
-    public static final double LOCK_RAMP = 1.0;
+    public static final double LOCK_RAMP_INCREASE_RATE = 1.0;
     // subject to change
 
     public static final double LOCK_VOLTAGE = 6;
