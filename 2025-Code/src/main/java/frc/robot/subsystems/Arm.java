@@ -208,16 +208,6 @@ public class Arm extends SubsystemBase {
   }
 
   /**
-   * Gives a instance of the arm default command. Rotates the arm to the default
-   * position
-   * 
-   * @return The rotate wrist command
-   */
-  public Command armDefaultCommand() {
-    return run(() -> m_targetAngle = DEFAULT_POSITION);
-  }
-
-  /**
    * Gives a instance of the arm rotate command. Rotates the arm to the given
    * angle
    * 

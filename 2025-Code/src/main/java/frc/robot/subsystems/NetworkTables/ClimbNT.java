@@ -1,5 +1,6 @@
 package frc.robot.subsystems.NetworkTables;
 
+<<<<<<< Updated upstream
 import static frc.robot.Constants.ClimbConstants.*;
 
 import edu.wpi.first.networktables.DoublePublisher;
@@ -99,3 +100,12 @@ public class ClimbNT extends Climb{
         }
     }
 }
+=======
+import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.subsystems.Climb;
+
+public class ClimbNT extends Climb {
+    NetworkTableInstance nt = NetworkTableInstance.getDefault();
+
+}
+>>>>>>> Stashed changes
