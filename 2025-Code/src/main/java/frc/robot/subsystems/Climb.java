@@ -42,6 +42,8 @@ public class Climb extends SubsystemBase {
 
   private double targetPosition;
 
+  private double m_voltage = 0.0;
+
   public Climb() {
     configureMotors();
     resetEncoderPosition();
@@ -88,8 +90,13 @@ public class Climb extends SubsystemBase {
 
   public Command lockCommand() {
     return runEnd(() -> {
-      m_lockMotor.setVoltage(LOCK_VOLTAGE);
+      if (m_voltage < LOCK_VOLTAGE) {
+        m_voltage += LOCK_RAMP;
+      }
+      m_lockMotor.setVoltage(m_voltage);
+      System.out.println(m_lockMotor.getOutputCurrent());
     }, () -> {
+      m_voltage = 0.0;
       m_lockMotor.setVoltage(0);
     }).until(() -> m_lockMotor.getOutputCurrent() > LOCK_CURRENT_THRESHOLD);
   }
