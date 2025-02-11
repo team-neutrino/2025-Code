@@ -155,11 +155,11 @@ public final class Constants {
     public static final int LOCK_CURRENT_LIMIT = 10;
     // subject to change
 
-    public static final double LOCK_CURRENT_THRESHOLD = 20;
+    public static final double LOCK_CURRENT_THRESHOLD = 22;
+    public static final double LOCK_RAMP = 1.0;
     // subject to change
 
-    public static final double LOCK_VOLTAGE = 1;
-    // subject to change
+    public static final double LOCK_VOLTAGE = 6;
 
     public static final int CLIMB_UP_POSITION = 2;
     public static final int CLIMB_DOWN_POSITION = 0;
