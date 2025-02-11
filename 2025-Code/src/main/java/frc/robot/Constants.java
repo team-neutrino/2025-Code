@@ -58,7 +58,7 @@ public final class Constants {
     public static final int MOTOR1_ID = 2;
     public static final int MOTOR2_ID = 3;
     public static final int CURRENT_LIMIT = 50;
-    public static final double DEFAULT = 6.0;
+    public static final double DEFAULT = 0.0;
     public static final double LOW_POSITION = 0.0;
     public static final double STAGE_ONE_UP = 26.0;
     public static final double HIGH_POSITION = 55.0;
@@ -94,7 +94,7 @@ public final class Constants {
 
   public static class ArmConstants {
     // change positions
-    public static final double DEFAULT_POSITION = 110;
+    public static final double DEFAULT_POSITION = 160;
     public static final double GROUND_ALGAE_POSITION = 95;
     public static final double CORAL_STATION_POSITION = 160;
     public static final double L1_POSITION = 95.0;
@@ -118,7 +118,7 @@ public final class Constants {
     public static final double MAX_ACCELERATION = 10000;
     public static final double ALLOWED_ERROR = 0.7;
 
-    public static final double kp = 0.05;
+    public static final double kp = 0.02;
     public static final double ki = 0;
     public static final double kd = 0;
     public static final double ArmIZone = 0;
