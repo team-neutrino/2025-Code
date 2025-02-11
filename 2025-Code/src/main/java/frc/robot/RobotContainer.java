@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.command_factories.*;
 import frc.robot.commands.DriveAssistCom;
+import frc.robot.util.Pose2DController;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.util.Subsystem.*;
@@ -46,6 +47,8 @@ public class RobotContainer {
 
     m_driverController.leftStick().toggleOnTrue(new DriveAssistCom(m_driverController));
     m_driverController.back().whileTrue(swerve.resetYawCommand());
+
+    m_driverController.rightTrigger().whileTrue(swerve.swervePlayerStationCommand(new Pose2DController()));
 
     // buttons controller
     m_buttonsController.y().whileTrue(SuperstructureFactory.scoreCoralL1Command());

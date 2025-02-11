@@ -32,6 +32,7 @@ import java.io.IOException;
 
 import org.json.simple.parser.ParseException;
 
+import frc.robot.util.Pose2DController;
 import frc.robot.util.GeneratedSwerveCode.*;
 
 /**
@@ -234,6 +235,12 @@ public class Swerve extends CommandSwerveDrivetrain {
         .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED));
   }
 
+  public Command swervePlayerStationCommand(Pose2DController controller) {
+    return applyRequest(() -> SwerveRequestStash.driveAssistWithoutDeadband.withVelocityX(controller.x())
+        .withVelocityY(controller.y())
+        .withTargetDirection(controller.theta()));
+  }
+
   /**
    * Creates and returns a slower-driving version (but not rotating) version of
    * the default command. See {@link #swerveDefaultCommand} for details.
@@ -271,6 +278,8 @@ public class Swerve extends CommandSwerveDrivetrain {
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
         .withDeadband(MAX_SPEED * 0.05)
         .withRotationalDeadband(MAX_ROTATION_SPEED * .06);
+    public static final SwerveRequest.FieldCentricFacingAngle driveAssistWithoutDeadband = new FieldCentricFacingAngle()
+        .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
     public static final SwerveRequest.RobotCentric autonDrive = new SwerveRequest.RobotCentric()
         .withDriveRequestType(DriveRequestType.Velocity);
   }
