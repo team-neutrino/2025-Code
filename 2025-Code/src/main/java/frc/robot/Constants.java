@@ -66,8 +66,8 @@ public final class Constants {
     public static final double CORAL_INTAKE = 0.0;
     public static final double REMOVE_ALGAE_L2 = 0.0;
     public static final double REMOVE_ALGAE_L3 = 0.0;
-    public static final double L1 = 6.0; // placeholder
-    public static final double L2 = 16.0; // placeholder
+    public static final double L1 = 16.0; // placeholder
+    public static final double L2 = 20.0; // placeholder
     public static final double L3 = 36.0; // placeholder
     public static final double L4 = 54.0; // placeholder
     public static final double ARM_WILL_NOT_HIT_BASE_HEIGHT = 1.0; // placeholder
@@ -179,23 +179,23 @@ public final class Constants {
 
   public static class LimelightConstants {
     // placeholder values (in meters)
-    public static final double CAMERA_FORWARD_OFFSET = .3;
-    public static final double CAMERA_SIDE_OFFSET = 0.0;
-    public static final double CAMERA_HEIGHT_OFFSET = .6;
+    public static final double CAMERA_FORWARD_OFFSET = 0.216;
+    public static final double CAMERA_SIDE_OFFSET = 0.121;
+    public static final double CAMERA_HEIGHT_OFFSET = 0.552;
     // placeholder values (in degrees)
     public static final double CAMERA_ROLL_OFFSET = 0.0;
-    public static final double CAMERA_PITCH_OFFSET = 30;
-    public static final double CAMERA_YAW_OFFSET = 180;
+    public static final double CAMERA_PITCH_OFFSET = 0.0;
+    public static final double CAMERA_YAW_OFFSET = 0.0;
     // placeholder values (in meters)
-    public static final double CAMERA2_FORWARD_OFFSET = 0.0;
-    public static final double CAMERA2_SIDE_OFFSET = 0.0;
-    public static final double CAMERA2_HEIGHT_OFFSET = 0.0;
+    public static final double CAMERA2_FORWARD_OFFSET = -0.216;
+    public static final double CAMERA2_SIDE_OFFSET = 0.121;
+    public static final double CAMERA2_HEIGHT_OFFSET = 0.552;
     // placeholder values (in degrees)
     public static final double CAMERA2_ROLL_OFFSET = 0.0;
     public static final double CAMERA2_PITCH_OFFSET = 0.0;
-    public static final double CAMERA2_YAW_OFFSET = 0.0;
+    public static final double CAMERA2_YAW_OFFSET = 180.0;
 
-    public static final String LIMELIGHT_1 = "limelight";
+    public static final String LIMELIGHT_1 = "limelight-limeade";
     public static final String LIMELIGHT_2 = "limelight-limebee";
   }
 
