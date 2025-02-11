@@ -58,7 +58,7 @@ public final class Constants {
     public static final int MOTOR1_ID = 2;
     public static final int MOTOR2_ID = 3;
     public static final int CURRENT_LIMIT = 50;
-    public static final double DEFAULT = 6.0;
+    public static final double DEFAULT = 0.0;
     public static final double LOW_POSITION = 0.0;
     public static final double STAGE_ONE_UP = 26.0;
     public static final double HIGH_POSITION = 55.0;
@@ -66,8 +66,8 @@ public final class Constants {
     public static final double CORAL_INTAKE = 0.0;
     public static final double REMOVE_ALGAE_L2 = 0.0;
     public static final double REMOVE_ALGAE_L3 = 0.0;
-    public static final double L1 = 6.0; // placeholder
-    public static final double L2 = 16.0; // placeholder
+    public static final double L1 = 16.0; // placeholder
+    public static final double L2 = 20.0; // placeholder
     public static final double L3 = 36.0; // placeholder
     public static final double L4 = 54.0; // placeholder
     public static final double ARM_WILL_NOT_HIT_BASE_HEIGHT = 1.0; // placeholder
@@ -94,7 +94,7 @@ public final class Constants {
 
   public static class ArmConstants {
     // change positions
-    public static final double DEFAULT_POSITION = 110;
+    public static final double DEFAULT_POSITION = 160;
     public static final double GROUND_ALGAE_POSITION = 95;
     public static final double CORAL_STATION_POSITION = 160;
     public static final double L1_POSITION = 95.0;
@@ -118,7 +118,7 @@ public final class Constants {
     public static final double MAX_ACCELERATION = 10000;
     public static final double ALLOWED_ERROR = 0.7;
 
-    public static final double kp = 0.05;
+    public static final double kp = 0.02;
     public static final double ki = 0;
     public static final double kd = 0;
     public static final double ArmIZone = 0;
@@ -179,23 +179,23 @@ public final class Constants {
 
   public static class LimelightConstants {
     // placeholder values (in meters)
-    public static final double CAMERA_FORWARD_OFFSET = .3;
-    public static final double CAMERA_SIDE_OFFSET = 0.0;
-    public static final double CAMERA_HEIGHT_OFFSET = .6;
+    public static final double CAMERA_FORWARD_OFFSET = 0.216;
+    public static final double CAMERA_SIDE_OFFSET = 0.121;
+    public static final double CAMERA_HEIGHT_OFFSET = 0.552;
     // placeholder values (in degrees)
     public static final double CAMERA_ROLL_OFFSET = 0.0;
-    public static final double CAMERA_PITCH_OFFSET = 30;
-    public static final double CAMERA_YAW_OFFSET = 180;
+    public static final double CAMERA_PITCH_OFFSET = 0.0;
+    public static final double CAMERA_YAW_OFFSET = 0.0;
     // placeholder values (in meters)
-    public static final double CAMERA2_FORWARD_OFFSET = 0.0;
-    public static final double CAMERA2_SIDE_OFFSET = 0.0;
-    public static final double CAMERA2_HEIGHT_OFFSET = 0.0;
+    public static final double CAMERA2_FORWARD_OFFSET = -0.216;
+    public static final double CAMERA2_SIDE_OFFSET = 0.121;
+    public static final double CAMERA2_HEIGHT_OFFSET = 0.552;
     // placeholder values (in degrees)
     public static final double CAMERA2_ROLL_OFFSET = 0.0;
     public static final double CAMERA2_PITCH_OFFSET = 0.0;
-    public static final double CAMERA2_YAW_OFFSET = 0.0;
+    public static final double CAMERA2_YAW_OFFSET = 180.0;
 
-    public static final String LIMELIGHT_1 = "limelight";
+    public static final String LIMELIGHT_1 = "limelight-limeade";
     public static final String LIMELIGHT_2 = "limelight-limebee";
   }
 
