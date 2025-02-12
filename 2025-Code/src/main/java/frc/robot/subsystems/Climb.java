@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -39,9 +40,9 @@ public class Climb extends SubsystemBase {
   private SparkMax m_lockMotor = new SparkMax(LOCK_MOTOR_ID, MotorType.kBrushless);
   private SparkMaxConfig m_lockMotorConfig = new SparkMaxConfig();
   private RelativeEncoder m_lockMotorEncoder = m_lockMotor.getEncoder();
+  private Servo m_lockRatchet = new Servo(LOCK_RATCHET_PORT);
 
   private double targetPosition;
-
   private double m_voltage = 0.0;
 
   public Climb() {
@@ -82,21 +83,45 @@ public class Climb extends SubsystemBase {
     m_climbMotor.setPosition(0);
   }
 
-  public void moveToPosition(double targetPosition) {
+  private void moveToPosition(double targetPosition) {
     PositionVoltage positionControl = new PositionVoltage(targetPosition);
     this.targetPosition = targetPosition;
     m_climbMotor.setControl(positionControl);
   }
 
+  private void engageRatchet() {
+    m_lockRatchet.set(0.8);
+    // subject to change
+  }
+
+  private void disengageRatchet() {
+    m_lockRatchet.set(0.2);
+    // subject to change
+  }
+
   public Command lockCommand() {
     return runEnd(() -> {
       if (m_voltage < LOCK_VOLTAGE) {
-        m_voltage += LOCK_RAMP_INCREASE_RATE;
+        m_voltage += LOCK_RAMP_RATE;
       }
       m_lockMotor.setVoltage(m_voltage);
     }, () -> {
       m_voltage = 0.0;
       m_lockMotor.setVoltage(0);
+      engageRatchet();
+    }).until(() -> m_lockMotor.getOutputCurrent() > LOCK_CURRENT_THRESHOLD);
+  }
+
+  public Command unlockCommand() {
+    return runEnd(() -> {
+      if (m_voltage > UNLOCK_VOLTAGE) {
+        m_voltage -= LOCK_RAMP_RATE;
+      }
+      m_lockMotor.setVoltage(m_voltage);
+    }, () -> {
+      m_voltage = 0.0;
+      m_lockMotor.setVoltage(0);
+      disengageRatchet();
     }).until(() -> m_lockMotor.getOutputCurrent() > LOCK_CURRENT_THRESHOLD);
   }
 
@@ -108,6 +133,7 @@ public class Climb extends SubsystemBase {
 
   public Command climbDefaultCommand() {
     return run(() -> {
+      engageRatchet();
       moveToPosition(0);
     });
   }
