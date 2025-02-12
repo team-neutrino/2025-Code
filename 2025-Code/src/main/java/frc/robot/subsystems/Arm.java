@@ -69,7 +69,7 @@ public class Arm extends SubsystemBase {
   }
 
   /**
-   * Gets the position os the arm motor
+   * Gets the position of the arm motor
    * 
    * @return arm encoder position
    */

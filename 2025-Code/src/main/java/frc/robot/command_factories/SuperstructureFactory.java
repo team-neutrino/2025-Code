@@ -104,9 +104,10 @@ public class SuperstructureFactory {
     public static Command scoreCoralL4AutonCommand() {
         return new ParallelCommandGroup(
                 ElevatorFactory.moveL4(),
-                ArmFactory.moveToL4(), ClawFactory.runOuttake()
-                        .onlyIf(() -> (arm.getArmEncoderPosition() >= (ArmConstants.L4_POSITION - 1)
-                                && elevator.getEncoderPosition() >= (ElevatorConstants.L4 - 1))));
+                ArmFactory.moveToL4(), new SequentialCommandGroup(claw.clawDefaultCommand()
+                        .until(() -> (arm.getArmEncoderPosition() >= (ArmConstants.L4_POSITION - 1)
+                                && elevator.getEncoderPosition() >= (ElevatorConstants.L4 - 1))),
+                        ClawFactory.runOuttake().until(() -> !claw.hasGamePiece())));
     }
 
     public static Command moveToScoreL4Command() {
