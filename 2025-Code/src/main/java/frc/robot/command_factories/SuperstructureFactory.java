@@ -102,11 +102,11 @@ public class SuperstructureFactory {
     }
 
     public static Command scoreCoralL4AutonCommand() {
-        return new SequentialCommandGroup(new ParallelCommandGroup(
+        return new ParallelCommandGroup(
                 ElevatorFactory.moveL4(),
                 ArmFactory.moveToL4(), ClawFactory.runOuttake()
                         .onlyIf(() -> (arm.getArmEncoderPosition() >= (ArmConstants.L4_POSITION - 1)
-                                && elevator.getEncoderPosition() >= (ElevatorConstants.L4 - 1)))));
+                                && elevator.getEncoderPosition() >= (ElevatorConstants.L4 - 1))));
     }
 
     public static Command moveToScoreL4Command() {
