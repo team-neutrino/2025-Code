@@ -69,7 +69,7 @@ public final class Constants {
     public static final double LOW_POSITION = 0.0;
     public static final double STAGE_ONE_UP = 26.0;
     public static final double HIGH_POSITION = 55.0;
-    public static final double ALGAE_INTAKE = 6.0;
+    public static final double ALGAE_INTAKE = 0.0;
     public static final double CORAL_INTAKE = 36;
     public static final double REMOVE_ALGAE_L2 = 0.0;
     public static final double REMOVE_ALGAE_L3 = 0.0;

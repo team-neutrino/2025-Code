@@ -24,6 +24,7 @@ import com.revrobotics.spark.config.SparkFlexConfigAccessor;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.spark.config.ClosedLoopConfigAccessor;
 import static frc.robot.Constants.ArmConstants.*;
+import static frc.robot.Constants.ElevatorConstants.ALGAE_INTAKE;
 
 /**
  * Class that represents the arm subsystem on the robot.
@@ -97,6 +98,14 @@ public class Arm extends SubsystemBase {
 
   public double getArmEncoderVelocity() {
     return m_armEncoder.getVelocity();
+  }
+
+  public boolean armReady() {
+    if (m_targetAngle == DEFAULT_POSITION || m_targetAngle == CORAL_STATION_POSITION || m_targetAngle == ALGAE_INTAKE) {
+      return false;
+    } else {
+      return getArmEncoderPosition() >= m_targetAngle - 0.2;
+    }
   }
 
   /**

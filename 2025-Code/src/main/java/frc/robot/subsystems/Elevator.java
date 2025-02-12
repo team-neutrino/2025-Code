@@ -25,6 +25,7 @@ import static frc.robot.Constants.ElevatorConstants.*;
 
 import java.time.Period;
 
+import static frc.robot.Constants.ArmConstants.CORAL_STATION_POSITION;
 import static frc.robot.Constants.ConfigSignals.*;
 
 public class Elevator extends SubsystemBase {
@@ -131,6 +132,14 @@ public class Elevator extends SubsystemBase {
 
   public boolean isHighPosition() {
     return m_encoder.getPosition() > HIGH_POSITION;
+  }
+
+  public boolean elevatorReady() {
+    if (m_target == DEFAULT || m_target == CORAL_STATION_POSITION || m_target == ALGAE_INTAKE) {
+      return false;
+    } else {
+      return getEncoderPosition() >= m_target - 0.2;
+    }
   }
 
   private double safeHeight(double targetHeight) {

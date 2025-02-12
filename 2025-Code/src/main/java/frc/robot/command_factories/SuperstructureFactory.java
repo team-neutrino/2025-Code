@@ -84,29 +84,34 @@ public class SuperstructureFactory {
     // AUTON COMMANDS
 
     public static Command scoreCoralL1AutonCommand() {
-        return new SequentialCommandGroup(new ParallelCommandGroup(
+        return new ParallelCommandGroup(
                 ElevatorFactory.moveL1(),
-                ArmFactory.moveToL1()), ClawFactory.runOuttake()).until(() -> !claw.isCoral());
+                ArmFactory.moveToL1(), new SequentialCommandGroup(claw.clawDefaultCommand()
+                        .until(() -> (arm.armReady() && elevator.elevatorReady())),
+                        ClawFactory.runOuttake().until(() -> !claw.hasGamePiece())));
     }
 
     public static Command scoreCoralL2AutonCommand() {
-        return new SequentialCommandGroup(new ParallelCommandGroup(
+        return new ParallelCommandGroup(
                 ElevatorFactory.moveL2(),
-                ArmFactory.moveToL2()), ClawFactory.runOuttake()).until(() -> !claw.isCoral());
+                ArmFactory.moveToL2(), new SequentialCommandGroup(claw.clawDefaultCommand()
+                        .until(() -> (arm.armReady() && elevator.elevatorReady())),
+                        ClawFactory.runOuttake().until(() -> !claw.hasGamePiece())));
     }
 
     public static Command scoreCoralL3AutonCommand() {
-        return new SequentialCommandGroup(new ParallelCommandGroup(
+        return new ParallelCommandGroup(
                 ElevatorFactory.moveL3(),
-                ArmFactory.moveToL3()), ClawFactory.runOuttake()).until(() -> !claw.isCoral());
+                ArmFactory.moveToL3(), new SequentialCommandGroup(claw.clawDefaultCommand()
+                        .until(() -> (arm.armReady() && elevator.elevatorReady())),
+                        ClawFactory.runOuttake().until(() -> !claw.hasGamePiece())));
     }
 
     public static Command scoreCoralL4AutonCommand() {
         return new ParallelCommandGroup(
                 ElevatorFactory.moveL4(),
                 ArmFactory.moveToL4(), new SequentialCommandGroup(claw.clawDefaultCommand()
-                        .until(() -> (arm.getArmEncoderPosition() >= (ArmConstants.L4_POSITION - 1)
-                                && elevator.getEncoderPosition() >= (ElevatorConstants.L4 - 1))),
+                        .until(() -> (arm.armReady() && elevator.elevatorReady())),
                         ClawFactory.runOuttake().until(() -> !claw.hasGamePiece())));
     }
 
