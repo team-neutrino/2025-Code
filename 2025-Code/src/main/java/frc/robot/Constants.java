@@ -35,7 +35,9 @@ public final class Constants {
 
   public static class SwerveConstants {
     public static final double MAX_SPEED = 5.7;
+    public static final double SLOW_SWERVE_SPEED = 3.5;
     public static final double MAX_ROTATION_SPEED = 1.5 * Math.PI;
+    public static final double SLOW_ROTATION_SPEED = 0.8 * Math.PI;
     public static final double DRIVE_ASSIST_KP = 1.5;
     public static final double[] HEXAGON_ANGLES = { Integer.MAX_VALUE, -1, -1, -1, -1, -1, 120, 180, -120, -60, 0, 60,
         -1, -1, -1, -1, -1, -120, 180, 120, 60, 0, -60 };
