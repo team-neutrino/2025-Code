@@ -20,6 +20,6 @@ public class DriveToPoint {
     }
 
     public Rotation2d getRotation() {
-        return Rotation2d.fromDegrees(m_target.getRotation().getDegrees());
+        return Rotation2d.fromDegrees(m_target.getRotation().getDegrees() + 180);
     }
 }
