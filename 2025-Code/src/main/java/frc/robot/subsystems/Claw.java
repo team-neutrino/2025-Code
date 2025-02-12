@@ -106,7 +106,8 @@ public class Claw extends SubsystemBase {
      * @return true if coral
      */
     public boolean isCoral() {
-        return withinProximity(0.15) && getBlueToRed() > 0.6 && getBlueToRed() < 1.15;
+        return withinProximity(0.05)
+                && (m_colorSensor.getBlue() > 0.7 && m_colorSensor.getRed() > 0.7 && m_colorSensor.getGreen() > 0.7);
     }
 
     /**
@@ -161,7 +162,8 @@ public class Claw extends SubsystemBase {
     }
 
     /**
-     * Gives an instance of the run intake command., sets the intake voltage to the speed provided.
+     * Gives an instance of the run intake command., sets the intake voltage to the
+     * speed provided.
      * 
      * @param speed speed claw is set to
      * @return The run intake command
