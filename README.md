@@ -40,7 +40,7 @@
 ## PWM
 | Subsystem | Description          | Port   |
 | --------- | -------------------- | ------ |
-| Climb     | Servo for ratchet    | 0      |
+| Climb     | Servo for Ratchet    | 0      |
 
 ## PDH
 | Port | Destination | Breaker | Gauge  |
