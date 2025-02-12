@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.command_factories.*;
 import frc.robot.commands.DriveAssistCom;
+import frc.robot.util.DriveToPoint;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.util.Subsystem.*;
@@ -14,6 +15,7 @@ import static frc.robot.util.Subsystem.*;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -26,6 +28,7 @@ public class RobotContainer {
       OperatorConstants.kDriverControllerPort);
   private final CommandXboxController m_buttonsController = new CommandXboxController(
       OperatorConstants.kButtonsControllerPort);
+  private final DriveToPoint m_driveToPoint = new DriveToPoint();
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -43,6 +46,9 @@ public class RobotContainer {
     m_driverController.y().onTrue(ClimbFactory.raiseClimb());
     m_driverController.a().onTrue(ClimbFactory.lowerClimb());
     m_driverController.x().onTrue(ClimbFactory.lockGrabber());
+
+    m_driverController.b()
+        .whileTrue(Subsystem.swerve.swerveDriveToPoint(m_driveToPoint));
 
     m_driverController.leftStick().toggleOnTrue(new DriveAssistCom(m_driverController));
     m_driverController.back().whileTrue(swerve.resetYawCommand());
