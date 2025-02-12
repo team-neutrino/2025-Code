@@ -151,11 +151,11 @@ public final class Constants {
     public static final int FOLLOW_MOTOR_ID = 31;
     public static final int LOCK_MOTOR_ID = 32;
 
-    public static final int CLIMB_CURRENT_LIMIT = 10;
-    public static final int LOCK_CURRENT_LIMIT = 10;
+    public static final int CLIMB_CURRENT_LIMIT = 80;
+    public static final int LOCK_CURRENT_LIMIT = 30;
     // subject to change
 
-    public static final double LOCK_CURRENT_THRESHOLD = 22;
+    public static final double LOCK_CURRENT_THRESHOLD = 20;
     public static final double LOCK_RAMP_INCREASE_RATE = 1.0;
     // subject to change
 
