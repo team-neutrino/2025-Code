@@ -4,9 +4,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants.ArmConstants;
-import frc.robot.Constants.ElevatorConstants;
-import frc.robot.util.Subsystem;
 
 import static frc.robot.util.Subsystem.*;
 
@@ -14,28 +11,28 @@ public class SuperstructureFactory {
     public static Command intakeCoral() {
         Command elevatorCom = ElevatorFactory.moveToIntake();
         Command armCom = ArmFactory.armToIntake();
-        Command clawCom = ClawFactory.runIntake().alongWith(WristFactory.wristToIntake());
+        Command clawCom = ClawFactory.runIntake();
         return elevatorCom.alongWith(armCom, clawCom).until(() -> claw.hasGamePiece());
     }
 
     public static Command outtake() {
         Command elevatorCom = ElevatorFactory.moveToIntake();
         Command armCom = ArmFactory.armToIntake();
-        Command clawCom = ClawFactory.runOuttake().alongWith(WristFactory.wristToIntake());
+        Command clawCom = ClawFactory.runOuttake();
         return elevatorCom.alongWith(armCom, clawCom);
     }
 
     public static Command descoreAlgaeL2() {
         Command elevatorCom = ElevatorFactory.movetoRemoveAlgaeL2();
         Command armCom = ArmFactory.armToDescoreL2();
-        Command clawCom = ClawFactory.runIntake().alongWith(WristFactory.wristToIntake());
+        Command clawCom = ClawFactory.runIntake();
         return elevatorCom.alongWith(armCom, clawCom).until(() -> claw.hasGamePiece());
     }
 
     public static Command descoreAlgaeL3() {
         Command elevatorCom = ElevatorFactory.movetoRemoveAlgaeL3();
         Command armCom = ArmFactory.armToDescoreL3();
-        Command clawCom = ClawFactory.runIntake().alongWith(WristFactory.wristToIntake());
+        Command clawCom = ClawFactory.runIntake();
         return elevatorCom.alongWith(armCom, clawCom).until(() -> claw.hasGamePiece());
     }
 
@@ -70,15 +67,15 @@ public class SuperstructureFactory {
     }
 
     public static Command dunkL4Command() {
-        return new ParallelCommandGroup(ArmFactory.dunkL4(), WristFactory.wristToScoring(), ElevatorFactory.moveL4());
+        return new ParallelCommandGroup(ArmFactory.dunkL4(), ElevatorFactory.moveL4());
     }
 
     public static Command dunkL3Command() {
-        return new ParallelCommandGroup(ArmFactory.dunkL3(), WristFactory.wristToScoring(), ElevatorFactory.dunkL3());
+        return new ParallelCommandGroup(ArmFactory.dunkL3(), ElevatorFactory.dunkL3());
     }
 
     public static Command dunkL2Command() {
-        return new ParallelCommandGroup(ArmFactory.dunkL2(), WristFactory.wristToScoring(), ElevatorFactory.dunkL2());
+        return new ParallelCommandGroup(ArmFactory.dunkL2(), ElevatorFactory.dunkL2());
     }
 
     // AUTON COMMANDS

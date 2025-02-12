@@ -73,11 +73,11 @@ public final class Constants {
     public static final double CORAL_INTAKE = 36;
     public static final double REMOVE_ALGAE_L2 = 0.0;
     public static final double REMOVE_ALGAE_L3 = 0.0;
-    public static final double L1 = 14.0; // placeholder
-    public static final double L2 = 24.0; // placeholder
-    public static final double L3 = 36.0; // placeholder
-    public static final double L4 = 54.0; // placeholder
-    public static final double ARM_WILL_NOT_HIT_BASE_HEIGHT = 20.0; // placeholder
+    public static final double L1 = 14.0;
+    public static final double L2 = 24.0;
+    public static final double L3 = 36.0;
+    public static final double L4 = 54.0;
+    public static final double ARM_WILL_NOT_HIT_BASE_HEIGHT = 20.0;
     public static final double STAGE_1_LENGTH = 29; // inches
     public static final double STAGE_2_LENGTH = 26; // inches
     public static final double GEAR_RATIO = 50 / 7; // 7.41:1
@@ -100,7 +100,6 @@ public final class Constants {
   }
 
   public static class ArmConstants {
-    // change positions
     public static final double DEFAULT_POSITION = 160;
     public static final double GROUND_ALGAE_POSITION = 95;
     public static final double CORAL_STATION_POSITION = 330;
@@ -138,21 +137,10 @@ public final class Constants {
 
   public static class ClawConstants {
     public static final int LEFT_GRABBER = 21;
-    public static final int RIGHT_GRABBER = 22;
-    public static final int INTAKE_MOTOR_BEAMBREAK = 0;
     public static final int GRABBER_CURRENT_LIMIT = 20;
     public static final double INTAKE_MOTOR_VOLTAGE = 0.7;
 
     public static final int COLOR_SENSOR = 27;
-  }
-
-  public static class WristConstants {
-    public static final int MOTOR_ID = 25;
-    public static final int CURRENT_LIMIT = 15;
-    public static final double VOLTAGE = 1;
-    public static final int INTAKE_POS = 0;
-    public static final int SCORING_POS = 90;
-    public static final double RAMP_RATE = 0.25;
   }
 
   public static class ClimbConstants {

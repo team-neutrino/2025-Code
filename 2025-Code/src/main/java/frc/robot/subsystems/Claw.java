@@ -28,25 +28,13 @@ public class Claw extends SubsystemBase {
      */
     private SparkMax m_grabber = new SparkMax(ClawConstants.LEFT_GRABBER, MotorType.kBrushless);
     /**
-     * Follower motor to the grabber
-     */
-    private SparkMax m_follower = new SparkMax(ClawConstants.RIGHT_GRABBER, MotorType.kBrushless);
-    /**
      * Configuration object for the grabber motor
      */
     private SparkMaxConfig m_grabberConfig = new SparkMaxConfig();
     /**
-     * Configuration object for the follower motor
-     */
-    private SparkMaxConfig m_followerConfig = new SparkMaxConfig();
-    /**
      * Encoder for the grabber motor
      */
     private RelativeEncoder m_grabberEncoder;
-    /**
-     * Encoder for the follower motor
-     */
-    private RelativeEncoder m_followerEncoder;
     /**
      * Voltage for the intake (controls power of the motor)
      */
@@ -65,7 +53,6 @@ public class Claw extends SubsystemBase {
      */
     public Claw() {
         m_grabberEncoder = m_grabber.getEncoder();
-        m_followerEncoder = m_follower.getEncoder();
 
         m_grabberConfig.smartCurrentLimit(Constants.ClawConstants.GRABBER_CURRENT_LIMIT);
         m_grabberConfig.inverted(false);
@@ -73,12 +60,10 @@ public class Claw extends SubsystemBase {
 
         m_grabberConfig.softLimit.forwardSoftLimitEnabled(false);
         m_grabberConfig.softLimit.reverseSoftLimitEnabled(false);
-        m_followerConfig.apply(m_grabberConfig);
-        m_followerConfig.follow(m_grabber);
+
         m_grabber.configure(m_grabberConfig, SparkBase.ResetMode.kResetSafeParameters,
                 SparkBase.PersistMode.kPersistParameters);
-        m_follower.configure(m_followerConfig, SparkBase.ResetMode.kResetSafeParameters,
-                SparkBase.PersistMode.kPersistParameters);
+
         m_settings.setLampLEDBrightness(1);
         m_colorSensor.setSettings(m_settings);
     }
@@ -127,15 +112,6 @@ public class Claw extends SubsystemBase {
      */
     public double getVelocityOfGrabber() {
         return m_grabberEncoder.getVelocity();
-    }
-
-    /**
-     * Gets the velocity of the follower Motor
-     * 
-     * @return follower velocity
-     */
-    public double getVelocityOfGrabberFollower() {
-        return m_followerEncoder.getVelocity();
     }
 
     /**
