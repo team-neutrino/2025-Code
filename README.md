@@ -29,8 +29,8 @@
 |           | left grabber   | 21     | Spark Max        |
 |           | color sensor   | 27     | Canandcolor      |
 | Climb     |                | 30-39  |                  |
-|           | 0              | 30     | Talon Fx         |
-|           | 1              | 31     | Talon Fx         |
+|           | main motor     | 30     | Talon Fx         |
+|           | follow motor   | 31     | Talon Fx         |
 |           | hook           | 32     | Spark Max        |
 
 ## DIO
