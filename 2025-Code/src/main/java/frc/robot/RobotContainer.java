@@ -54,7 +54,7 @@ public class RobotContainer {
     m_driverController.back().whileTrue(swerve.resetYawCommand());
 
     // buttons controller
-    m_buttonsController.y().whileTrue(SuperstructureFactory.scoreCoralL1Command());
+    m_buttonsController.y().whileTrue(SuperstructureFactory.scoreCoralL1Underhand());
     m_buttonsController.x().whileTrue(SuperstructureFactory.scoreCoralL2Command());
     m_buttonsController.b().whileTrue(SuperstructureFactory.scoreCoralL3Command());
     m_buttonsController.a().whileTrue(SuperstructureFactory.scoreCoralL4Command());
@@ -103,7 +103,7 @@ public class RobotContainer {
       return new InstantCommand();
     }
     try {
-      auto = new PathPlannerAuto("2 CORAL PROCESSOR");
+      auto = new PathPlannerAuto("L1 CORAL PROCESSOR");
     } catch (Exception e) {
       auto = new PathPlannerAuto("Nothing");
     }

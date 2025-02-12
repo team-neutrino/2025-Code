@@ -137,7 +137,7 @@ public class Arm extends SubsystemBase {
    * @return m_armLimit
    */
   public boolean isArmInLimit() {
-    return true;
+    return getArmEncoderPosition() <= 270;
   }
 
   /**

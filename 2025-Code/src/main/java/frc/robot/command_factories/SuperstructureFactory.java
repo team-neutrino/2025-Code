@@ -61,6 +61,12 @@ public class SuperstructureFactory {
                 ArmFactory.moveToL4()), ClawFactory.runOuttake());
     }
 
+    public static Command scoreCoralL1Underhand() {
+        return new SequentialCommandGroup(new ParallelCommandGroup(
+                ElevatorFactory.moveL2(),
+                ArmFactory.moveToUnderhand()), ClawFactory.runOuttake());
+    }
+
     public static Command dunkL4Command() {
         return new ParallelCommandGroup(ArmFactory.dunkL4(), WristFactory.wristToScoring(), ElevatorFactory.moveL4());
     }
