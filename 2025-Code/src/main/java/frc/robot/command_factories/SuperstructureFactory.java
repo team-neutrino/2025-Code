@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.ElevatorConstants;
+import frc.robot.util.Subsystem;
 
 import static frc.robot.util.Subsystem.*;
 
@@ -20,10 +23,6 @@ public class SuperstructureFactory {
         Command armCom = ArmFactory.armToIntake();
         Command clawCom = ClawFactory.runOuttake().alongWith(WristFactory.wristToIntake());
         return elevatorCom.alongWith(armCom, clawCom);
-    }
-
-    public static Command moveToIntake() {
-        return new ParallelCommandGroup(ElevatorFactory.moveToIntake(), ArmFactory.armToIntake());
     }
 
     public static Command descoreAlgaeL2() {
@@ -61,7 +60,13 @@ public class SuperstructureFactory {
     public static Command scoreCoralL4Command() {
         return new SequentialCommandGroup(new ParallelCommandGroup(
                 ElevatorFactory.moveL4(),
-                ArmFactory.moveToL4()), WristFactory.wristToScoring(), ClawFactory.runOuttake());
+                ArmFactory.moveToL4()), ClawFactory.runOuttake());
+    }
+
+    public static Command scoreCoralL1Underhand() {
+        return new SequentialCommandGroup(new ParallelCommandGroup(
+                ElevatorFactory.moveL2(),
+                ArmFactory.moveToUnderhand()), ClawFactory.runOuttake());
     }
 
     public static Command dunkL4Command() {
@@ -74,6 +79,40 @@ public class SuperstructureFactory {
 
     public static Command dunkL2Command() {
         return new ParallelCommandGroup(ArmFactory.dunkL2(), WristFactory.wristToScoring(), ElevatorFactory.dunkL2());
+    }
+
+    // AUTON COMMANDS
+
+    public static Command scoreCoralL1AutonCommand() {
+        return new ParallelCommandGroup(
+                ElevatorFactory.moveL1(),
+                ArmFactory.moveToL1(), new SequentialCommandGroup(claw.clawDefaultCommand()
+                        .until(() -> (arm.armReady() && elevator.elevatorReady())),
+                        ClawFactory.runOuttake().until(() -> !claw.hasGamePiece())));
+    }
+
+    public static Command scoreCoralL2AutonCommand() {
+        return new ParallelCommandGroup(
+                ElevatorFactory.moveL2(),
+                ArmFactory.moveToL2(), new SequentialCommandGroup(claw.clawDefaultCommand()
+                        .until(() -> (arm.armReady() && elevator.elevatorReady())),
+                        ClawFactory.runOuttake().until(() -> !claw.hasGamePiece())));
+    }
+
+    public static Command scoreCoralL3AutonCommand() {
+        return new ParallelCommandGroup(
+                ElevatorFactory.moveL3(),
+                ArmFactory.moveToL3(), new SequentialCommandGroup(claw.clawDefaultCommand()
+                        .until(() -> (arm.armReady() && elevator.elevatorReady())),
+                        ClawFactory.runOuttake().until(() -> !claw.hasGamePiece())));
+    }
+
+    public static Command scoreCoralL4AutonCommand() {
+        return new ParallelCommandGroup(
+                ElevatorFactory.moveL4(),
+                ArmFactory.moveToL4(), new SequentialCommandGroup(claw.clawDefaultCommand()
+                        .until(() -> (arm.armReady() && elevator.elevatorReady())),
+                        ClawFactory.runOuttake().until(() -> !claw.hasGamePiece())));
     }
 
     public static Command moveToScoreL4Command() {
@@ -90,5 +129,14 @@ public class SuperstructureFactory {
 
     public static Command moveToScoreL1Command() {
         return new ParallelCommandGroup(ElevatorFactory.moveL1(), ArmFactory.moveToL1());
+    }
+
+    public static Command moveToIntake() {
+        return new ParallelCommandGroup(ElevatorFactory.moveToIntake(), ArmFactory.armToIntake());
+    }
+
+    public static Command intakeCoralAutonCommand() {
+        return new ParallelCommandGroup(ElevatorFactory.moveToIntake(), ArmFactory.armToIntake(),
+                ClawFactory.runIntake()).until(() -> claw.hasGamePiece());
     }
 }

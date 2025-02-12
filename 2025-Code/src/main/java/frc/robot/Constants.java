@@ -69,15 +69,15 @@ public final class Constants {
     public static final double LOW_POSITION = 0.0;
     public static final double STAGE_ONE_UP = 26.0;
     public static final double HIGH_POSITION = 55.0;
-    public static final double ALGAE_INTAKE = 6.0;
-    public static final double CORAL_INTAKE = 0.0;
+    public static final double ALGAE_INTAKE = 0.0;
+    public static final double CORAL_INTAKE = 36;
     public static final double REMOVE_ALGAE_L2 = 0.0;
     public static final double REMOVE_ALGAE_L3 = 0.0;
-    public static final double L1 = 16.0; // placeholder
-    public static final double L2 = 20.0; // placeholder
+    public static final double L1 = 14.0; // placeholder
+    public static final double L2 = 24.0; // placeholder
     public static final double L3 = 36.0; // placeholder
     public static final double L4 = 54.0; // placeholder
-    public static final double ARM_WILL_NOT_HIT_BASE_HEIGHT = 1.0; // placeholder
+    public static final double ARM_WILL_NOT_HIT_BASE_HEIGHT = 20.0; // placeholder
     public static final double STAGE_1_LENGTH = 29; // inches
     public static final double STAGE_2_LENGTH = 26; // inches
     public static final double GEAR_RATIO = 50 / 7; // 7.41:1
@@ -103,11 +103,12 @@ public final class Constants {
     // change positions
     public static final double DEFAULT_POSITION = 160;
     public static final double GROUND_ALGAE_POSITION = 95;
-    public static final double CORAL_STATION_POSITION = 160;
-    public static final double L1_POSITION = 95.0;
-    public static final double L2_POSITION = 105.0;
-    public static final double L3_POSITION = 120.0;
-    public static final double L4_POSITION = 130.0;
+    public static final double CORAL_STATION_POSITION = 330;
+    public static final double L1_UNDERHAND = 350.0;
+    public static final double L1_POSITION = 120.0;
+    public static final double L2_POSITION = 130.0;
+    public static final double L3_POSITION = 140.0;
+    public static final double L4_POSITION = 150.0;
     public static final double REEF_L2_DESCORE_POSITION = 0.0;
     public static final double REEF_L3_DESCORE_POSITION = 0.0;
 
@@ -122,7 +123,7 @@ public final class Constants {
     public static final int CURRENT_LIMIT = 40;
 
     public static final double MAX_VELOCITY = 4000;
-    public static final double MAX_ACCELERATION = 10000;
+    public static final double MAX_ACCELERATION = 25000;
     public static final double ALLOWED_ERROR = 0.7;
 
     public static final double kp = 0.02;
@@ -139,7 +140,7 @@ public final class Constants {
     public static final int LEFT_GRABBER = 21;
     public static final int RIGHT_GRABBER = 22;
     public static final int INTAKE_MOTOR_BEAMBREAK = 0;
-    public static final int GRABBER_CURRENT_LIMIT = 40;
+    public static final int GRABBER_CURRENT_LIMIT = 20;
     public static final double INTAKE_MOTOR_VOLTAGE = 0.7;
 
     public static final int COLOR_SENSOR = 27;

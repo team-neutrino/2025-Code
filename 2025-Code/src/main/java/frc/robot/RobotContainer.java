@@ -84,11 +84,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("MoveToScoringL2", SuperstructureFactory.moveToScoreL2Command());
     NamedCommands.registerCommand("MoveToScoringL1", SuperstructureFactory.moveToScoreL1Command());
     NamedCommands.registerCommand("MoveToIntake", SuperstructureFactory.moveToIntake());
-    NamedCommands.registerCommand("ScoreL4", SuperstructureFactory.scoreCoralL4Command());
-    NamedCommands.registerCommand("ScoreL3", SuperstructureFactory.scoreCoralL3Command());
-    NamedCommands.registerCommand("ScoreL2", SuperstructureFactory.scoreCoralL2Command());
-    NamedCommands.registerCommand("ScoreL1", SuperstructureFactory.scoreCoralL1Command());
-    NamedCommands.registerCommand("Intake", SuperstructureFactory.intakeCoral());
+    NamedCommands.registerCommand("ScoreL4", SuperstructureFactory.scoreCoralL4AutonCommand());
+    NamedCommands.registerCommand("ScoreL3", SuperstructureFactory.scoreCoralL3AutonCommand());
+    NamedCommands.registerCommand("ScoreL2", SuperstructureFactory.scoreCoralL2AutonCommand());
+    NamedCommands.registerCommand("ScoreL1", SuperstructureFactory.scoreCoralL1AutonCommand());
+    NamedCommands.registerCommand("Intake", SuperstructureFactory.intakeCoralAutonCommand());
   }
 
   /**
@@ -103,7 +103,7 @@ public class RobotContainer {
       return new InstantCommand();
     }
     try {
-      auto = new PathPlannerAuto("LEAVE TOP");
+      auto = new PathPlannerAuto("test");
     } catch (Exception e) {
       auto = new PathPlannerAuto("Nothing");
     }

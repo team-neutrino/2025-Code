@@ -10,7 +10,6 @@ import frc.robot.Constants.ElevatorConstants;
 import frc.robot.util.Subsystem;
 
 import com.revrobotics.spark.ClosedLoopSlot;
-import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -69,7 +68,7 @@ public class Arm extends SubsystemBase {
   }
 
   /**
-   * Gets the position os the arm motor
+   * Gets the position of the arm motor
    * 
    * @return arm encoder position
    */
@@ -97,6 +96,14 @@ public class Arm extends SubsystemBase {
 
   public double getArmEncoderVelocity() {
     return m_armEncoder.getVelocity();
+  }
+
+  public boolean armReady() {
+    if (m_targetAngle == DEFAULT_POSITION || m_targetAngle == CORAL_STATION_POSITION) {
+      return false;
+    } else {
+      return getArmEncoderPosition() >= m_targetAngle - 0.2;
+    }
   }
 
   /**
@@ -137,7 +144,7 @@ public class Arm extends SubsystemBase {
    * @return m_armLimit
    */
   public boolean isArmInLimit() {
-    return true;
+    return getArmEncoderPosition() <= 270;
   }
 
   /**

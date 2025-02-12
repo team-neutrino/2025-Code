@@ -9,6 +9,10 @@ public class ArmFactory {
         return arm.armRotateCommand(L1_POSITION);
     }
 
+    public static Command moveToUnderhand() {
+        return arm.armRotateCommand(L1_UNDERHAND);
+    }
+
     public static Command moveToL2() {
         return arm.armRotateCommand(L2_POSITION);
     }

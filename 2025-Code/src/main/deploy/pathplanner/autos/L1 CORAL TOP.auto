@@ -11,13 +11,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "1- Pro Coral"
+                  "pathName": "1-Top Coral"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToScoringL4"
+                  "name": "MoveToScoringL1"
                 }
               }
             ]
@@ -26,7 +26,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Score"
+            "name": "ScoreL1"
           }
         }
       ]
