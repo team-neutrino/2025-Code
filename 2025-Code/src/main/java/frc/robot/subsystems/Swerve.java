@@ -13,6 +13,7 @@ import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -65,6 +66,9 @@ public class Swerve extends CommandSwerveDrivetrain {
         valkyrie ? ValkyrieTunerConstants.BackRight : TunerConstants.BackRight);
 
     configureRequestPID();
+    // if the robot power was never killed but code was redeployed/rebooted then the
+    // swerve's yaw will zero itself but the pigeon will retain its previous value.
+    resetRotation(Rotation2d.fromDegrees(getYawDegrees()));
     if (m_hasBeenConstructed) {
       try {
         throw new IllegalAccessException("Swerve subsystem was instantiated twice");
@@ -203,11 +207,11 @@ public class Swerve extends CommandSwerveDrivetrain {
    * @return yaw in degrees
    */
   public double getYawDegrees() {
-    return getCurrentPose().getRotation().getDegrees();
+    return Math.toDegrees(getYawRadians());
   }
 
   public double getYawRadians() {
-    return Math.toRadians(getYawDegrees());
+    return MathUtil.angleModulus(Math.toRadians(getPigeon2().getYaw().getValueAsDouble()));
   }
 
   public boolean getIsAlinged() {

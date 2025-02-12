@@ -216,15 +216,21 @@ public class Limelight extends SubsystemBase {
       return;
     }
 
-    if (DriverStation.isEnabled()) {
+    if (!DriverStation.isEnabled()) {
+      // mode 0: use external yaw for MT2 localization only, ignore internal yaw
       LimelightHelpers.SetIMUMode(LIMELIGHT_1, 1);
+      // use external IMU yaw submitted via setRobotOrientation() and configure the
+      // LL4 internal IMU's fused yaw to match the submitted yaw value
       LimelightHelpers.SetIMUMode(LIMELIGHT_2, 1);
+    } else {
+      LimelightHelpers.SetIMUMode(LIMELIGHT_1, 2);
+      // use internal IMU for MT2 localization. External IMU data is ignored entirely.
+      LimelightHelpers.SetIMUMode(LIMELIGHT_2, 2);
     }
-    LimelightHelpers.SetIMUMode(LIMELIGHT_1, 2);
-    LimelightHelpers.SetIMUMode(LIMELIGHT_2, 2);
+
     // according to limelight docs, this needs to be called before using
     // .getBotPoseEstimate_wpiBlue_MegaTag2
-    LimelightHelpers.SetRobotOrientation(LIMELIGHT_1, Subsystem.swerve.getCurrentPose().getRotation().getDegrees(), 0,
+    LimelightHelpers.SetRobotOrientation(LIMELIGHT_1, Subsystem.swerve.getYawDegrees(), 0,
         0, 0, 0, 0);
     updateOdometry();
   }
