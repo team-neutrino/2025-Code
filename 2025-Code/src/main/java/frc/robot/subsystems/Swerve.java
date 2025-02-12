@@ -33,6 +33,9 @@ import java.io.IOException;
 
 import org.json.simple.parser.ParseException;
 
+import static frc.robot.util.Subsystem.LED;
+import frc.robot.Constants;
+import frc.robot.Constants.LEDConstants.States;
 import frc.robot.util.GeneratedSwerveCode.*;
 
 /**
@@ -233,6 +236,7 @@ public class Swerve extends CommandSwerveDrivetrain {
    * @return The default command.
    */
   public Command swerveDefaultCommand(CommandXboxController controller) {
+    LED.setCommandState(States.DEFAULT);
     return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(-controller.getLeftY() * MAX_SPEED)
         .withVelocityY(-controller.getLeftX() * MAX_SPEED)
         .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED));

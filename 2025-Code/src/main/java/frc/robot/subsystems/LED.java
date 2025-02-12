@@ -48,21 +48,20 @@ public class LED extends SubsystemBase {
     if (DriverStation.isAutonomousEnabled()) {
       color_pub.set("cyan");
     } else if (DriverStation.isTeleopEnabled()) {
-      if (getCommandState() == States.LOCKCLIMB) {
+      if (getCommandState() == States.DEFAULT) {
+        color_pub.set("orange");
+        blink_pub.set("solid");
+      } else if (getCommandState() == States.LOCKCLIMB) {
         color_pub.set("yellow");
         blink_pub.set("solid");
-      } else if (getCommandState() == States.CLIMBING) {
+      } /* else if (getCommandState() == States.CLIMBING) {
         color_pub.set("blue");
         blink_pub.set("solid");
-      } /*
-         * else if (claw.hasGamePiece()) {
-         * setToGamePieceColor();
-         * return;
-         * }
-         */
-    } else {
-      color_pub.set("orange");
-      blink_pub.set("solid");
+      }  */else if (claw.hasGamePiece()) {
+        setToGamePieceColor();
+        return;
+      }
+        
     }
   }
 
