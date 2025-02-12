@@ -27,8 +27,6 @@
 |           | angle control  | 10     | Spark Flex       |
 | Claw      |                | 20-29  |                  |
 |           | left grabber   | 21     | Spark Max        |
-|           | right grabber  | 22     | Spark Max        |
-|           | wrist          | 25     | Spark Max        |
 |           | color sensor   | 27     | Canandcolor      |
 | Climb     |                | 30-39  |                  |
 |           | 0              | 30     | Talon Fx         |
@@ -58,8 +56,8 @@
 | 8    |             |         |        |
 | 9    | Switch      | 10 A    | 22 AWG |
 | 10   | Intake 1    | 30 A    | 14 AWG |
-| 11   | Intake 2    | 30 A    | 14 AWG |
-| 12   | Wrist       | 30 A    | 14 AWG |
+| 11   |             |         |        |
+| 12   |             |         |        |
 | 13   | Arm         | 40 A    | 12 AWG |
 | 14   | Elevator 1  | 40 A    | 12 AWG |
 | 15   | Elevator 2  | 40 A    | 12 AWG |
