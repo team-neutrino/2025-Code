@@ -256,20 +256,6 @@ public class Swerve extends CommandSwerveDrivetrain {
         .withTargetDirection(controller.getRotation()));
   }
 
-  /**
-   * Creates and returns a slower-driving version (but not rotating) version of
-   * the default command. See {@link #swerveDefaultCommand} for details.
-   * 
-   * @param controller The driver controller.
-   * @return A slow-driving default command.
-   */
-  public Command getSlowMoveCommand(CommandXboxController controller) {
-    return applyRequest(
-        () -> SwerveRequestStash.drive.withVelocityX(controller.getLeftY() * (MAX_SPEED / 2))
-            .withVelocityY(controller.getLeftX() * (MAX_SPEED / 2))
-            .withRotationalRate(-controller.getRightX() * (MAX_ROTATION_SPEED / 2)));
-  }
-
   public Command resetYawCommand() {
     return run(() -> resetYaw());
   }
