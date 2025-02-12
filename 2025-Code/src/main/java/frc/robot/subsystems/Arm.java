@@ -10,7 +10,6 @@ import frc.robot.Constants.ElevatorConstants;
 import frc.robot.util.Subsystem;
 
 import com.revrobotics.spark.ClosedLoopSlot;
-import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -24,7 +23,6 @@ import com.revrobotics.spark.config.SparkFlexConfigAccessor;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.spark.config.ClosedLoopConfigAccessor;
 import static frc.robot.Constants.ArmConstants.*;
-import static frc.robot.Constants.ElevatorConstants.ALGAE_INTAKE;
 
 /**
  * Class that represents the arm subsystem on the robot.
@@ -101,7 +99,7 @@ public class Arm extends SubsystemBase {
   }
 
   public boolean armReady() {
-    if (m_targetAngle == DEFAULT_POSITION || m_targetAngle == CORAL_STATION_POSITION || m_targetAngle == ALGAE_INTAKE) {
+    if (m_targetAngle == DEFAULT_POSITION || m_targetAngle == CORAL_STATION_POSITION) {
       return false;
     } else {
       return getArmEncoderPosition() >= m_targetAngle - 0.2;
