@@ -17,4 +17,8 @@ public class ClimbFactory {
     public static Command lockGrabber() {
         return climb.lockCommand();
     }
+
+    public static Command unlockGrabber() {
+        return climb.unlockCommand();
+    }
 }
