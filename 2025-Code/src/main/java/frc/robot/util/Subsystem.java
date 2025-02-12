@@ -11,7 +11,6 @@ public class Subsystem {
     }
 
     public static final Claw claw = new ClawNT();
-    public static final Wrist wrist = new WristNT();
     public static final Elevator elevator = new ElevatorNT();
     public static final Climb climb = new ClimbNT();
     public static Swerve swerve = null;
