@@ -29,8 +29,8 @@
 |           | left grabber   | 21     | Spark Max        |
 |           | color sensor   | 27     | Canandcolor      |
 | Climb     |                | 30-39  |                  |
-|           | 0              | 30     | Talon Fx         |
-|           | 1              | 31     | Talon Fx         |
+|           | main motor     | 30     | Talon Fx         |
+|           | follow motor   | 31     | Talon Fx         |
 |           | hook           | 32     | Spark Max        |
 
 ## DIO
@@ -40,7 +40,7 @@
 ## PWM
 | Subsystem | Description          | Port   |
 | --------- | -------------------- | ------ |
-| Climb     | Servo for ratchet    | 0      |
+| Climb     | Servo for Ratchet    | 0      |
 
 ## PDH
 | Port | Destination | Breaker | Gauge  |
@@ -50,10 +50,10 @@
 | 2    | FLA         | 40 A    | 12 AWG |
 | 3    | BLA         | 40 A    | 12 AWG |
 | 4    | Climb 1     | 40 A    | 8 AWG  |
-| 5    | Climb 2     | 40 A    | 8 AWG  |
-| 6    | Climb Hook  | 30 A    | 14 AWG |
+| 5    | Climb Hook  | 30 A    | 14 AWG |
+| 6    |             |         |        |
 | 7    | LL, Pi, LED | 20 A    | 18 AWG |
-| 8    |             |         |        |
+| 8    | Climb 2     | 40 A    | 8 AWG  |
 | 9    | Switch      | 10 A    | 22 AWG |
 | 10   | Intake 1    | 30 A    | 14 AWG |
 | 11   |             |         |        |
