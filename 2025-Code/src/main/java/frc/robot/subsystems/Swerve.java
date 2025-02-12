@@ -33,6 +33,8 @@ import java.io.IOException;
 
 import org.json.simple.parser.ParseException;
 
+import frc.robot.Constants.ElevatorConstants;
+import frc.robot.util.Subsystem;
 import frc.robot.util.GeneratedSwerveCode.*;
 
 /**
@@ -49,6 +51,10 @@ public class Swerve extends CommandSwerveDrivetrain {
   private boolean isAligned = false;
 
   private Telemetry m_telemetry = new Telemetry(MAX_SPEED);
+
+  private double m_speed = MAX_SPEED;
+
+  private double m_rotationSpeed = MAX_ROTATION_SPEED;
 
   /**
    * Constructs the drivetrain using the values found in {@link TunerConstants}.
@@ -233,23 +239,9 @@ public class Swerve extends CommandSwerveDrivetrain {
    * @return The default command.
    */
   public Command swerveDefaultCommand(CommandXboxController controller) {
-    return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(-controller.getLeftY() * MAX_SPEED)
-        .withVelocityY(-controller.getLeftX() * MAX_SPEED)
-        .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED));
-  }
-
-  /**
-   * Creates and returns a slower-driving version (but not rotating) version of
-   * the default command. See {@link #swerveDefaultCommand} for details.
-   * 
-   * @param controller The driver controller.
-   * @return A slow-driving default command.
-   */
-  public Command getSlowMoveCommand(CommandXboxController controller) {
-    return applyRequest(
-        () -> SwerveRequestStash.drive.withVelocityX(controller.getLeftY() * (MAX_SPEED / 2))
-            .withVelocityY(controller.getLeftX() * (MAX_SPEED / 2))
-            .withRotationalRate(-controller.getRightX() * (MAX_ROTATION_SPEED / 2)));
+    return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(-controller.getLeftY() * m_speed)
+        .withVelocityY(-controller.getLeftX() * m_speed)
+        .withRotationalRate(-controller.getRightX() * m_rotationSpeed));
   }
 
   public Command resetYawCommand() {
@@ -258,7 +250,13 @@ public class Swerve extends CommandSwerveDrivetrain {
 
   @Override
   public void periodic() {
-
+    if (Subsystem.elevator.getEncoderPosition() >= ElevatorConstants.L3) {
+      m_speed = SLOW_SWERVE_SPEED;
+      m_rotationSpeed = SLOW_ROTATION_SPEED;
+    } else {
+      m_speed = MAX_SPEED;
+      m_rotationSpeed = MAX_ROTATION_SPEED;
+    }
   }
 
   /**
