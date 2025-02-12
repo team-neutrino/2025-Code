@@ -30,11 +30,14 @@ import static edu.wpi.first.units.Units.Pounds;
 import static frc.robot.Constants.SwerveConstants.*;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.json.simple.parser.ParseException;
 
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.util.Subsystem;
+import frc.robot.Constants;
+import frc.robot.util.DriveToPoint;
 import frc.robot.util.GeneratedSwerveCode.*;
 
 /**
@@ -42,6 +45,7 @@ import frc.robot.util.GeneratedSwerveCode.*;
  * modification of generated code.
  */
 public class Swerve extends CommandSwerveDrivetrain {
+
   private boolean m_hasBeenConstructed = false;
   /**
    * set by driveAssistCom; when the command isn't being run it should be false
@@ -49,6 +53,8 @@ public class Swerve extends CommandSwerveDrivetrain {
    * acceptable error of its target
    */
   private boolean isAligned = false;
+
+  private Pose2d m_poseTarget = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
 
   private Telemetry m_telemetry = new Telemetry(MAX_SPEED);
 
@@ -244,6 +250,12 @@ public class Swerve extends CommandSwerveDrivetrain {
         .withRotationalRate(-controller.getRightX() * m_rotationSpeed));
   }
 
+  public Command swerveDriveToPoint(DriveToPoint controller) {
+    return applyRequest(() -> SwerveRequestStash.driveWithVelocity.withVelocityX(controller.getXVelocity())
+        .withVelocityY(controller.getYVelocity())
+        .withTargetDirection(controller.getRotation()));
+  }
+
   public Command resetYawCommand() {
     return run(() -> resetYaw());
   }
@@ -257,6 +269,8 @@ public class Swerve extends CommandSwerveDrivetrain {
       m_speed = MAX_SPEED;
       m_rotationSpeed = MAX_ROTATION_SPEED;
     }
+    m_poseTarget = getCurrentPose().nearest(Constants.DriveToPoint.poseList);
+    DriveToPoint.setTarget(m_poseTarget);
   }
 
   /**
@@ -275,9 +289,12 @@ public class Swerve extends CommandSwerveDrivetrain {
         .withRotationalDeadband(MAX_ROTATION_SPEED * .06);
     public static final SwerveRequest.RobotCentric autonDrive = new SwerveRequest.RobotCentric()
         .withDriveRequestType(DriveRequestType.Velocity);
+    public static final SwerveRequest.FieldCentricFacingAngle driveWithVelocity = new SwerveRequest.FieldCentricFacingAngle()
+        .withDriveRequestType(DriveRequestType.Velocity);
   }
 
   public void configureRequestPID() {
     SwerveRequestStash.driveAssist.HeadingController.setPID(AUTO_ALIGN_P, 0, AUTO_ALIGN_D);
+    SwerveRequestStash.driveWithVelocity.HeadingController.setPID(DRIVE_ASSIST_KP, 0, AUTO_ALIGN_D);
   }
 }

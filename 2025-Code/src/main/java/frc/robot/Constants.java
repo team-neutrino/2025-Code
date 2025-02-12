@@ -4,6 +4,11 @@
 
 package frc.robot;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
 
 /**
@@ -230,6 +235,15 @@ public final class Constants {
       public static final int REEF_FACING_CAGES = 20;
     }
 
+  }
+
+  public static class DriveToPoint {
+    public static final Pose2d BLUE_PLAYER_STATION_1 = new Pose2d(1.3, 1.0, Rotation2d.fromDegrees(54));
+    public static final Pose2d BLUE_PLAYER_STATION_2 = new Pose2d(1.3, 6.8, Rotation2d.fromDegrees(-54));
+    public static final Pose2d BLUE_REEF_1 = new Pose2d(3, 4.0, Rotation2d.fromDegrees(180));
+    public static final Pose2d BLUE_REEF_2 = new Pose2d(6, 4.0, Rotation2d.fromDegrees(0));
+    public static final List<Pose2d> poseList = new ArrayList<>(List.of(BLUE_PLAYER_STATION_1, BLUE_PLAYER_STATION_2,
+        BLUE_REEF_1, BLUE_REEF_2));
   }
 
 }
