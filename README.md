@@ -112,8 +112,8 @@
 | Button     | Function        |
 | ---------- | --------------- |
 | Y          | Raise Climb Arm |
-| X          | Lock Climb Arm  |
-| B          |                 |
+| X          | Lock Grabber    |
+| B          | Unlock Grabber  |
 | A          | Lower Climb Arm |
 | LT         |                 |
 | LB         |                 |
