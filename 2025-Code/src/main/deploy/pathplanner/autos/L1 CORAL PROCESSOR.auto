@@ -13,12 +13,6 @@
                 "data": {
                   "pathName": "1- Pro Coral"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveToScoringL1"
-                }
               }
             ]
           }
@@ -26,7 +20,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreL1"
+            "name": "ScoreL4"
           }
         }
       ]

@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.ElevatorConstants;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.util.Subsystem.*;
@@ -102,7 +104,9 @@ public class SuperstructureFactory {
     public static Command scoreCoralL4AutonCommand() {
         return new SequentialCommandGroup(new ParallelCommandGroup(
                 ElevatorFactory.moveL4(),
-                ArmFactory.moveToL4()), ClawFactory.runOuttake()).until(() -> !claw.isCoral());
+                ArmFactory.moveToL4(), ClawFactory.runOuttake()
+                        .onlyIf(() -> (arm.getArmEncoderPosition() >= (ArmConstants.L4_POSITION - 1)
+                                && elevator.getEncoderPosition() >= (ElevatorConstants.L4 - 1)))));
     }
 
     public static Command moveToScoreL4Command() {
