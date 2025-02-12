@@ -186,23 +186,23 @@ public final class Constants {
 
   public static class LimelightConstants {
     // placeholder values (in meters)
-    public static final double CAMERA_FORWARD_OFFSET = -.3;
-    public static final double CAMERA_SIDE_OFFSET = 0.0;
-    public static final double CAMERA_HEIGHT_OFFSET = .6;
+    public static final double CAMERA_FORWARD_OFFSET = 0.216;
+    public static final double CAMERA_SIDE_OFFSET = 0.121;
+    public static final double CAMERA_HEIGHT_OFFSET = 0.552;
     // placeholder values (in degrees)
     public static final double CAMERA_ROLL_OFFSET = 0.0;
-    public static final double CAMERA_PITCH_OFFSET = 30;
-    public static final double CAMERA_YAW_OFFSET = 180;
+    public static final double CAMERA_PITCH_OFFSET = 0.0;
+    public static final double CAMERA_YAW_OFFSET = 0.0;
     // placeholder values (in meters)
-    public static final double CAMERA2_FORWARD_OFFSET = 0.0;
-    public static final double CAMERA2_SIDE_OFFSET = 0.0;
-    public static final double CAMERA2_HEIGHT_OFFSET = 0.0;
+    public static final double CAMERA2_FORWARD_OFFSET = -0.216;
+    public static final double CAMERA2_SIDE_OFFSET = 0.121;
+    public static final double CAMERA2_HEIGHT_OFFSET = 0.552;
     // placeholder values (in degrees)
     public static final double CAMERA2_ROLL_OFFSET = 0.0;
     public static final double CAMERA2_PITCH_OFFSET = 0.0;
-    public static final double CAMERA2_YAW_OFFSET = 0.0;
+    public static final double CAMERA2_YAW_OFFSET = 180.0;
 
-    public static final String LIMELIGHT_1 = "limelight";
+    public static final String LIMELIGHT_1 = "limelight-limeade";
     public static final String LIMELIGHT_2 = "limelight-limebee";
   }
 
@@ -238,10 +238,10 @@ public final class Constants {
   }
 
   public static class DriveToPoint {
-    public static final Pose2d BLUE_PLAYER_STATION_1 = new Pose2d(1.3, 1.0, Rotation2d.fromDegrees(-126));
-    public static final Pose2d BLUE_PLAYER_STATION_2 = new Pose2d(1.3, 6.8, Rotation2d.fromDegrees(126));
-    public static final Pose2d BLUE_REEF_1 = new Pose2d(2.75, 4.0, Rotation2d.fromDegrees(0));
-    public static final Pose2d BLUE_REEF_2 = new Pose2d(6.25, 4.0, Rotation2d.fromDegrees(180));
+    public static final Pose2d BLUE_PLAYER_STATION_1 = new Pose2d(1.3, 1.0, Rotation2d.fromDegrees(54));
+    public static final Pose2d BLUE_PLAYER_STATION_2 = new Pose2d(1.3, 6.8, Rotation2d.fromDegrees(-54));
+    public static final Pose2d BLUE_REEF_1 = new Pose2d(3, 4.0, Rotation2d.fromDegrees(180));
+    public static final Pose2d BLUE_REEF_2 = new Pose2d(6, 4.0, Rotation2d.fromDegrees(0));
     public static final List<Pose2d> poseList = new ArrayList<>(List.of(BLUE_PLAYER_STATION_1, BLUE_PLAYER_STATION_2,
         BLUE_REEF_1, BLUE_REEF_2));
   }
