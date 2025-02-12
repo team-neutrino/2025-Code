@@ -32,8 +32,4 @@ public class NetworkTables extends SubsystemBase {
         totalCurrent.set(m_Pdh.getTotalCurrent(), now);
         matchTime.set(DriverStation.getMatchTime(), now);
     }
-
-    public Double getMatchTime() {
-        return totalCurrent;
-    }
 }
