@@ -42,6 +42,9 @@ public class DriveAssistCom extends Command {
       swerve.setControl(req.withVelocityX(0)
           .withVelocityY(0));
       return;
+    } else if (isAligned()) {
+      // we don't have tv (or the tag we see isn't the right one) but are aligned
+      //
     }
     int pov = m_controller.getHID().getPOV();
     m_POIoffset = pov == 270 ? -REEF_OFFSET : pov == 90 ? REEF_OFFSET : m_POIoffset;
@@ -56,10 +59,9 @@ public class DriveAssistCom extends Command {
 
   private boolean exitExecute() {
     if (m_staticTagID == -1) {
-      setPriorityID();
+      m_staticTagID = limelight.getID();
     }
     return m_staticTagID != limelight.getID();
-
   }
 
   /**
@@ -114,10 +116,6 @@ public class DriveAssistCom extends Command {
     double yVel = MathUtil.clamp(error.getY() * DRIVE_ASSIST_KP, -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
     Translation2d ret = new Translation2d(xVel, yVel);
     return ret;
-  }
-
-  private void setPriorityID() {
-    m_staticTagID = limelight.getID();
   }
 
   public boolean isAligned() {
