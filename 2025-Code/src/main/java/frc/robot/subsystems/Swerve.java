@@ -54,8 +54,6 @@ public class Swerve extends CommandSwerveDrivetrain {
    */
   private boolean isAligned = false;
 
-  private Pose2d m_poseTarget = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
-
   private Telemetry m_telemetry = new Telemetry(MAX_SPEED);
 
   /**
