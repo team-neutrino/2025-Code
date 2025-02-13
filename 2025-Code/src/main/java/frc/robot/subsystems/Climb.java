@@ -65,7 +65,7 @@ public class Climb extends SubsystemBase {
     m_motionMagicConfig.MotionMagicAcceleration = ACCELERATION;
     m_motionMagicConfig.MotionMagicJerk = JERK;
 
-    m_climbMotorConfig.withMotionMagic(m_motionMagicConfig);
+    // m_climbMotorConfig.withMotionMagic(m_motionMagicConfig);
 
     m_climbMotor.setNeutralMode(NeutralModeValue.Brake);
     m_climbMotor.getConfigurator().apply(m_climbMotorConfig);
@@ -133,7 +133,6 @@ public class Climb extends SubsystemBase {
 
   public Command climbDefaultCommand() {
     return run(() -> {
-      engageRatchet();
       moveToPosition(0);
     });
   }
