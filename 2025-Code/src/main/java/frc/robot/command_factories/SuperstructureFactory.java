@@ -136,9 +136,4 @@ public class SuperstructureFactory {
         return new ParallelCommandGroup(ElevatorFactory.moveToIntake(), ArmFactory.armToIntake(),
                 ClawFactory.runIntake()).until(() -> claw.hasGamePiece());
     }
-
-    public Command armDefaultCommand() {
-        return claw.hasGamePiece() ? ArmFactory.moveToL1() : ArmFactory.armToIntake();
-
-    }
 }

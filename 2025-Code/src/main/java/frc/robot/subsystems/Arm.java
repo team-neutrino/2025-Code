@@ -6,9 +6,9 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.util.Subsystem;
-
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
@@ -204,6 +204,7 @@ public class Arm extends SubsystemBase {
 
   @Override
   public void periodic() {
+    m_targetAngle = Subsystem.claw.hasGamePiece() ? ArmConstants.L1_POSITION : CORAL_STATION_POSITION;
     adjustArm(safeAngle(m_targetAngle));
   }
 

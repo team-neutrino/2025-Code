@@ -180,6 +180,7 @@ public class Elevator extends SubsystemBase {
 
   @Override
   public void periodic() {
+    m_target = Subsystem.claw.hasGamePiece() ? DEFAULT : CORAL_INTAKE;
     adjustElevator(safeHeight(m_target));
     if (isLowPosition()) {
       resetEncoder(LOW_POSITION);
