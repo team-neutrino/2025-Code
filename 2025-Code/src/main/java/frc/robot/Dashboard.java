@@ -18,7 +18,6 @@ import frc.robot.subsystems.Limelight;
 public class Dashboard extends SubsystemBase {
     private ShuffleboardTab m_driverstationTab;
 
-    // nt
     // private NetworkTables nt = new NetworkTables();
 
     private GenericEntry m_info[] = new GenericEntry[1];
@@ -28,8 +27,6 @@ public class Dashboard extends SubsystemBase {
     private HttpCamera LLFeed;
 
     public Dashboard() {
-
-        m_driverstationTab = Shuffleboard.getTab("Driverstation Tab");
 
         driverstationTab();
     }
@@ -43,6 +40,12 @@ public class Dashboard extends SubsystemBase {
                 .withSize(1, 1)
                 .withWidget(BuiltInWidgets.kDial)
                 .withProperties(Map.of("min", 0, "max", 150))
+                .getEntry();
+
+        m_info[1] = m_driverstationTab
+                .add("Game Piece", "No Piece")
+                .withPosition(0, 2)
+                .withSize(2, 2)
                 .getEntry();
 
         LLFeed = new HttpCamera("limelight1", "http://limelight.local:5801",
@@ -64,8 +67,6 @@ public class Dashboard extends SubsystemBase {
         // .withWidget(BuiltInWidgets.kCameraStream);
 
     }
-
-    // }
 
     @Override
     public void periodic() {
