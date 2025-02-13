@@ -6,9 +6,9 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.util.Subsystem;
-
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
@@ -143,6 +143,10 @@ public class Arm extends SubsystemBase {
    * 
    * @return m_armLimit
    */
+  public boolean isTargetInLimit() {
+    return getArmTargetPosition() <= 270;
+  }
+
   public boolean isArmInLimit() {
     return getArmEncoderPosition() <= 270;
   }
@@ -191,30 +195,14 @@ public class Arm extends SubsystemBase {
 
   private double safeAngle(double targetAngle) {
     double safeAngle = targetAngle;
-    if (targetAngle > ALMOST_FRONT_LIMIT && targetAngle <= 180
-        && Subsystem.elevator.getEncoderPosition() < ElevatorConstants.STAGE_ONE_UP) {
-      safeAngle = ALMOST_FRONT_LIMIT;
-    } else if (targetAngle < ALMOST_BACK_LIMIT && targetAngle > 180
-        && Subsystem.elevator.getEncoderPosition() < ElevatorConstants.STAGE_ONE_UP) {
-      safeAngle = ALMOST_BACK_LIMIT;
-    }
     return safeAngle;
 
   }
 
   @Override
   public void periodic() {
+    m_targetAngle = Subsystem.claw.hasGamePiece() ? 180 : CORAL_STATION_POSITION;
     adjustArm(safeAngle(m_targetAngle));
-  }
-
-  /**
-   * Gives a instance of the arm default command. Rotates the arm to the default
-   * position
-   * 
-   * @return The rotate wrist command
-   */
-  public Command armDefaultCommand() {
-    return run(() -> m_targetAngle = DEFAULT_POSITION);
   }
 
   /**
