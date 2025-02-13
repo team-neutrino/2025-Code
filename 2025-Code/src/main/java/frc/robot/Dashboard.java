@@ -37,36 +37,10 @@ public class Dashboard extends SubsystemBase {
         m_info[0] = m_driverstationTab
                 .add("Match Time", 0)
                 .withPosition(4, 0)
-                .withSize(1, 1)
-                .withWidget(BuiltInWidgets.kDial)
-                .withProperties(Map.of("min", 0, "max", 150))
-                .getEntry();
-
-        m_info[1] = m_driverstationTab
-                .add("Game Piece", "No Piece")
-                .withPosition(0, 2)
-                .withSize(2, 2)
-                .getEntry();
-
-        LLFeed = new HttpCamera("limelight1", "http://limelight.local:5801",
-                HttpCameraKind.kMJPGStreamer);
-        CameraServer.startAutomaticCapture(LLFeed);
-        m_driverstationTab
-                .add(LLFeed)
-                .withPosition(8, 0)
-                .withSize(4, 3)
-                .withWidget(BuiltInWidgets.kCameraStream);
-
-        // LLFeed = new HttpCamera("limelight1", "http://limelight.local:5801",
-        // HttpCameraKind.kMJPGStreamer);
-        // CameraServer.startAutomaticCapture(LLFeed);
-        // m_driverstationTab
-        // .add(LLFeed)
-        // .withPosition(8, 0)
-        // .withSize(4, 3)
-        // .withWidget(BuiltInWidgets.kCameraStream);
-
+                .withSize(1, 1).getEntry();
     }
+
+    // }
 
     @Override
     public void periodic() {
