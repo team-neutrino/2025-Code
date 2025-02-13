@@ -51,9 +51,9 @@
 | 3    | BLA         | 40 A    | 12 AWG |
 | 4    | Climb 1     | 40 A    | 8 AWG  |
 | 5    | Climb Hook  | 30 A    | 14 AWG |
-| 6    | Climb 2     | 40 A    | 8 AWG  |
+| 6    |             |         |        |
 | 7    | LL, Pi, LED | 20 A    | 18 AWG |
-| 8    |             |         |        |
+| 8    | Climb 2     | 40 A    | 8 AWG  |
 | 9    | Switch      | 10 A    | 22 AWG |
 | 10   | Intake 1    | 30 A    | 14 AWG |
 | 11   |             |         |        |
