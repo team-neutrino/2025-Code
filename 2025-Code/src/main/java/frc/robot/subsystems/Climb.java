@@ -70,12 +70,12 @@ public class Climb extends SubsystemBase {
     m_climbMotor.setNeutralMode(NeutralModeValue.Brake);
     m_climbMotor.getConfigurator().apply(m_climbMotorConfig);
 
+    m_followMotorConfig.CurrentLimits = m_currentLimitConfig;
     m_followMotor.setNeutralMode(NeutralModeValue.Brake);
     m_followMotor.getConfigurator().apply(m_followMotorConfig);
     m_followMotor.setControl(m_followRequest);
 
     m_lockMotorConfig.smartCurrentLimit(LOCK_CURRENT_LIMIT);
-
     m_lockMotor.configure(m_lockMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
