@@ -5,9 +5,7 @@ import java.util.Map;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.HttpCamera;
 import edu.wpi.first.cscore.HttpCamera.HttpCameraKind;
-import edu.wpi.first.cscore.VideoException;
 import edu.wpi.first.networktables.GenericEntry;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -35,12 +33,23 @@ public class Dashboard extends SubsystemBase {
         m_driverstationTab = Shuffleboard.getTab("Driverstation Tab");
 
         m_info[0] = m_driverstationTab
-                .add("Match Time", 0)
-                .withPosition(4, 0)
-                .withSize(1, 1).getEntry();
-    }
+            .add("Match Time", 0)
+                .withPosition(2, 0)
+                .withSize(6, 4)
+                .withWidget(BuiltInWidgets.kDial)
+                .withProperties(Map.of("min", 0, "max", 150))
+                .getEntry();
 
-    // }
+            
+        LLFeed = new HttpCamera("limelight1", "http://limelight.local:5801",
+                HttpCameraKind.kMJPGStreamer);
+        CameraServer.startAutomaticCapture(LLFeed);
+        m_driverstationTab
+                .add(LLFeed)
+                .withPosition(8, 0)
+                .withSize(4, 3)
+                .withWidget(BuiltInWidgets.kCameraStream);
+    }
 
     @Override
     public void periodic() {
