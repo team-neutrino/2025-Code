@@ -22,6 +22,7 @@ import frc.robot.subsystems.Swerve.SwerveRequestStash;
 import static frc.robot.util.Subsystem.*;
 
 import java.lang.annotation.Target;
+import java.util.HexFormat;
 
 import org.ejml.data.FEigenpair;
 
@@ -113,34 +114,59 @@ public class DriveAssistCom extends Command {
 
   private Translation2d getNewDriveVelocity() {
     double hexagonAngle = 0;
-    double driverAngle = 0;
+    double inputAngle = 0;
     double otherAngle = 0;
     double magnitude = 0;
     double desiredMagnitude = 0;
     int id = m_staticTagID;
     Translation2d finalVelocities = null;
-    double driverX = m_controller.getLeftY();
-    double driverY = m_controller.getLeftX();
+    double inputX = m_controller.getLeftY();
+    double inputY = m_controller.getLeftX();
+    inputAngle = Math.atan2(inputX, inputY);
     double desiredX = 0;
     double desiredY = 0;
     boolean edgeCase = id == RED_ALLIANCE_IDS.REEF_FACING_ALLIANCE || id == BLUE_ALLIANCE_IDS.REEF_FACING_ALLIANCE;
     if (m_controller.getLeftX() == 0 && m_controller.getLeftY() == 0) {
       return new Translation2d(0, 0);
     } else if (edgeCase) {
-      finalVelocities = new Translation2d(-driverX, 0);
-    } else if (id == 6 || id == 19) {
-      hexagonAngle = HEXAGON_ANGLES[6];
-      driverAngle = Math.atan2(driverX, driverY);
-      magnitude = Math.sqrt(Math.pow(driverX, 2) + Math.pow(driverY, 2));
-      if (driverAngle < 30) {
-        // input is right of april tag (facing it)
-        otherAngle = 30 - driverAngle;
+      finalVelocities = new Translation2d(-inputX, 0);
+    } else if (0 < inputAngle || inputAngle < 60) {
+      switch (id) {
+        case 6:
+          hexagonAngle = HEXAGON_ANGLES[6];
+          break;
+        case 8:
+          hexagonAngle = HEXAGON_ANGLES[8];
+          break;
+        case 9:
+          hexagonAngle = HEXAGON_ANGLES[9];
+          break;
+        case 11:
+          hexagonAngle = HEXAGON_ANGLES[11];
+          break;
+        case 17:
+          hexagonAngle = HEXAGON_ANGLES[17];
+          break;
+        case 19:
+          hexagonAngle = HEXAGON_ANGLES[19];
+          break;
+        case 20:
+          hexagonAngle = HEXAGON_ANGLES[20];
+          break;
+        case 22:
+          hexagonAngle = HEXAGON_ANGLES[22];
+          break;
       }
-      otherAngle = driverAngle - 30;
+      magnitude = Math.sqrt(Math.pow(inputX, 2) + Math.pow(inputY, 2));
+      if (inputAngle < 30) {
+        // input is right of april tag (facing it)
+        otherAngle = 30 - inputAngle;
+      }
+      otherAngle = inputAngle - 30;
       desiredMagnitude = Math.cos(otherAngle) * magnitude;
-      desiredX = desiredMagnitude * (Math.sqrt(3) / 2);
-      desiredY = desiredMagnitude * 0.5;
-      finalVelocities = new Translation2d(-desiredX, -desiredY);
+      desiredX = desiredMagnitude * (Math.cos(30 + hexagonAngle));
+      desiredY = desiredMagnitude * (Math.sin(30 + hexagonAngle));
+      finalVelocities = new Translation2d(desiredX, desiredY);
     }
     if (finalVelocities == null) {
       return new Translation2d(0, 0);
