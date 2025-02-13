@@ -144,7 +144,8 @@ public class Elevator extends SubsystemBase {
 
   private double safeHeight(double targetHeight) {
     double safeTarget = targetHeight;
-    if (!Subsystem.arm.isArmInLimit() && targetHeight < ARM_WILL_NOT_HIT_BASE_HEIGHT) {
+    if ((!Subsystem.arm.isTargetInLimit() || !Subsystem.arm.isArmInLimit())
+        && targetHeight < ARM_WILL_NOT_HIT_BASE_HEIGHT) {
       safeTarget = ARM_WILL_NOT_HIT_BASE_HEIGHT;
     }
     return safeTarget;
@@ -180,7 +181,7 @@ public class Elevator extends SubsystemBase {
 
   @Override
   public void periodic() {
-    m_target = Subsystem.claw.hasGamePiece() ? DEFAULT : CORAL_INTAKE;
+    m_target = Subsystem.claw.hasGamePiece() ? DEFAULT : DEFAULT;
     adjustElevator(safeHeight(m_target));
     if (isLowPosition()) {
       resetEncoder(LOW_POSITION);

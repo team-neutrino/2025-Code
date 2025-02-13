@@ -143,6 +143,10 @@ public class Arm extends SubsystemBase {
    * 
    * @return m_armLimit
    */
+  public boolean isTargetInLimit() {
+    return getArmTargetPosition() <= 270;
+  }
+
   public boolean isArmInLimit() {
     return getArmEncoderPosition() <= 270;
   }
@@ -191,20 +195,13 @@ public class Arm extends SubsystemBase {
 
   private double safeAngle(double targetAngle) {
     double safeAngle = targetAngle;
-    if (targetAngle > ALMOST_FRONT_LIMIT && targetAngle <= 180
-        && Subsystem.elevator.getEncoderPosition() < ElevatorConstants.STAGE_ONE_UP) {
-      safeAngle = ALMOST_FRONT_LIMIT;
-    } else if (targetAngle < ALMOST_BACK_LIMIT && targetAngle > 180
-        && Subsystem.elevator.getEncoderPosition() < ElevatorConstants.STAGE_ONE_UP) {
-      safeAngle = ALMOST_BACK_LIMIT;
-    }
     return safeAngle;
 
   }
 
   @Override
   public void periodic() {
-    m_targetAngle = Subsystem.claw.hasGamePiece() ? ArmConstants.L1_POSITION : CORAL_STATION_POSITION;
+    m_targetAngle = Subsystem.claw.hasGamePiece() ? 180 : CORAL_STATION_POSITION;
     adjustArm(safeAngle(m_targetAngle));
   }
 
