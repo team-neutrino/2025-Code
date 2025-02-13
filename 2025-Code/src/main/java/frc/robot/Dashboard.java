@@ -33,15 +33,14 @@ public class Dashboard extends SubsystemBase {
         m_driverstationTab = Shuffleboard.getTab("Driverstation Tab");
 
         m_info[0] = m_driverstationTab
-            .add("Match Time", 0)
+                .add("Match Time", 0)
                 .withPosition(2, 0)
                 .withSize(6, 4)
                 .withWidget(BuiltInWidgets.kDial)
                 .withProperties(Map.of("min", 0, "max", 150))
                 .getEntry();
 
-            
-        LLFeed = new HttpCamera("limelight1", "http://limelight.local:5801",
+        LLFeed = new HttpCamera("limelight1", "http://limelight.local",
                 HttpCameraKind.kMJPGStreamer);
         CameraServer.startAutomaticCapture(LLFeed);
         m_driverstationTab
