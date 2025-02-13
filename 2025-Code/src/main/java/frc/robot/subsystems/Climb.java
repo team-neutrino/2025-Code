@@ -99,6 +99,12 @@ public class Climb extends SubsystemBase {
     // subject to change
   }
 
+  public Command putDownArm() {
+    return run(() -> {
+      m_climbMotor.setVoltage(5);
+    }); 
+  }
+
   public Command lockCommand() {
     return runEnd(() -> {
       if (m_voltage < LOCK_VOLTAGE) {
