@@ -23,4 +23,8 @@ public class ClimbFactory {
     public static Command unlockGrabber() {
         return climb.unlockCommand();
     }
+
+    public static Command lower() {
+        return climb.putDownArm();
+    }
 }
