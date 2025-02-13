@@ -14,9 +14,6 @@ import frc.robot.subsystems.Swerve.SwerveRequestStash;
 import frc.robot.util.DriveToPoint;
 import static frc.robot.util.Subsystem.swerve;
 
-import com.ctre.phoenix6.swerve.SwerveRequest;;
-
-/* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class DriveToPointCommand extends Command {
   private Pose2d m_poseTarget = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
   private DriveToPoint m_driveController = new DriveToPoint();
@@ -24,21 +21,15 @@ public class DriveToPointCommand extends Command {
   private int m_poseIndex = -1;
   private Timer m_timer = new Timer();
 
-  /** Creates a new DriveToPointCommand. */
   public DriveToPointCommand(DriveToPoint driveController, CommandXboxController xboxController) {
     m_driveController = driveController;
     m_xboxController = xboxController;
 
     addRequirements(swerve);
-    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   public void changeTargetAndIndex(int index) {
-    if (m_poseIndex > RED_REEF.size() - 1) {
-      m_poseIndex = 0;
-    } else if (m_poseIndex < 0) {
-      m_poseIndex = RED_REEF.size() - 1;
-    }
+    m_poseIndex %= RED_REEF.size();
     m_poseTarget = RED_REEF.get(m_poseIndex);
     DriveToPoint.setTarget(m_poseTarget);
   }
@@ -55,13 +46,12 @@ public class DriveToPointCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    int pov = m_xboxController.getHID().getPOV();
-    // pov == 270 then left, pov == 90 then right ;
-    if (m_timer.get() >= 0.5) {
-      if (pov == 270 && RED_REEF.contains(m_poseTarget)) {
+    if (m_timer.get() >= 0.5 && RED_REEF.contains(m_poseTarget)) {
+      int pov = m_xboxController.getHID().getPOV();
+      if (pov == 270) {
         m_poseIndex--;
         m_timer.reset();
-      } else if (pov == 90 && RED_REEF.contains(m_poseTarget)) {
+      } else if (pov == 90) {
         m_poseIndex++;
         m_timer.reset();
       }
