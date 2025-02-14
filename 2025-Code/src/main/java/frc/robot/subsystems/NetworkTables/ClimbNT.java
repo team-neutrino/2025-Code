@@ -36,6 +36,11 @@ public class ClimbNT extends Climb {
     private double m_previousI = kI;
     private double m_previousD = kD;
 
+    private PIDTuner m_lockPIDTuner;
+    private double m_previousLockP = LOCK_kP;
+    private double m_previousLockI = LOCK_kI;
+    private double m_previousLockD = LOCK_kD;
+
     private MotionMagicTuner m_motionMagicTuner;
     private double m_previousVelocity = VELOCITY;
     private double m_previousAcceleration = ACCELERATION;
@@ -68,6 +73,11 @@ public class ClimbNT extends Climb {
         m_PIDTuner.setI(m_previousI);
         m_PIDTuner.setD(m_previousD);
 
+        m_lockPIDTuner = new PIDTuner("climb/{tuning}lockPID");
+        m_lockPIDTuner.setP(m_previousLockP);
+        m_lockPIDTuner.setI(m_previousLockI);
+        m_lockPIDTuner.setD(m_previousLockD);
+
         m_motionMagicTuner = new MotionMagicTuner("climb/{tuning}MotionMagic");
         m_motionMagicTuner.setVelocity(m_previousVelocity);
         m_motionMagicTuner.setAcceleration(m_previousAcceleration);
@@ -95,6 +105,13 @@ public class ClimbNT extends Climb {
             m_previousP = m_PIDTuner.getP();
             m_previousI = m_PIDTuner.getI();
             m_previousD = m_PIDTuner.getD();
+        }
+
+        if (m_lockPIDTuner.isDifferentValues(m_previousLockP, m_previousLockI, m_previousLockD)) {
+            changePID(m_lockPIDTuner.getP(), m_lockPIDTuner.getI(), m_lockPIDTuner.getD());
+            m_previousLockP = m_lockPIDTuner.getP();
+            m_previousLockI = m_lockPIDTuner.getI();
+            m_previousLockD = m_lockPIDTuner.getD();
         }
 
         if (m_motionMagicTuner.isDifferentValues(m_previousVelocity, m_previousAcceleration, m_previousJerk)) {
