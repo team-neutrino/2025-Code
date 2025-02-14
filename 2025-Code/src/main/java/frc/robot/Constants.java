@@ -151,7 +151,7 @@ public final class Constants {
     public static final int FOLLOW_MOTOR_ID = 30;
     public static final int LOCK_MOTOR_ID = 32;
 
-    public static final int LOCK_RATCHET_PORT = 0;
+    public static final int RATCHET_PORT = 0;
 
     public static final int CLIMB_CURRENT_LIMIT = 80;
     public static final int LOCK_CURRENT_LIMIT = 20;
@@ -168,9 +168,18 @@ public final class Constants {
     public static final int CLIMB_DOWN_POSITION = 0;
     // subject to change
 
+    public static final int LOCK_POSITION = 0;
+    public static final int UNLOCK_POSITOIN = 2;
+    // subject to change
+
     public static final double kP = 0.1;
     public static final double kI = 0;
     public static final double kD = 0;
+    // subject to change
+
+    public static final double LOCK_kP = 0.1;
+    public static final double LOCK_kI = 0;
+    public static final double LOCK_kD = 0;
     // subject to change
 
     public static final double VELOCITY = 0;

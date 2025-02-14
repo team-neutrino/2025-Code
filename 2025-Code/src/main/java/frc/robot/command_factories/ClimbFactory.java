@@ -9,22 +9,27 @@ import static frc.robot.util.Subsystem.climb;
 
 public class ClimbFactory {
     public static Command raiseClimb() {
-        return climb.moveClimbArmCommand(CLIMB_UP_POSITION);
+        return climb.raiseClimbArmCommand(CLIMB_UP_POSITION);
     }
 
     public static Command lowerClimb() {
-        return climb.moveClimbArmCommand(CLIMB_DOWN_POSITION);
+        return climb.lowerClimbArmCommand(CLIMB_DOWN_POSITION);
     }
 
     public static Command lockGrabber() {
-        return climb.lockCommand();
+        return climb.lockCommand(LOCK_POSITION);
     }
 
     public static Command unlockGrabber() {
-        return climb.unlockCommand();
+        return climb.unlockCommand(UNLOCK_POSITOIN);
+    }
+
+    public static Command resetLock() {
+        return climb.resetLockCommand();
     }
 
     public static Command lower() {
         return climb.putDownArm();
     }
+    // not final
 }
