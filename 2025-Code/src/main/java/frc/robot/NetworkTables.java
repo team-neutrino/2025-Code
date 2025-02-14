@@ -26,10 +26,10 @@ public class NetworkTables extends SubsystemBase {
         matchTime.setDefault(0.0);
     }
 
+    @Override
     public void periodic() {
         final long now = NetworkTablesJNI.now();
         totalCurrent.set(m_Pdh.getTotalCurrent(), now);
         matchTime.set(DriverStation.getMatchTime(), now);
     }
-
 }
