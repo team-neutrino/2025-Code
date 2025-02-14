@@ -3,7 +3,9 @@ package frc.robot.command_factories;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import static frc.robot.util.Subsystem.*;
 
@@ -76,6 +78,15 @@ public class SuperstructureFactory {
 
     public static Command dunkL2Command() {
         return new ParallelCommandGroup(ArmFactory.dunkL2(), ElevatorFactory.dunkL2());
+    }
+
+    public static Command workInProgressL4(CommandXboxController controller) {
+        return new ParallelRaceGroup(
+                ElevatorFactory.moveL4(),
+                ArmFactory.moveToL4(), new SequentialCommandGroup(claw.clawDefaultCommand()
+                        .until(() -> (arm.armReady() && elevator.elevatorReady()
+                                && controller.getHID().getRightBumperButton())),
+                        ClawFactory.runOuttake().until(() -> !claw.hasGamePiece())));
     }
 
     // AUTON COMMANDS
