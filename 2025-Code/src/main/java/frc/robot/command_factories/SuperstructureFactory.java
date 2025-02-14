@@ -68,18 +68,6 @@ public class SuperstructureFactory {
                 ArmFactory.moveToUnderhand()), ClawFactory.runOuttake());
     }
 
-    public static Command dunkL4Command() {
-        return new ParallelCommandGroup(ArmFactory.dunkL4(), ElevatorFactory.moveL4());
-    }
-
-    public static Command dunkL3Command() {
-        return new ParallelCommandGroup(ArmFactory.dunkL3(), ElevatorFactory.dunkL3());
-    }
-
-    public static Command dunkL2Command() {
-        return new ParallelCommandGroup(ArmFactory.dunkL2(), ElevatorFactory.dunkL2());
-    }
-
     public static Command workInProgressL4(CommandXboxController controller) {
         return new SequentialCommandGroup(
                 new ParallelRaceGroup(
