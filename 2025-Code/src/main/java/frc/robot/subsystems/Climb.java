@@ -18,9 +18,11 @@ import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.RelativeEncoder;
@@ -102,33 +104,19 @@ public class Climb extends SubsystemBase {
   public Command putDownArm() {
     return run(() -> {
       m_climbMotor.setVoltage(5);
-    }); 
+    });
   }
 
   public Command lockCommand() {
-    return runEnd(() -> {
-      if (m_voltage < LOCK_VOLTAGE) {
-        m_voltage += LOCK_RAMP_RATE;
-      }
-      m_lockMotor.setVoltage(m_voltage);
-    }, () -> {
-      m_voltage = 0.0;
-      m_lockMotor.setVoltage(0);
-      engageRatchet();
-    }).until(() -> m_lockMotor.getOutputCurrent() > LOCK_CURRENT_THRESHOLD);
+    return run(() -> {
+      m_lockMotor.setVoltage(LOCK_VOLTAGE);
+    });
   }
 
   public Command unlockCommand() {
-    return runEnd(() -> {
-      if (m_voltage > UNLOCK_VOLTAGE) {
-        m_voltage -= LOCK_RAMP_RATE;
-      }
-      m_lockMotor.setVoltage(m_voltage);
-    }, () -> {
-      m_voltage = 0.0;
-      m_lockMotor.setVoltage(0);
-      disengageRatchet();
-    }).until(() -> m_lockMotor.getOutputCurrent() > LOCK_CURRENT_THRESHOLD);
+    return run(() -> {
+      m_lockMotor.setVoltage(UNLOCK_VOLTAGE);
+    });
   }
 
   public Command moveClimbArmCommand(double targetPosition) {
@@ -139,7 +127,9 @@ public class Climb extends SubsystemBase {
 
   public Command climbDefaultCommand() {
     return run(() -> {
-      moveToPosition(0);
+      m_climbMotor.setVoltage(0.25);
+      // moveToPosition(0);
+      m_lockMotor.setVoltage(0);
     });
   }
 
@@ -166,6 +156,10 @@ public class Climb extends SubsystemBase {
 
   public double getLockMotorVelocity() {
     return m_lockMotorEncoder.getVelocity();
+  }
+
+  public double getLockMotorCurrent() {
+    return m_lockMotor.getOutputCurrent();
   }
 
   public void changePID(double p, double i, double d) {
