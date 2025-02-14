@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -37,6 +38,7 @@ public class DriveToPointCommand extends Command {
 
   public void changeIndexAndTarget(List<Pose2d> reef) {
     if (m_timer.get() >= 0.5 && reef.contains(m_poseTarget)) {
+      m_poseIndex = reef.indexOf(m_poseTarget);
       if (reef == BLUE_REEF) {
         changeIndex(reef, m_blueValue);
       } else if (reef == RED_REEF) {
@@ -85,6 +87,7 @@ public class DriveToPointCommand extends Command {
   public void execute() {
     changeIndexAndTarget(RED_REEF);
     changeIndexAndTarget(BLUE_REEF);
+
     drive();
   }
 
