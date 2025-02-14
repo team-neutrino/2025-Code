@@ -10,7 +10,7 @@ import frc.robot.subsystems.Climb;
 import frc.robot.util.MotionMagicTuner;
 import frc.robot.util.PIDTuner;
 
-public class ClimbNT extends Climb{
+public class ClimbNT extends Climb {
     NetworkTableInstance nt = NetworkTableInstance.getDefault();
 
     DoubleTopic actualMotorPosition = nt.getDoubleTopic("/climb/actual_motor_position");
@@ -20,6 +20,7 @@ public class ClimbNT extends Climb{
     DoubleTopic followerVelocity = nt.getDoubleTopic("/climb/follower_velocity");
 
     DoubleTopic lockMotorVelocity = nt.getDoubleTopic("/climb/lock_motor_velocity");
+    DoubleTopic lockMotorCurrent = nt.getDoubleTopic("/climb/lock_motor_current");
 
     final DoublePublisher actualMotorPositionPub;
     final DoublePublisher followerMotorPositionPub;
@@ -28,6 +29,7 @@ public class ClimbNT extends Climb{
     final DoublePublisher followerVelocityPub;
 
     final DoublePublisher lockMotorVelocityPub;
+    final DoublePublisher lockMotorCurrentPub;
 
     private PIDTuner m_PIDTuner;
     private double m_previousP = kP;
@@ -58,6 +60,9 @@ public class ClimbNT extends Climb{
         lockMotorVelocityPub = lockMotorVelocity.publish();
         lockMotorVelocityPub.setDefault(0.0);
 
+        lockMotorCurrentPub = lockMotorCurrent.publish();
+        lockMotorCurrentPub.setDefault(0);
+
         m_PIDTuner = new PIDTuner("climb/{tuning}PID");
         m_PIDTuner.setP(m_previousP);
         m_PIDTuner.setI(m_previousI);
@@ -76,13 +81,14 @@ public class ClimbNT extends Climb{
 
         actualMotorPositionPub.set(getMotorPosition(), now);
         followerMotorPositionPub.set(getFollowerPosition(), now);
-        
+
         targetMotorPositionPub.set(getTargetPosition(), now);
 
         motorVelocityPub.set(getMotorVelocity(), now);
         followerVelocityPub.set(getFollowerVelocity(), now);
 
         lockMotorVelocityPub.set(getLockMotorVelocity(), now);
+        lockMotorCurrentPub.set(getLockMotorCurrent(), now);
 
         if (m_PIDTuner.isDifferentValues(m_previousP, m_previousI, m_previousD)) {
             changePID(m_PIDTuner.getP(), m_PIDTuner.getI(), m_PIDTuner.getD());
@@ -92,7 +98,8 @@ public class ClimbNT extends Climb{
         }
 
         if (m_motionMagicTuner.isDifferentValues(m_previousVelocity, m_previousAcceleration, m_previousJerk)) {
-            changeMotionMagic(m_motionMagicTuner.getVelocity(), m_motionMagicTuner.getAcceleration(), m_motionMagicTuner.getJerk());
+            changeMotionMagic(m_motionMagicTuner.getVelocity(), m_motionMagicTuner.getAcceleration(),
+                    m_motionMagicTuner.getJerk());
             m_previousVelocity = m_motionMagicTuner.getVelocity();
             m_previousAcceleration = m_motionMagicTuner.getAcceleration();
             m_previousJerk = m_motionMagicTuner.getJerk();
