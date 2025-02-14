@@ -172,7 +172,7 @@ public final class Constants {
     public static final double kD = 0;
     // subject to change
 
-    public static final double LOCK_kP = 0.1;
+    public static final double LOCK_kP = 0.5;
     public static final double LOCK_kI = 0;
     public static final double LOCK_kD = 0;
     // subject to change
