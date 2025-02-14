@@ -109,7 +109,7 @@ public final class Constants {
     public static final double L1_POSITION = 120.0;
     public static final double L2_POSITION = 130.0;
     public static final double L3_POSITION = 140.0;
-    public static final double L4_POSITION = 155.0;
+    public static final double L4_POSITION = 145.0;
     public static final double REEF_L2_DESCORE_POSITION = 0.0;
     public static final double REEF_L3_DESCORE_POSITION = 0.0;
 
