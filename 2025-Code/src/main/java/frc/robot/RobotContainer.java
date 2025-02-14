@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.command_factories.*;
 import frc.robot.commands.DriveAssistCom;
+import frc.robot.commands.DriveToPointCommand;
 import frc.robot.util.DriveToPoint;
 import frc.robot.util.Subsystem;
 
@@ -48,7 +49,7 @@ public class RobotContainer {
     m_driverController.x().onTrue(ClimbFactory.lockGrabber());
 
     m_driverController.b()
-        .whileTrue(Subsystem.swerve.swerveDriveToPoint(m_driveToPoint));
+        .whileTrue(new DriveToPointCommand(m_driveToPoint, m_driverController));
 
     m_driverController.leftStick().toggleOnTrue(new DriveAssistCom(m_driverController));
     m_driverController.back().whileTrue(swerve.resetYawCommand());
