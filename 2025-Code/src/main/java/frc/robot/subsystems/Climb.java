@@ -18,13 +18,16 @@ import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.revrobotics.spark.ClosedLoopSlot;
+import com.revrobotics.spark.config.ClosedLoopConfig;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.RelativeEncoder;
 
 public class Climb extends SubsystemBase {
@@ -42,10 +45,13 @@ public class Climb extends SubsystemBase {
   private SparkMax m_lockMotor = new SparkMax(LOCK_MOTOR_ID, MotorType.kBrushless);
   private SparkMaxConfig m_lockMotorConfig = new SparkMaxConfig();
   private RelativeEncoder m_lockMotorEncoder = m_lockMotor.getEncoder();
-  private Servo m_lockRatchet = new Servo(LOCK_RATCHET_PORT);
 
-  private double targetPosition;
-  private double m_voltage = 0.0;
+  private SparkClosedLoopController m_pid = m_lockMotor.getClosedLoopController();
+
+  private Servo m_lockRatchet = new Servo(RATCHET_PORT);
+
+  private double targetPositionClimbArm;
+  private double targetPositionLock;
 
   public Climb() {
     configureMotors();
@@ -78,16 +84,20 @@ public class Climb extends SubsystemBase {
     m_followMotor.setControl(m_followRequest);
 
     m_lockMotorConfig.smartCurrentLimit(LOCK_CURRENT_LIMIT);
+    m_lockMotorConfig.closedLoop
+        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+        .pid(LOCK_kP, LOCK_kI, LOCK_kD);
     m_lockMotor.configure(m_lockMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
   private void resetEncoderPosition() {
     m_climbMotor.setPosition(0);
+    m_lockMotorEncoder.setPosition(0);
   }
 
   private void moveToPosition(double targetPosition) {
     PositionVoltage positionControl = new PositionVoltage(targetPosition);
-    this.targetPosition = targetPosition;
+    targetPositionClimbArm = targetPosition;
     m_climbMotor.setControl(positionControl);
   }
 
@@ -107,29 +117,42 @@ public class Climb extends SubsystemBase {
     });
   }
 
-  public Command lockCommand() {
+  public Command lockCommand(double targetPosition) {
     return run(() -> {
-      m_lockMotor.setVoltage(LOCK_VOLTAGE);
+      targetPositionLock = targetPosition;
     });
   }
 
-  public Command unlockCommand() {
+  public Command unlockCommand(double targetPosition) {
     return run(() -> {
-      m_lockMotor.setVoltage(UNLOCK_VOLTAGE);
+      targetPositionLock = targetPosition;
     });
   }
 
-  public Command moveClimbArmCommand(double targetPosition) {
+  public Command resetLockCommand() {
+    return run(() -> {
+      m_lockMotor.setVoltage(0.02);
+    });
+  }
+
+  public Command raiseClimbArmCommand(double targetPosition) {
+    return run(() -> {
+      disengageRatchet();
+      moveToPosition(targetPosition);
+    });
+  }
+
+  public Command lowerClimbArmCommand(double targetPosition) {
     return run(() -> {
       moveToPosition(targetPosition);
+      engageRatchet();
     });
   }
 
   public Command climbDefaultCommand() {
     return run(() -> {
       m_climbMotor.setVoltage(0.25);
-      // moveToPosition(0);
-      m_lockMotor.setVoltage(0);
+      moveToPosition(0);
     });
   }
 
@@ -143,7 +166,7 @@ public class Climb extends SubsystemBase {
   }
 
   public double getTargetPosition() {
-    return targetPosition;
+    return targetPositionClimbArm;
   }
 
   public double getMotorVelocity() {
@@ -170,6 +193,14 @@ public class Climb extends SubsystemBase {
     m_climbMotor.getConfigurator().apply(m_climbMotorConfig);
   }
 
+  public void changeLockPID(double p, double i, double d) {
+    m_lockMotorConfig.closedLoop
+        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+        .pid(p, i, d);
+
+    m_lockMotor.configure(m_lockMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+  }
+
   public void changeMotionMagic(double velocity, double acceleration, double jerk) {
     m_motionMagicConfig.MotionMagicCruiseVelocity = velocity;
     m_motionMagicConfig.MotionMagicAcceleration = acceleration;
@@ -181,6 +212,6 @@ public class Climb extends SubsystemBase {
 
   @Override
   public void periodic() {
-
+    m_pid.setReference(targetPositionLock, ControlType.kPosition);
   }
 }

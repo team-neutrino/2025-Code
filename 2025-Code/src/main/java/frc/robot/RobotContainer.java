@@ -48,6 +48,8 @@ public class RobotContainer {
 
     m_driverController.rightTrigger().whileTrue(swerve.slowDefaultCommand(m_driverController));
 
+    m_driverController.rightTrigger().whileTrue(ClimbFactory.resetLock());
+
     // m_driverController.b()
     // .whileTrue(Subsystem.swerve.swerveDriveToPoint(m_driveToPoint));
 
