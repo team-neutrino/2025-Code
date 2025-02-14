@@ -18,8 +18,6 @@ import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.revrobotics.spark.ClosedLoopSlot;
-import com.revrobotics.spark.config.ClosedLoopConfig;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -108,7 +106,7 @@ public class Climb extends SubsystemBase {
 
   private void disengageRatchet() {
     m_lockRatchet.set(0.2);
-    // subject to change
+    // subject to change. negative or positive?
   }
 
   public Command putDownArm() {
