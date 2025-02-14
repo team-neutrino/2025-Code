@@ -41,17 +41,17 @@ public class RobotContainer {
 
   private void configureBindings() {
     // driver controller
-    m_driverController.y().whileTrue(ClimbFactory.raiseClimb());
-    m_driverController.x().whileTrue(ClimbFactory.lockGrabber());
-    m_driverController.b().whileTrue(ClimbFactory.unlockGrabber());
-    m_driverController.a().whileTrue(ClimbFactory.lowerClimb());
+    m_driverController.y().onTrue(ClimbFactory.raiseClimb());
+    m_driverController.x().onTrue(ClimbFactory.lockGrabber());
+    m_driverController.b().onTrue(ClimbFactory.unlockGrabber());
+    m_driverController.a().onTrue(ClimbFactory.lowerClimb());
 
-    m_driverController.rightTrigger().whileTrue(swerve.slowDefaultCommand(m_driverController));
+    m_driverController.rightBumper().onTrue(ClimbFactory.resetLock());
 
-    m_driverController.rightTrigger().whileTrue(ClimbFactory.resetLock());
-
-    // m_driverController.b()
-    // .whileTrue(Subsystem.swerve.swerveDriveToPoint(m_driveToPoint));
+    /**
+     * Only use when climb arm is in up position (relaxed). Moves arm down 105 rotations.
+     */
+    m_driverController.leftBumper().onTrue(ClimbFactory.resetClimb());
 
     m_driverController.leftTrigger().whileTrue(new DriveAssistCom(m_driverController));
     m_driverController.back().whileTrue(swerve.resetYawCommand());

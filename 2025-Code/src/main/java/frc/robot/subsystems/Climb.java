@@ -43,13 +43,12 @@ public class Climb extends SubsystemBase {
   private SparkMax m_lockMotor = new SparkMax(LOCK_MOTOR_ID, MotorType.kBrushless);
   private SparkMaxConfig m_lockMotorConfig = new SparkMaxConfig();
   private RelativeEncoder m_lockMotorEncoder = m_lockMotor.getEncoder();
-
   private SparkClosedLoopController m_pid = m_lockMotor.getClosedLoopController();
 
   private Servo m_lockRatchet = new Servo(RATCHET_PORT);
 
-  private double targetPositionClimbArm;
-  private double targetPositionLock;
+  private double m_targetPositionClimbArm;
+  private double m_targetPositionLock;
 
   public Climb() {
     configureMotors();
@@ -63,9 +62,9 @@ public class Climb extends SubsystemBase {
         .withStatorCurrentLimitEnable(true);
     m_climbMotorConfig.CurrentLimits = m_currentLimitConfig;
 
-    m_climbMotorConfig.Slot0.kP = kP;
-    m_climbMotorConfig.Slot0.kI = kI;
-    m_climbMotorConfig.Slot0.kD = kD;
+    m_climbMotorConfig.Slot0.kP = CLIMB_kP;
+    m_climbMotorConfig.Slot0.kI = CLIMB_kI;
+    m_climbMotorConfig.Slot0.kD = CLIMB_kD;
 
     m_motionMagicConfig.MotionMagicCruiseVelocity = VELOCITY;
     m_motionMagicConfig.MotionMagicAcceleration = ACCELERATION;
@@ -95,63 +94,71 @@ public class Climb extends SubsystemBase {
 
   private void moveToPosition(double targetPosition) {
     PositionVoltage positionControl = new PositionVoltage(targetPosition);
-    targetPositionClimbArm = targetPosition;
+    m_targetPositionClimbArm = targetPosition;
     m_climbMotor.setControl(positionControl);
   }
 
-  private void engageRatchet() {
-    m_lockRatchet.set(0.8);
-    // subject to change
+  /**
+   * checks if climb arm is within a certain range of error
+   */
+  private boolean isTargetPosition() {
+    return Math
+        .abs(m_targetPositionClimbArm - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_MOTOR_POSITION_ERROR;
   }
 
-  private void disengageRatchet() {
-    m_lockRatchet.set(0.2);
-    // subject to change. negative or positive?
-  }
-
-  public Command putDownArm() {
+  public Command engageRatchetCommand() {
     return run(() -> {
-      m_climbMotor.setVoltage(5);
+      m_lockRatchet.set(RATCHET_LOCK_POSITION);
+    });
+  }
+
+  public Command disengageRatchetCommand() {
+    return run(() -> {
+      m_lockRatchet.set(RATCHET_UNLOCK_POSITION);
     });
   }
 
   public Command lockCommand(double targetPosition) {
     return run(() -> {
-      targetPositionLock = targetPosition;
+      m_targetPositionLock = targetPosition;
     });
   }
 
-  public Command unlockCommand(double targetPosition) {
+  public Command resetLockCommand(double targetPosition) {
     return run(() -> {
-      targetPositionLock = targetPosition;
+      m_targetPositionLock = targetPosition;
     });
   }
 
-  public Command resetLockCommand() {
-    return run(() -> {
-      m_lockMotor.setVoltage(0.02);
-    });
-  }
-
-  public Command raiseClimbArmCommand(double targetPosition) {
-    return run(() -> {
-      disengageRatchet();
-      moveToPosition(targetPosition);
-    });
-  }
-
-  public Command lowerClimbArmCommand(double targetPosition) {
+  public Command moveClimbArmCommand(double targetPosition) {
     return run(() -> {
       moveToPosition(targetPosition);
-      engageRatchet();
     });
+    //.until(() -> isTargetPosition());
+  }
+
+  /**
+   * only use when climb arm is in up position
+   */
+  public Command resetClimbArmCommand(double rotations) {
+    return run(() -> {
+      moveToPosition(rotations);
+      m_climbMotor.setPosition(0);
+    });
+    // .until(() -> isTargetPosition());
   }
 
   public Command climbDefaultCommand() {
     return run(() -> {
-      m_climbMotor.setVoltage(0.25);
-      moveToPosition(0);
+      moveToPosition(CLIMB_DOWN_POSITION);
+      m_lockRatchet.set(RATCHET_LOCK_POSITION);
+      
     });
+  }
+
+  @Override
+  public void periodic() {
+    m_pid.setReference(m_targetPositionLock, ControlType.kPosition);
   }
 
   /* NETWORK TABLES */
@@ -164,7 +171,7 @@ public class Climb extends SubsystemBase {
   }
 
   public double getTargetPosition() {
-    return targetPositionClimbArm;
+    return m_targetPositionClimbArm;
   }
 
   public double getMotorVelocity() {
@@ -206,10 +213,5 @@ public class Climb extends SubsystemBase {
 
     m_climbMotorConfig.withMotionMagic(m_motionMagicConfig);
     m_climbMotor.getConfigurator().apply(m_climbMotorConfig);
-  }
-
-  @Override
-  public void periodic() {
-    m_pid.setReference(targetPositionLock, ControlType.kPosition);
   }
 }
