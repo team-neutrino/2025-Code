@@ -46,8 +46,8 @@ public class DriveAssistCom extends Command {
   @Override
   public void execute() {
     if (!limelight.getTv() || exitExecute()) {
-      swerve.setControl(req.withVelocityX(0)
-          .withVelocityY(0));
+      // swerve.setControl(req.withVelocityX(0)
+      // .withVelocityY(0));
       return;
     }
     int pov = m_controller.getHID().getPOV();
@@ -58,11 +58,17 @@ public class DriveAssistCom extends Command {
     Translation2d updatedDriverVel = getNewDriveVelocity();
     swerve.setIsAligned(isAligned());
     Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() - limelight.getTx());
-    swerve.setControl(req.withVelocityX((velocities.getX() + updatedDriverVel.getX() * MAX_SPEED) / 2)
-        .withVelocityY((velocities.getY() + updatedDriverVel.getY() * MAX_SPEED) / 2).withTargetDirection(angle));
+    // swerve.setControl(req.withVelocityX((velocities.getX() +
+    // updatedDriverVel.getX() * MAX_SPEED) / 2)
+    // .withVelocityY((velocities.getY() + updatedDriverVel.getY() * MAX_SPEED) /
+    // 2).withTargetDirection(angle));
     System.out.println("ID " + limelight.getID());
-    System.out.println("X " + updatedDriverVel.getX());
-    System.out.println("Y " + updatedDriverVel.getY());
+    System.out.println("Desired X" + updatedDriverVel.getX());
+    System.out.println("Desired Y " + updatedDriverVel.getY());
+    System.out
+        .println("other way velocity X" + velocities.getX() + "total X" + velocities.getX() + updatedDriverVel.getX());
+    System.out
+        .println("other way velocity Y" + velocities.getY() + "total Y" + velocities.getY() + updatedDriverVel.getY());
   }
 
   private boolean exitExecute() {
@@ -113,7 +119,7 @@ public class DriveAssistCom extends Command {
   }
 
   private Translation2d getNewDriveVelocity() {
-    double hexagonAngle = 0;
+    double quadrantOffset = 0;
     double inputAngle = 0;
     double otherAngle = 0;
     double magnitude = 0;
@@ -133,28 +139,28 @@ public class DriveAssistCom extends Command {
     } else if (0 < inputAngle || inputAngle < 60) {
       switch (id) {
         case 6:
-          hexagonAngle = HEXAGON_ANGLES[6];
+          quadrantOffset = 120;
           break;
         case 8:
-          hexagonAngle = HEXAGON_ANGLES[8];
+          quadrantOffset = 300;
           break;
         case 9:
-          hexagonAngle = HEXAGON_ANGLES[9];
+          quadrantOffset = 180;
           break;
         case 11:
-          hexagonAngle = HEXAGON_ANGLES[11];
+          quadrantOffset = 0;
           break;
         case 17:
-          hexagonAngle = HEXAGON_ANGLES[17];
+          quadrantOffset = 180;
           break;
         case 19:
-          hexagonAngle = HEXAGON_ANGLES[19];
+          quadrantOffset = 120;
           break;
         case 20:
-          hexagonAngle = HEXAGON_ANGLES[20];
+          quadrantOffset = 0;
           break;
         case 22:
-          hexagonAngle = HEXAGON_ANGLES[22];
+          quadrantOffset = 300;
           break;
       }
       magnitude = Math.sqrt(Math.pow(inputX, 2) + Math.pow(inputY, 2));
@@ -164,8 +170,8 @@ public class DriveAssistCom extends Command {
       }
       otherAngle = inputAngle - 30;
       desiredMagnitude = Math.cos(otherAngle) * magnitude;
-      desiredX = desiredMagnitude * (Math.cos(30 + hexagonAngle));
-      desiredY = desiredMagnitude * (Math.sin(30 + hexagonAngle));
+      desiredX = desiredMagnitude * (Math.cos(30));
+      desiredY = desiredMagnitude * (Math.sin(30));
       finalVelocities = new Translation2d(desiredX, desiredY);
     }
     if (finalVelocities == null) {

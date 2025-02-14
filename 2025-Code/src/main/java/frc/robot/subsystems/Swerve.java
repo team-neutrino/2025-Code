@@ -245,15 +245,23 @@ public class Swerve extends CommandSwerveDrivetrain {
    * @return The default command.
    */
   public Command swerveDefaultCommand(CommandXboxController controller) {
-    return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(-controller.getLeftY() * m_speed)
-        .withVelocityY(-controller.getLeftX() * m_speed)
-        .withRotationalRate(-controller.getRightX() * m_rotationSpeed));
+    // return applyRequest(() ->
+    // SwerveRequestStash.drive.withVelocityX(-controller.getLeftY() * m_speed)
+    // .withVelocityY(-controller.getLeftX() * m_speed)
+    // .withRotationalRate(-controller.getRightX() * m_rotationSpeed));
+    return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(0)
+        .withVelocityY(0)
+        .withRotationalRate(0));
   }
 
   public Command swerveDriveToPoint(DriveToPoint controller) {
-    return applyRequest(() -> SwerveRequestStash.driveWithVelocity.withVelocityX(controller.getXVelocity())
-        .withVelocityY(controller.getYVelocity())
-        .withTargetDirection(controller.getRotation()));
+    // return applyRequest(() ->
+    // SwerveRequestStash.driveWithVelocity.withVelocityX(controller.getXVelocity())
+    // .withVelocityY(controller.getYVelocity())
+    // .withTargetDirection(controller.getRotation()));
+    return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(0)
+        .withVelocityY(0)
+        .withRotationalRate(0));
   }
 
   public Command resetYawCommand() {
