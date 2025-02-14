@@ -58,11 +58,9 @@ public class RobotContainer {
     m_buttonsController.y().whileTrue(SuperstructureFactory.scoreCoralL1Command());
     m_buttonsController.x().whileTrue(SuperstructureFactory.scoreCoralL2Command());
     m_buttonsController.b().whileTrue(SuperstructureFactory.scoreCoralL3Command());
-    m_buttonsController.a().whileTrue(SuperstructureFactory.scoreCoralL4Command());
+    m_buttonsController.a().whileTrue(SuperstructureFactory.workInProgressL4(m_buttonsController));
 
     m_buttonsController.leftBumper().whileTrue(SuperstructureFactory.intakeCoral());
-    m_buttonsController.rightBumper().whileTrue(SuperstructureFactory.outtake());
-    m_buttonsController.rightTrigger().whileTrue(SuperstructureFactory.dunkL4Command());
   }
 
   private void configureDefaultCommands() {
