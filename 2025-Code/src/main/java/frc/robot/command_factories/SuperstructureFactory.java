@@ -81,12 +81,14 @@ public class SuperstructureFactory {
     }
 
     public static Command workInProgressL4(CommandXboxController controller) {
-        return new ParallelRaceGroup(
-                ElevatorFactory.moveL4(),
-                ArmFactory.moveToL4(), new SequentialCommandGroup(claw.clawDefaultCommand()
-                        .until(() -> (arm.armReady() && elevator.elevatorReady()
-                                && controller.getHID().getRightBumperButton())),
-                        ClawFactory.runOuttake().until(() -> !claw.hasGamePiece())));
+        return new SequentialCommandGroup(
+                new ParallelRaceGroup(
+                        ElevatorFactory.moveL4(),
+                        ArmFactory.moveToL4(), new SequentialCommandGroup(claw.clawDefaultCommand()
+                                .until(() -> (arm.armReady() && elevator.elevatorReady()
+                                        && controller.getHID().getRightBumperButton())),
+                                ClawFactory.runOuttake().until(() -> !claw.hasGamePiece()))),
+                arm.armDefaultCommand().until(() -> arm.atDefault()), elevator.elevatorDefaultCommand());
     }
 
     // AUTON COMMANDS

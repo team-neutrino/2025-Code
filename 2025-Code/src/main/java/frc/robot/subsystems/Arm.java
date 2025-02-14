@@ -182,6 +182,10 @@ public class Arm extends SubsystemBase {
     m_FFConstant = newFF;
   }
 
+  public boolean atDefault() {
+    return 1 >= Math.abs(m_armEncoder.getPosition() - DEFAULT_POSITION);
+  }
+
   public void changeMaxMotion(double mv, double ma, double ae) {
     m_armMotorConfig.closedLoop.maxMotion.maxVelocity(mv).maxAcceleration(ma).allowedClosedLoopError(ae);
     m_armMotor.configure(m_armMotorConfig,
