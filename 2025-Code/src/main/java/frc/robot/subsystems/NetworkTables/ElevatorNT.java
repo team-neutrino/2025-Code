@@ -29,8 +29,10 @@ public class ElevatorNT extends Elevator {
     private double m_previousD = ElevatorConstants.D_VAL;
     private FFTuner m_FFTuner1;
     private FFTuner m_FFTuner2;
+    private FFTuner m_CoralFFTuner;
     private double m_previousFF1 = ElevatorConstants.STAGE_1_FF_VAL;
     private double m_previousFF2 = ElevatorConstants.STAGE_2_FF_VAL;
+    private double m_previousCoralFF = ElevatorConstants.CORAL_FF_VAL;
     private MaxMotionTuner m_MaxMotionTuner;
     private double m_previousMaxVelocity = ElevatorConstants.MAX_VELOCITY;
     private double m_previousMaxAcceleration = ElevatorConstants.MAX_ACCELERATION;
@@ -60,6 +62,9 @@ public class ElevatorNT extends Elevator {
 
         m_FFTuner2 = new FFTuner("elevator/{tuning}PIDF2");
         m_FFTuner2.setFF(m_previousFF2);
+
+        m_CoralFFTuner = new FFTuner("elevator/{tuning}PIDF2");
+        m_CoralFFTuner.setFF(m_previousCoralFF);
 
         m_MaxMotionTuner = new MaxMotionTuner("elevator/{tuning}MaxMotion");
 
@@ -92,6 +97,11 @@ public class ElevatorNT extends Elevator {
         if (m_FFTuner2.getFF() != m_previousFF2) {
             changeFF2(m_FFTuner2.getFF());
             m_previousFF2 = m_FFTuner2.getFF();
+        }
+
+        if (m_CoralFFTuner.getFF() != m_previousCoralFF) {
+            changeCoralFF(m_CoralFFTuner.getFF());
+            m_previousCoralFF = m_CoralFFTuner.getFF();
         }
 
         if (m_MaxMotionTuner.isDifferentValues(m_previousMaxVelocity, m_previousMaxAcceleration,

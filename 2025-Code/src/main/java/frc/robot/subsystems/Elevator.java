@@ -180,6 +180,10 @@ public class Elevator extends SubsystemBase {
     m_FFConstant2 = newFF;
   }
 
+  public void changeCoralFF(double newFF) {
+    m_CoralFFConstant = newFF;
+  }
+
   public void changeMaxMotion(double mv, double ma, double ae) {
     m_config.closedLoop.maxMotion.maxVelocity(mv).maxAcceleration(ma).allowedClosedLoopError(ae);
     m_motor1.configure(m_config, ResetMode.kResetSafeParameters,
