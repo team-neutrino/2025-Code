@@ -5,100 +5,75 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import static frc.robot.Constants.DriveToPoint.*;
 import frc.robot.subsystems.Swerve.SwerveRequestStash;
-import frc.robot.util.DriveToPoint;
+import frc.robot.util.DriveToPointController;
+
+import static frc.robot.Constants.DriveToPoint.*;
+import static frc.robot.Constants.GlobalConstants.*;
 import static frc.robot.util.Subsystem.swerve;
 
 import java.util.List;
 
 public class DriveToPointCommand extends Command {
-  private DriveToPoint m_driveController = new DriveToPoint();
+  private DriveToPointController m_pointControl = new DriveToPointController();
   private CommandXboxController m_xboxController = new CommandXboxController(0);
+  private List<Pose2d> m_reefPoses;
+  private Timer m_debounce = new Timer();
 
-  private Pose2d m_poseTarget = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
-  private int m_poseIndex = -1;
-
-  private Timer m_timer = new Timer();
-
-  private int m_blueValue = 1;
-  private int m_redValue = -1;
-
-  public DriveToPointCommand(DriveToPoint driveController, CommandXboxController xboxController) {
-    m_driveController = driveController;
+  public DriveToPointCommand(CommandXboxController xboxController) {
     m_xboxController = xboxController;
-
     addRequirements(swerve);
   }
 
-  public void changeIndexAndTarget(List<Pose2d> reef) {
-    if (m_timer.get() >= 0.5 && reef.contains(m_poseTarget)) {
-      m_poseIndex = reef.indexOf(m_poseTarget);
-      if (reef == BLUE_REEF) {
-        changeIndex(reef, m_blueValue);
-      } else if (reef == RED_REEF) {
-        changeIndex(reef, m_redValue);
-      }
-      changeTarget(reef);
-    }
-  }
-
-  public void changeIndex(List<Pose2d> reef, int value) {
-    int pov = m_xboxController.getHID().getPOV();
-    if (pov == 270) {
-      m_poseIndex += value;
-      m_timer.reset();
-    } else if (pov == 90) {
-      m_poseIndex -= value;
-      m_timer.reset();
-    }
-    m_poseIndex %= reef.size();
-    if (m_poseIndex < 0) {
-      m_poseIndex = 11;
-    }
-  }
-
-  public void changeTarget(List<Pose2d> reef) {
-    m_poseTarget = reef.get(m_poseIndex);
-    DriveToPoint.setTarget(m_poseTarget);
-  }
-
-  public void drive() {
-    SwerveRequestStash.driveWithVelocity.withVelocityX(m_driveController.getXVelocity())
-        .withVelocityY(m_driveController.getYVelocity()).withTargetDirection(m_driveController.getRotation());
-    swerve.setControl(SwerveRequestStash.driveWithVelocity);
-  }
-
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_poseTarget = swerve.getCurrentPose().nearest(POSE_LIST);
-    DriveToPoint.setTarget(m_poseTarget);
-    m_timer.start();
+    m_pointControl.setTargetNearest();
+    m_debounce.start();
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    changeIndexAndTarget(RED_REEF);
-    changeIndexAndTarget(BLUE_REEF);
-
+    if (!redAlliance.isPresent()) {
+      System.out.println("NO ALLIANCE VALUE YET");
+      return;
+    }
+    m_reefPoses = redAlliance.get() ? RED_REEF : BLUE_REEF;
+    checkDPad();
     drive();
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    boolean triedMove = Math.abs(m_xboxController.getLeftX()) > .5 || Math.abs(m_xboxController.getLeftY()) > .5;
+    boolean triedTurn = Math.abs(m_xboxController.getRightX()) > .5;
+    return triedMove || triedTurn;
+  }
+
+  private void checkDPad() {
+    int pov = m_xboxController.getHID().getPOV();
+    if (!m_reefPoses.contains(m_pointControl.getTarget()) || !m_debounce.hasElapsed(.5) || pov == -1) {
+      return;
+    }
+
+    int id = POSE_LIST.indexOf(m_pointControl.getTarget());
+    // TODO: test whether blue alliance modifier needs to be switched
+    id += pov == 270 ? -1 : pov == 90 ? 1 : 0; // update with d-pad direction; 90 = right and 270 = left
+    id = id > 15 ? 4 : id < 4 ? 15 : id; // wrap value
+
+    m_pointControl.setTarget(POSE_LIST.get(id));
+    m_debounce.restart();
+  }
+
+  private void drive() {
+    SwerveRequestStash.driveWithVelocity.withVelocityX(m_pointControl.getXVelocity())
+        .withVelocityY(m_pointControl.getYVelocity()).withTargetDirection(m_pointControl.getRotation());
+    swerve.setControl(SwerveRequestStash.driveWithVelocity);
   }
 }
