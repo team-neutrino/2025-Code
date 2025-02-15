@@ -25,8 +25,8 @@ public class ArmFactory {
         return arm.armRotateCommand(L4_POSITION);
     }
 
-    public static Command evacuateScore() {
-        return arm.armRotateCommand(arm.getArmEncoderPosition() + 15);
+    public static Command evacuateScoreL4() {
+        return arm.armRotateCommand(L4_POSITION + 15);
     }
 
     public static Command armToIntake() {
