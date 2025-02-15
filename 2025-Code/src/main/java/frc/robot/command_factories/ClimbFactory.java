@@ -1,17 +1,22 @@
 package frc.robot.command_factories;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 import static frc.robot.Constants.ClimbConstants.*;
 import static frc.robot.util.Subsystem.climb;
 
 public class ClimbFactory {
     public static Command raiseClimb() {
-        return climb.raiseClimbArmCommand(CLIMB_UP_POSITION);
+        return new SequentialCommandGroup(
+            climb.disengageRatchetCommand(),
+            climb.raiseClimbArmCommand(CLIMB_UP_POSITION));
     }
-
+    
     public static Command lowerClimb() {
-        return climb.lowerClimbArmCommand(CLIMB_DOWN_POSITION);
+        return new SequentialCommandGroup(
+            climb.lowerClimbArmCommand(CLIMB_DOWN_POSITION),
+            climb.engageRatchetCommand());
     }
 
     public static Command lockGrabber() {

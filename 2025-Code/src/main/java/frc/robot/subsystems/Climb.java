@@ -6,7 +6,12 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.command_factories.ArmFactory;
+import frc.robot.command_factories.ClawFactory;
+import frc.robot.command_factories.ElevatorFactory;
 
 import static frc.robot.Constants.ClimbConstants.*;
 
@@ -99,12 +104,20 @@ public class Climb extends SubsystemBase {
     m_climbMotor.setControl(positionControl);
   }
 
-  private void engageRatchet() {
-    m_lockRatchet.set(RATCHET_LOCK_POSITION);
+  private boolean isTargetPosition() {
+    return Math.abs(targetPositionClimbArm - getMotorPosition()) < CLIMB_MOTOR_POSITION_ERROR;
   }
 
-  private void disengageRatchet() {
-    m_lockRatchet.set(RATCHET_UNLOCK_POSITION);
+  public Command engageRatchetCommand() {
+    return run(() -> {
+      m_lockRatchet.set(RATCHET_LOCK_POSITION);
+    });
+  }
+
+  public Command disengageRatchetCommand() {
+    return run(() -> {
+      m_lockRatchet.set(RATCHET_UNLOCK_POSITION);
+    });
   }
 
   public Command lockCommand(double targetPosition) {
@@ -127,16 +140,14 @@ public class Climb extends SubsystemBase {
 
   public Command raiseClimbArmCommand(double targetPosition) {
     return run(() -> {
-      disengageRatchet();
       moveToPosition(targetPosition);
-    });
+    }).until(() -> isTargetPosition());
   }
 
   public Command lowerClimbArmCommand(double targetPosition) {
     return run(() -> {
       moveToPosition(targetPosition);
-      engageRatchet();
-    });
+    }).until(() -> isTargetPosition());
   }
 
   // only use when climb arm is in up position
