@@ -41,7 +41,7 @@ public class DriveToPointCommand extends Command {
     }
     m_reefPoses = redAlliance.get() ? RED_REEF : BLUE_REEF;
 
-    checkDPad();
+    checkBumpers();
     drive();
   }
 
@@ -56,7 +56,7 @@ public class DriveToPointCommand extends Command {
     return triedMove || triedTurn;
   }
 
-  private void checkDPad() {
+  private void checkBumpers() {
     boolean leftBumper = m_xboxController.getHID().getLeftBumperButton();
     boolean rightBumper = m_xboxController.getHID().getRightBumperButton();
     if (m_bumperWasPressed && (!leftBumper && !rightBumper)) {
@@ -68,8 +68,6 @@ public class DriveToPointCommand extends Command {
     m_bumperWasPressed = leftBumper || rightBumper;
 
     int id = m_reefPoses.indexOf(m_pointControl.getTarget());
-    // TODO: test whether blue alliance modifier needs to be switched
-    // update with d-pad direction; 90 = right and 270 = left
     id += leftBumper ? -1 : rightBumper ? 1 : 0;
     id = id > 11 ? 0 : id < 0 ? 11 : id; // wrap value
 
