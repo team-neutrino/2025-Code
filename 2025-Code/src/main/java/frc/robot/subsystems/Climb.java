@@ -109,12 +109,6 @@ public class Climb extends SubsystemBase {
     // subject to change. negative or positive?
   }
 
-  public Command putDownArm() {
-    return run(() -> {
-      m_climbMotor.setVoltage(5);
-    });
-  }
-
   public Command lockCommand(double targetPosition) {
     return run(() -> {
       targetPositionLock = targetPosition;
@@ -155,7 +149,7 @@ public class Climb extends SubsystemBase {
 
   public Command climbDefaultCommand() {
     return run(() -> {
-      moveToPosition(0);
+
     });
   }
 

@@ -29,9 +29,4 @@ public class ClimbFactory {
     public static Command resetClimb() {
         return climb.resetClimbArmCommand();
     }
-
-    public static Command lower() {
-        return climb.putDownArm();
-    }
-    // not final
 }
