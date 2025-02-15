@@ -29,10 +29,13 @@ import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.KilogramSquareMeters;
 import static edu.wpi.first.units.Units.Pounds;
 import static frc.robot.Constants.SwerveConstants.*;
+
 import java.io.IOException;
 import org.json.simple.parser.ParseException;
 import frc.robot.Constants;
+import frc.robot.Constants.ElevatorConstants;
 import frc.robot.util.DriveToPoint;
+import frc.robot.util.Subsystem;
 import frc.robot.util.GeneratedSwerveCode.*;
 
 /**
@@ -54,9 +57,6 @@ public class Swerve extends CommandSwerveDrivetrain {
   private Pose2d m_poseTarget = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
 
   private Telemetry m_telemetry = new Telemetry(MAX_SPEED);
-
-  private double m_speed = MAX_SPEED;
-  private double m_rotationSpeed = MAX_ROTATION_SPEED;
 
   /**
    * Constructs the drivetrain using the values found in {@link TunerConstants}.
@@ -235,6 +235,7 @@ public class Swerve extends CommandSwerveDrivetrain {
 
   public Command swerveDefaultCommand(CommandXboxController controller) {
     return run(() -> {
+      double m_speed = Subsystem.elevator.getEncoderPosition() >= ElevatorConstants.L3 ? SLOW_SWERVE_SPEED : MAX_SPEED;
       double forward = -controller.getLeftY() * m_speed, left = -controller.getLeftX() * m_speed;
       double stickAngle = Math.atan2(forward, left);
       double magnitude = Math.hypot(forward, left);
@@ -244,14 +245,14 @@ public class Swerve extends CommandSwerveDrivetrain {
       left = Math.cos(stickAngle) * magnitude;
       this.setControl(SwerveRequestStash.drive.withVelocityX(forward)
           .withVelocityY(left)
-          .withRotationalRate(-controller.getRightX() * m_rotationSpeed));
+          .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED));
     });
   }
 
   public Command slowDefaultCommand(CommandXboxController controller) {
-    return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(-controller.getLeftY() * (m_speed / 6))
-        .withVelocityY(-controller.getLeftX() * (m_speed / 6))
-        .withRotationalRate(-controller.getRightX() * m_rotationSpeed));
+    return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(-controller.getLeftY() * (MAX_SPEED / 6))
+        .withVelocityY(-controller.getLeftX() * (MAX_SPEED / 6))
+        .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED));
   }
 
   public Command swerveDriveToPoint(DriveToPoint controller) {
