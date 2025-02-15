@@ -41,7 +41,7 @@ public class Elevator extends SubsystemBase {
   private double m_target = 0.0;
   private double m_FFConstant1 = STAGE_1_FF_VAL;
   private double m_FFConstant2 = STAGE_2_FF_VAL;
-  private double m_CoralFFConstant = 0.0;
+  private double m_CoralFFConstant = CORAL_FF_VAL;
   private Claw m_claw = Subsystem.claw;
 
   public Elevator() {
