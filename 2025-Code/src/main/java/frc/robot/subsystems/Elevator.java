@@ -107,14 +107,14 @@ public class Elevator extends SubsystemBase {
   private double feedForwardCalculation() {
     if (m_encoder.getPosition() < STAGE_ONE_UP) {
       if (m_claw.isCoral()) {
-        return STAGE_1_FF_VAL + m_CoralFFConstant;
+        return m_FFConstant1 + m_CoralFFConstant;
       }
-      return STAGE_1_FF_VAL;
+      return m_FFConstant1;
     } else {
       if (m_claw.isCoral()) {
-        return STAGE_1_FF_VAL + m_CoralFFConstant;
+        return m_FFConstant2 + m_CoralFFConstant;
       }
-      return STAGE_2_FF_VAL;
+      return m_FFConstant2;
     }
   }
 
