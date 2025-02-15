@@ -58,10 +58,6 @@ public class Swerve extends CommandSwerveDrivetrain {
 
   private Telemetry m_telemetry = new Telemetry(MAX_SPEED);
 
-  private double m_speed = MAX_SPEED;
-
-  private double m_rotationSpeed = MAX_ROTATION_SPEED;
-
   /**
    * Constructs the drivetrain using the values found in {@link TunerConstants}.
    * <p>
@@ -245,9 +241,15 @@ public class Swerve extends CommandSwerveDrivetrain {
    * @return The default command.
    */
   public Command swerveDefaultCommand(CommandXboxController controller) {
-    return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(-controller.getLeftY() * m_speed)
-        .withVelocityY(-controller.getLeftX() * m_speed)
-        .withRotationalRate(-controller.getRightX() * m_rotationSpeed));
+    return run(() -> {
+      boolean doMoveSlow = Subsystem.elevator.getEncoderPosition() >= ElevatorConstants.L3;
+      double velFactor = 0, rotFactor = 0;
+      velFactor = doMoveSlow ? SLOW_SWERVE_SPEED : MAX_SPEED;
+      rotFactor = doMoveSlow ? SLOW_ROTATION_SPEED : MAX_ROTATION_SPEED;
+      setControl(SwerveRequestStash.drive.withVelocityX(-controller.getLeftY() * velFactor)
+          .withVelocityY(-controller.getLeftX() * velFactor)
+          .withRotationalRate(-controller.getRightX() * rotFactor));
+    });
   }
 
   public Command swerveDriveToPoint(DriveToPoint controller) {
@@ -262,13 +264,6 @@ public class Swerve extends CommandSwerveDrivetrain {
 
   @Override
   public void periodic() {
-    if (Subsystem.elevator.getEncoderPosition() >= ElevatorConstants.L3) {
-      m_speed = SLOW_SWERVE_SPEED;
-      m_rotationSpeed = SLOW_ROTATION_SPEED;
-    } else {
-      m_speed = MAX_SPEED;
-      m_rotationSpeed = MAX_ROTATION_SPEED;
-    }
     m_poseTarget = getCurrentPose().nearest(Constants.DriveToPoint.poseList);
     DriveToPoint.setTarget(m_poseTarget);
   }
