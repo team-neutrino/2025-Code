@@ -46,8 +46,8 @@ public class DriveAssistCom extends Command {
   @Override
   public void execute() {
     if (!limelight.getTv() || exitExecute()) {
-      // swerve.setControl(req.withVelocityX(0)
-      // .withVelocityY(0));
+      swerve.setControl(req.withVelocityX(0)
+          .withVelocityY(0));
       return;
     }
     int pov = m_controller.getHID().getPOV();
@@ -58,10 +58,11 @@ public class DriveAssistCom extends Command {
     Translation2d updatedDriverVel = getNewDriveVelocity();
     swerve.setIsAligned(isAligned());
     Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() - limelight.getTx());
-    // swerve.setControl(req.withVelocityX((velocities.getX() +
-    // updatedDriverVel.getX() * MAX_SPEED) / 2)
-    // .withVelocityY((velocities.getY() + updatedDriverVel.getY() * MAX_SPEED) /
-    // 2).withTargetDirection(angle));
+    swerve.setControl(req.withVelocityX((velocities.getX() +
+        updatedDriverVel.getX() * MAX_SPEED) / 2)
+        .withVelocityY((velocities.getY() + updatedDriverVel.getY() * MAX_SPEED) /
+            2)
+        .withTargetDirection(angle));
     System.out.println("ID " + limelight.getID());
     System.out.println("Desired X" + updatedDriverVel.getX());
     System.out.println("Desired Y " + updatedDriverVel.getY());
@@ -170,8 +171,8 @@ public class DriveAssistCom extends Command {
       }
       otherAngle = inputAngle - 30;
       desiredMagnitude = Math.cos(otherAngle) * magnitude;
-      desiredX = desiredMagnitude * (Math.cos(30));
-      desiredY = desiredMagnitude * (Math.sin(30));
+      desiredX = desiredMagnitude * (Math.cos(30 + quadrantOffset));
+      desiredY = desiredMagnitude * (Math.sin(30 + quadrantOffset));
       finalVelocities = new Translation2d(desiredX, desiredY);
     }
     if (finalVelocities == null) {
