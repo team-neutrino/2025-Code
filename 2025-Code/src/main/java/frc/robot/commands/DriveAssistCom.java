@@ -45,7 +45,8 @@ public class DriveAssistCom extends Command {
 
   @Override
   public void execute() {
-    if (!limelight.getTv() || exitExecute()) {
+    // if (!limelight.getTv() || exitExecute()) {
+    if (false) {
       swerve.setControl(req.withVelocityX(0)
           .withVelocityY(0));
       return;
@@ -63,13 +64,6 @@ public class DriveAssistCom extends Command {
         .withVelocityY((velocities.getY() + updatedDriverVel.getY() * MAX_SPEED) /
             2)
         .withTargetDirection(angle));
-    System.out.println("ID " + limelight.getID());
-    System.out.println("Desired X" + updatedDriverVel.getX());
-    System.out.println("Desired Y " + updatedDriverVel.getY());
-    System.out
-        .println("other way velocity X" + velocities.getX() + "total X" + velocities.getX() + updatedDriverVel.getX());
-    System.out
-        .println("other way velocity Y" + velocities.getY() + "total Y" + velocities.getY() + updatedDriverVel.getY());
   }
 
   private boolean exitExecute() {
@@ -95,7 +89,8 @@ public class DriveAssistCom extends Command {
    *         y and up is positive x).
    */
   private Translation2d getFieldRelativeDistances() {
-    int id = m_staticTagID;
+    // int id = m_staticTagID;
+    int id = 9;
     double idealYaw = swerve.getYawDegrees() - limelight.getTx();
     double limelightTagToRobot = limelight.getDistanceFromPrimaryTarget();
 
@@ -125,13 +120,15 @@ public class DriveAssistCom extends Command {
     double otherAngle = 0;
     double magnitude = 0;
     double desiredMagnitude = 0;
-    int id = m_staticTagID;
+    // int id = m_staticTagID;
+    int id = 9;
     Translation2d finalVelocities = null;
     double inputX = m_controller.getLeftY();
     double inputY = m_controller.getLeftX();
     inputAngle = Math.atan2(inputX, inputY);
     double desiredX = 0;
     double desiredY = 0;
+    boolean rotate90 = false;
     boolean edgeCase = id == RED_ALLIANCE_IDS.REEF_FACING_ALLIANCE || id == BLUE_ALLIANCE_IDS.REEF_FACING_ALLIANCE;
     if (m_controller.getLeftX() == 0 && m_controller.getLeftY() == 0) {
       return new Translation2d(0, 0);
@@ -141,18 +138,21 @@ public class DriveAssistCom extends Command {
       switch (id) {
         case 6:
           quadrantOffset = 120;
+          rotate90 = false;
           break;
         case 8:
-          quadrantOffset = 300;
+          quadrantOffset = 180;
+          rotate90 = false;
           break;
         case 9:
-          quadrantOffset = 180;
+          quadrantOffset = 300;
+          rotate90 = false;
           break;
         case 11:
           quadrantOffset = 0;
           break;
         case 17:
-          quadrantOffset = 180;
+          quadrantOffset = 300;
           break;
         case 19:
           quadrantOffset = 120;
@@ -161,7 +161,7 @@ public class DriveAssistCom extends Command {
           quadrantOffset = 0;
           break;
         case 22:
-          quadrantOffset = 300;
+          quadrantOffset = 180;
           break;
       }
       magnitude = Math.sqrt(Math.pow(inputX, 2) + Math.pow(inputY, 2));
@@ -171,15 +171,17 @@ public class DriveAssistCom extends Command {
       }
       otherAngle = inputAngle - 30;
       desiredMagnitude = Math.cos(otherAngle) * magnitude;
-      desiredX = desiredMagnitude * (Math.cos(30 + quadrantOffset));
-      desiredY = desiredMagnitude * (Math.sin(30 + quadrantOffset));
-      finalVelocities = new Translation2d(desiredX, desiredY);
+      desiredX = desiredMagnitude * (Math.cos(Math.toRadians(30 + quadrantOffset)));
+      desiredY = desiredMagnitude * (Math.sin(Math.toRadians(30 + quadrantOffset)));
+      finalVelocities = new Translation2d(-desiredX, -desiredY);
+      if (rotate90) {
+        finalVelocities = new Translation2d(-desiredY, desiredX);
+      }
     }
-    if (finalVelocities == null) {
-      return new Translation2d(0, 0);
-    } else {
-      return finalVelocities;
-    }
+    System.out.println("X " + finalVelocities.getX());
+    System.out.println("Y " + finalVelocities.getY());
+    System.out.println(desiredMagnitude);
+    return finalVelocities;
   }
 
   /**
