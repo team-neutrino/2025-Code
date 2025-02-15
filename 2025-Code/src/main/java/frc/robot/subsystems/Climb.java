@@ -63,9 +63,9 @@ public class Climb extends SubsystemBase {
         .withStatorCurrentLimitEnable(true);
     m_climbMotorConfig.CurrentLimits = m_currentLimitConfig;
 
-    m_climbMotorConfig.Slot0.kP = kP;
-    m_climbMotorConfig.Slot0.kI = kI;
-    m_climbMotorConfig.Slot0.kD = kD;
+    m_climbMotorConfig.Slot0.kP = CLIMB_kP;
+    m_climbMotorConfig.Slot0.kI = CLIMB_kI;
+    m_climbMotorConfig.Slot0.kD = CLIMB_kD;
 
     m_motionMagicConfig.MotionMagicCruiseVelocity = VELOCITY;
     m_motionMagicConfig.MotionMagicAcceleration = ACCELERATION;
@@ -141,9 +141,12 @@ public class Climb extends SubsystemBase {
     });
   }
 
-  public Command resetClimbArmCommand() {
+  // only use when climb arm is in up position
+  public Command resetClimbArmCommand(int rotations) {
     return run(() -> {
-      moveToPosition(105);
+      moveToPosition(rotations);
+      m_climbMotor.setPosition(0);
+
     });
   }
 

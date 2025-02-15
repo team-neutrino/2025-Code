@@ -26,7 +26,8 @@ public class ClimbFactory {
         return climb.resetLockCommand(RESET_POSITION);
     }
 
+    // only use when climb arm is in up position
     public static Command resetClimb() {
-        return climb.resetClimbArmCommand();
+        return climb.resetClimbArmCommand(RESET_CLIMB_ROTATION);
     }
 }

@@ -46,10 +46,8 @@ public class RobotContainer {
     m_driverController.b().onTrue(ClimbFactory.unlockGrabber());
     m_driverController.a().onTrue(ClimbFactory.lowerClimb());
 
-    m_driverController.rightTrigger().whileTrue(swerve.slowDefaultCommand(m_driverController));
-
-    m_driverController.start().onTrue(ClimbFactory.resetLock());
-    m_driverController.back().onTrue(ClimbFactory.resetClimb());
+    m_driverController.rightBumper().onTrue(ClimbFactory.resetLock());
+    m_driverController.leftBumper().onTrue(ClimbFactory.resetClimb()); // only use when climb arm is in up position
 
     m_driverController.leftStick().toggleOnTrue(new DriveAssistCom(m_driverController));
     m_driverController.back().whileTrue(swerve.resetYawCommand());
