@@ -117,7 +117,7 @@ public class DriveAssistCom extends Command {
     Translation2d finalVelocities = null;
     double inputX = m_controller.getLeftY();
     double inputY = m_controller.getLeftX();
-    double inputAngle = Math.toDegrees(Math.atan2(inputX, inputY));
+    double inputAngle = Math.toDegrees(Math.atan2(-inputX, inputY));
     double desiredX = 0;
     double desiredY = 0;
     if (m_controller.getLeftX() == 0 && m_controller.getLeftY() == 0) {
@@ -154,7 +154,7 @@ public class DriveAssistCom extends Command {
       magnitude = Math.sqrt(Math.pow(inputX, 2) + Math.pow(inputY, 2));
       if (inputAngle < 30) {
         // input is right of april tag (facing it)
-        otherAngle = 30 - inputAngle;
+        otherAngle = 30 - Math.abs(inputAngle);
       } else {
         otherAngle = inputAngle - 30;
       }
@@ -162,6 +162,7 @@ public class DriveAssistCom extends Command {
       desiredX = desiredMagnitude * (Math.cos(Math.toRadians(quadrantOffset)));
       desiredY = desiredMagnitude * (Math.sin(Math.toRadians(quadrantOffset)));
       finalVelocities = new Translation2d(desiredX, desiredY);
+      System.out.println(otherAngle);
     }
     return finalVelocities;
   }
