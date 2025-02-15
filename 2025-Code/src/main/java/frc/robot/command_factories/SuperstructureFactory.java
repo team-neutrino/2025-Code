@@ -89,13 +89,15 @@ public class SuperstructureFactory {
                                 .until(() -> (arm.armReady() && elevator.elevatorReady()
                                         && controller.getHID().getRightBumperButton())))),
                 new ParallelCommandGroup(ArmFactory.evacuateScoreL4(), ClawFactory.runOuttake())
-                        .until(() -> !claw.hasGamePiece()))
-                .alongWith(ElevatorFactory.modifyL4(controller)) // TODO TEST AND REMOVE IF BAD
-                .alongWith(ArmFactory.modifyL4Arm(controller))
-                .alongWith(new RunCommand(() -> {
-                    System.out.println("Elevator L4: " + Constants.ElevatorConstants.L4 + ", Arm L4: "
-                            + Constants.ArmConstants.L4_POSITION);
-                })); // TODO TEST AND REMOVE IF BAD
+                        .until(() -> !claw.hasGamePiece()));
+        // .alongWith(ElevatorFactory.modifyL4(controller)) // TODO TEST AND REMOVE IF
+        // BAD
+        // .alongWith(ArmFactory.modifyL4Arm(controller))
+        // .alongWith(new RunCommand(() -> {
+        // System.out.println("Elevator L4: " + Constants.ElevatorConstants.L4 + ", Arm
+        // L4: "
+        // + Constants.ArmConstants.L4_POSITION);
+        // })); // TODO TEST AND REMOVE IF BAD
     }
 
     // AUTON COMMANDS

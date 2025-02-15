@@ -27,15 +27,15 @@ public class ElevatorFactory {
         return elevator.moveElevatorCommand(L4);
     }
 
-    public static Command modifyL4(CommandXboxController controller) {
-        return new RunCommand(() -> {
-            int pov = controller.getHID().getPOV();
-            if (lastPov == -1 && pov != -1) {
-                L4 += pov == 0 ? 3 : pov == 180 ? -3 : 0;
-            }
-            lastPov = pov;
-        });
-    }
+    // public static Command modifyL4(CommandXboxController controller) {
+    // return new RunCommand(() -> {
+    // int pov = controller.getHID().getPOV();
+    // if (lastPov == -1 && pov != -1) {
+    // L4 += pov == 0 ? 3 : pov == 180 ? -3 : 0;
+    // }
+    // lastPov = pov;
+    // });
+    // }
 
     public static Command moveToIntake() {
         return elevator.moveElevatorCommand(CORAL_INTAKE);

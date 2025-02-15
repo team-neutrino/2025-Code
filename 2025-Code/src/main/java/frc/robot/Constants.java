@@ -78,7 +78,7 @@ public final class Constants {
     public static final double L1 = 14.0;
     public static final double L2 = 24.0;
     public static final double L3 = 36.0;
-    public static double L4 = 54.5;
+    public static final double L4 = 54.9;
     public static final double ARM_WILL_NOT_HIT_BASE_HEIGHT = 20.0;
     public static final double STAGE_1_LENGTH = 29; // inches
     public static final double STAGE_2_LENGTH = 26; // inches
@@ -109,7 +109,7 @@ public final class Constants {
     public static final double L1_POSITION = 120.0;
     public static final double L2_POSITION = 130.0;
     public static final double L3_POSITION = 140.0;
-    public static double L4_POSITION = 154.0;
+    public static final double L4_POSITION = 155.0;
     public static final double REEF_L2_DESCORE_POSITION = 0.0;
     public static final double REEF_L3_DESCORE_POSITION = 0.0;
 
