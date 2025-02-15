@@ -79,16 +79,15 @@ public class SuperstructureFactory {
                 arm.armDefaultCommand().until(() -> arm.atDefault()), elevator.elevatorDefaultCommand());
     }
 
-    public static Command scoreThenMoveArm(CommandXboxController controller) {
+    public static Command scoreThenMoveArmL4(CommandXboxController controller) {
         return new SequentialCommandGroup(
                 new ParallelRaceGroup(
                         ElevatorFactory.moveL4(),
                         ArmFactory.moveToL4(), new SequentialCommandGroup(claw.clawDefaultCommand()
                                 .until(() -> (arm.armReady() && elevator.elevatorReady()
-                                        && controller.getHID().getRightBumperButton())),
-                                new ParallelCommandGroup(ArmFactory.evacuateScore(), ClawFactory.runOuttake())
-                                        .until(() -> !claw.hasGamePiece()))),
-                arm.armDefaultCommand().until(() -> arm.atDefault()), elevator.elevatorDefaultCommand());
+                                        && controller.getHID().getRightBumperButton())))),
+                new ParallelCommandGroup(ArmFactory.evacuateScoreL4(), ClawFactory.runOuttake())
+                        .until(() -> !claw.hasGamePiece()));
     }
 
     // AUTON COMMANDS

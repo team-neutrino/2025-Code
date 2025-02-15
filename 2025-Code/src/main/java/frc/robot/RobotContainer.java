@@ -58,7 +58,7 @@ public class RobotContainer {
     m_buttonsController.y().whileTrue(SuperstructureFactory.scoreCoralL1Command());
     m_buttonsController.x().whileTrue(SuperstructureFactory.scoreCoralL2Command());
     m_buttonsController.b().whileTrue(SuperstructureFactory.scoreCoralL3Command());
-    m_buttonsController.a().whileTrue(SuperstructureFactory.scoreThenMoveArm(m_buttonsController));
+    m_buttonsController.a().whileTrue(SuperstructureFactory.scoreThenMoveArmL4(m_buttonsController));
 
     m_buttonsController.leftBumper().whileTrue(SuperstructureFactory.intakeCoral());
   }
