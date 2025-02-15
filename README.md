@@ -117,7 +117,7 @@
 | A          | Lower Climb Arm |
 | LT         |                 |
 | LB         |                 |
-| RT         |                 |
+| RT         | Slow swerve     |
 | RB         |                 |
 | DU         |                 |
 | DD         |                 |
