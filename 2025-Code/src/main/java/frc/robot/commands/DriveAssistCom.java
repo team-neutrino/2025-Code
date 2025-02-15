@@ -194,10 +194,6 @@ public class DriveAssistCom extends Command {
     m_staticTagID = limelight.getID();
   }
 
-  private void setIDForTesting(int id) {
-    m_staticTagID = id;
-  }
-
   public boolean isAligned() {
     return Math.abs(error.getX()) + Math.abs(error.getY()) < Constants.SwerveConstants.isAlignedError;
   }
