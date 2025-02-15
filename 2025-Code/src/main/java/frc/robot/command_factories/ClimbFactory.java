@@ -23,7 +23,11 @@ public class ClimbFactory {
     }
 
     public static Command resetLock() {
-        return climb.resetLockCommand();
+        return climb.resetLockCommand(RESET_POSITION);
+    }
+
+    public static Command resetClimb() {
+        return climb.resetClimbArmCommand();
     }
 
     public static Command lower() {

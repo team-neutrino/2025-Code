@@ -127,9 +127,9 @@ public class Climb extends SubsystemBase {
     });
   }
 
-  public Command resetLockCommand() {
+  public Command resetLockCommand(double targetPosition) {
     return run(() -> {
-      m_lockMotor.setVoltage(0.02);
+      targetPositionLock = targetPosition;
     });
   }
 
@@ -147,9 +147,14 @@ public class Climb extends SubsystemBase {
     });
   }
 
+  public Command resetClimbArmCommand() {
+    return run(() -> {
+      moveToPosition(105);
+    });
+  }
+
   public Command climbDefaultCommand() {
     return run(() -> {
-      m_climbMotor.setVoltage(0.25);
       moveToPosition(0);
     });
   }

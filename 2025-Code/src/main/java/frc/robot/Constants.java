@@ -159,20 +159,21 @@ public final class Constants {
     public static final double LOCK_VOLTAGE = 6;
     public static final double UNLOCK_VOLTAGE = -6;
 
-    public static final int CLIMB_UP_POSITION = 2;
+    public static final int CLIMB_UP_POSITION = -35;
     public static final int CLIMB_DOWN_POSITION = 0;
     // subject to change
 
-    public static final int LOCK_POSITION = 0;
-    public static final int UNLOCK_POSITOIN = 2;
+    public static final int LOCK_POSITION = 15;
+    public static final int UNLOCK_POSITOIN = -15;
+    public static final int RESET_POSITION = 0;
     // subject to change
 
-    public static final double kP = 0.1;
+    public static final double kP = 0.75;
     public static final double kI = 0;
     public static final double kD = 0;
     // subject to change
 
-    public static final double LOCK_kP = 0.5;
+    public static final double LOCK_kP = 0.75;
     public static final double LOCK_kI = 0;
     public static final double LOCK_kD = 0;
     // subject to change
