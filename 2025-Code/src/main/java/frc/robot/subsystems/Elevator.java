@@ -151,7 +151,11 @@ public class Elevator extends SubsystemBase {
   }
 
   public Command elevatorDefaultCommand() {
-    return run(() -> m_target = DEFAULT);
+    return run(() -> {
+      if (Subsystem.arm.getArmEncoderPosition() < -1) {
+        m_target = DEFAULT;
+      }
+    });
   }
 
   public Command moveElevatorCommand(double height) {

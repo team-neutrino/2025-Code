@@ -41,6 +41,8 @@ public class SuperstructureFactory {
     }
 
     public static Command scoreCoralL1Command() {
+        Command elevCom = ElevatorFactory.moveL1();
+        Command armCom = ArmFactory.moveToL1();
         return new SequentialCommandGroup(new ParallelCommandGroup(
                 ElevatorFactory.moveL1(),
                 ArmFactory.moveToL1()), ClawFactory.runOuttake());
@@ -80,6 +82,26 @@ public class SuperstructureFactory {
                                 ClawFactory.runOuttake().until(() -> !claw.hasGamePiece()))),
                 arm.armDefaultCommand().until(() -> arm.atDefault()), elevator.elevatorDefaultCommand());
     }
+
+    // testing cleaner "scoreThenMoveArmL4" command from here to...
+    private static Command prepareScoreL4CLEAN(CommandXboxController controller) {
+        Command elevCom = ElevatorFactory.moveL4();
+        Command armCom = ArmFactory.moveToL4();
+        boolean end = arm.armReady() && elevator.elevatorReady() && controller.getHID().getRightBumperButton();
+        return (elevCom.alongWith(armCom)).until(() -> end);
+    }
+
+    private static Command doScoreL4CLEAN() {
+        Command armCom = ArmFactory.evacuateScoreL4();
+        Command clawCom = ClawFactory.runOuttake();
+        boolean end = !claw.hasGamePiece();
+        return armCom.alongWith(clawCom).until(() -> end);
+    }
+
+    public static Command scoreL4CLEAN(CommandXboxController controller) {
+        return prepareScoreL4CLEAN(controller).andThen(doScoreL4CLEAN());
+    }
+    // END CLEANER SCORE L4 COMMAND TESTING HERE
 
     public static Command scoreThenMoveArmL4(CommandXboxController controller) {
         return new SequentialCommandGroup(
