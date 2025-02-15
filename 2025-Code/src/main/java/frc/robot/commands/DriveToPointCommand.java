@@ -59,12 +59,13 @@ public class DriveToPointCommand extends Command {
   private void checkDPad() {
     boolean leftBumper = m_xboxController.getHID().getLeftBumperButton();
     boolean rightBumper = m_xboxController.getHID().getRightBumperButton();
-    if (!leftBumper && !rightBumper) {
+    if (m_bumperWasPressed && (!leftBumper && !rightBumper)) {
       m_bumperWasPressed = false;
     }
     if (!m_reefPoses.contains(m_pointControl.getTarget()) || m_bumperWasPressed) {
       return;
     }
+    m_bumperWasPressed = leftBumper || rightBumper;
 
     int id = m_reefPoses.indexOf(m_pointControl.getTarget());
     // TODO: test whether blue alliance modifier needs to be switched
@@ -73,9 +74,6 @@ public class DriveToPointCommand extends Command {
     id = id > 11 ? 0 : id < 0 ? 11 : id; // wrap value
 
     m_pointControl.setTarget(m_reefPoses.get(id));
-    if (leftBumper || rightBumper) {
-      m_bumperWasPressed = true;
-    }
   }
 
   private void drive() {
