@@ -19,9 +19,9 @@ import java.util.List;
 
 public class DriveToPointCommand extends Command {
   private DriveToPointController m_pointControl = new DriveToPointController();
-  private CommandXboxController m_xboxController = new CommandXboxController(0);
+  private CommandXboxController m_xboxController;
   private List<Pose2d> m_reefPoses;
-  private Timer m_debounce = new Timer();
+  private boolean m_bumperWasPressed = false;
 
   public DriveToPointCommand(CommandXboxController xboxController) {
     m_xboxController = xboxController;
@@ -31,7 +31,6 @@ public class DriveToPointCommand extends Command {
   @Override
   public void initialize() {
     m_pointControl.setTargetNearest();
-    m_debounce.start();
   }
 
   @Override
@@ -41,6 +40,7 @@ public class DriveToPointCommand extends Command {
       return;
     }
     m_reefPoses = redAlliance.get() ? RED_REEF : BLUE_REEF;
+
     checkDPad();
     drive();
   }
@@ -57,18 +57,25 @@ public class DriveToPointCommand extends Command {
   }
 
   private void checkDPad() {
-    int pov = m_xboxController.getHID().getPOV();
-    if (!m_reefPoses.contains(m_pointControl.getTarget()) || !m_debounce.hasElapsed(.5) || pov == -1) {
+    boolean leftBumper = m_xboxController.getHID().getLeftBumperButton();
+    boolean rightBumper = m_xboxController.getHID().getRightBumperButton();
+    if (!leftBumper && !rightBumper) {
+      m_bumperWasPressed = false;
+    }
+    if (!m_reefPoses.contains(m_pointControl.getTarget()) || m_bumperWasPressed) {
       return;
     }
 
-    int id = POSE_LIST.indexOf(m_pointControl.getTarget());
+    int id = m_reefPoses.indexOf(m_pointControl.getTarget());
     // TODO: test whether blue alliance modifier needs to be switched
-    id += pov == 270 ? -1 : pov == 90 ? 1 : 0; // update with d-pad direction; 90 = right and 270 = left
-    id = id > 15 ? 4 : id < 4 ? 15 : id; // wrap value
+    // update with d-pad direction; 90 = right and 270 = left
+    id += leftBumper ? -1 : rightBumper ? 1 : 0;
+    id = id > 11 ? 0 : id < 0 ? 11 : id; // wrap value
 
-    m_pointControl.setTarget(POSE_LIST.get(id));
-    m_debounce.restart();
+    m_pointControl.setTarget(m_reefPoses.get(id));
+    if (leftBumper || rightBumper) {
+      m_bumperWasPressed = true;
+    }
   }
 
   private void drive() {
