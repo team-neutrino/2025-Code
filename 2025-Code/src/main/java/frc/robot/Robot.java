@@ -5,13 +5,14 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
-import org.littletonrobotics.junction.*;
+// import org.littletonrobotics.junction.*;
 
 /**
  * The methods in this class are called automatically corresponding to each
@@ -127,6 +128,5 @@ public class Robot extends TimedRobot {
   /** This function is called periodically whilst in simulation. */
   @Override
   public void simulationPeriodic() {
-    Logger.recordOutput("RobotPose", new Pose2d());
   }
 }

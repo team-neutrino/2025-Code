@@ -4,8 +4,8 @@
   "holonomicMode": true,
   "pathFolders": [
     "Middle",
-    "Top",
-    "Processor Side"
+    "Processor Side",
+    "Top"
   ],
   "autoFolders": [
     "1 CORAL",

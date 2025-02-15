@@ -11,13 +11,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "1- Pro Coral"
+                  "pathName": "2-Top Coral"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToScoringL4"
+                  "name": "MoveToScoringL1"
                 }
               }
             ]
@@ -26,7 +26,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreL4"
+            "name": "ScoreL1"
           }
         },
         {
@@ -36,7 +36,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "1- Pro Coral (Reef to PS)"
+                  "pathName": "2-Top Coral (Reef to PS)"
                 }
               },
               {
@@ -49,25 +49,19 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "Intake"
-          }
-        },
-        {
           "type": "deadline",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "1- Pro Coral (PS to Reef)"
+                  "pathName": "2-Top Coral (PS to Reef)"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToScoringL4"
+                  "name": "MoveToScoringL1"
                 }
               }
             ]
@@ -76,7 +70,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreL4"
+            "name": "ScoreL1"
           }
         }
       ]
