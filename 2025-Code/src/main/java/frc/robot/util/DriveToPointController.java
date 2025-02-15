@@ -9,7 +9,7 @@ import static frc.robot.Constants.SwerveConstants.*;
 
 public class DriveToPointController {
 
-    private static Pose2d m_target = new Pose2d(1.5, 1.2, Rotation2d.fromDegrees(-125));
+    private static Pose2d m_target = new Pose2d(0, 0, new Rotation2d());
 
     public void setTarget(Pose2d target) {
         m_target = target;
