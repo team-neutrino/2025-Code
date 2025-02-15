@@ -1,10 +1,16 @@
 package frc.robot.command_factories;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+
 import static frc.robot.Constants.ArmConstants.*;
 import static frc.robot.util.Subsystem.arm;
 
 public class ArmFactory {
+    private static int lastPov = -1;
+
     public static Command moveToL1() {
         return arm.armRotateCommand(L1_POSITION);
     }
@@ -27,6 +33,16 @@ public class ArmFactory {
 
     public static Command evacuateScoreL4() {
         return arm.armRotateCommand(L4_POSITION + 15);
+    }
+
+    public static Command modifyL4Arm(CommandXboxController controller) {
+        return new RunCommand(() -> {
+            int pov = controller.getHID().getPOV();
+            if (lastPov == -1 && pov != -1) {
+                L4_POSITION += pov == 90 ? 3 : pov == 270 ? -3 : 0;
+            }
+            lastPov = pov;
+        });
     }
 
     public static Command armToIntake() {
