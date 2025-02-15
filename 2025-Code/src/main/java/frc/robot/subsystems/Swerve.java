@@ -14,6 +14,7 @@ import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -46,7 +47,7 @@ import frc.robot.util.GeneratedSwerveCode.*;
  */
 public class Swerve extends CommandSwerveDrivetrain {
 
-  // private SlewRateLimiter slewsker = new SlewRateLimiter(4, 999, 1);
+  private SlewRateLimiter slewsker = new SlewRateLimiter(4, -Integer.MAX_VALUE, 1);
 
   private boolean m_hasBeenConstructed = false;
   /**
@@ -59,6 +60,9 @@ public class Swerve extends CommandSwerveDrivetrain {
   private Pose2d m_poseTarget = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
 
   private Telemetry m_telemetry = new Telemetry(MAX_SPEED);
+
+  private double m_speed = MAX_SPEED;
+  private double m_rotationSpeed = MAX_ROTATION_SPEED;
 
   /**
    * Constructs the drivetrain using the values found in {@link TunerConstants}.
@@ -254,11 +258,23 @@ public class Swerve extends CommandSwerveDrivetrain {
     });
   }
 
+  public Command slewDefaultCommand(CommandXboxController controller) {
+    return run(() -> {
+      double forward = -controller.getLeftY() * m_speed, left = -controller.getLeftX() * m_speed;
+      forward = slewsker.calculate(forward);
+      left = slewsker.calculate(left);
+      System.out.println("forward: " + forward + ", left: " + left);
+      this.setControl(SwerveRequestStash.drive.withVelocityX(forward)
+          .withVelocityY(left)
+          .withRotationalRate(-controller.getRightX() * m_rotationSpeed));
+    });
+  }
+
   public Command twoStageDefaultCommand(CommandXboxController controller) {
     return run(() -> {
       double forward = -controller.getLeftY(), left = -controller.getLeftX();
-      forward *= Math.abs(forward) < .8 ? (m_speed / 5) : m_speed;
-      left *= Math.abs(left) < .8 ? (m_speed / 5) : m_speed;
+      forward *= Math.abs(forward) < .8 ? (m_speed / 4) : m_speed;
+      left *= Math.abs(left) < .8 ? (m_speed / 4) : m_speed;
       this.setControl(SwerveRequestStash.drive.withVelocityX(forward)
           .withVelocityY(left)
           .withRotationalRate(-controller.getRightX() * m_rotationSpeed));
@@ -266,8 +282,9 @@ public class Swerve extends CommandSwerveDrivetrain {
   }
 
   public Command slowDefaultCommand(CommandXboxController controller) {
-    return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(-controller.getLeftY() * (m_speed / 2))
-        .withVelocityY(-controller.getLeftX() * (m_speed / 2))
+    // currently using different deadband
+    return applyRequest(() -> SwerveRequestStash.drive4Pct.withVelocityX(-controller.getLeftY() * (m_speed / 6))
+        .withVelocityY(-controller.getLeftX() * (m_speed / 6))
         .withRotationalRate(-controller.getRightX() * m_rotationSpeed));
   }
 
