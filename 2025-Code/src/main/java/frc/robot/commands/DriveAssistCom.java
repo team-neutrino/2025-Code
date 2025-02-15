@@ -9,22 +9,15 @@ import com.ctre.phoenix6.swerve.SwerveRequest.FieldCentricFacingAngle;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.units.measure.Velocity;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
-import static edu.wpi.first.units.Units.DegreesPerSecond;
 import static frc.robot.Constants.SwerveConstants.*;
 
 import frc.robot.Constants;
 import frc.robot.Constants.AprilTagConstants.*;
 import frc.robot.subsystems.Swerve.SwerveRequestStash;
 import static frc.robot.util.Subsystem.*;
-
-import java.lang.annotation.Target;
-import java.util.HexFormat;
-
-import org.ejml.data.FEigenpair;
 
 public class DriveAssistCom extends Command {
   private FieldCentricFacingAngle req = SwerveRequestStash.driveAssist;
@@ -120,16 +113,16 @@ public class DriveAssistCom extends Command {
     double magnitude = 0;
     double desiredMagnitude = 0;
     // int id = m_staticTagID;
-    int id = 6;
+    int id = 11;
     Translation2d finalVelocities = null;
     double inputX = m_controller.getLeftY();
     double inputY = m_controller.getLeftX();
-    double inputAngle = Math.atan2(inputX, inputY);
+    double inputAngle = Math.toDegrees(Math.atan2(inputX, inputY));
     double desiredX = 0;
     double desiredY = 0;
     if (m_controller.getLeftX() == 0 && m_controller.getLeftY() == 0) {
       return new Translation2d(0, 0);
-    } else if (id == 7 || id == 10 || id == 10 || id == 21) {
+    } else if (id == 7 || id == 10 || id == 18 || id == 21) {
       finalVelocities = new Translation2d(inputX, 0);
     } else if (0 < inputAngle || inputAngle < 60) {
       switch (id) {
@@ -162,8 +155,9 @@ public class DriveAssistCom extends Command {
       if (inputAngle < 30) {
         // input is right of april tag (facing it)
         otherAngle = 30 - inputAngle;
+      } else {
+        otherAngle = inputAngle - 30;
       }
-      otherAngle = inputAngle - 30;
       desiredMagnitude = Math.cos(otherAngle) * magnitude;
       desiredX = desiredMagnitude * (Math.cos(Math.toRadians(quadrantOffset)));
       desiredY = desiredMagnitude * (Math.sin(Math.toRadians(quadrantOffset)));
