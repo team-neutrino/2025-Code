@@ -3,6 +3,7 @@ package frc.robot.util;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 
+import static edu.wpi.first.math.MathUtil.*;
 import static frc.robot.Constants.DriveToPoint.*;
 import static frc.robot.Constants.SwerveConstants.*;
 
@@ -19,11 +20,13 @@ public class DriveToPointController {
     }
 
     public double getXVelocity() {
-        return (m_target.getX() - Subsystem.swerve.getCurrentPose().getX()) * DRIVE_TO_POINT_P;
+        return (applyDeadband((m_target.getX() - Subsystem.swerve.getCurrentPose().getX()), 0.01, 70.0)
+                * DRIVE_TO_POINT_P);
     }
 
     public double getYVelocity() {
-        return (m_target.getY() - Subsystem.swerve.getCurrentPose().getY()) * DRIVE_TO_POINT_P;
+        return (applyDeadband((m_target.getY() - Subsystem.swerve.getCurrentPose().getY()), 0.01, 70.0)
+                * DRIVE_TO_POINT_P);
     }
 
     public Rotation2d getRotation() {

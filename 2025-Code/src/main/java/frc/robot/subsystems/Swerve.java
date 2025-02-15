@@ -32,11 +32,9 @@ import static frc.robot.Constants.SwerveConstants.*;
 
 import java.io.IOException;
 import org.json.simple.parser.ParseException;
-import frc.robot.Constants;
 import frc.robot.Constants.ElevatorConstants;
-import frc.robot.util.DriveToPoint;
+import frc.robot.util.DriveToPointController;
 import frc.robot.util.Subsystem;
-import frc.robot.Constants;
 import frc.robot.util.GeneratedSwerveCode.*;
 
 /**
@@ -254,7 +252,7 @@ public class Swerve extends CommandSwerveDrivetrain {
         .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED));
   }
 
-  public Command swerveDriveToPoint(DriveToPoint controller) {
+  public Command swerveDriveToPoint(DriveToPointController controller) {
     return applyRequest(() -> SwerveRequestStash.driveWithVelocity.withVelocityX(controller.getXVelocity())
         .withVelocityY(controller.getYVelocity())
         .withTargetDirection(controller.getRotation()));
@@ -266,8 +264,7 @@ public class Swerve extends CommandSwerveDrivetrain {
 
   @Override
   public void periodic() {
-    m_poseTarget = getCurrentPose().nearest(Constants.DriveToPoint.poseList);
-    DriveToPoint.setTarget(m_poseTarget);
+
   }
 
   /**
