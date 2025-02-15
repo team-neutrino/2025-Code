@@ -115,8 +115,6 @@ public class SuperstructureFactory {
                 .alongWith(ElevatorFactory.modifyL4(controller)) // TODO TEST AND REMOVE IF BAD
                 .alongWith(ArmFactory.modifyL4Arm(controller))
                 .alongWith(new RunCommand(() -> {
-                    System.out.println("Elevator L4: " + Constants.ElevatorConstants.L4 + ", Arm L4: "
-                            + Constants.ArmConstants.L4_POSITION);
                 })); // TODO TEST AND REMOVE IF BAD
     }
 
