@@ -29,14 +29,8 @@ import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.KilogramSquareMeters;
 import static edu.wpi.first.units.Units.Pounds;
 import static frc.robot.Constants.SwerveConstants.*;
-
 import java.io.IOException;
-import java.util.List;
-
 import org.json.simple.parser.ParseException;
-
-import frc.robot.Constants.ElevatorConstants;
-import frc.robot.util.Subsystem;
 import frc.robot.Constants;
 import frc.robot.util.DriveToPoint;
 import frc.robot.util.GeneratedSwerveCode.*;
@@ -239,24 +233,7 @@ public class Swerve extends CommandSwerveDrivetrain {
     isAligned = value;
   }
 
-  /**
-   * Returns the default command for the swerve - drives the robot according to
-   * the stick values on the driver's controller.
-   * 
-   * @param controller The driver controller.
-   * @return The default command.
-   */
   public Command swerveDefaultCommand(CommandXboxController controller) {
-    return run(() -> {
-      double forward = -controller.getLeftY() * m_speed, left = -controller.getLeftX() * m_speed;
-      System.out.println("forward: " + forward + ", left: " + left);
-      this.setControl(SwerveRequestStash.drive.withVelocityX(forward)
-          .withVelocityY(left)
-          .withRotationalRate(-controller.getRightX() * m_rotationSpeed));
-    });
-  }
-
-  public Command slewDefaultCommand(CommandXboxController controller) {
     return run(() -> {
       double forward = -controller.getLeftY() * m_speed, left = -controller.getLeftX() * m_speed;
       double stickAngle = Math.atan2(forward, left);
@@ -265,18 +242,6 @@ public class Swerve extends CommandSwerveDrivetrain {
 
       forward = Math.sin(stickAngle) * magnitude;
       left = Math.cos(stickAngle) * magnitude;
-      System.out.println("forward: " + forward + ", left: " + left);
-      this.setControl(SwerveRequestStash.drive.withVelocityX(forward)
-          .withVelocityY(left)
-          .withRotationalRate(-controller.getRightX() * m_rotationSpeed));
-    });
-  }
-
-  public Command twoStageDefaultCommand(CommandXboxController controller) {
-    return run(() -> {
-      double forward = -controller.getLeftY(), left = -controller.getLeftX();
-      forward *= Math.abs(forward) < .8 ? (m_speed / 4) : m_speed;
-      left *= Math.abs(left) < .8 ? (m_speed / 4) : m_speed;
       this.setControl(SwerveRequestStash.drive.withVelocityX(forward)
           .withVelocityY(left)
           .withRotationalRate(-controller.getRightX() * m_rotationSpeed));
@@ -284,8 +249,7 @@ public class Swerve extends CommandSwerveDrivetrain {
   }
 
   public Command slowDefaultCommand(CommandXboxController controller) {
-    // currently using different deadband
-    return applyRequest(() -> SwerveRequestStash.drive4Pct.withVelocityX(-controller.getLeftY() * (m_speed / 6))
+    return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(-controller.getLeftY() * (m_speed / 6))
         .withVelocityY(-controller.getLeftX() * (m_speed / 6))
         .withRotationalRate(-controller.getRightX() * m_rotationSpeed));
   }
@@ -312,11 +276,7 @@ public class Swerve extends CommandSwerveDrivetrain {
   public class SwerveRequestStash {
     public static final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
         .withDriveRequestType(DriveRequestType.Velocity)
-        .withDeadband(MAX_SPEED * 0.1)
-        .withRotationalDeadband(MAX_ROTATION_SPEED * 0.06);
-    public static final SwerveRequest.FieldCentric drive4Pct = new SwerveRequest.FieldCentric()
-        .withDriveRequestType(DriveRequestType.Velocity)
-        .withDeadband(MAX_SPEED * 0.04)
+        .withDeadband(MAX_SPEED * 0.06)
         .withRotationalDeadband(MAX_ROTATION_SPEED * 0.06);
     public static final SwerveRequest.FieldCentric driveWithoutDeadband = new SwerveRequest.FieldCentric()
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
