@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj.DriverStation;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
+import frc.robot.Constants;
+import frc.robot.Constants.LEDConstants;
+import frc.robot.Constants.LEDConstants.States;
 import frc.robot.util.Subsystem;
 
 public class LED extends SubsystemBase {
@@ -47,13 +50,38 @@ public class LED extends SubsystemBase {
         setToGamePieceColor();
         return;
       } else {
-        color_pub.set("orange");
-        state_pub.set("solid");
-      }
+    }
+  }
+
+  public void setCommandState(States p_state) {
+    m_state = p_state;
+  }
+
+  public States getCommandState() {
+    return m_state;
+  }
+
+  public void changeColorState() {
+    getCommandState();
+    if (getCommandState() == States.LOCKCLIMB) {
+      color_pub.set("yellow");
+      state_pub.set("solid");
+    } else if (getCommandState() == States.DEFAULT) {
+      color_pub.set("orange");
+      state_pub.set("solid");
+    }
+  }
+
+  public void checkCommandState() {
+    if (lockClimb == false) {
+      setCommandState(States.LOCKCLIMB);
+    } else if (lockClimb == true) {
+      setCommandState(States.DEFAULT);
     }
   }
 
   @Override
   public void periodic() {
+    System.out.println(getCommandState());
   }
 }

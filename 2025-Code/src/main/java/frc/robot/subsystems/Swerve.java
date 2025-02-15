@@ -12,6 +12,7 @@ import com.pathplanner.lib.config.ModuleConfig;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.reduxrobotics.canand.CanandDeviceDetails.Enums.SettingCommand;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -34,6 +35,8 @@ import java.io.IOException;
 import org.json.simple.parser.ParseException;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.util.DriveToPointController;
+import static frc.robot.util.Subsystem.LED;
+import frc.robot.Constants.LEDConstants.States;
 import frc.robot.util.Subsystem;
 import frc.robot.util.GeneratedSwerveCode.*;
 

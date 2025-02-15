@@ -194,7 +194,12 @@ public final class Constants {
   }
 
   public static class LEDConstants {
-
+    public enum States {
+      DEFAULT,
+      AUTOALIGN,
+      LOCKCLIMB,
+      CLIMBING
+    }
   }
 
   public static class AprilTagConstants {
