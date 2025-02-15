@@ -46,6 +46,8 @@ import frc.robot.util.GeneratedSwerveCode.*;
  */
 public class Swerve extends CommandSwerveDrivetrain {
 
+  // private SlewRateLimiter slewsker = new SlewRateLimiter(4, 999, 1);
+
   private boolean m_hasBeenConstructed = false;
   /**
    * set by driveAssistCom; when the command isn't being run it should be false
@@ -242,14 +244,31 @@ public class Swerve extends CommandSwerveDrivetrain {
    */
   public Command swerveDefaultCommand(CommandXboxController controller) {
     return run(() -> {
-      boolean doMoveSlow = Subsystem.elevator.getEncoderPosition() >= ElevatorConstants.L3;
-      double velFactor = 0, rotFactor = 0;
-      velFactor = doMoveSlow ? SLOW_SWERVE_SPEED : MAX_SPEED;
-      rotFactor = doMoveSlow ? SLOW_ROTATION_SPEED : MAX_ROTATION_SPEED;
-      setControl(SwerveRequestStash.drive.withVelocityX(-controller.getLeftY() * velFactor)
-          .withVelocityY(-controller.getLeftX() * velFactor)
-          .withRotationalRate(-controller.getRightX() * rotFactor));
+      double forward = -controller.getLeftY() * m_speed, left = -controller.getLeftX() * m_speed;
+      // forward = slewsker.calculate(forward);
+      // left = slewsker.calculate(left);
+      System.out.println("forward: " + forward + ", left: " + left);
+      this.setControl(SwerveRequestStash.drive.withVelocityX(forward)
+          .withVelocityY(left)
+          .withRotationalRate(-controller.getRightX() * m_rotationSpeed));
     });
+  }
+
+  public Command twoStageDefaultCommand(CommandXboxController controller) {
+    return run(() -> {
+      double forward = -controller.getLeftY(), left = -controller.getLeftX();
+      forward *= Math.abs(forward) < .8 ? (m_speed / 5) : m_speed;
+      left *= Math.abs(left) < .8 ? (m_speed / 5) : m_speed;
+      this.setControl(SwerveRequestStash.drive.withVelocityX(forward)
+          .withVelocityY(left)
+          .withRotationalRate(-controller.getRightX() * m_rotationSpeed));
+    });
+  }
+
+  public Command slowDefaultCommand(CommandXboxController controller) {
+    return applyRequest(() -> SwerveRequestStash.drive.withVelocityX(-controller.getLeftY() * (m_speed / 2))
+        .withVelocityY(-controller.getLeftX() * (m_speed / 2))
+        .withRotationalRate(-controller.getRightX() * m_rotationSpeed));
   }
 
   public Command swerveDriveToPoint(DriveToPoint controller) {
@@ -273,8 +292,12 @@ public class Swerve extends CommandSwerveDrivetrain {
    */
   public class SwerveRequestStash {
     public static final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
-        .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
+        .withDriveRequestType(DriveRequestType.Velocity)
         .withDeadband(MAX_SPEED * 0.1)
+        .withRotationalDeadband(MAX_ROTATION_SPEED * 0.06);
+    public static final SwerveRequest.FieldCentric drive4Pct = new SwerveRequest.FieldCentric()
+        .withDriveRequestType(DriveRequestType.Velocity)
+        .withDeadband(MAX_SPEED * 0.04)
         .withRotationalDeadband(MAX_ROTATION_SPEED * 0.06);
     public static final SwerveRequest.FieldCentric driveWithoutDeadband = new SwerveRequest.FieldCentric()
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
