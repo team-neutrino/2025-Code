@@ -249,8 +249,6 @@ public class Swerve extends CommandSwerveDrivetrain {
   public Command swerveDefaultCommand(CommandXboxController controller) {
     return run(() -> {
       double forward = -controller.getLeftY() * m_speed, left = -controller.getLeftX() * m_speed;
-      // forward = slewsker.calculate(forward);
-      // left = slewsker.calculate(left);
       System.out.println("forward: " + forward + ", left: " + left);
       this.setControl(SwerveRequestStash.drive.withVelocityX(forward)
           .withVelocityY(left)
@@ -261,8 +259,12 @@ public class Swerve extends CommandSwerveDrivetrain {
   public Command slewDefaultCommand(CommandXboxController controller) {
     return run(() -> {
       double forward = -controller.getLeftY() * m_speed, left = -controller.getLeftX() * m_speed;
-      forward = slewsker.calculate(forward);
-      left = slewsker.calculate(left);
+      double stickAngle = Math.atan2(forward, left);
+      double magnitude = Math.hypot(forward, left);
+      magnitude = slewsker.calculate(magnitude);
+
+      forward = Math.sin(stickAngle) * magnitude;
+      left = Math.cos(stickAngle) * magnitude;
       System.out.println("forward: " + forward + ", left: " + left);
       this.setControl(SwerveRequestStash.drive.withVelocityX(forward)
           .withVelocityY(left)
