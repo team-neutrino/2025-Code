@@ -100,13 +100,11 @@ public class Climb extends SubsystemBase {
   }
 
   private void engageRatchet() {
-    m_lockRatchet.set(0.8);
-    // subject to change
+    m_lockRatchet.set(RATCHET_LOCK_POSITION);
   }
 
   private void disengageRatchet() {
-    m_lockRatchet.set(0.2);
-    // subject to change. negative or positive?
+    m_lockRatchet.set(RATCHET_UNLOCK_POSITION);
   }
 
   public Command lockCommand(double targetPosition) {
