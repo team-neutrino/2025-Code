@@ -44,7 +44,7 @@ import frc.robot.util.GeneratedSwerveCode.*;
  */
 public class Swerve extends CommandSwerveDrivetrain {
 
-  private SlewRateLimiter slewsker = new SlewRateLimiter(4, -Integer.MAX_VALUE, 1);
+  private SlewRateLimiter m_slewsker = new SlewRateLimiter(4, -Integer.MAX_VALUE, 1);
 
   private boolean m_hasBeenConstructed = false;
   /**
@@ -239,7 +239,7 @@ public class Swerve extends CommandSwerveDrivetrain {
       double forward = -controller.getLeftY() * m_speed, left = -controller.getLeftX() * m_speed;
       double stickAngle = Math.atan2(forward, left);
       double magnitude = Math.hypot(forward, left);
-      magnitude = slewsker.calculate(magnitude);
+      magnitude = m_slewsker.calculate(magnitude);
 
       forward = Math.sin(stickAngle) * magnitude;
       left = Math.cos(stickAngle) * magnitude;
