@@ -104,9 +104,9 @@ public class Elevator extends SubsystemBase {
 
   private double feedForwardCalculation() {
     if (m_encoder.getPosition() < STAGE_ONE_UP) {
-      return STAGE_1_FF_VAL;
+      return m_FFConstant1;
     } else {
-      return STAGE_2_FF_VAL;
+      return m_FFConstant2;
     }
   }
 
