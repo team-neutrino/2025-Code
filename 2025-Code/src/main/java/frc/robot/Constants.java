@@ -6,6 +6,7 @@ package frc.robot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -25,7 +26,7 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
   public static class GlobalConstants {
-    public static boolean redAlliance;
+    public static Optional<Boolean> redAlliance = Optional.empty();
   }
 
   public static class OperatorConstants {
@@ -43,12 +44,12 @@ public final class Constants {
     public static final double SLOW_SWERVE_SPEED = 1;
     public static final double MAX_ROTATION_SPEED = 1.5 * Math.PI;
     public static final double SLOW_ROTATION_SPEED = 0.8 * Math.PI;
-    public static final double DRIVE_ASSIST_KP = 1.5;
+    public static final double DRIVE_ASSIST_KP = 4;
     public static final double[] HEXAGON_ANGLES = { Integer.MAX_VALUE, -1, -1, -1, -1, -1, 120, 180, -120, -60, 0, 60,
         -1, -1, -1, -1, -1, -120, 180, 120, 60, 0, -60 };
     public static final double APRILTAG_ALIGN_LIMIT = 1.5;
     public static final double AUTO_ALIGN_P = 4;
-    public static final double AUTO_ALIGN_D = .5;
+    public static final double AUTO_ALIGN_D = .05;
     public static final double STALL_TORQUE = 7.09;
     public static final double STALL_CURRENT = 366;
     public static final double FREE_CURRENT_AMPS = 2;
@@ -59,6 +60,7 @@ public final class Constants {
     public static final double DRIVE_GEAR_RATIO = 5.6;
     public static final double REEF_OFFSET = Units.inchesToMeters(12.94) / 2;
     public static final double isAlignedError = 0;
+    public static final double DRIVE_TO_POINT_P = 2;
   }
 
   public static class ElevatorConstants {
@@ -227,12 +229,52 @@ public final class Constants {
   }
 
   public static class DriveToPoint {
-    public static final Pose2d BLUE_PLAYER_STATION_1 = new Pose2d(1.3, 1.0, Rotation2d.fromDegrees(54));
-    public static final Pose2d BLUE_PLAYER_STATION_2 = new Pose2d(1.3, 6.8, Rotation2d.fromDegrees(-54));
-    public static final Pose2d BLUE_REEF_1 = new Pose2d(3, 4.0, Rotation2d.fromDegrees(180));
-    public static final Pose2d BLUE_REEF_2 = new Pose2d(6, 4.0, Rotation2d.fromDegrees(0));
-    public static final List<Pose2d> poseList = new ArrayList<>(List.of(BLUE_PLAYER_STATION_1, BLUE_PLAYER_STATION_2,
-        BLUE_REEF_1, BLUE_REEF_2));
+    // the number correspond to the april tag on the object
+    public static final Pose2d RED_PLAYER_STATION_1 = new Pose2d(16.1, 1.17, Rotation2d.fromDegrees(-54));
+    public static final Pose2d RED_PLAYER_STATION_2 = new Pose2d(16.4, 6.76, Rotation2d.fromDegrees(54));
+
+    public static final Pose2d BLUE_PLAYER_STATION_12 = new Pose2d(0.99, 1.4, Rotation2d.fromDegrees(-126));
+    public static final Pose2d BLUE_PLAYER_STATION_13 = new Pose2d(1.59, 6.96, Rotation2d.fromDegrees(126));
+
+    public static final Pose2d RED_REEF_6A = new Pose2d(13.53, 2.47, Rotation2d.fromDegrees(-60));
+    public static final Pose2d RED_REEF_6B = new Pose2d(13.79, 2.69, Rotation2d.fromDegrees(-60));
+    public static final Pose2d RED_REEF_7A = new Pose2d(14.6, 3.61, Rotation2d.fromDegrees(0));
+    public static final Pose2d RED_REEF_7B = new Pose2d(14.6, 4.02, Rotation2d.fromDegrees(0));
+    public static final Pose2d RED_REEF_8A = new Pose2d(14.16, 5.21, Rotation2d.fromDegrees(60));
+    public static final Pose2d RED_REEF_8B = new Pose2d(13.81, 5.41, Rotation2d.fromDegrees(60));
+    public static final Pose2d RED_REEF_9A = new Pose2d(12.66, 5.63, Rotation2d.fromDegrees(120));
+    public static final Pose2d RED_REEF_9B = new Pose2d(12.33, 5.43, Rotation2d.fromDegrees(120));
+    public static final Pose2d RED_REEF_10A = new Pose2d(11.49, 4.4, Rotation2d.fromDegrees(180));
+    public static final Pose2d RED_REEF_10B = new Pose2d(11.49, 4.1, Rotation2d.fromDegrees(180));
+    public static final Pose2d RED_REEF_11A = new Pose2d(11.99, 2.91, Rotation2d.fromDegrees(-120));
+    public static final Pose2d RED_REEF_11B = new Pose2d(12.34, 2.67, Rotation2d.fromDegrees(-120));
+
+    public static final Pose2d BLUE_REEF_17A = new Pose2d(3.7, 2.6, Rotation2d.fromDegrees(-120));
+    public static final Pose2d BLUE_REEF_17B = new Pose2d(3.4, 2.85, Rotation2d.fromDegrees(-120));
+    public static final Pose2d BLUE_REEF_18A = new Pose2d(3.1, 4.1, Rotation2d.fromDegrees(180));
+    public static final Pose2d BLUE_REEF_18B = new Pose2d(3.1, 4.5, Rotation2d.fromDegrees(180));
+    public static final Pose2d BLUE_REEF_19A = new Pose2d(3.75, 5.43, Rotation2d.fromDegrees(120));
+    public static final Pose2d BLUE_REEF_19B = new Pose2d(3.94, 5.58, Rotation2d.fromDegrees(120));
+    public static final Pose2d BLUE_REEF_20A = new Pose2d(5.26, 5.4, Rotation2d.fromDegrees(60));
+    public static final Pose2d BLUE_REEF_20B = new Pose2d(5.55, 5.27, Rotation2d.fromDegrees(60));
+    public static final Pose2d BLUE_REEF_21A = new Pose2d(6.02, 3.98, Rotation2d.fromDegrees(0));
+    public static final Pose2d BLUE_REEF_21B = new Pose2d(6.02, 3.62, Rotation2d.fromDegrees(0));
+    public static final Pose2d BLUE_REEF_22A = new Pose2d(5.2, 2.61, Rotation2d.fromDegrees(-60));
+    public static final Pose2d BLUE_REEF_22B = new Pose2d(4.85, 2.49, Rotation2d.fromDegrees(-60));
+
+    // Don't reorder this list
+    public static final List<Pose2d> POSE_LIST = List.of(RED_PLAYER_STATION_1, RED_PLAYER_STATION_2,
+        BLUE_PLAYER_STATION_12, BLUE_PLAYER_STATION_13, RED_REEF_6A, RED_REEF_6B, RED_REEF_7A, RED_REEF_7B, RED_REEF_8A,
+        RED_REEF_8B, RED_REEF_9A, RED_REEF_9B, RED_REEF_10A, RED_REEF_10B, RED_REEF_11A, RED_REEF_11B, BLUE_REEF_17A,
+        BLUE_REEF_17B, BLUE_REEF_18A, BLUE_REEF_18B, BLUE_REEF_19A, BLUE_REEF_19B, BLUE_REEF_20A, BLUE_REEF_20B,
+        BLUE_REEF_21A, BLUE_REEF_21B, BLUE_REEF_22A, BLUE_REEF_22B);
+
+    public static final List<Pose2d> RED_REEF = List.of(RED_REEF_6A, RED_REEF_6B, RED_REEF_7A, RED_REEF_7B, RED_REEF_8A,
+        RED_REEF_8B, RED_REEF_9A, RED_REEF_9B, RED_REEF_10A, RED_REEF_10B, RED_REEF_11A, RED_REEF_11B);
+
+    public static final List<Pose2d> BLUE_REEF = List.of(BLUE_REEF_22B, BLUE_REEF_22A, BLUE_REEF_21B, BLUE_REEF_21A,
+        BLUE_REEF_20B, BLUE_REEF_20A, BLUE_REEF_19B, BLUE_REEF_19A, BLUE_REEF_18B, BLUE_REEF_18A, BLUE_REEF_17B,
+        BLUE_REEF_17A);
   }
 
 }

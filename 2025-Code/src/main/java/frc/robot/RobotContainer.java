@@ -7,7 +7,7 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.command_factories.*;
 import frc.robot.commands.DriveAssistCom;
-import frc.robot.util.DriveToPoint;
+import frc.robot.commands.DriveToPointCommand;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.util.Subsystem.*;
@@ -28,7 +28,6 @@ public class RobotContainer {
       OperatorConstants.kDriverControllerPort);
   private final CommandXboxController m_buttonsController = new CommandXboxController(
       OperatorConstants.kButtonsControllerPort);
-  private final DriveToPoint m_driveToPoint = new DriveToPoint();
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -50,7 +49,7 @@ public class RobotContainer {
     m_driverController.rightTrigger().whileTrue(swerve.slowDefaultCommand(m_driverController));
 
     m_driverController.b()
-        .whileTrue(Subsystem.swerve.swerveDriveToPoint(m_driveToPoint));
+        .whileTrue(new DriveToPointCommand(m_driverController));
 
     m_driverController.leftStick().toggleOnTrue(new DriveAssistCom(m_driverController));
     m_driverController.back().whileTrue(swerve.resetYawCommand());

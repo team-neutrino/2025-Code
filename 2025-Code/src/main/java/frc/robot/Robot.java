@@ -5,6 +5,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+
+import java.util.Optional;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -21,7 +24,6 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private final RobotContainer m_robotContainer;
-  private boolean setAlliance = false;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -47,9 +49,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    if (!setAlliance && DriverStation.getAlliance().isPresent()) {
-      Constants.GlobalConstants.redAlliance = DriverStation.getAlliance().get().equals(Alliance.Red);
-      setAlliance = true;
+    if (!Constants.GlobalConstants.redAlliance.isPresent() && DriverStation.getAlliance().isPresent()) {
+      Constants.GlobalConstants.redAlliance = Optional.of(DriverStation.getAlliance().get().equals(Alliance.Red));
     }
     // Runs the Scheduler. This is responsible for polling buttons, adding
     // newly-scheduled
