@@ -41,6 +41,8 @@ public class Elevator extends SubsystemBase {
   private double m_target = 0.0;
   private double m_FFConstant1 = STAGE_1_FF_VAL;
   private double m_FFConstant2 = STAGE_2_FF_VAL;
+  private double m_CoralFFConstant = 0.0;
+  private Claw m_claw = Subsystem.claw;
 
   public Elevator() {
     m_config
@@ -104,8 +106,14 @@ public class Elevator extends SubsystemBase {
 
   private double feedForwardCalculation() {
     if (m_encoder.getPosition() < STAGE_ONE_UP) {
+      if (m_claw.isCoral()) {
+        return STAGE_1_FF_VAL + m_CoralFFConstant;
+      }
       return STAGE_1_FF_VAL;
     } else {
+      if (m_claw.isCoral()) {
+        return STAGE_1_FF_VAL + m_CoralFFConstant;
+      }
       return STAGE_2_FF_VAL;
     }
   }
