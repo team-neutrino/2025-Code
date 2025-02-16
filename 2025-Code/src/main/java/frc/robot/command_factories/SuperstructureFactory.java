@@ -4,10 +4,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Constants;
 
 import static frc.robot.util.Subsystem.*;
 
@@ -70,17 +68,6 @@ public class SuperstructureFactory {
                 ArmFactory.moveToUnderhand()), ClawFactory.runOuttake());
     }
 
-    public static Command workInProgressL4(CommandXboxController controller) {
-        return new SequentialCommandGroup(
-                new ParallelRaceGroup(
-                        ElevatorFactory.moveL4(),
-                        ArmFactory.moveToL4(), new SequentialCommandGroup(claw.clawDefaultCommand()
-                                .until(() -> (arm.armReady() && elevator.elevatorReady()
-                                        && controller.getHID().getRightBumperButton())),
-                                ClawFactory.runOuttake().until(() -> !claw.hasGamePiece()))),
-                arm.armDefaultCommand().until(() -> arm.atDefault()), elevator.elevatorDefaultCommand());
-    }
-
     public static Command scoreThenMoveArmL4(CommandXboxController controller) {
         return new SequentialCommandGroup(
                 new ParallelRaceGroup(
@@ -90,14 +77,6 @@ public class SuperstructureFactory {
                                         && controller.getHID().getRightBumperButton())))),
                 new ParallelCommandGroup(ArmFactory.evacuateScoreL4(), ClawFactory.runOuttake())
                         .until(() -> !claw.hasGamePiece()));
-        // .alongWith(ElevatorFactory.modifyL4(controller)) // TODO TEST AND REMOVE IF
-        // BAD
-        // .alongWith(ArmFactory.modifyL4Arm(controller))
-        // .alongWith(new RunCommand(() -> {
-        // System.out.println("Elevator L4: " + Constants.ElevatorConstants.L4 + ", Arm
-        // L4: "
-        // + Constants.ArmConstants.L4_POSITION);
-        // })); // TODO TEST AND REMOVE IF BAD
     }
 
     // AUTON COMMANDS

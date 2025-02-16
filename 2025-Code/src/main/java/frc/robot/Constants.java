@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,27 +69,18 @@ public final class Constants {
     public static final double DEFAULT = 0.0;
     public static final double LOW_POSITION = 0.0;
     public static final double STAGE_ONE_UP = 26.0;
-    public static final double HIGH_POSITION = 55.0;
-    public static final double ALGAE_INTAKE = 0.0;
     public static final double CORAL_INTAKE = 36;
-    public static final double REMOVE_ALGAE_L2 = 0.0;
-    public static final double REMOVE_ALGAE_L3 = 0.0;
+    public static final double REMOVE_ALGAE = 0.0;
     public static final double L1 = 14.0;
     public static final double L2 = 24.0;
     public static final double L3 = 36.0;
     public static final double L4 = 54.9;
     public static final double ARM_WILL_NOT_HIT_BASE_HEIGHT = 20.0;
-    public static final double STAGE_1_LENGTH = 29; // inches
-    public static final double STAGE_2_LENGTH = 26; // inches
+    public static final double STAGE_1_LENGTH = 29;
+    public static final double STAGE_2_LENGTH = 26;
     public static final double GEAR_RATIO = 50 / 7; // 7.41:1
     public static final double FLOOR_TO_ELEVATOR_TOP = 70.88;
     public static final double FLOOR_TO_TOP_OF_BOTTOM_TUBE = 11.88;
-    public static final double L1_TO_L2 = 13.84;
-    public static final double L2_TO_L3 = 15.87;
-    public static final double L3_TO_L4 = 24.28;
-    public static final double STAGE_1_MASS = 3.5;
-    public static final double STAGE_2_MASS = 1;
-    public static final double ARM_AND_SCORING_MASS = 2;
     public static final double MAX_VELOCITY = 3000;
     public static final double MAX_ACCELERATION = 4000;
     public static final double ALLOWED_ERROR = 0.1;
