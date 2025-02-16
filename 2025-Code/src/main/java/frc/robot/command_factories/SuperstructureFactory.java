@@ -87,11 +87,13 @@ public class SuperstructureFactory {
         Command clawDefaultCom = claw.clawDefaultCommand();
         Command clawScoreCom = ClawFactory.runOuttake();
         Command armEvacCom = ArmFactory.evacuateScoreL4();
-        BooleanSupplier readyToScore = () -> arm.armReady() && elevator.elevatorReady() && controller.getHID().getRightBumperButton();
+        BooleanSupplier readyToScore = () -> (arm.armReady() && elevator.elevatorReady()
+                && controller.getHID().getRightBumperButton());
         BooleanSupplier comEnd = () -> !claw.hasGamePiece();
+
         return new SequentialCommandGroup(new ParallelRaceGroup(elevatorCom, armScoreCom, clawDefaultCom
-            .until(readyToScore)), 
-            new ParallelCommandGroup(armEvacCom, clawScoreCom).until(comEnd));
+                .until(readyToScore)),
+                (armEvacCom.alongWith(clawScoreCom)).until(comEnd));
     }
 
     // AUTON COMMANDS
