@@ -91,8 +91,8 @@ public class SuperstructureFactory {
                 && controller.getHID().getRightBumperButton());
         BooleanSupplier comEnd = () -> !claw.hasGamePiece();
 
-        return new SequentialCommandGroup(new ParallelRaceGroup(elevatorCom, armScoreCom, clawDefaultCom
-                .until(readyToScore)),
+        return new SequentialCommandGroup((elevatorCom.alongWith(armScoreCom, clawDefaultCom))
+                .until(readyToScore),
                 (armEvacCom.alongWith(clawScoreCom)).until(comEnd));
     }
 
