@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import static frc.robot.util.Subsystem.*;
 
+import java.util.function.BooleanSupplier;
+
 public class SuperstructureFactory {
     public static Command intakeCoral() {
         Command elevatorCom = ElevatorFactory.moveToIntake();
@@ -77,6 +79,19 @@ public class SuperstructureFactory {
                                         && controller.getHID().getRightBumperButton())))),
                 new ParallelCommandGroup(ArmFactory.evacuateScoreL4(), ClawFactory.runOuttake())
                         .until(() -> !claw.hasGamePiece()));
+    }
+
+    public static Command scoreL4(CommandXboxController controller) {
+        Command elevatorCom = ElevatorFactory.moveL4();
+        Command armScoreCom = ArmFactory.moveToL4();
+        Command clawDefaultCom = claw.clawDefaultCommand();
+        Command clawScoreCom = ClawFactory.runOuttake();
+        Command armEvacCom = ArmFactory.evacuateScoreL4();
+        BooleanSupplier readyToScore = () -> arm.armReady() && elevator.elevatorReady() && controller.getHID().getRightBumperButton();
+        BooleanSupplier comEnd = () -> !claw.hasGamePiece();
+        return new SequentialCommandGroup(new ParallelRaceGroup(elevatorCom, armScoreCom, clawDefaultCom
+            .until(readyToScore)), 
+            new ParallelCommandGroup(armEvacCom, clawScoreCom).until(comEnd));
     }
 
     // AUTON COMMANDS
