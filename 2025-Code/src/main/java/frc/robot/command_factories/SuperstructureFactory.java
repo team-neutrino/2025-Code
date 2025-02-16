@@ -91,9 +91,9 @@ public class SuperstructureFactory {
                 && controller.getHID().getRightBumperButton());
         BooleanSupplier comEnd = () -> !claw.hasGamePiece();
 
-        return new SequentialCommandGroup((elevatorCom.alongWith(armScoreCom, clawDefaultCom))
-                .until(readyToScore),
-                (armEvacCom.alongWith(clawScoreCom)).until(comEnd));
+        return ((elevatorCom.alongWith(armScoreCom, clawDefaultCom))
+                .until(readyToScore)).andThen(
+                        (armEvacCom.alongWith(clawScoreCom)).until(comEnd));
     }
 
     // AUTON COMMANDS
