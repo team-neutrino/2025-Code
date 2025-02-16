@@ -15,7 +15,6 @@ import static frc.robot.util.Subsystem.*;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -58,7 +57,7 @@ public class RobotContainer {
     m_buttonsController.y().whileTrue(SuperstructureFactory.scoreCoralL1Command());
     m_buttonsController.x().whileTrue(SuperstructureFactory.scoreCoralL2Command());
     m_buttonsController.b().whileTrue(SuperstructureFactory.scoreCoralL3Command());
-    m_buttonsController.a().whileTrue(SuperstructureFactory.scoreThenMoveArmL4(m_buttonsController));
+    m_buttonsController.a().whileTrue(SuperstructureFactory.scoreL4(m_buttonsController));
 
     m_buttonsController.leftBumper().whileTrue(SuperstructureFactory.intakeCoral());
   }
