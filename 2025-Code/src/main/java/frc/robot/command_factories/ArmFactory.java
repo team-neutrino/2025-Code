@@ -28,7 +28,7 @@ public class ArmFactory {
     }
 
     public static Command evacuateScoreL4() {
-        return arm.armRotateCommand(L4_POSITION + 15);
+        return arm.armRotateCommand(L4_POSITION + EVACUATE_ANGLE);
     }
 
     public static Command armToIntake() {
