@@ -92,6 +92,7 @@ public final class Constants {
   }
 
   public static class ArmConstants {
+    public static final double STARTING_POSITION = 180;
     public static final double DEFAULT_POSITION = 160;
     public static final double GROUND_ALGAE_POSITION = 95;
     public static final double CORAL_STATION_POSITION = 330;

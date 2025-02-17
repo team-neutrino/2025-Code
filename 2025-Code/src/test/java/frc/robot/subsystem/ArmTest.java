@@ -10,7 +10,7 @@ public class ArmTest {
     @Test
     void testDefaultAngle() {
         var armSubsystem = new Arm();
-        var armDefault = armSubsystem.getArmEncoderPosition();
+        var armDefault = armSubsystem.getAngle();
         System.out.println("armDefault " + armDefault);
 
     }

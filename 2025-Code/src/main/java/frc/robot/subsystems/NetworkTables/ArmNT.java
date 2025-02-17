@@ -14,11 +14,9 @@ public class ArmNT extends Arm {
     NetworkTableInstance nt = NetworkTableInstance.getDefault();
     DoubleTopic encoderPosition = nt.getDoubleTopic("/arm/encoder_position");
     DoubleTopic targetPosition = nt.getDoubleTopic("/arm/target_position");
-    DoubleTopic voltage = nt.getDoubleTopic("/arm/motor_input_voltage");
     DoubleTopic encoderVelocity = nt.getDoubleTopic("/arm/encoder_velocity");
     final DoublePublisher encoderPositionPub;
     final DoublePublisher targetPositionPub;
-    final DoublePublisher motorVoltagePub;
     final DoublePublisher encoderVelocityPub;
     private PIDTuner m_PIDTuner;
     private double m_previousP = ArmConstants.kp;
@@ -41,8 +39,6 @@ public class ArmNT extends Arm {
         encoderVelocityPub = encoderVelocity.publish();
         encoderVelocityPub.setDefault(0.0);
 
-        motorVoltagePub = voltage.publish();
-        motorVoltagePub.setDefault(0.0);
         m_PIDTuner = new PIDTuner("arm/{tuning}PIDF");
 
         m_PIDTuner.setP(m_previousP);
@@ -64,10 +60,9 @@ public class ArmNT extends Arm {
     public void periodic() {
         super.periodic();
         final long now = NetworkTablesJNI.now();
-        encoderPositionPub.set(getArmEncoderPosition(), now);
-        targetPositionPub.set(getArmTargetPosition(), now);
-        motorVoltagePub.set(getArmVoltage(), now);
-        encoderVelocityPub.set(getArmEncoderVelocity(), now);
+        encoderPositionPub.set(getAngle(), now);
+        targetPositionPub.set(getTargetAngle(), now);
+        encoderVelocityPub.set(getAngularVelocity(), now);
 
         if (m_PIDTuner.isDifferentValues(m_previousP, m_previousI, m_previousD)) {
             changePID(m_PIDTuner.getP(), m_PIDTuner.getI(), m_PIDTuner.getD());
