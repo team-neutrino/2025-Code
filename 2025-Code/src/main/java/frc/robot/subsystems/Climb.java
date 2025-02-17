@@ -53,8 +53,8 @@ public class Climb extends SubsystemBase {
 
   private Servo m_lockRatchet = new Servo(RATCHET_PORT);
 
-  private double targetPositionClimbArm;
-  private double targetPositionLock;
+  private double m_targetPositionClimbArm;
+  private double m_targetPositionLock;
 
   public Climb() {
     configureMotors();
@@ -100,12 +100,15 @@ public class Climb extends SubsystemBase {
 
   private void moveToPosition(double targetPosition) {
     PositionVoltage positionControl = new PositionVoltage(targetPosition);
-    targetPositionClimbArm = targetPosition;
+    m_targetPositionClimbArm = targetPosition;
     m_climbMotor.setControl(positionControl);
   }
 
+  /**
+   * checks if climb arm is within a certain range of error
+   */
   private boolean isTargetPosition() {
-    return Math.abs(targetPositionClimbArm - getMotorPosition()) < CLIMB_MOTOR_POSITION_ERROR;
+    return Math.abs(m_targetPositionClimbArm - getMotorPosition()) < CLIMB_MOTOR_POSITION_ERROR;
   }
 
   public Command engageRatchetCommand() {
@@ -122,19 +125,19 @@ public class Climb extends SubsystemBase {
 
   public Command lockCommand(double targetPosition) {
     return run(() -> {
-      targetPositionLock = targetPosition;
+      m_targetPositionLock = targetPosition;
     });
   }
 
   public Command unlockCommand(double targetPosition) {
     return run(() -> {
-      targetPositionLock = targetPosition;
+      m_targetPositionLock = targetPosition;
     });
   }
 
   public Command resetLockCommand(double targetPosition) {
     return run(() -> {
-      targetPositionLock = targetPosition;
+      m_targetPositionLock = targetPosition;
     });
   }
 
@@ -150,7 +153,9 @@ public class Climb extends SubsystemBase {
     }).until(() -> isTargetPosition());
   }
 
-  // only use when climb arm is in up position
+  /**
+   *  only use when climb arm is in up position
+   */
   public Command resetClimbArmCommand(int rotations) {
     return run(() -> {
       moveToPosition(rotations);
@@ -165,6 +170,11 @@ public class Climb extends SubsystemBase {
     });
   }
 
+  @Override
+  public void periodic() {
+    m_pid.setReference(m_targetPositionLock, ControlType.kPosition);
+  }
+
   /* NETWORK TABLES */
   public double getMotorPosition() {
     return m_climbMotor.getPosition().getValueAsDouble();
@@ -175,7 +185,7 @@ public class Climb extends SubsystemBase {
   }
 
   public double getTargetPosition() {
-    return targetPositionClimbArm;
+    return m_targetPositionClimbArm;
   }
 
   public double getMotorVelocity() {
@@ -217,10 +227,5 @@ public class Climb extends SubsystemBase {
 
     m_climbMotorConfig.withMotionMagic(m_motionMagicConfig);
     m_climbMotor.getConfigurator().apply(m_climbMotorConfig);
-  }
-
-  @Override
-  public void periodic() {
-    m_pid.setReference(targetPositionLock, ControlType.kPosition);
   }
 }
