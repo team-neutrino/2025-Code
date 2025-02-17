@@ -48,7 +48,7 @@ public class SuperstructureFactory {
         BooleanSupplier comEnd = () -> !claw.hasGamePiece();
 
         return ((elevatorCom.alongWith(armScoreCom, clawDefaultCom))
-                .until(readyToScore)).andThen(clawScoreCom).until(comEnd);
+                .until(readyToScore)).andThen(clawScoreCom.until(comEnd));
     }
 
     public static Command scoreL1(CommandXboxController controller) {
@@ -61,7 +61,7 @@ public class SuperstructureFactory {
         BooleanSupplier comEnd = () -> !claw.hasGamePiece();
 
         return ((elevatorCom.alongWith(armScoreCom, clawDefaultCom))
-                .until(readyToScore)).andThen(clawScoreCom).until(comEnd);
+                .until(readyToScore)).andThen(clawScoreCom.until(comEnd));
     }
 
     public static Command scoreL2(CommandXboxController controller) {
@@ -74,7 +74,7 @@ public class SuperstructureFactory {
         BooleanSupplier comEnd = () -> !claw.hasGamePiece();
 
         return ((elevatorCom.alongWith(armScoreCom, clawDefaultCom))
-                .until(readyToScore)).andThen(clawScoreCom).until(comEnd);
+                .until(readyToScore)).andThen(clawScoreCom.until(comEnd));
     }
 
     public static Command scoreL3(CommandXboxController controller) {
@@ -87,7 +87,8 @@ public class SuperstructureFactory {
         BooleanSupplier comEnd = () -> !claw.hasGamePiece();
 
         return ((elevatorCom.alongWith(armScoreCom, clawDefaultCom))
-                .until(readyToScore)).andThen(clawScoreCom).until(comEnd);
+                .until(readyToScore)).andThen(
+                        clawScoreCom.until(comEnd));
     }
 
     public static Command scoreL4(CommandXboxController controller) {

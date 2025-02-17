@@ -242,9 +242,9 @@ public final class Constants {
 
     public static final Pose2d BLUE_REEF_17A = new Pose2d(3.7, 2.6, Rotation2d.fromDegrees(-120));
     public static final Pose2d BLUE_REEF_17B = new Pose2d(3.4, 2.85, Rotation2d.fromDegrees(-120));
-    public static final Pose2d BLUE_REEF_18A = new Pose2d(3.1, 4.1, Rotation2d.fromDegrees(180));
+    public static final Pose2d BLUE_REEF_18A = new Pose2d(3.1, 4.18, Rotation2d.fromDegrees(180));
     public static final Pose2d BLUE_REEF_18B = new Pose2d(3.1, 4.5, Rotation2d.fromDegrees(180));
-    public static final Pose2d BLUE_REEF_19A = new Pose2d(3.75, 5.43, Rotation2d.fromDegrees(120));
+    public static final Pose2d BLUE_REEF_19A = new Pose2d(3.87, 5.23, Rotation2d.fromDegrees(120));
     public static final Pose2d BLUE_REEF_19B = new Pose2d(3.94, 5.58, Rotation2d.fromDegrees(120));
     public static final Pose2d BLUE_REEF_20A = new Pose2d(5.26, 5.4, Rotation2d.fromDegrees(60));
     public static final Pose2d BLUE_REEF_20B = new Pose2d(5.55, 5.27, Rotation2d.fromDegrees(60));
