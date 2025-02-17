@@ -54,9 +54,9 @@ public class RobotContainer {
     m_driverController.back().whileTrue(swerve.resetYawCommand());
 
     // buttons controller
-    m_buttonsController.y().whileTrue(SuperstructureFactory.scoreCoralL1Command());
-    m_buttonsController.x().whileTrue(SuperstructureFactory.scoreCoralL2Command());
-    m_buttonsController.b().whileTrue(SuperstructureFactory.scoreCoralL3Command());
+    m_buttonsController.y().whileTrue(SuperstructureFactory.scoreL1(m_buttonsController));
+    m_buttonsController.x().whileTrue(SuperstructureFactory.scoreL2(m_buttonsController));
+    m_buttonsController.b().whileTrue(SuperstructureFactory.scoreL3(m_buttonsController));
     m_buttonsController.a().whileTrue(SuperstructureFactory.scoreL4(m_buttonsController));
 
     m_buttonsController.leftBumper().whileTrue(SuperstructureFactory.intakeCoral());

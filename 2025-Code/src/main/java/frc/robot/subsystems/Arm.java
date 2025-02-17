@@ -102,7 +102,7 @@ public class Arm extends SubsystemBase {
     if (m_targetAngle == DEFAULT_POSITION || m_targetAngle == CORAL_STATION_POSITION) {
       return false;
     } else {
-      return getArmEncoderPosition() >= m_targetAngle - 0.2;
+      return getArmEncoderPosition() >= m_targetAngle - 0.5;
     }
   }
 
