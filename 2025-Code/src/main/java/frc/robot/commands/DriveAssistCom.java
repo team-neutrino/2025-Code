@@ -24,7 +24,7 @@ public class DriveAssistCom extends Command {
   private CommandXboxController m_controller;
   private double m_POIoffset = 0;
   private int m_staticTagID;
-  private static Translation2d m_translation2d;
+  private Translation2d m_translation2d;
 
   public DriveAssistCom(CommandXboxController p_controller) {
     addRequirements(swerve);
