@@ -10,9 +10,7 @@ import frc.robot.Constants.ElevatorConstants;
 import frc.robot.util.Subsystem;
 
 import com.revrobotics.spark.ClosedLoopSlot;
-import com.revrobotics.spark.SparkBase.ControlType;
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.SparkBase.*;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -28,39 +26,15 @@ import static frc.robot.Constants.ArmConstants.*;
  * Class that represents the arm subsystem on the robot.
  */
 public class Arm extends SubsystemBase {
-  /**
-   * Arm motor
-   */
   private SparkFlex m_armMotor = new SparkFlex(MOTOR_ID, MotorType.kBrushless);
-  /**
-   * Configuration object for the arm motor
-   */
   private SparkFlexConfig m_armMotorConfig = new SparkFlexConfig();
-  /**
-   * Encoder for the arm motor
-   */
   private AbsoluteEncoder m_armEncoder;
-  /**
-   * Closed loop controller for the arm motor
-   */
   private SparkClosedLoopController m_armPidController;
-  /**
-   * Acessor for the arm motor
-   */
   private SparkFlexConfigAccessor m_sparkFlexConfigAccessor;
-  /**
-   * Acessor for the arm configuration object
-   */
   public ClosedLoopConfigAccessor m_armPidAccessor;
-  /**
-   * Target angle that the arm is going towards
-   */
-  private double m_targetAngle = 180;
+  private double m_targetAngle = STARTING_POSITION;
   private double m_FFConstant = FFCONSTANT;
 
-  /**
-   * Class constructor
-   */
   public Arm() {
     initializeMotorControllers();
     m_sparkFlexConfigAccessor = m_armMotor.configAccessor;
@@ -68,33 +42,22 @@ public class Arm extends SubsystemBase {
   }
 
   /**
-   * Gets the position of the arm motor
-   * 
-   * @return arm encoder position
+   * Returns the actual angle of the arm in degrees with 180 as vertical pointing
+   * up and 90 pointing forward
    */
-  public double getArmEncoderPosition() {
+  public double getAngle() {
     return m_armEncoder.getPosition();
   }
 
   /**
-   * Gets the target position that the arm is set to
-   * 
-   * @return m_targetAngle
+   * Returns the target angle of the arm in degrees with 180 as vertical pointing
+   * up and 90 pointing forward
    */
-  public double getArmTargetPosition() {
+  public double getTargetAngle() {
     return m_targetAngle;
   }
 
-  /**
-   * Gets the voltage of the arm motor
-   * 
-   * @return arm motor bus voltage
-   */
-  public double getArmVoltage() {
-    return m_armMotor.getBusVoltage();
-  }
-
-  public double getArmEncoderVelocity() {
+  public double getAngularVelocity() {
     return m_armEncoder.getVelocity();
   }
 
@@ -102,7 +65,7 @@ public class Arm extends SubsystemBase {
     if (m_targetAngle == DEFAULT_POSITION || m_targetAngle == CORAL_STATION_POSITION) {
       return false;
     } else {
-      return getArmEncoderPosition() >= m_targetAngle - 0.5;
+      return getAngle() >= m_targetAngle - 0.5;
     }
   }
 
@@ -144,7 +107,7 @@ public class Arm extends SubsystemBase {
    * @return m_armLimit
    */
   public boolean isArmInLimit() {
-    return getArmEncoderPosition() <= 270;
+    return getAngle() <= 270;
   }
 
   /**
@@ -160,7 +123,7 @@ public class Arm extends SubsystemBase {
   }
 
   public double feedForwardCalculation() {
-    double currentAngle = (getArmEncoderPosition() - 90) * (Math.PI / 180);
+    double currentAngle = (getAngle() - 90) * (Math.PI / 180);
     double volts = m_FFConstant * Math.cos(currentAngle);
     return volts;
   }
