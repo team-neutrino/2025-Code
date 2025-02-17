@@ -112,13 +112,13 @@
 | Button     | Function        |
 | ---------- | --------------- |
 | Y          | Raise Climb Arm |
-| X          | Lock Climb Arm  |
-| B          |                 |
+| X          | Lock            |
+| B          | Unlock          |
 | A          | Lower Climb Arm |
 | LT         |                 |
-| LB         |                 |
+| LB         | Reset Climb Arm |
 | RT         | Slow swerve     |
-| RB         |                 |
+| RB         | Reset Lock      |
 | DU         |                 |
 | DD         |                 |
 | DL         |                 |
