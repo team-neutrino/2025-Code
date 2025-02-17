@@ -23,8 +23,6 @@ import frc.robot.util.Subsystem;
 
 import static frc.robot.Constants.ElevatorConstants.*;
 
-import java.time.Period;
-
 import static frc.robot.Constants.ArmConstants.CORAL_STATION_POSITION;
 import static frc.robot.Constants.ConfigSignals.*;
 
@@ -104,9 +102,9 @@ public class Elevator extends SubsystemBase {
 
   private double feedForwardCalculation() {
     if (m_encoder.getPosition() < STAGE_ONE_UP) {
-      return STAGE_1_FF_VAL;
+      return m_FFConstant1;
     } else {
-      return STAGE_2_FF_VAL;
+      return m_FFConstant2;
     }
   }
 
@@ -130,12 +128,8 @@ public class Elevator extends SubsystemBase {
     return m_lowLimit.isPressed();
   }
 
-  public boolean isHighPosition() {
-    return m_encoder.getPosition() > HIGH_POSITION;
-  }
-
   public boolean elevatorReady() {
-    if (m_target == DEFAULT || m_target == CORAL_STATION_POSITION || m_target == ALGAE_INTAKE) {
+    if (m_target == DEFAULT || m_target == CORAL_STATION_POSITION) {
       return false;
     } else {
       return getEncoderPosition() >= m_target - 0.2;

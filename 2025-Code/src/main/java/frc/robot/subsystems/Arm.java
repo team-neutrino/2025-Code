@@ -102,7 +102,7 @@ public class Arm extends SubsystemBase {
     if (m_targetAngle == DEFAULT_POSITION || m_targetAngle == CORAL_STATION_POSITION) {
       return false;
     } else {
-      return getArmEncoderPosition() >= m_targetAngle - 0.2;
+      return getArmEncoderPosition() >= m_targetAngle - 0.5;
     }
   }
 
@@ -180,6 +180,10 @@ public class Arm extends SubsystemBase {
 
   public void changeFF(double newFF) {
     m_FFConstant = newFF;
+  }
+
+  public boolean atDefault() {
+    return 1 >= Math.abs(m_armEncoder.getPosition() - DEFAULT_POSITION);
   }
 
   public void changeMaxMotion(double mv, double ma, double ae) {

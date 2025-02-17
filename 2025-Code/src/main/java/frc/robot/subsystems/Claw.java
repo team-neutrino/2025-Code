@@ -11,6 +11,9 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+
+import edu.wpi.first.math.filter.Debouncer;
+import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -47,6 +50,8 @@ public class Claw extends SubsystemBase {
      * Settings of the color sensor(used for lamp brightness)
      */
     private CanandcolorSettings m_settings = new CanandcolorSettings();
+
+    private Debouncer m_debouncer = new Debouncer(3, DebounceType.kFalling);
 
     /**
      * Class constructor
@@ -101,8 +106,7 @@ public class Claw extends SubsystemBase {
      * @return if the claw has a game piece
      */
     public boolean hasGamePiece() {
-        boolean ret = isCoral() && isAlgae() ? false : true;
-        return ret && (isCoral() || isAlgae());
+        return m_debouncer.calculate(isCoral() || isAlgae());
     }
 
     /**
