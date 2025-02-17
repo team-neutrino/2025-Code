@@ -124,11 +124,17 @@ public class SuperstructureFactory {
     }
 
     public static Command scoreCoralL4AutonCommand() {
-        return new ParallelCommandGroup(
-                ElevatorFactory.moveL4(),
-                ArmFactory.moveToL4(), new SequentialCommandGroup(claw.clawDefaultCommand()
-                        .until(() -> (arm.armReady() && elevator.elevatorReady())),
-                        ClawFactory.runOuttake().until(() -> !claw.hasGamePiece())));
+        Command elevatorCom = ElevatorFactory.moveL4();
+        Command armScoreCom = ArmFactory.moveToL4();
+        Command clawDefaultCom = claw.clawDefaultCommand();
+        Command clawScoreCom = ClawFactory.runOuttake();
+        Command armEvacCom = ArmFactory.evacuateScoreL4();
+        BooleanSupplier readyToScore = () -> (arm.armReady() && elevator.elevatorReady());
+        BooleanSupplier comEnd = () -> !claw.hasGamePiece();
+
+        return ((elevatorCom.alongWith(armScoreCom, clawDefaultCom))
+                .until(readyToScore)).andThen(
+                        (armEvacCom.alongWith(clawScoreCom)).until(comEnd));
     }
 
     public static Command moveToScoreL4Command() {

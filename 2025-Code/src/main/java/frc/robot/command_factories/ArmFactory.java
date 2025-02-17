@@ -35,16 +35,6 @@ public class ArmFactory {
         return arm.armRotateCommand(L4_POSITION + 15);
     }
 
-    // public static Command modifyL4Arm(CommandXboxController controller) {
-    // return new RunCommand(() -> {
-    // int pov = controller.getHID().getPOV();
-    // if (lastPov == -1 && pov != -1) {
-    // L4_POSITION += pov == 90 ? 3 : pov == 270 ? -3 : 0;
-    // }
-    // lastPov = pov;
-    // });
-    // }
-
     public static Command armToIntake() {
         return arm.armRotateCommand(CORAL_STATION_POSITION);
     }
