@@ -62,7 +62,7 @@ public class ArmNT extends Arm {
         final long now = NetworkTablesJNI.now();
         encoderPositionPub.set(getAngle(), now);
         targetPositionPub.set(getTargetAngle(), now);
-        encoderVelocityPub.set(getArmEncoderVelocity(), now);
+        encoderVelocityPub.set(getAngularVelocity(), now);
 
         if (m_PIDTuner.isDifferentValues(m_previousP, m_previousI, m_previousD)) {
             changePID(m_PIDTuner.getP(), m_PIDTuner.getI(), m_PIDTuner.getD());
