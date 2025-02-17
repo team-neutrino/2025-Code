@@ -1,15 +1,11 @@
 package frc.robot.command_factories;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import static frc.robot.Constants.ArmConstants.*;
 import static frc.robot.util.Subsystem.arm;
 
 public class ArmFactory {
-    private static int lastPov = -1;
 
     public static Command moveToL1() {
         return arm.armRotateCommand(L1_POSITION);
