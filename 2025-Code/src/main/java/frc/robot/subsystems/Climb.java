@@ -6,12 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.command_factories.ArmFactory;
-import frc.robot.command_factories.ClawFactory;
-import frc.robot.command_factories.ElevatorFactory;
 
 import static frc.robot.Constants.ClimbConstants.*;
 
@@ -108,7 +103,7 @@ public class Climb extends SubsystemBase {
    * checks if climb arm is within a certain range of error
    */
   private boolean isTargetPosition() {
-    return Math.abs(m_targetPositionClimbArm - getMotorPosition()) < CLIMB_MOTOR_POSITION_ERROR;
+    return Math.abs(m_targetPositionClimbArm - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_MOTOR_POSITION_ERROR;
   }
 
   public Command engageRatchetCommand() {
@@ -124,12 +119,6 @@ public class Climb extends SubsystemBase {
   }
 
   public Command lockCommand(double targetPosition) {
-    return run(() -> {
-      m_targetPositionLock = targetPosition;
-    });
-  }
-
-  public Command unlockCommand(double targetPosition) {
     return run(() -> {
       m_targetPositionLock = targetPosition;
     });

@@ -24,14 +24,16 @@ public class ClimbFactory {
     }
 
     public static Command unlockGrabber() {
-        return climb.unlockCommand(UNLOCK_POSITOIN);
+        return climb.lockCommand(UNLOCK_POSITOIN);
     }
 
     public static Command resetLock() {
         return climb.resetLockCommand(RESET_POSITION);
     }
 
-    // only use when climb arm is in a state where it is all the way up (relaxed)
+    /** 
+     * only use when climb arm is in a state where it is all the way up (relaxed)
+     * */ 
     public static Command resetClimb() {
         return climb.resetClimbArmCommand(RESET_CLIMB_ROTATION);
     }
