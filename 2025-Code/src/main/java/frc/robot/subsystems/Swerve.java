@@ -113,8 +113,8 @@ public class Swerve extends CommandSwerveDrivetrain {
    * Resets the yaw to 0, so the direction you're currently facing is the new
    * forwards.
    */
-  public void resetYaw() {
-    resetRotation(new Rotation2d(0));
+  public void resetYaw(double degrees) {
+    resetRotation(Rotation2d.fromDegrees(degrees));
     getPigeon2().reset();
     // need more research on the following
     // seedFieldCentric();
@@ -259,7 +259,7 @@ public class Swerve extends CommandSwerveDrivetrain {
   }
 
   public Command resetYawCommand() {
-    return run(() -> resetYaw());
+    return run(() -> resetYaw(0));
   }
 
   @Override
