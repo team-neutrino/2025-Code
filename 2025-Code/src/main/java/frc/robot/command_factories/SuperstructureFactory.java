@@ -64,36 +64,36 @@ public class SuperstructureFactory {
 
         return (elevatorCom.alongWith(armDefaultCom, clawDefaultCom).until(elevatorReady))
                 .andThen((armScoreCom).until(readyToScore)).andThen(clawScoreCom.until(comEnd));
-
-        // return ((elevatorCom.alongWith(armScoreCom, clawDefaultCom))
-        // .until(readyToScore)).andThen(clawScoreCom.until(comEnd));
     }
 
     public static Command scoreL2(CommandXboxController controller) {
         Command elevatorCom = ElevatorFactory.moveL2();
+        Command armDefaultCom = arm.armDefaultCommand();
         Command armScoreCom = ArmFactory.moveToL2();
         Command clawDefaultCom = claw.clawDefaultCommand();
         Command clawScoreCom = ClawFactory.runOuttake();
+        BooleanSupplier elevatorReady = () -> elevator.elevatorReady();
         BooleanSupplier readyToScore = () -> (arm.armReady() && elevator.elevatorReady()
                 && controller.getHID().getRightBumperButton());
         BooleanSupplier comEnd = () -> !claw.hasGamePiece();
 
-        return ((elevatorCom.alongWith(armScoreCom, clawDefaultCom))
-                .until(readyToScore)).andThen(clawScoreCom.until(comEnd));
+        return (elevatorCom.alongWith(armDefaultCom, clawDefaultCom).until(elevatorReady))
+                .andThen((armScoreCom).until(readyToScore)).andThen(clawScoreCom.until(comEnd));
     }
 
     public static Command scoreL3(CommandXboxController controller) {
         Command elevatorCom = ElevatorFactory.moveL3();
+        Command armDefaultCom = arm.armDefaultCommand();
         Command armScoreCom = ArmFactory.moveToL3();
         Command clawDefaultCom = claw.clawDefaultCommand();
         Command clawScoreCom = ClawFactory.runOuttake();
+        BooleanSupplier elevatorReady = () -> elevator.elevatorReady();
         BooleanSupplier readyToScore = () -> (arm.armReady() && elevator.elevatorReady()
                 && controller.getHID().getRightBumperButton());
         BooleanSupplier comEnd = () -> !claw.hasGamePiece();
 
-        return ((elevatorCom.alongWith(armScoreCom, clawDefaultCom))
-                .until(readyToScore)).andThen(
-                        clawScoreCom.until(comEnd));
+        return (elevatorCom.alongWith(armDefaultCom, clawDefaultCom).until(elevatorReady))
+                .andThen((armScoreCom).until(readyToScore)).andThen(clawScoreCom.until(comEnd));
     }
 
     public static Command scoreL4(CommandXboxController controller) {
@@ -107,10 +107,6 @@ public class SuperstructureFactory {
         BooleanSupplier readyToScore = () -> (arm.armReady() && elevator.elevatorReady()
                 && controller.getHID().getRightBumperButton());
         BooleanSupplier comEnd = () -> !claw.hasGamePiece();
-
-        // return ((elevatorCom.alongWith(armScoreCom, clawDefaultCom))
-        // .until(readyToScore)).andThen(
-        // (armEvacCom.alongWith(clawScoreCom)).until(comEnd));
 
         return (elevatorCom.alongWith(armDefaultCom, clawDefaultCom).until(elevatorReady))
                 .andThen((armScoreCom).until(readyToScore)).andThen(armEvacCom.alongWith(clawScoreCom).until(comEnd));
