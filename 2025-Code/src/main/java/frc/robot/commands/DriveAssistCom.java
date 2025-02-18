@@ -84,7 +84,7 @@ public class DriveAssistCom extends Command {
     double limelightTagToRobot = limelight.getDistanceFromPrimaryTarget();
 
     // ID 7/18 edge case
-    double hexagonAngle = HEXAGON_ANGLES[id] * (id == RED_ALLIANCE_IDS.REEF_FACING_ALLIANCE
+    double hexagonAngle = ACTUAL_HEXAGON_ANGLES[id] * (id == RED_ALLIANCE_IDS.REEF_FACING_ALLIANCE
         || id == BLUE_ALLIANCE_IDS.REEF_FACING_ALLIANCE ? Math.signum(idealYaw) : 1);
 
     double triangle1Angle = Math.toRadians(hexagonAngle - idealYaw);
@@ -128,8 +128,8 @@ public class DriveAssistCom extends Command {
 
   private void updateSwerveYaw() {
     ChassisSpeeds speeds = swerve.getChassisSpeeds();
-    if (isAligned() && speeds.vxMetersPerSecond == 0 && speeds.vyMetersPerSecond == 0) {
-      swerve.resetYaw(HEXAGON_ANGLES[m_staticTagID]);
+    if (isAligned() && Math.abs(speeds.vxMetersPerSecond) < .1 && Math.abs(speeds.vyMetersPerSecond) < .1) {
+      ACTUAL_HEXAGON_ANGLES[m_staticTagID] += limelight.getTx();
     }
   }
 

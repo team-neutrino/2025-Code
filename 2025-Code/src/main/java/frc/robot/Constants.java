@@ -44,8 +44,11 @@ public final class Constants {
     public static final double MAX_ROTATION_SPEED = 1.5 * Math.PI;
     public static final double SLOW_ROTATION_SPEED = 0.8 * Math.PI;
     public static final double DRIVE_ASSIST_KP = 4;
-    public static final double[] HEXAGON_ANGLES = { Integer.MAX_VALUE, -1, -1, -1, -1, -1, 120, 180, -120, -60, 0, 60,
-        -1, -1, -1, -1, -1, -120, 180, 120, 60, 0, -60 };
+    public static final double[] EXPECTED_HEXAGON_ANGLES = { Integer.MAX_VALUE, -1, -1, -1, -1, -1, 120, 180, -120, -60,
+        0, 60, -1, -1, -1, -1, -1, -120, 180, 120, 60, 0, -60 };
+    // not final constant because it will need to be modified... a better solution
+    // would be good
+    public static double[] ACTUAL_HEXAGON_ANGLES = EXPECTED_HEXAGON_ANGLES;
     public static final double APRILTAG_ALIGN_LIMIT = 1.5;
     public static final double AUTO_ALIGN_P = 4;
     public static final double AUTO_ALIGN_D = .05;
