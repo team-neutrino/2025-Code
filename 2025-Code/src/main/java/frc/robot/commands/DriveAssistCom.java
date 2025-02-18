@@ -134,13 +134,14 @@ public class DriveAssistCom extends Command {
         quadrantOffset = 120;
         break;
       case 8:
-        quadrantOffset = 240;
+        quadrantOffset = 60;
+        secondOffset = 30;
         break;
       case 9:
         quadrantOffset = 300;
         break;
       case 11:
-        quadrantOffset = 60;
+        quadrantOffset = 240;
         secondOffset = 30;
         break;
       case 17:
