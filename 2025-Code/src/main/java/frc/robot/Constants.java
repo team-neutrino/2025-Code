@@ -48,7 +48,7 @@ public final class Constants {
         -1, -1, -1, -1, -1, -120, 180, 120, 60, 0, -60 };
     public static final double APRILTAG_ALIGN_LIMIT = 1.5;
     public static final double AUTO_ALIGN_P = 4;
-    public static final double AUTO_ALIGN_D = .04;
+    public static final double AUTO_ALIGN_D = .02;
     public static final double STALL_TORQUE = 7.09;
     public static final double STALL_CURRENT = 366;
     public static final double FREE_CURRENT_AMPS = 2;
@@ -61,7 +61,6 @@ public final class Constants {
     public static final double isAlignedError = 0;
     public static final double DRIVE_TO_POINT_P = 3;
     public static final double AT_POINT_TOLERANCE = 0.05;
-    public static final double DRIVE_TO_POINT_P = 2.5; // 2
   }
 
   public static class ElevatorConstants {
@@ -259,7 +258,7 @@ public final class Constants {
     public static final Pose2d BLUE_REEF_18A = new Pose2d(3.1, 4.18, Rotation2d.fromDegrees(180));
     public static final Pose2d BLUE_REEF_18B = new Pose2d(3.1, 4.5, Rotation2d.fromDegrees(180));
     public static final Pose2d BLUE_REEF_19A = new Pose2d(3.97, 5.25, Rotation2d.fromDegrees(120));
-    public static final Pose2d BLUE_REEF_19B = new Pose2d(4.15, 5.44, Rotation2d.fromDegrees(120));
+    public static final Pose2d BLUE_REEF_19B = new Pose2d(4.12, 5.48, Rotation2d.fromDegrees(120));
     public static final Pose2d BLUE_REEF_20A = new Pose2d(5.26, 5.4, Rotation2d.fromDegrees(60));
     public static final Pose2d BLUE_REEF_20B = new Pose2d(5.55, 5.27, Rotation2d.fromDegrees(60));
     public static final Pose2d BLUE_REEF_21A = new Pose2d(6.02, 3.98, Rotation2d.fromDegrees(0));
