@@ -40,7 +40,7 @@ public class DriveToPointController {
     }
 
     public Rotation2d getRotation() {
-        return Rotation2d.fromDegrees(m_target.getRotation().getDegrees() + 180);
+        return Rotation2d.fromDegrees(m_target.getRotation().getDegrees());
     }
 
     public Pose2d getClosestPoint(List<Pose2d> list) {
