@@ -33,11 +33,7 @@ public class LED extends SubsystemBase {
   }
 
   public void setToGamePieceColor() {
-    if (coral.isAlgae()) {
-      state_pub.set("blinktwice");
-      color_pub.set("turquoise");
-      // color_pub.set(action:"blink", color:"turquoise");
-    } else if (coral.isCoral()) {
+    if (coral.hasCoral()) {
       state_pub.set("blinktwice");
       color_pub.set("white");
     }
@@ -47,7 +43,7 @@ public class LED extends SubsystemBase {
     if (DriverStation.isAutonomousEnabled()) {
       color_pub.set("cyan");
     } else if (DriverStation.isTeleopEnabled()) {
-      if (coral.hasGamePiece()) {
+      if (coral.debouncedHasCoral()) {
         setToGamePieceColor();
         return;
       } else {

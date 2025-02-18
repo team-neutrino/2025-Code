@@ -136,6 +136,8 @@ public final class Constants {
     public static final double HOLD_PIECE_VOLTAGE = .1;
 
     public static final int COLOR_SENSOR = 27;
+
+    public static final double PROXIMITY = 0.05;
   }
 
   public static class ClimbConstants {

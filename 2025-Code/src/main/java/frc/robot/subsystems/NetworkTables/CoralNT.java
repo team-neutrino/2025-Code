@@ -32,8 +32,8 @@ public class CoralNT extends Coral {
     public void periodic() {
         super.periodic();
         final long now = NetworkTablesJNI.now();
-        encoderVelocityPub.set(getVelocityOfGrabber(), now);
-        motorVoltagePub.set(getIntakeVoltage(), now);
-        proxSensorPub.set(hasGamePiece(), now);
+        encoderVelocityPub.set(getAngularVelocity(), now);
+        motorVoltagePub.set(getMotorVoltage(), now);
+        proxSensorPub.set(debouncedHasCoral(), now);
     }
 }
