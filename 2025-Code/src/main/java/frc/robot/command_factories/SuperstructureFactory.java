@@ -53,6 +53,7 @@ public class SuperstructureFactory {
 
     public static Command scoreL1(CommandXboxController controller) {
         Command elevatorCom = ElevatorFactory.moveL1();
+        Command armDefaultCom = arm.armDefaultCommand();
         Command armScoreCom = ArmFactory.moveToL1();
         Command coralDefaultCom = coral.coralDefaultCommand();
         Command coralScoreCom = CoralFactory.runOuttake();
@@ -60,8 +61,11 @@ public class SuperstructureFactory {
                 && controller.getHID().getRightBumperButton());
         BooleanSupplier comEnd = () -> !coral.debouncedHasCoral();
 
-        return ((elevatorCom.alongWith(armScoreCom, coralDefaultCom))
-                .until(readyToScore)).andThen(coralScoreCom.until(comEnd));
+        return (elevatorCom.alongWith(armDefaultCom, clawDefaultCom).until(elevatorReady))
+                .andThen((armScoreCom).until(readyToScore)).andThen(clawScoreCom.until(comEnd));
+
+        // return ((elevatorCom.alongWith(armScoreCom, clawDefaultCom))
+        // .until(readyToScore)).andThen(clawScoreCom.until(comEnd));
     }
 
     public static Command scoreL2(CommandXboxController controller) {
@@ -92,7 +96,9 @@ public class SuperstructureFactory {
     }
 
     public static Command scoreL4(CommandXboxController controller) {
+        Command armEvacCom = ArmFactory.evacuateScoreL4();
         Command elevatorCom = ElevatorFactory.moveL4();
+        Command armDefaultCom = arm.armDefaultCommand();
         Command armScoreCom = ArmFactory.moveToL4();
         Command coralDefaultCom = coral.coralDefaultCommand();
         Command coralScoreCom = CoralFactory.runOuttake();
@@ -101,9 +107,12 @@ public class SuperstructureFactory {
                 && controller.getHID().getRightBumperButton());
         BooleanSupplier comEnd = () -> !coral.debouncedHasCoral();
 
-        return ((elevatorCom.alongWith(armScoreCom, coralDefaultCom))
-                .until(readyToScore)).andThen(
-                        (armEvacCom.alongWith(coralScoreCom)).until(comEnd));
+        // return ((elevatorCom.alongWith(armScoreCom, clawDefaultCom))
+        // .until(readyToScore)).andThen(
+        // (armEvacCom.alongWith(clawScoreCom)).until(comEnd));
+
+        return (elevatorCom.alongWith(armDefaultCom, clawDefaultCom).until(elevatorReady))
+                .andThen((armScoreCom).until(readyToScore)).andThen(armEvacCom.alongWith(clawScoreCom).until(comEnd));
     }
 
     // AUTON COMMANDS
