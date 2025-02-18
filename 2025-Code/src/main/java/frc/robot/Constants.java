@@ -129,7 +129,7 @@ public final class Constants {
     public static final double GEAR_RATIO = 125;
   }
 
-  public static class ClawConstants {
+  public static class CoralConstants {
     public static final int LEFT_GRABBER = 21;
     public static final int GRABBER_CURRENT_LIMIT = 20;
     public static final double INTAKE_MOTOR_VOLTAGE = 0.7;

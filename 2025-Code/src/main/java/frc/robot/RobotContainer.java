@@ -63,7 +63,7 @@ public class RobotContainer {
   }
 
   private void configureDefaultCommands() {
-    claw.setDefaultCommand(claw.clawDefaultCommand());
+    coral.setDefaultCommand(coral.coralDefaultCommand());
     arm.setDefaultCommand(arm.armDefaultCommand());
     elevator.setDefaultCommand(elevator.elevatorDefaultCommand());
     LED.setDefaultCommand(LED.LEDefaultCommand());

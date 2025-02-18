@@ -13,97 +13,97 @@ public class SuperstructureFactory {
     public static Command intakeCoral() {
         Command elevatorCom = ElevatorFactory.moveToIntake();
         Command armCom = ArmFactory.armToIntake();
-        Command clawCom = ClawFactory.runIntake();
-        return elevatorCom.alongWith(armCom, clawCom).until(() -> claw.hasGamePiece());
+        Command coralCom = CoralFactory.runIntake();
+        return elevatorCom.alongWith(armCom, coralCom).until(() -> coral.hasGamePiece());
     }
 
     public static Command outtake() {
         Command elevatorCom = ElevatorFactory.moveToIntake();
         Command armCom = ArmFactory.armToIntake();
-        Command clawCom = ClawFactory.runOuttake();
-        return elevatorCom.alongWith(armCom, clawCom);
+        Command coralCom = CoralFactory.runOuttake();
+        return elevatorCom.alongWith(armCom, coralCom);
     }
 
     public static Command descoreAlgaeL2() {
         Command elevatorCom = ElevatorFactory.movetoRemoveAlgaeL2();
         Command armCom = ArmFactory.armToDescoreL2();
-        Command clawCom = ClawFactory.runIntake();
-        return elevatorCom.alongWith(armCom, clawCom).until(() -> claw.hasGamePiece());
+        Command coralCom = CoralFactory.runIntake();
+        return elevatorCom.alongWith(armCom, coralCom).until(() -> coral.hasGamePiece());
     }
 
     public static Command descoreAlgaeL3() {
         Command elevatorCom = ElevatorFactory.movetoRemoveAlgaeL3();
         Command armCom = ArmFactory.armToDescoreL3();
-        Command clawCom = ClawFactory.runIntake();
-        return elevatorCom.alongWith(armCom, clawCom).until(() -> claw.hasGamePiece());
+        Command coralCom = CoralFactory.runIntake();
+        return elevatorCom.alongWith(armCom, coralCom).until(() -> coral.hasGamePiece());
     }
 
     public static Command scoreUnderhand(CommandXboxController controller) {
         Command elevatorCom = ElevatorFactory.moveL2();
         Command armScoreCom = ArmFactory.moveToUnderhand();
-        Command clawDefaultCom = claw.clawDefaultCommand();
-        Command clawScoreCom = ClawFactory.runOuttake();
+        Command coralDefaultCom = coral.coralDefaultCommand();
+        Command coralScoreCom = CoralFactory.runOuttake();
         BooleanSupplier readyToScore = () -> (arm.armReady() && elevator.elevatorReady()
                 && controller.getHID().getRightBumperButton());
-        BooleanSupplier comEnd = () -> !claw.hasGamePiece();
+        BooleanSupplier comEnd = () -> !coral.hasGamePiece();
 
-        return ((elevatorCom.alongWith(armScoreCom, clawDefaultCom))
-                .until(readyToScore)).andThen(clawScoreCom.until(comEnd));
+        return ((elevatorCom.alongWith(armScoreCom, coralDefaultCom))
+                .until(readyToScore)).andThen(coralScoreCom.until(comEnd));
     }
 
     public static Command scoreL1(CommandXboxController controller) {
         Command elevatorCom = ElevatorFactory.moveL1();
         Command armScoreCom = ArmFactory.moveToL1();
-        Command clawDefaultCom = claw.clawDefaultCommand();
-        Command clawScoreCom = ClawFactory.runOuttake();
+        Command coralDefaultCom = coral.coralDefaultCommand();
+        Command coralScoreCom = CoralFactory.runOuttake();
         BooleanSupplier readyToScore = () -> (arm.armReady() && elevator.elevatorReady()
                 && controller.getHID().getRightBumperButton());
-        BooleanSupplier comEnd = () -> !claw.hasGamePiece();
+        BooleanSupplier comEnd = () -> !coral.hasGamePiece();
 
-        return ((elevatorCom.alongWith(armScoreCom, clawDefaultCom))
-                .until(readyToScore)).andThen(clawScoreCom.until(comEnd));
+        return ((elevatorCom.alongWith(armScoreCom, coralDefaultCom))
+                .until(readyToScore)).andThen(coralScoreCom.until(comEnd));
     }
 
     public static Command scoreL2(CommandXboxController controller) {
         Command elevatorCom = ElevatorFactory.moveL2();
         Command armScoreCom = ArmFactory.moveToL2();
-        Command clawDefaultCom = claw.clawDefaultCommand();
-        Command clawScoreCom = ClawFactory.runOuttake();
+        Command coralDefaultCom = coral.coralDefaultCommand();
+        Command coralScoreCom = CoralFactory.runOuttake();
         BooleanSupplier readyToScore = () -> (arm.armReady() && elevator.elevatorReady()
                 && controller.getHID().getRightBumperButton());
-        BooleanSupplier comEnd = () -> !claw.hasGamePiece();
+        BooleanSupplier comEnd = () -> !coral.hasGamePiece();
 
-        return ((elevatorCom.alongWith(armScoreCom, clawDefaultCom))
-                .until(readyToScore)).andThen(clawScoreCom.until(comEnd));
+        return ((elevatorCom.alongWith(armScoreCom, coralDefaultCom))
+                .until(readyToScore)).andThen(coralScoreCom.until(comEnd));
     }
 
     public static Command scoreL3(CommandXboxController controller) {
         Command elevatorCom = ElevatorFactory.moveL3();
         Command armScoreCom = ArmFactory.moveToL3();
-        Command clawDefaultCom = claw.clawDefaultCommand();
-        Command clawScoreCom = ClawFactory.runOuttake();
+        Command coralDefaultCom = coral.coralDefaultCommand();
+        Command coralScoreCom = CoralFactory.runOuttake();
         BooleanSupplier readyToScore = () -> (arm.armReady() && elevator.elevatorReady()
                 && controller.getHID().getRightBumperButton());
-        BooleanSupplier comEnd = () -> !claw.hasGamePiece();
+        BooleanSupplier comEnd = () -> !coral.hasGamePiece();
 
-        return ((elevatorCom.alongWith(armScoreCom, clawDefaultCom))
+        return ((elevatorCom.alongWith(armScoreCom, coralDefaultCom))
                 .until(readyToScore)).andThen(
-                        clawScoreCom.until(comEnd));
+                        coralScoreCom.until(comEnd));
     }
 
     public static Command scoreL4(CommandXboxController controller) {
         Command elevatorCom = ElevatorFactory.moveL4();
         Command armScoreCom = ArmFactory.moveToL4();
-        Command clawDefaultCom = claw.clawDefaultCommand();
-        Command clawScoreCom = ClawFactory.runOuttake();
+        Command coralDefaultCom = coral.coralDefaultCommand();
+        Command coralScoreCom = CoralFactory.runOuttake();
         Command armEvacCom = ArmFactory.evacuateScoreL4();
         BooleanSupplier readyToScore = () -> (arm.armReady() && elevator.elevatorReady()
                 && controller.getHID().getRightBumperButton());
-        BooleanSupplier comEnd = () -> !claw.hasGamePiece();
+        BooleanSupplier comEnd = () -> !coral.hasGamePiece();
 
-        return ((elevatorCom.alongWith(armScoreCom, clawDefaultCom))
+        return ((elevatorCom.alongWith(armScoreCom, coralDefaultCom))
                 .until(readyToScore)).andThen(
-                        (armEvacCom.alongWith(clawScoreCom)).until(comEnd));
+                        (armEvacCom.alongWith(coralScoreCom)).until(comEnd));
     }
 
     // AUTON COMMANDS
@@ -111,51 +111,51 @@ public class SuperstructureFactory {
     public static Command scoreCoralL1AutonCommand() {
         Command elevatorCom = ElevatorFactory.moveL1();
         Command armScoreCom = ArmFactory.moveToL1();
-        Command clawDefaultCom = claw.clawDefaultCommand();
-        Command clawScoreCom = ClawFactory.runOuttake();
+        Command coralDefaultCom = coral.coralDefaultCommand();
+        Command coralScoreCom = CoralFactory.runOuttake();
         BooleanSupplier readyToScore = () -> (arm.armReady() && elevator.elevatorReady());
-        BooleanSupplier comEnd = () -> !claw.hasGamePiece();
+        BooleanSupplier comEnd = () -> !coral.hasGamePiece();
 
-        return ((elevatorCom.alongWith(armScoreCom, clawDefaultCom))
-                .until(readyToScore)).andThen(clawScoreCom).until(comEnd);
+        return ((elevatorCom.alongWith(armScoreCom, coralDefaultCom))
+                .until(readyToScore)).andThen(coralScoreCom).until(comEnd);
     }
 
     public static Command scoreCoralL2AutonCommand() {
         Command elevatorCom = ElevatorFactory.moveL1();
         Command armScoreCom = ArmFactory.moveToL1();
-        Command clawDefaultCom = claw.clawDefaultCommand();
-        Command clawScoreCom = ClawFactory.runOuttake();
+        Command coralDefaultCom = coral.coralDefaultCommand();
+        Command coralScoreCom = CoralFactory.runOuttake();
         BooleanSupplier readyToScore = () -> (arm.armReady() && elevator.elevatorReady());
-        BooleanSupplier comEnd = () -> !claw.hasGamePiece();
+        BooleanSupplier comEnd = () -> !coral.hasGamePiece();
 
-        return ((elevatorCom.alongWith(armScoreCom, clawDefaultCom))
-                .until(readyToScore)).andThen(clawScoreCom).until(comEnd);
+        return ((elevatorCom.alongWith(armScoreCom, coralDefaultCom))
+                .until(readyToScore)).andThen(coralScoreCom).until(comEnd);
     }
 
     public static Command scoreCoralL3AutonCommand() {
         Command elevatorCom = ElevatorFactory.moveL1();
         Command armScoreCom = ArmFactory.moveToL1();
-        Command clawDefaultCom = claw.clawDefaultCommand();
-        Command clawScoreCom = ClawFactory.runOuttake();
+        Command coralDefaultCom = coral.coralDefaultCommand();
+        Command coralScoreCom = CoralFactory.runOuttake();
         BooleanSupplier readyToScore = () -> (arm.armReady() && elevator.elevatorReady());
-        BooleanSupplier comEnd = () -> !claw.hasGamePiece();
+        BooleanSupplier comEnd = () -> !coral.hasGamePiece();
 
-        return ((elevatorCom.alongWith(armScoreCom, clawDefaultCom))
-                .until(readyToScore)).andThen(clawScoreCom).until(comEnd);
+        return ((elevatorCom.alongWith(armScoreCom, coralDefaultCom))
+                .until(readyToScore)).andThen(coralScoreCom).until(comEnd);
     }
 
     public static Command scoreCoralL4AutonCommand() {
         Command elevatorCom = ElevatorFactory.moveL4();
         Command armScoreCom = ArmFactory.moveToL4();
-        Command clawDefaultCom = claw.clawDefaultCommand();
-        Command clawScoreCom = ClawFactory.runOuttake();
+        Command coralDefaultCom = coral.coralDefaultCommand();
+        Command coralScoreCom = CoralFactory.runOuttake();
         Command armEvacCom = ArmFactory.evacuateScoreL4();
         BooleanSupplier readyToScore = () -> (arm.armReady() && elevator.elevatorReady());
-        BooleanSupplier comEnd = () -> !claw.hasGamePiece();
+        BooleanSupplier comEnd = () -> !coral.hasGamePiece();
 
-        return ((elevatorCom.alongWith(armScoreCom, clawDefaultCom))
+        return ((elevatorCom.alongWith(armScoreCom, coralDefaultCom))
                 .until(readyToScore)).andThen(
-                        (armEvacCom.alongWith(clawScoreCom)).until(comEnd));
+                        (armEvacCom.alongWith(coralScoreCom)).until(comEnd));
     }
 
     public static Command moveToScoreL4Command() {
@@ -180,6 +180,6 @@ public class SuperstructureFactory {
 
     public static Command intakeCoralAutonCommand() {
         return new ParallelCommandGroup(ElevatorFactory.moveToIntake(), ArmFactory.armToIntake(),
-                ClawFactory.runIntake()).until(() -> claw.hasGamePiece());
+                CoralFactory.runIntake()).until(() -> coral.hasGamePiece());
     }
 }

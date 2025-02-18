@@ -17,14 +17,14 @@ import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import static frc.robot.Constants.ClawConstants.*;
+import static frc.robot.Constants.CoralConstants.*;
 import com.reduxrobotics.sensors.canandcolor.Canandcolor;
 import com.reduxrobotics.sensors.canandcolor.CanandcolorSettings;
 
 /**
- * Class that represents the claw subsystem on the robot.
+ * Class that represents the coral subsystem on the robot.
  */
-public class Claw extends SubsystemBase {
+public class Coral extends SubsystemBase {
 
     /**
      * Grabber motor
@@ -56,7 +56,7 @@ public class Claw extends SubsystemBase {
     /**
      * Class constructor
      */
-    public Claw() {
+    public Coral() {
         m_grabberEncoder = m_grabber.getEncoder();
 
         m_grabberConfig.smartCurrentLimit(GRABBER_CURRENT_LIMIT);
@@ -82,7 +82,7 @@ public class Claw extends SubsystemBase {
     }
 
     /**
-     * Returns whether game piece in the claw is a algae
+     * Returns whether game piece in the coral is a algae
      * 
      * @return true if algae
      */
@@ -91,7 +91,7 @@ public class Claw extends SubsystemBase {
     }
 
     /**
-     * Returns whether game piece in the claw is a coral
+     * Returns whether game piece in the coral is a coral
      * 
      * @return true if coral
      */
@@ -101,9 +101,9 @@ public class Claw extends SubsystemBase {
     }
 
     /**
-     * Returns whether their is a game piece in the claw
+     * Returns whether their is a game piece in the coral
      * 
-     * @return if the claw has a game piece
+     * @return if the coral has a game piece
      */
     public boolean hasGamePiece() {
         return m_debouncer.calculate(isCoral() || isAlgae());
@@ -133,11 +133,11 @@ public class Claw extends SubsystemBase {
     }
 
     /**
-     * Gives an instance of the claw default command. Stops intake from running
+     * Gives an instance of the coral default command. Stops intake from running
      * 
-     * @return The claw default command
+     * @return The coral default command
      */
-    public Command clawDefaultCommand() {
+    public Command coralDefaultCommand() {
         return run(() -> {
             if (hasGamePiece()) {
                 m_intakeVoltage = HOLD_PIECE_VOLTAGE;
@@ -151,7 +151,7 @@ public class Claw extends SubsystemBase {
      * Gives an instance of the run intake command., sets the intake voltage to the
      * speed provided.
      * 
-     * @param speed speed claw is set to
+     * @param speed speed coral is set to
      * @return The run intake command
      */
     public Command runIntake(double speed) {
