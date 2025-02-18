@@ -7,12 +7,14 @@ package frc.robot.commands;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Constants;
 import frc.robot.subsystems.Swerve.SwerveRequestStash;
 import frc.robot.util.DriveToPointController;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.Constants.DriveToPoint.*;
 import static frc.robot.Constants.GlobalConstants.*;
+import static frc.robot.Constants.SwerveConstants.IS_AT_POINT;
 import static frc.robot.util.Subsystem.swerve;
 
 import java.util.List;
@@ -23,6 +25,7 @@ public class DriveToPointCommand extends Command {
   private List<Pose2d> m_reefPoses;
   private List<Pose2d> m_coralStationPoses;
   private boolean m_bumperWasPressed = false;
+  private double m_atPointError = IS_AT_POINT;
 
   public DriveToPointCommand(CommandXboxController xboxController) {
     m_xboxController = xboxController;
@@ -31,6 +34,8 @@ public class DriveToPointCommand extends Command {
 
   @Override
   public void initialize() {
+    swerve.m_isDrivingToPoint = true;
+    swerve.m_isAtPoint = false;
     if (!redAlliance.isPresent()) {
       System.out.println("NO ALLIANCE VALUE YET");
       return;
@@ -52,11 +57,13 @@ public class DriveToPointCommand extends Command {
 
     checkBumpers();
     drive();
+    isAtPoint();
   }
 
   @Override
   public void end(boolean interrupted) {
-
+    swerve.m_isDrivingToPoint = false;
+    swerve.m_isAtPoint = false;
   }
 
   @Override
@@ -72,6 +79,21 @@ public class DriveToPointCommand extends Command {
       m_pointControl.setTargetNearest(m_reefPoses);
     } else {
       m_pointControl.setTargetNearest(m_coralStationPoses);
+    }
+  }
+
+  public void isAtPoint() {
+    if (Math.abs(m_pointControl.getTarget().getX() - Subsystem.swerve.getCurrentPose().getX()) < m_atPointError) {
+      if (Math.abs(m_pointControl.getTarget().getY() - swerve.getCurrentPose().getY()) < m_atPointError) {
+        swerve.m_isDrivingToPoint = false;
+        swerve.m_isAtPoint = true;
+      }
+    } else if (Math
+        .abs(m_pointControl.getTarget().getX() - Subsystem.swerve.getCurrentPose().getX()) < m_atPointError) {
+      if (Math.abs(m_pointControl.getTarget().getY() - swerve.getCurrentPose().getY()) < m_atPointError) {
+        swerve.m_isDrivingToPoint = true;
+        swerve.m_isAtPoint = false;
+      }
     }
   }
 

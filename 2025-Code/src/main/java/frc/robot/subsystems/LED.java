@@ -61,29 +61,16 @@ public class LED extends SubsystemBase {
     return m_state;
   }
 
-  public void changeColorState() {
-    getCommandState();
-    if (getCommandState() == States.LOCKCLIMB) {
-      color_pub.set("yellow");
-      state_pub.set("solid");
-    } else if (getCommandState() == States.DEFAULT) {
-      color_pub.set("orange");
-      state_pub.set("solid");
-    }
-  }
-
-  public void checkCommandState() {
-    if (lockClimb == false) {
-      setCommandState(States.LOCKCLIMB);
-    } else if (lockClimb == true) {
-      setCommandState(States.DEFAULT);
-    }
-  }
-
   @Override
   public void periodic() {
-    if (Subsystem.swerve.isDrivingToPoint()) {
+    if (Subsystem.swerve.m_isDrivingToPoint) {
       color_pub.set("red");
+      state_pub.set("solid");
+    } else if (Subsystem.swerve.m_isAtPoint) {
+      color_pub.set("green");
+      state_pub.set("solid");
+    } else {
+      color_pub.set("orange");
       state_pub.set("solid");
     }
   }
