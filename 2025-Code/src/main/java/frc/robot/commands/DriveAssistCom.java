@@ -109,7 +109,7 @@ public class DriveAssistCom extends Command {
 
   private Translation2d getNewDriveVelocity() {
     double quadrantOffset = 0;
-    double otherAngle = 0;
+    double secondOffset = 0;
     double magnitude = 0;
     double desiredMagnitude = 0;
     // int id = m_staticTagID;
@@ -121,53 +121,52 @@ public class DriveAssistCom extends Command {
     if (inputAngle < 0) {
       inputAngle += 360;
     }
-    // if (inputAngle < 0) {
-    // inputAngle += -45;
-    // } else {
-    // inputAngle += 45;
-    // }
     double desiredX = 0;
     double desiredY = 0;
     if (m_controller.getLeftX() == 0 && m_controller.getLeftY() == 0) {
       return new Translation2d(0, 0);
     } else if (id == 7 || id == 10 || id == 18 || id == 21) {
       finalVelocities = new Translation2d(inputX, 0);
-    } else if (0 < inputAngle || inputAngle < 60) {
-      switch (id) {
-        case 6:
-          quadrantOffset = 120;
-          break;
-        case 8:
-          quadrantOffset = 240;
-          break;
-        case 9:
-          quadrantOffset = 300;
-          break;
-        case 11:
-          quadrantOffset = 60;
-          break;
-        case 17:
-          quadrantOffset = 240;
-          break;
-        case 19:
-          quadrantOffset = 120;
-          break;
-        case 20:
-          quadrantOffset = 60;
-          break;
-        case 22:
-          quadrantOffset = 300;
-          break;
-      }
-      magnitude = Math.sqrt(Math.pow(inputX, 2) + Math.pow(inputY, 2));
-      desiredMagnitude = Math.cos(Math.toRadians(inputAngle - quadrantOffset)) * magnitude;
-      desiredX = desiredMagnitude * (Math.cos(Math.toRadians(quadrantOffset)));
-      desiredY = desiredMagnitude * (Math.sin(Math.toRadians(quadrantOffset)));
-      finalVelocities = new Translation2d(desiredX, desiredY);
     }
-    if (finalVelocities == null) {
-      return new Translation2d(0, 0);
+    // else if (0 < inputAngle || inputAngle < 60) {
+    switch (id) {
+      case 6:
+        quadrantOffset = 120;
+        break;
+      case 8:
+        quadrantOffset = 240;
+        break;
+      case 9:
+        quadrantOffset = 300;
+        break;
+      case 11:
+        quadrantOffset = 60;
+        secondOffset = 30;
+        break;
+      case 17:
+        quadrantOffset = 240;
+        break;
+      case 19:
+        quadrantOffset = 120;
+        break;
+      case 20:
+        quadrantOffset = 60;
+        break;
+      case 22:
+        quadrantOffset = 300;
+        break;
     }
+    magnitude = Math.sqrt(Math.pow(inputX, 2) + Math.pow(inputY, 2));
+    desiredMagnitude = Math.cos(Math.toRadians(inputAngle - secondOffset)) * magnitude;
+    desiredX = desiredMagnitude * (Math.cos(Math.toRadians(quadrantOffset)));
+    desiredY = desiredMagnitude * (Math.sin(Math.toRadians(quadrantOffset)));
+    finalVelocities = new Translation2d(desiredX, desiredY);
+    System.out.println(inputAngle);
+    System.out.println(Math.toDegrees(Math.atan2(desiredX, desiredY)));
+    // }
+    // if (finalVelocities == null) {
+    // return new Translation2d(0, 0);
+    // }
     return finalVelocities;
   }
 
