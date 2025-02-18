@@ -7,6 +7,8 @@ import static edu.wpi.first.math.MathUtil.*;
 import static frc.robot.Constants.DriveToPoint.*;
 import static frc.robot.Constants.SwerveConstants.*;
 
+import java.util.List;
+
 public class DriveToPointController {
 
     private static Pose2d m_target = new Pose2d(0, 0, new Rotation2d());
@@ -33,11 +35,11 @@ public class DriveToPointController {
         return Rotation2d.fromDegrees(m_target.getRotation().getDegrees() + 180);
     }
 
-    public Pose2d getClosestPoint() {
-        return Subsystem.swerve.getCurrentPose().nearest(POSE_LIST);
+    public Pose2d getClosestPoint(List<Pose2d> list) {
+        return Subsystem.swerve.getCurrentPose().nearest(list);
     }
 
-    public void setTargetNearest() {
-        m_target = getClosestPoint();
+    public void setTargetNearest(List<Pose2d> list) {
+        m_target = getClosestPoint(list);
     }
 }
