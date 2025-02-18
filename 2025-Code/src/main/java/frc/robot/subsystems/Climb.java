@@ -108,14 +108,12 @@ public class Climb extends SubsystemBase {
 
   public Command engageRatchetCommand() {
     return run(() -> {
-      System.out.println("yes");
       m_lockRatchet.set(RATCHET_LOCK_POSITION);
     });
   }
 
   public Command disengageRatchetCommand() {
     return run(() -> {
-      System.out.println("yes");
       m_lockRatchet.set(RATCHET_UNLOCK_POSITION);
     });
   }
@@ -150,7 +148,9 @@ public class Climb extends SubsystemBase {
 
   public Command climbDefaultCommand() {
     return run(() -> {
-
+      moveToPosition(CLIMB_DOWN_POSITION);
+      m_lockRatchet.set(RATCHET_LOCK_POSITION);
+      
     });
   }
 
