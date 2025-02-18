@@ -103,7 +103,8 @@ public class Climb extends SubsystemBase {
    * checks if climb arm is within a certain range of error
    */
   private boolean isTargetPosition() {
-    return Math.abs(m_targetPositionClimbArm - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_MOTOR_POSITION_ERROR;
+    return Math
+        .abs(m_targetPositionClimbArm - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_MOTOR_POSITION_ERROR;
   }
 
   public Command engageRatchetCommand() {
@@ -143,7 +144,7 @@ public class Climb extends SubsystemBase {
   }
 
   /**
-   *  only use when climb arm is in up position
+   * only use when climb arm is in up position
    */
   public Command resetClimbArmCommand(int rotations) {
     return run(() -> {

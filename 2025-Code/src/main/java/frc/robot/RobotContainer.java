@@ -50,7 +50,10 @@ public class RobotContainer {
     m_driverController.leftBumper().onTrue(ClimbFactory.resetClimb()); // only use when climb arm is in up position
 
     m_driverController.leftStick().toggleOnTrue(new DriveAssistCom(m_driverController));
-    m_driverController.back().whileTrue(swerve.resetYawCommand());
+    // m_driverController.back().whileTrue(swerve.resetYawCommand());
+
+    m_driverController.start().onTrue(climb.engageRatchetCommand());
+    m_driverController.back().onTrue(climb.disengageRatchetCommand());
 
     // buttons controller
     m_buttonsController.y().whileTrue(SuperstructureFactory.scoreL1(m_buttonsController));
