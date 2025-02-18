@@ -104,6 +104,7 @@ public final class Constants {
     public static final double EVACUATE_ANGLE = 15.0;
     public static final double REEF_L2_DESCORE_POSITION = 0.0;
     public static final double REEF_L3_DESCORE_POSITION = 0.0;
+    public static final double ANGLE_TOLERANCE = 0.5;
 
     public static final double HITTING_LOW_HARD_LIMIT = 90;
     public static final double HITTING_HIGH_HARD_LIMIT = 270;

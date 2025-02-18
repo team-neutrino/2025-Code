@@ -61,11 +61,16 @@ public class Arm extends SubsystemBase {
     return m_encoder.getVelocity();
   }
 
-  public boolean armReady() {
-    if (m_targetAngle == DEFAULT_POSITION || m_targetAngle == CORAL_STATION_POSITION) {
+  private boolean atTargetAngle() {
+    return Math.abs(getAngle() - m_targetAngle) <= ANGLE_TOLERANCE;
+  }
+
+  public boolean readyToScore() {
+    if (m_targetAngle == STARTING_POSITION || m_targetAngle == DEFAULT_POSITION
+        || m_targetAngle == CORAL_STATION_POSITION) {
       return false;
     } else {
-      return getAngle() >= m_targetAngle - 0.5;
+      return atTargetAngle();
     }
   }
 
@@ -101,13 +106,8 @@ public class Arm extends SubsystemBase {
         PersistMode.kPersistParameters);
   }
 
-  /**
-   * Finds out if the arm is in limit
-   * 
-   * @return m_armLimit
-   */
-  public boolean isArmInLimit() {
-    return getAngle() <= 270;
+  public boolean willNotHitSwerve() {
+    return getAngle() <= 270 && getAngle() >= 90;
   }
 
   /**
@@ -116,13 +116,12 @@ public class Arm extends SubsystemBase {
    * 
    * @return volts
    */
-
   private void adjustArm(double targetAngle) {
     m_pid.setReference(targetAngle, ControlType.kMAXMotionPositionControl, ClosedLoopSlot.kSlot0,
         feedForwardCalculation());
   }
 
-  public double feedForwardCalculation() {
+  private double feedForwardCalculation() {
     double currentAngle = (getAngle() - 90) * (Math.PI / 180);
     double volts = m_FFConstant * Math.cos(currentAngle);
     return volts;
@@ -143,10 +142,6 @@ public class Arm extends SubsystemBase {
 
   public void changeFF(double newFF) {
     m_FFConstant = newFF;
-  }
-
-  public boolean atDefault() {
-    return 1 >= Math.abs(m_encoder.getPosition() - DEFAULT_POSITION);
   }
 
   public void changeMaxMotion(double mv, double ma, double ae) {
