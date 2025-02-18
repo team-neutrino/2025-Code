@@ -47,7 +47,11 @@ public class RobotContainer {
     m_driverController.a().onTrue(ClimbFactory.lowerClimb());
 
     m_driverController.rightBumper().onTrue(ClimbFactory.resetLock());
-    m_driverController.leftBumper().onTrue(ClimbFactory.resetClimb()); // only use when climb arm is in up position
+
+    /**
+     * Only use when climb arm is in up position (relaxed). Moves arm down 105 rotations.
+     */
+    m_driverController.leftBumper().onTrue(ClimbFactory.resetClimb());
 
     m_driverController.leftStick().toggleOnTrue(new DriveAssistCom(m_driverController));
     // m_driverController.back().whileTrue(swerve.resetYawCommand());

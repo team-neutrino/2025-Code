@@ -10,12 +10,12 @@ public class ClimbFactory {
     public static Command raiseClimb() {
         return new SequentialCommandGroup(
             climb.disengageRatchetCommand(),
-            climb.raiseClimbArmCommand(CLIMB_UP_POSITION));
+            climb.moveClimbArmCommand(CLIMB_UP_POSITION));
     }
     
     public static Command lowerClimb() {
         return new SequentialCommandGroup(
-            climb.lowerClimbArmCommand(CLIMB_DOWN_POSITION),
+            climb.moveClimbArmCommand(CLIMB_DOWN_POSITION),
             climb.engageRatchetCommand());
     }
 
@@ -35,6 +35,8 @@ public class ClimbFactory {
      * only use when climb arm is in a state where it is all the way up (relaxed)
      * */ 
     public static Command resetClimb() {
-        return climb.resetClimbArmCommand(RESET_CLIMB_ROTATION);
+        return new SequentialCommandGroup(
+            climb.resetClimbArmCommand(RESET_CLIMB_ROTATION),
+            climb.engageRatchetCommand());
     }
 }

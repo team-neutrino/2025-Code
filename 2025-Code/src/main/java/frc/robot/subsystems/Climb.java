@@ -43,7 +43,6 @@ public class Climb extends SubsystemBase {
   private SparkMax m_lockMotor = new SparkMax(LOCK_MOTOR_ID, MotorType.kBrushless);
   private SparkMaxConfig m_lockMotorConfig = new SparkMaxConfig();
   private RelativeEncoder m_lockMotorEncoder = m_lockMotor.getEncoder();
-
   private SparkClosedLoopController m_pid = m_lockMotor.getClosedLoopController();
 
   private Servo m_lockRatchet = new Servo(RATCHET_PORT);
@@ -131,27 +130,19 @@ public class Climb extends SubsystemBase {
     });
   }
 
-  public Command raiseClimbArmCommand(double targetPosition) {
+  public Command moveClimbArmCommand(double targetPosition) {
     return run(() -> {
       moveToPosition(targetPosition);
     }).until(() -> isTargetPosition());
   }
-
-  public Command lowerClimbArmCommand(double targetPosition) {
-    return run(() -> {
-      moveToPosition(targetPosition);
-    }).until(() -> isTargetPosition());
-  }
-
   /**
    * only use when climb arm is in up position
    */
-  public Command resetClimbArmCommand(int rotations) {
+  public Command resetClimbArmCommand(double rotations) {
     return run(() -> {
       moveToPosition(rotations);
       m_climbMotor.setPosition(0);
-
-    });
+    }).until(() -> isTargetPosition());
   }
 
   public Command climbDefaultCommand() {
