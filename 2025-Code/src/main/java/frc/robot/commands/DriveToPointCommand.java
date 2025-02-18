@@ -5,11 +5,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.Swerve.SwerveRequestStash;
 import frc.robot.util.DriveToPointController;
+import frc.robot.util.Subsystem;
 
 import static frc.robot.Constants.DriveToPoint.*;
 import static frc.robot.Constants.GlobalConstants.*;
@@ -21,6 +21,7 @@ public class DriveToPointCommand extends Command {
   private DriveToPointController m_pointControl = new DriveToPointController();
   private CommandXboxController m_xboxController;
   private List<Pose2d> m_reefPoses;
+  private List<Pose2d> m_coralStationPoses;
   private boolean m_bumperWasPressed = false;
 
   public DriveToPointCommand(CommandXboxController xboxController) {
@@ -30,7 +31,14 @@ public class DriveToPointCommand extends Command {
 
   @Override
   public void initialize() {
-    m_pointControl.setTargetNearest();
+    if (!redAlliance.isPresent()) {
+      System.out.println("NO ALLIANCE VALUE YET");
+      return;
+    }
+    m_reefPoses = redAlliance.get() ? RED_REEF : BLUE_REEF;
+    m_coralStationPoses = redAlliance.get() ? POSE_LIST.subList(0, 2) : POSE_LIST.subList(2, 4);
+
+    obtainTarget();
   }
 
   @Override
@@ -40,6 +48,7 @@ public class DriveToPointCommand extends Command {
       return;
     }
     m_reefPoses = redAlliance.get() ? RED_REEF : BLUE_REEF;
+    m_coralStationPoses = redAlliance.get() ? POSE_LIST.subList(0, 2) : POSE_LIST.subList(2, 4);
 
     checkBumpers();
     drive();
@@ -47,6 +56,7 @@ public class DriveToPointCommand extends Command {
 
   @Override
   public void end(boolean interrupted) {
+
   }
 
   @Override
@@ -54,6 +64,15 @@ public class DriveToPointCommand extends Command {
     boolean triedMove = Math.abs(m_xboxController.getLeftX()) > .5 || Math.abs(m_xboxController.getLeftY()) > .5;
     boolean triedTurn = Math.abs(m_xboxController.getRightX()) > .5;
     return triedMove || triedTurn;
+  }
+
+  private void obtainTarget() {
+    boolean hasGamePiece = Subsystem.claw.isCoral();
+    if (hasGamePiece) {
+      m_pointControl.setTargetNearest(m_reefPoses);
+    } else {
+      m_pointControl.setTargetNearest(m_coralStationPoses);
+    }
   }
 
   private void checkBumpers() {
