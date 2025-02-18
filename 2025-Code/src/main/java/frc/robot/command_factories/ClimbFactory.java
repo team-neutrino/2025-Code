@@ -17,7 +17,7 @@ public class ClimbFactory {
     }
 
     public static Command lockGrabber() {
-        LED.lockClimb = true;
+        LED.setCommandState(States.LOCKCLIMB);
         return climb.lockCommand();
     }
 }

@@ -82,6 +82,9 @@ public class LED extends SubsystemBase {
 
   @Override
   public void periodic() {
-    System.out.println(getCommandState());
+    if (Subsystem.swerve.isDrivingToPoint()) {
+      color_pub.set("red");
+      state_pub.set("solid");
+    }
   }
 }
