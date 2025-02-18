@@ -2,13 +2,11 @@ package frc.robot.util;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructPublisher;
 
 import static edu.wpi.first.math.MathUtil.*;
-import static frc.robot.Constants.DriveToPoint.*;
 import static frc.robot.Constants.SwerveConstants.*;
 
 import java.util.List;
