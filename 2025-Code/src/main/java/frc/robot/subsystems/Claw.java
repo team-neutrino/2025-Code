@@ -17,7 +17,7 @@ import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Constants.ClawConstants;
+import static frc.robot.Constants.ClawConstants.*;
 import com.reduxrobotics.sensors.canandcolor.Canandcolor;
 import com.reduxrobotics.sensors.canandcolor.CanandcolorSettings;
 
@@ -29,7 +29,7 @@ public class Claw extends SubsystemBase {
     /**
      * Grabber motor
      */
-    private SparkMax m_grabber = new SparkMax(ClawConstants.LEFT_GRABBER, MotorType.kBrushless);
+    private SparkMax m_grabber = new SparkMax(LEFT_GRABBER, MotorType.kBrushless);
     /**
      * Configuration object for the grabber motor
      */
@@ -45,7 +45,7 @@ public class Claw extends SubsystemBase {
     /**
      * Color sensor for the Grabber
      */
-    private Canandcolor m_colorSensor = new Canandcolor(ClawConstants.COLOR_SENSOR);
+    private Canandcolor m_colorSensor = new Canandcolor(COLOR_SENSOR);
     /**
      * Settings of the color sensor(used for lamp brightness)
      */
@@ -59,7 +59,7 @@ public class Claw extends SubsystemBase {
     public Claw() {
         m_grabberEncoder = m_grabber.getEncoder();
 
-        m_grabberConfig.smartCurrentLimit(Constants.ClawConstants.GRABBER_CURRENT_LIMIT);
+        m_grabberConfig.smartCurrentLimit(GRABBER_CURRENT_LIMIT);
         m_grabberConfig.inverted(false);
         m_grabberConfig.idleMode(IdleMode.kCoast);
 
@@ -138,7 +138,13 @@ public class Claw extends SubsystemBase {
      * @return The claw default command
      */
     public Command clawDefaultCommand() {
-        return run(() -> m_intakeVoltage = 0);
+        return run(() -> {
+            if (hasGamePiece()) {
+                m_intakeVoltage = HOLD_PIECE_VOLTAGE;
+            } else {
+                m_intakeVoltage = 0;
+            }
+        });
     }
 
     /**
