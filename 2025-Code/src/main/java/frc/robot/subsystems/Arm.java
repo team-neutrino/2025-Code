@@ -26,19 +26,19 @@ import static frc.robot.Constants.ArmConstants.*;
  * Class that represents the arm subsystem on the robot.
  */
 public class Arm extends SubsystemBase {
-  private SparkFlex m_armMotor = new SparkFlex(MOTOR_ID, MotorType.kBrushless);
-  private SparkFlexConfig m_armMotorConfig = new SparkFlexConfig();
-  private AbsoluteEncoder m_armEncoder;
-  private SparkClosedLoopController m_armPidController;
+  private SparkFlex m_motor = new SparkFlex(MOTOR_ID, MotorType.kBrushless);
+  private SparkFlexConfig m_motorConfig = new SparkFlexConfig();
+  private AbsoluteEncoder m_encoder;
+  private SparkClosedLoopController m_pid;
   private SparkFlexConfigAccessor m_sparkFlexConfigAccessor;
-  public ClosedLoopConfigAccessor m_armPidAccessor;
+  public ClosedLoopConfigAccessor m_pidAccessor;
   private double m_targetAngle = STARTING_POSITION;
   private double m_FFConstant = FFCONSTANT;
 
   public Arm() {
     initializeMotorControllers();
-    m_sparkFlexConfigAccessor = m_armMotor.configAccessor;
-    m_armPidAccessor = m_sparkFlexConfigAccessor.closedLoop;
+    m_sparkFlexConfigAccessor = m_motor.configAccessor;
+    m_pidAccessor = m_sparkFlexConfigAccessor.closedLoop;
   }
 
   /**
@@ -46,7 +46,7 @@ public class Arm extends SubsystemBase {
    * up and 90 pointing forward
    */
   public double getAngle() {
-    return m_armEncoder.getPosition();
+    return m_encoder.getPosition();
   }
 
   /**
@@ -58,14 +58,19 @@ public class Arm extends SubsystemBase {
   }
 
   public double getAngularVelocity() {
-    return m_armEncoder.getVelocity();
+    return m_encoder.getVelocity();
   }
 
-  public boolean armReady() {
-    if (m_targetAngle == DEFAULT_POSITION || m_targetAngle == CORAL_STATION_POSITION) {
+  private boolean atTargetAngle() {
+    return Math.abs(getAngle() - m_targetAngle) <= ANGLE_TOLERANCE;
+  }
+
+  public boolean readyToScore() {
+    if (m_targetAngle == STARTING_POSITION || m_targetAngle == DEFAULT_POSITION
+        || m_targetAngle == CORAL_STATION_POSITION) {
       return false;
     } else {
-      return getAngle() >= m_targetAngle - 0.5;
+      return atTargetAngle();
     }
   }
 
@@ -74,40 +79,35 @@ public class Arm extends SubsystemBase {
    * current limits, and converstion factors.
    */
   private void initializeMotorControllers() {
-    m_armEncoder = m_armMotor.getAbsoluteEncoder();
-    m_armPidController = m_armMotor.getClosedLoopController();
-    m_armMotorConfig.idleMode(IdleMode.kBrake);
+    m_encoder = m_motor.getAbsoluteEncoder();
+    m_pid = m_motor.getClosedLoopController();
+    m_motorConfig.idleMode(IdleMode.kBrake);
 
-    m_armMotorConfig.absoluteEncoder
+    m_motorConfig.absoluteEncoder
         .positionConversionFactor(360)
         .velocityConversionFactor(1);
 
-    m_armMotorConfig.signals.absoluteEncoderPositionPeriodMs(5);
+    m_motorConfig.signals.absoluteEncoderPositionPeriodMs(5);
 
-    m_armMotorConfig.smartCurrentLimit(CURRENT_LIMIT);
+    m_motorConfig.smartCurrentLimit(CURRENT_LIMIT);
 
-    m_armMotorConfig.closedLoop
+    m_motorConfig.closedLoop
         .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
         .pid(kp, ki, kd, ClosedLoopSlot.kSlot0);
-    m_armPidController = m_armMotor.getClosedLoopController();
+    m_pid = m_motor.getClosedLoopController();
 
-    m_armMotorConfig.closedLoop.maxMotion
+    m_motorConfig.closedLoop.maxMotion
         .maxVelocity(MAX_VELOCITY)
         .maxAcceleration(MAX_ACCELERATION)
         .allowedClosedLoopError(ALLOWED_ERROR);
 
-    m_armMotor.configure(m_armMotorConfig,
+    m_motor.configure(m_motorConfig,
         ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
   }
 
-  /**
-   * Finds out if the arm is in limit
-   * 
-   * @return m_armLimit
-   */
-  public boolean isArmInLimit() {
-    return getAngle() <= 270;
+  public boolean willNotHitSwerve() {
+    return getAngle() <= 270 && getAngle() >= 90;
   }
 
   /**
@@ -116,13 +116,12 @@ public class Arm extends SubsystemBase {
    * 
    * @return volts
    */
-
   private void adjustArm(double targetAngle) {
-    m_armPidController.setReference(targetAngle, ControlType.kMAXMotionPositionControl, ClosedLoopSlot.kSlot0,
+    m_pid.setReference(targetAngle, ControlType.kMAXMotionPositionControl, ClosedLoopSlot.kSlot0,
         feedForwardCalculation());
   }
 
-  public double feedForwardCalculation() {
+  private double feedForwardCalculation() {
     double currentAngle = (getAngle() - 90) * (Math.PI / 180);
     double volts = m_FFConstant * Math.cos(currentAngle);
     return volts;
@@ -136,8 +135,8 @@ public class Arm extends SubsystemBase {
    * @param d Derivative
    */
   public void changePID(double p, double i, double d) {
-    m_armMotorConfig.closedLoop.pid(p, i, d);
-    m_armMotor.configure(m_armMotorConfig, ResetMode.kResetSafeParameters,
+    m_motorConfig.closedLoop.pid(p, i, d);
+    m_motor.configure(m_motorConfig, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
   }
 
@@ -145,13 +144,9 @@ public class Arm extends SubsystemBase {
     m_FFConstant = newFF;
   }
 
-  public boolean atDefault() {
-    return 1 >= Math.abs(m_armEncoder.getPosition() - DEFAULT_POSITION);
-  }
-
   public void changeMaxMotion(double mv, double ma, double ae) {
-    m_armMotorConfig.closedLoop.maxMotion.maxVelocity(mv).maxAcceleration(ma).allowedClosedLoopError(ae);
-    m_armMotor.configure(m_armMotorConfig,
+    m_motorConfig.closedLoop.maxMotion.maxVelocity(mv).maxAcceleration(ma).allowedClosedLoopError(ae);
+    m_motor.configure(m_motorConfig,
         ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
   }

@@ -104,6 +104,7 @@ public final class Constants {
     public static final double EVACUATE_ANGLE = 15.0;
     public static final double REEF_L2_DESCORE_POSITION = 0.0;
     public static final double REEF_L3_DESCORE_POSITION = 0.0;
+    public static final double ANGLE_TOLERANCE = 0.5;
 
     public static final double HITTING_LOW_HARD_LIMIT = 90;
     public static final double HITTING_HIGH_HARD_LIMIT = 270;
@@ -129,13 +130,15 @@ public final class Constants {
     public static final double GEAR_RATIO = 125;
   }
 
-  public static class ClawConstants {
+  public static class CoralConstants {
     public static final int LEFT_GRABBER = 21;
     public static final int GRABBER_CURRENT_LIMIT = 20;
     public static final double INTAKE_MOTOR_VOLTAGE = 0.7;
     public static final double HOLD_PIECE_VOLTAGE = .1;
 
     public static final int COLOR_SENSOR = 27;
+
+    public static final double PROXIMITY = 0.05;
   }
 
   public static class ClimbConstants {

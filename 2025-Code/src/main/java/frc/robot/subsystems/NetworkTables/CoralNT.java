@@ -6,18 +6,18 @@ import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTablesJNI;
-import frc.robot.subsystems.Claw;
+import frc.robot.subsystems.Coral;
 
-public class ClawNT extends Claw {
+public class CoralNT extends Coral {
     NetworkTableInstance nt = NetworkTableInstance.getDefault();
-    DoubleTopic encoderVelocity = nt.getDoubleTopic("/claw/encoder_velocity");
-    DoubleTopic voltage = nt.getDoubleTopic("/claw/motor_input_voltage");
-    BooleanTopic proxSensor = nt.getBooleanTopic("/claw/has_gamepiece");
+    DoubleTopic encoderVelocity = nt.getDoubleTopic("/coral/encoder_velocity");
+    DoubleTopic voltage = nt.getDoubleTopic("/coral/motor_input_voltage");
+    BooleanTopic proxSensor = nt.getBooleanTopic("/coral/has_gamepiece");
     final DoublePublisher encoderVelocityPub;
     final DoublePublisher motorVoltagePub;
     final BooleanPublisher proxSensorPub;
 
-    public ClawNT() {
+    public CoralNT() {
         encoderVelocityPub = encoderVelocity.publish();
         encoderVelocityPub.setDefault(0.0);
 
@@ -32,8 +32,8 @@ public class ClawNT extends Claw {
     public void periodic() {
         super.periodic();
         final long now = NetworkTablesJNI.now();
-        encoderVelocityPub.set(getVelocityOfGrabber(), now);
-        motorVoltagePub.set(getIntakeVoltage(), now);
-        proxSensorPub.set(hasGamePiece(), now);
+        encoderVelocityPub.set(getAngularVelocity(), now);
+        motorVoltagePub.set(getMotorVoltage(), now);
+        proxSensorPub.set(debouncedHasCoral(), now);
     }
 }

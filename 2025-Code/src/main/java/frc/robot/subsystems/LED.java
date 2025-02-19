@@ -18,7 +18,7 @@ public class LED extends SubsystemBase {
   NetworkTableInstance inst = NetworkTableInstance.getDefault();
   StringTopic color_topic = inst.getStringTopic("/LED/color");
   StringTopic state_topic = inst.getStringTopic("/LED/state");
-  Claw claw = Subsystem.claw;
+  Coral coral = Subsystem.coral;
 
   final StringPublisher color_pub;
   final StringPublisher state_pub;
@@ -33,11 +33,7 @@ public class LED extends SubsystemBase {
   }
 
   public void setToGamePieceColor() {
-    if (claw.isAlgae()) {
-      state_pub.set("blinktwice");
-      color_pub.set("turquoise");
-      // color_pub.set(action:"blink", color:"turquoise");
-    } else if (claw.isCoral()) {
+    if (coral.hasCoral()) {
       state_pub.set("blinktwice");
       color_pub.set("white");
     }
@@ -47,7 +43,7 @@ public class LED extends SubsystemBase {
     if (DriverStation.isAutonomousEnabled()) {
       color_pub.set("cyan");
     } else if (DriverStation.isTeleopEnabled()) {
-      if (claw.hasGamePiece()) {
+      if (coral.debouncedHasCoral()) {
         setToGamePieceColor();
         return;
       } else {

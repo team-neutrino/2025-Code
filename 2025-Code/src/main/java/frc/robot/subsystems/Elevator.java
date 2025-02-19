@@ -138,7 +138,7 @@ public class Elevator extends SubsystemBase {
 
   private double safeHeight(double targetHeight) {
     double safeTarget = targetHeight;
-    if (!Subsystem.arm.isArmInLimit() && targetHeight < ARM_WILL_NOT_HIT_BASE_HEIGHT) {
+    if (!Subsystem.arm.willNotHitSwerve() && targetHeight < ARM_WILL_NOT_HIT_BASE_HEIGHT) {
       safeTarget = ARM_WILL_NOT_HIT_BASE_HEIGHT;
     }
     return safeTarget;
