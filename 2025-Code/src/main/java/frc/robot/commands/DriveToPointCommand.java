@@ -81,11 +81,10 @@ public class DriveToPointCommand extends Command {
   }
 
   public void isAtPoint() {
-    if (Math.abs(m_pointControl.getTarget().getX() - swerve.getCurrentPose().getX()) < AT_POINT_TOLERANCE) {
-      if (Math.abs(m_pointControl.getTarget().getY() - swerve.getCurrentPose().getY()) < AT_POINT_TOLERANCE) {
-        swerve.setDrivingToPoint(false);
-        swerve.setAtPoint(true);
-      }
+    if (Math.abs(m_pointControl.getTarget().getX() - swerve.getCurrentPose().getX()) < AT_POINT_TOLERANCE
+        && (Math.abs(m_pointControl.getTarget().getY() - swerve.getCurrentPose().getY()) < AT_POINT_TOLERANCE)) {
+      swerve.setDrivingToPoint(false);
+      swerve.setAtPoint(true);
     }
   }
 

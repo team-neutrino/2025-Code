@@ -55,9 +55,9 @@ public class LED extends SubsystemBase {
   }
 
   public void setDriveToPointColor() {
-    if (Subsystem.swerve.getDrivingToPoint()) {
+    if (Subsystem.swerve.isDrivingToPoint()) {
       color_pub.set("red");
-    } else if (Subsystem.swerve.getAtPoint()) {
+    } else if (Subsystem.swerve.isAtPoint()) {
       color_pub.set("green");
     } else {
       color_pub.set("orange");

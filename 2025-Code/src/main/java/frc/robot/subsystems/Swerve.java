@@ -236,7 +236,7 @@ public class Swerve extends CommandSwerveDrivetrain {
     isAligned = value;
   }
 
-  public boolean getDrivingToPoint() {
+  public boolean isDrivingToPoint() {
     return m_drivingToPoint;
   }
 
@@ -244,7 +244,7 @@ public class Swerve extends CommandSwerveDrivetrain {
     m_drivingToPoint = value;
   }
 
-  public boolean getAtPoint() {
+  public boolean isAtPoint() {
     return m_atPoint;
   }
 
