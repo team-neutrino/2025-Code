@@ -109,7 +109,9 @@ public class DriveToPointCommand extends Command {
   }
 
   private double getAngleFromTag() {
-    double[] target = Subsystem.limelight.getTargetPose();
+    double targetAngle = Subsystem.limelight.getTargetYaw();
+    double tx = Subsystem.limelight.getTx();
+    double yaw = swerve.getYawDegrees();
     return 0;
   }
 
