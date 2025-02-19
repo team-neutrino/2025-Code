@@ -25,7 +25,6 @@ public class DriveToPointCommand extends Command {
   private List<Pose2d> m_reefPoses;
   private List<Pose2d> m_coralStationPoses;
   private boolean m_bumperWasPressed = false;
-  private double m_atPointError = IS_AT_POINT;
 
   public DriveToPointCommand(CommandXboxController xboxController) {
     m_xboxController = xboxController;
@@ -34,8 +33,7 @@ public class DriveToPointCommand extends Command {
 
   @Override
   public void initialize() {
-    swerve.m_isDrivingToPoint = true;
-    swerve.m_isAtPoint = false;
+    swerve.setDrivingToPoint(true);
     if (!redAlliance.isPresent()) {
       System.out.println("NO ALLIANCE VALUE YET");
       return;
@@ -62,8 +60,8 @@ public class DriveToPointCommand extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    swerve.m_isDrivingToPoint = false;
-    swerve.m_isAtPoint = false;
+    swerve.setDrivingToPoint(false);
+    swerve.setAtPoint(false);
   }
 
   @Override
@@ -83,16 +81,10 @@ public class DriveToPointCommand extends Command {
   }
 
   public void isAtPoint() {
-    if (Math.abs(m_pointControl.getTarget().getX() - Subsystem.swerve.getCurrentPose().getX()) < m_atPointError) {
-      if (Math.abs(m_pointControl.getTarget().getY() - swerve.getCurrentPose().getY()) < m_atPointError) {
-        swerve.m_isDrivingToPoint = false;
-        swerve.m_isAtPoint = true;
-      }
-    } else if (Math
-        .abs(m_pointControl.getTarget().getX() - Subsystem.swerve.getCurrentPose().getX()) < m_atPointError) {
-      if (Math.abs(m_pointControl.getTarget().getY() - swerve.getCurrentPose().getY()) < m_atPointError) {
-        swerve.m_isDrivingToPoint = true;
-        swerve.m_isAtPoint = false;
+    if (Math.abs(m_pointControl.getTarget().getX() - swerve.getCurrentPose().getX()) < IS_AT_POINT) {
+      if (Math.abs(m_pointControl.getTarget().getY() - swerve.getCurrentPose().getY()) < IS_AT_POINT) {
+        swerve.setDrivingToPoint(false);
+        swerve.setAtPoint(true);
       }
     }
   }

@@ -56,8 +56,8 @@ public class Swerve extends CommandSwerveDrivetrain {
    */
   private boolean isAligned = false;
 
-  public boolean m_isDrivingToPoint = false;
-  public boolean m_isAtPoint = false;
+  private boolean m_drivingToPoint = false;
+  private boolean m_atPoint = false;
 
   private Telemetry m_telemetry = new Telemetry(MAX_SPEED);
 
@@ -234,6 +234,22 @@ public class Swerve extends CommandSwerveDrivetrain {
    */
   public void setIsAligned(boolean value) {
     isAligned = value;
+  }
+
+  public boolean getDrivingToPoint() {
+    return m_drivingToPoint;
+  }
+
+  public void setDrivingToPoint(boolean value) {
+    m_drivingToPoint = value;
+  }
+
+  public boolean getAtPoint() {
+    return m_atPoint;
+  }
+
+  public void setAtPoint(boolean value) {
+    m_atPoint = value;
   }
 
   public Command swerveDefaultCommand(CommandXboxController controller) {

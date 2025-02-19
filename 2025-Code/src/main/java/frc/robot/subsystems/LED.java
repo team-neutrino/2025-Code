@@ -46,32 +46,28 @@ public class LED extends SubsystemBase {
     if (DriverStation.isAutonomousEnabled()) {
       color_pub.set("cyan");
     } else if (DriverStation.isTeleopEnabled()) {
+      setDriveToPointColor();
       if (coral.debouncedHasCoral()) {
         setToGamePieceColor();
         return;
-      } else {
+      }
     }
   }
 
-  public void setCommandState(States p_state) {
-    m_state = p_state;
-  }
-
-  public States getCommandState() {
-    return m_state;
-  }
-
-  @Override
-  public void periodic() {
-    if (Subsystem.swerve.m_isDrivingToPoint) {
+  public void setDriveToPointColor() {
+    if (Subsystem.swerve.getDrivingToPoint()) {
       color_pub.set("red");
-      state_pub.set("solid");
-    } else if (Subsystem.swerve.m_isAtPoint) {
+    } else if (Subsystem.swerve.getAtPoint()) {
       color_pub.set("green");
-      state_pub.set("solid");
     } else {
       color_pub.set("orange");
       state_pub.set("solid");
     }
+    state_pub.set("solid");
+  }
+
+  @Override
+  public void periodic() {
+
   }
 }
