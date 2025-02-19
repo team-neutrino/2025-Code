@@ -50,7 +50,7 @@ public class RobotContainer {
     m_driverController.b()
         .whileTrue(new DriveToPointCommand(m_driverController));
 
-    m_driverController.leftStick().toggleOnTrue(new DriveAssistCom(m_driverController));
+    m_driverController.leftBumper().whileTrue(new DriveAssistCom(m_driverController));
     m_driverController.back().whileTrue(swerve.resetYawCommand());
 
     // buttons controller
