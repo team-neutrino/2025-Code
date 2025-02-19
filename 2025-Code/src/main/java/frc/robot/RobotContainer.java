@@ -50,12 +50,12 @@ public class RobotContainer {
     m_driverController.b()
         .whileTrue(new DriveToPointCommand(m_driverController));
 
-    m_driverController.leftStick().toggleOnTrue(new DriveAssistCom(m_driverController));
+    m_driverController.leftBumper().whileTrue(new DriveAssistCom(m_driverController));
     m_driverController.back().whileTrue(swerve.resetYawCommand());
 
     // buttons controller
-    m_buttonsController.y().whileTrue(SuperstructureFactory.scoreL1(m_buttonsController));
-    m_buttonsController.x().whileTrue(SuperstructureFactory.scoreL2(m_buttonsController));
+    m_buttonsController.x().whileTrue(SuperstructureFactory.scoreL1(m_buttonsController));
+    m_buttonsController.y().whileTrue(SuperstructureFactory.scoreL2(m_buttonsController));
     m_buttonsController.b().whileTrue(SuperstructureFactory.scoreL3(m_buttonsController));
     m_buttonsController.a().whileTrue(SuperstructureFactory.scoreL4(m_buttonsController));
 
