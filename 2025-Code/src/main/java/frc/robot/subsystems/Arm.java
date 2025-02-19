@@ -171,6 +171,10 @@ public class Arm extends SubsystemBase {
 
   }
 
+  public boolean willHitElevator(double angle) {
+    return angle > 180 && getAngle() < 180 || angle < 180 && getAngle() > 180;
+  }
+
   @Override
   public void periodic() {
     adjustArm(safeAngle(m_targetAngle));
