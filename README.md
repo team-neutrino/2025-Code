@@ -94,7 +94,7 @@
 | X          | Score Coral L1 |
 | B          | Score Coral L3 |
 | A          | Score Coral L4 |
-| LT         | Intake Coral   |
+| LT         |                |
 | LB         | Intake Coral   |
 | RT         |                |
 | RB         |                |
