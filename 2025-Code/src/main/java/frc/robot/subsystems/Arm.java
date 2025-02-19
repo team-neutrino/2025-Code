@@ -151,6 +151,9 @@ public class Arm extends SubsystemBase {
         PersistMode.kPersistParameters);
   }
 
+  /**
+   * 180 in the middle, lower on the scoring side and higher on the intake side
+   */
   private double safeAngle(double targetAngle) {
     double safeAngle = targetAngle;
     if (targetAngle > ALMOST_FRONT_LIMIT && targetAngle <= 180
@@ -159,6 +162,10 @@ public class Arm extends SubsystemBase {
     } else if (targetAngle < ALMOST_BACK_LIMIT && targetAngle > 180
         && Subsystem.elevator.getEncoderPosition() < ElevatorConstants.STAGE_ONE_UP) {
       safeAngle = ALMOST_BACK_LIMIT;
+    } else if (targetAngle > 180 && getAngle() < 180) { // check if it will hit elevator
+      safeAngle = WAIT_FOR_ELEVATOR_INTAKE;
+    } else if (targetAngle < 180 && getAngle() > 180) {
+      safeAngle = WAIT_FOR_ELEVATOR_SCORING;
     }
     return safeAngle;
 

@@ -106,6 +106,8 @@ public final class Constants {
     public static final double REEF_L2_DESCORE_POSITION = 0.0;
     public static final double REEF_L3_DESCORE_POSITION = 0.0;
     public static final double ANGLE_TOLERANCE = 0.5;
+    public static final double WAIT_FOR_ELEVATOR_SCORING = 170;
+    public static final double WAIT_FOR_ELEVATOR_INTAKE = 190;
 
     public static final double HITTING_LOW_HARD_LIMIT = 90;
     public static final double HITTING_HIGH_HARD_LIMIT = 270;
