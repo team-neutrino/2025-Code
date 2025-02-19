@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj.DriverStation;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
+import frc.robot.Constants;
+import frc.robot.Constants.LEDConstants;
+import frc.robot.Constants.LEDConstants.States;
 import frc.robot.util.Subsystem;
 
 public class LED extends SubsystemBase {
@@ -43,17 +46,28 @@ public class LED extends SubsystemBase {
     if (DriverStation.isAutonomousEnabled()) {
       color_pub.set("cyan");
     } else if (DriverStation.isTeleopEnabled()) {
+      setDriveToPointColor();
       if (coral.debouncedHasCoral()) {
         setToGamePieceColor();
         return;
-      } else {
-        color_pub.set("orange");
-        state_pub.set("solid");
       }
     }
   }
 
+  public void setDriveToPointColor() {
+    if (Subsystem.swerve.isDrivingToPoint()) {
+      color_pub.set("red");
+    } else if (Subsystem.swerve.isAtPoint()) {
+      color_pub.set("green");
+    } else {
+      color_pub.set("orange");
+      state_pub.set("solid");
+    }
+    state_pub.set("solid");
+  }
+
   @Override
   public void periodic() {
+
   }
 }

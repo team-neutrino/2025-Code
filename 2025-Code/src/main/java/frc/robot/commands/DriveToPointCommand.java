@@ -7,12 +7,14 @@ package frc.robot.commands;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Constants;
 import frc.robot.subsystems.Swerve.SwerveRequestStash;
 import frc.robot.util.DriveToPointController;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.Constants.DriveToPoint.*;
 import static frc.robot.Constants.GlobalConstants.*;
+import static frc.robot.Constants.SwerveConstants.AT_POINT_TOLERANCE;
 import static frc.robot.util.Subsystem.swerve;
 
 import java.util.List;
@@ -31,6 +33,7 @@ public class DriveToPointCommand extends Command {
 
   @Override
   public void initialize() {
+    swerve.setDrivingToPoint(true);
     if (!redAlliance.isPresent()) {
       System.out.println("NO ALLIANCE VALUE YET");
       return;
@@ -52,11 +55,13 @@ public class DriveToPointCommand extends Command {
 
     checkBumpers();
     drive();
+    isAtPoint();
   }
 
   @Override
   public void end(boolean interrupted) {
-
+    swerve.setDrivingToPoint(false);
+    swerve.setAtPoint(false);
   }
 
   @Override
@@ -72,6 +77,14 @@ public class DriveToPointCommand extends Command {
       m_pointControl.setTargetNearest(m_reefPoses);
     } else {
       m_pointControl.setTargetNearest(m_coralStationPoses);
+    }
+  }
+
+  public void isAtPoint() {
+    if (Math.abs(m_pointControl.getTarget().getX() - swerve.getCurrentPose().getX()) < AT_POINT_TOLERANCE
+        && (Math.abs(m_pointControl.getTarget().getY() - swerve.getCurrentPose().getY()) < AT_POINT_TOLERANCE)) {
+      swerve.setDrivingToPoint(false);
+      swerve.setAtPoint(true);
     }
   }
 

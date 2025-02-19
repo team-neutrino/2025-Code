@@ -27,6 +27,7 @@ amount = 0
 white = (255, 255, 255)
 red = (255, 0, 0)
 orange = (255, 80, 0)
+yellow = (255, 255, 0)
 green = (0, 255, 0)
 black = (0, 0, 0)
 cyan = (0, 255, 255)
@@ -87,6 +88,8 @@ def valueColorChanged(table, key, value, isNew):
         setTargetColor(red)
     if value == "orange":
         setTargetColor(orange)
+    if value == "yellow":
+        setTargetColor(yellow)
     if value == "green":
         setTargetColor(green)
     if value == "black":

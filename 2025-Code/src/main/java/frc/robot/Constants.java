@@ -60,6 +60,7 @@ public final class Constants {
     public static final double REEF_OFFSET = Units.inchesToMeters(12.94) / 2;
     public static final double isAlignedError = 0;
     public static final double DRIVE_TO_POINT_P = 2;
+    public static final double AT_POINT_TOLERANCE = 0.05;
   }
 
   public static class ElevatorConstants {
@@ -194,7 +195,11 @@ public final class Constants {
   }
 
   public static class LEDConstants {
-
+    public enum States {
+      DEFAULT,
+      LOCKCLIMB,
+      CLIMBING
+    }
   }
 
   public static class AprilTagConstants {

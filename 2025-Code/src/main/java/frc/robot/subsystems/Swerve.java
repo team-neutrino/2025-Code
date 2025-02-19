@@ -12,6 +12,7 @@ import com.pathplanner.lib.config.ModuleConfig;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.reduxrobotics.canand.CanandDeviceDetails.Enums.SettingCommand;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -34,6 +35,8 @@ import java.io.IOException;
 import org.json.simple.parser.ParseException;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.util.DriveToPointController;
+import static frc.robot.util.Subsystem.LED;
+import frc.robot.Constants.LEDConstants.States;
 import frc.robot.util.Subsystem;
 import frc.robot.util.GeneratedSwerveCode.*;
 
@@ -52,6 +55,9 @@ public class Swerve extends CommandSwerveDrivetrain {
    * acceptable error of its target
    */
   private boolean isAligned = false;
+
+  private boolean m_drivingToPoint = false;
+  private boolean m_atPoint = false;
 
   private Telemetry m_telemetry = new Telemetry(MAX_SPEED);
 
@@ -228,6 +234,22 @@ public class Swerve extends CommandSwerveDrivetrain {
    */
   public void setIsAligned(boolean value) {
     isAligned = value;
+  }
+
+  public boolean isDrivingToPoint() {
+    return m_drivingToPoint;
+  }
+
+  public void setDrivingToPoint(boolean value) {
+    m_drivingToPoint = value;
+  }
+
+  public boolean isAtPoint() {
+    return m_atPoint;
+  }
+
+  public void setAtPoint(boolean value) {
+    m_atPoint = value;
   }
 
   public Command swerveDefaultCommand(CommandXboxController controller) {
