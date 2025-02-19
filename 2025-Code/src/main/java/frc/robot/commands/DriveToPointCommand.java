@@ -14,7 +14,7 @@ import frc.robot.util.Subsystem;
 
 import static frc.robot.Constants.DriveToPoint.*;
 import static frc.robot.Constants.GlobalConstants.*;
-import static frc.robot.Constants.SwerveConstants.IS_AT_POINT;
+import static frc.robot.Constants.SwerveConstants.AT_POINT_TOLERANCE;
 import static frc.robot.util.Subsystem.swerve;
 
 import java.util.List;
@@ -81,8 +81,8 @@ public class DriveToPointCommand extends Command {
   }
 
   public void isAtPoint() {
-    if (Math.abs(m_pointControl.getTarget().getX() - swerve.getCurrentPose().getX()) < IS_AT_POINT) {
-      if (Math.abs(m_pointControl.getTarget().getY() - swerve.getCurrentPose().getY()) < IS_AT_POINT) {
+    if (Math.abs(m_pointControl.getTarget().getX() - swerve.getCurrentPose().getX()) < AT_POINT_TOLERANCE) {
+      if (Math.abs(m_pointControl.getTarget().getY() - swerve.getCurrentPose().getY()) < AT_POINT_TOLERANCE) {
         swerve.setDrivingToPoint(false);
         swerve.setAtPoint(true);
       }
