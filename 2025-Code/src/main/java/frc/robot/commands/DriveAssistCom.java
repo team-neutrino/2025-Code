@@ -83,7 +83,7 @@ public class DriveAssistCom extends Command {
    */
   private Translation2d getFieldRelativeDistances() {
     // int id = m_staticTagID;
-    int id = 6;
+    int id = 9;
     double idealYaw = swerve.getYawDegrees() - limelight.getTx();
     double limelightTagToRobot = limelight.getDistanceFromPrimaryTarget();
 
@@ -113,7 +113,7 @@ public class DriveAssistCom extends Command {
     double magnitude = 0;
     double desiredMagnitude = 0;
     // int id = m_staticTagID;
-    int id = 11;
+    int id = 7;
     Translation2d finalVelocities = null;
     double inputX = m_controller.getLeftY();
     double inputY = m_controller.getLeftX();
@@ -125,13 +125,16 @@ public class DriveAssistCom extends Command {
     double desiredY = 0;
     if (m_controller.getLeftX() == 0 && m_controller.getLeftY() == 0) {
       return new Translation2d(0, 0);
-    } else if (id == 7 || id == 10 || id == 18 || id == 21) {
-      finalVelocities = new Translation2d(inputX, 0);
+    } else if (id == 10 || id == 18) {
+      return new Translation2d(inputX, 0);
+    } else if (id == 7 || id == 21) {
+      return new Translation2d(-inputX, 0);
     }
     // else if (0 < inputAngle || inputAngle < 60) {
     switch (id) {
       case 6:
         quadrantOffset = 120;
+        secondOffset = 150;
         break;
       case 8:
         quadrantOffset = 60;
@@ -139,22 +142,27 @@ public class DriveAssistCom extends Command {
         break;
       case 9:
         quadrantOffset = 300;
+        secondOffset = 150;
         break;
       case 11:
         quadrantOffset = 240;
         secondOffset = 30;
         break;
       case 17:
-        quadrantOffset = 240;
+        quadrantOffset = 60;
+        secondOffset = 30;
         break;
       case 19:
         quadrantOffset = 120;
+        secondOffset = 150;
         break;
       case 20:
-        quadrantOffset = 60;
+        quadrantOffset = 240;
+        secondOffset = 30;
         break;
       case 22:
         quadrantOffset = 300;
+        secondOffset = 150;
         break;
     }
     magnitude = Math.sqrt(Math.pow(inputX, 2) + Math.pow(inputY, 2));
@@ -163,7 +171,11 @@ public class DriveAssistCom extends Command {
     desiredY = desiredMagnitude * (Math.sin(Math.toRadians(quadrantOffset)));
     finalVelocities = new Translation2d(desiredX, desiredY);
     System.out.println(inputAngle);
-    System.out.println(Math.toDegrees(Math.atan2(desiredX, desiredY)));
+    double desiredAngle = Math.toDegrees(Math.atan2(desiredX, desiredY));
+    if (desiredAngle < 0) {
+      desiredAngle += 360;
+    }
+    System.out.println(desiredAngle);
     // }
     // if (finalVelocities == null) {
     // return new Translation2d(0, 0);
