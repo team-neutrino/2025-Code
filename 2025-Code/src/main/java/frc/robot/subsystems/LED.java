@@ -37,10 +37,9 @@ public class LED extends SubsystemBase {
     if (DriverStation.isAutonomousEnabled()) {
       color_pub.set("cyan");
     } else if (DriverStation.isTeleopEnabled()) {
-      setDriveToPointColor();
+      setActionColor();
       if (coral.debouncedHasCoral()) {
         setToGamePieceColor();
-        return;
       }
     } else {
       color_pub.set("orange");
@@ -48,8 +47,12 @@ public class LED extends SubsystemBase {
     }
   }
 
-  public void setDriveToPointColor() {
-    if (Subsystem.swerve.isDrivingToPoint()) {
+  public void setActionColor() {
+    if (Subsystem.arm.isAtTarget()) {
+      color_pub.set("pink");
+    } else if (Subsystem.arm.goingToTarget()) {
+      color_pub.set("purple");
+    } else if (Subsystem.swerve.isDrivingToPoint()) {
       color_pub.set("red");
     } else if (Subsystem.swerve.isAtPoint()) {
       color_pub.set("green");
@@ -61,12 +64,5 @@ public class LED extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if (Subsystem.arm.getAngularVelocity() > 1) {
-      color_pub.set("pink");
-      state_pub.set("solid");
-    } else if (Subsystem.arm.readyToScore()) {
-      color_pub.set("purple");
-      state_pub.set("solid");
-    }
   }
 }

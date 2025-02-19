@@ -34,6 +34,8 @@ public class Arm extends SubsystemBase {
   public ClosedLoopConfigAccessor m_pidAccessor;
   private double m_targetAngle = STARTING_POSITION;
   private double m_FFConstant = FFCONSTANT;
+  private boolean m_isAtTarget = false;
+  private boolean m_isGoingToTarget = false;
 
   public Arm() {
     initializeMotorControllers();
@@ -62,13 +64,37 @@ public class Arm extends SubsystemBase {
   }
 
   private boolean atTargetAngle() {
+    setAtTarget(true);
     return Math.abs(getAngle() - m_targetAngle) <= ANGLE_TOLERANCE;
+  }
+
+  public boolean isAtTarget() {
+    return m_isAtTarget;
+  }
+
+  public void setAtTarget(boolean value) {
+    m_isAtTarget = value;
+  }
+
+  public boolean goingToTarget() {
+    return m_isGoingToTarget;
+  }
+
+  public void setGoingToTarget(boolean value) {
+    m_isGoingToTarget = value;
   }
 
   public boolean readyToScore() {
     return atTargetAngle() && !(m_targetAngle == STARTING_POSITION || m_targetAngle == DEFAULT_POSITION
         || m_targetAngle == DEFAULT_BACK_POSITION
         || m_targetAngle == CORAL_STATION_POSITION);
+  }
+
+  public void movingToTarget() {
+    if (Subsystem.arm.getAngularVelocity() > 1) {
+      setAtTarget(false);
+      setGoingToTarget(true);
+    }
   }
 
   /**

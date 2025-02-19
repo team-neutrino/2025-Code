@@ -98,6 +98,10 @@ def valueColorChanged(table, key, value, isNew):
         setTargetColor(cyan)
     if value =="turquoise":
         setTargetColor(turquoise)
+    if value == "pink":
+        setTargetColor(pink)
+    if value == "purple":
+        setTargetColor(purple)
     for t in range(19,0,-1):
         for i in range(t, t + 19):
             if value == "rainbow":
