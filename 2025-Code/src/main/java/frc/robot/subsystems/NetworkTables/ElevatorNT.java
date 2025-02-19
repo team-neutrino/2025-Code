@@ -29,8 +29,8 @@ public class ElevatorNT extends Elevator {
     private double m_previousD = ElevatorConstants.D_VAL;
     private FFTuner m_FFTuner1;
     private FFTuner m_FFTuner2;
-    private double m_previousFF1 = ElevatorConstants.STAGE_1_FF_VAL;
-    private double m_previousFF2 = ElevatorConstants.STAGE_2_FF_VAL;
+    private double m_previousFF1 = ElevatorConstants.STAGE_1_FF;
+    private double m_previousFF2 = ElevatorConstants.STAGE_2_FF;
     private MaxMotionTuner m_MaxMotionTuner;
     private double m_previousMaxVelocity = ElevatorConstants.MAX_VELOCITY;
     private double m_previousMaxAcceleration = ElevatorConstants.MAX_ACCELERATION;
@@ -72,10 +72,10 @@ public class ElevatorNT extends Elevator {
     public void periodic() {
         super.periodic();
         final long now = NetworkTablesJNI.now();
-        encoderVelocityPub.set(getEncoderVelocity(), now);
-        encoderPositionPub.set(getEncoderPosition(), now);
-        targetPositionPub.set(getTargetPosition(), now);
-        lowLimitPub.set(isLowPosition(), now);
+        encoderVelocityPub.set(getVelocity(), now);
+        encoderPositionPub.set(getHeight(), now);
+        targetPositionPub.set(getTargetHeight(), now);
+        lowLimitPub.set(isAtBottom(), now);
 
         if (m_PIDTuner.isDifferentValues(m_previousP, m_previousI, m_previousD)) {
             changePID(m_PIDTuner.getP(), m_PIDTuner.getI(), m_PIDTuner.getD());

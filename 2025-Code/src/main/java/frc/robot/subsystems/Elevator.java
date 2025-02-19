@@ -4,9 +4,7 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.spark.SparkBase.ControlType;
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.SparkBase.*;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkClosedLoopController;
@@ -24,29 +22,27 @@ import frc.robot.util.Subsystem;
 import static frc.robot.Constants.ElevatorConstants.*;
 
 import static frc.robot.Constants.ArmConstants.CORAL_STATION_POSITION;
-import static frc.robot.Constants.ConfigSignals.*;
+import static frc.robot.Constants.CANRateConstants.*;
 
 public class Elevator extends SubsystemBase {
-  private SparkFlex m_motor1 = new SparkFlex(MOTOR1_ID, MotorType.kBrushless);
-  private SparkFlex m_motor2 = new SparkFlex(MOTOR2_ID,
-      MotorType.kBrushless);
-  private RelativeEncoder m_encoder = m_motor1.getEncoder();
-  private SparkLimitSwitch m_lowLimit = m_motor1.getReverseLimitSwitch();
-  private SparkClosedLoopController m_pid = m_motor1.getClosedLoopController();
+  private SparkFlex m_motor = new SparkFlex(MOTOR_ID, MotorType.kBrushless);
+  private SparkFlex m_follower = new SparkFlex(FOLLOWER_ID, MotorType.kBrushless);
+  private RelativeEncoder m_encoder = m_motor.getEncoder();
+  private SparkLimitSwitch m_lowLimit = m_motor.getReverseLimitSwitch();
+  private SparkClosedLoopController m_pid = m_motor.getClosedLoopController();
   private SparkFlexConfig m_config = new SparkFlexConfig();
   private SparkFlexConfig m_followerConfig = new SparkFlexConfig();
 
-  private double m_target = 0.0;
-  private double m_FFConstant1 = STAGE_1_FF_VAL;
-  private double m_FFConstant2 = STAGE_2_FF_VAL;
+  private double m_targetHeight = BOTTOM_POSITION;
+  private double m_FFStage1 = STAGE_1_FF;
+  private double m_FFStage2 = STAGE_2_FF;
 
   public Elevator() {
     m_config
         .inverted(true)
         .idleMode(IdleMode.kBrake);
     m_config.encoder
-        .positionConversionFactor(
-            (1))
+        .positionConversionFactor((1))
         .velocityConversionFactor(1);
     m_config.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
@@ -60,40 +56,37 @@ public class Elevator extends SubsystemBase {
         .analogPositionAlwaysOn(false)
         .analogVelocityAlwaysOn(false)
         .analogVoltageAlwaysOn(false)
-        .appliedOutputPeriodMs(Period_MS_Fast)
-        .busVoltagePeriodMs(Period_MS_Fast)
+        .appliedOutputPeriodMs(FASTEST_5MS)
+        .busVoltagePeriodMs(FASTEST_5MS)
         .externalOrAltEncoderPositionAlwaysOn(false)
         .externalOrAltEncoderVelocityAlwaysOn(false)
-        .limitsPeriodMs(Period_MS_Fast)
-        .motorTemperaturePeriodMs(Period_MS_Fast)
-        .outputCurrentPeriodMs(Period_MS_Fast)
-        .primaryEncoderPositionPeriodMs(Period_MS_Slow)
-        .primaryEncoderVelocityPeriodMs(Period_MS_Slow);
+        .limitsPeriodMs(FASTEST_5MS)
+        .motorTemperaturePeriodMs(FASTEST_5MS)
+        .outputCurrentPeriodMs(FASTEST_5MS)
+        .primaryEncoderPositionPeriodMs(FAST_10MS)
+        .primaryEncoderVelocityPeriodMs(FAST_10MS);
     m_followerConfig.signals.absoluteEncoderPositionAlwaysOn(false)
         .absoluteEncoderVelocityAlwaysOn(false)
         .analogPositionAlwaysOn(false)
         .analogVelocityAlwaysOn(false)
         .analogVoltageAlwaysOn(false)
-        .appliedOutputPeriodMs(Period_MS_Fast)
-        .busVoltagePeriodMs(Period_MS_Fast)
+        .appliedOutputPeriodMs(FASTEST_5MS)
+        .busVoltagePeriodMs(FASTEST_5MS)
         .externalOrAltEncoderPositionAlwaysOn(false)
         .externalOrAltEncoderVelocityAlwaysOn(false)
-        .limitsPeriodMs(Period_MS_Fast)
-        .motorTemperaturePeriodMs(Period_MS_Fast)
-        .outputCurrentPeriodMs(Period_MS_Fast)
-        .primaryEncoderPositionPeriodMs(Period_MS_Slow)
-        .primaryEncoderVelocityPeriodMs(Period_MS_Slow);
+        .limitsPeriodMs(FASTEST_5MS)
+        .motorTemperaturePeriodMs(FASTEST_5MS)
+        .outputCurrentPeriodMs(FASTEST_5MS)
+        .primaryEncoderPositionPeriodMs(FAST_10MS)
+        .primaryEncoderVelocityPeriodMs(FAST_10MS);
     m_config.smartCurrentLimit(CURRENT_LIMIT);
-    m_motor1.configure(m_config, ResetMode.kResetSafeParameters,
-        PersistMode.kPersistParameters);
+    m_motor.configure(m_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
-    m_followerConfig.follow(MOTOR1_ID, true);
-    m_followerConfig
-        .idleMode(IdleMode.kBrake);
+    m_followerConfig.follow(MOTOR_ID, true);
+    m_followerConfig.idleMode(IdleMode.kBrake);
     m_followerConfig.smartCurrentLimit(CURRENT_LIMIT);
-    m_motor2.configure(m_followerConfig, ResetMode.kResetSafeParameters,
+    m_follower.configure(m_followerConfig, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
-
   }
 
   private void adjustElevator(double target) {
@@ -102,9 +95,9 @@ public class Elevator extends SubsystemBase {
 
   private double feedForwardCalculation() {
     if (m_encoder.getPosition() < STAGE_ONE_UP) {
-      return m_FFConstant1;
+      return m_FFStage1;
     } else {
-      return m_FFConstant2;
+      return m_FFStage2;
     }
   }
 
@@ -112,28 +105,28 @@ public class Elevator extends SubsystemBase {
     m_encoder.setPosition(position);
   }
 
-  public double getEncoderVelocity() {
+  public double getVelocity() {
     return m_encoder.getVelocity();
   }
 
-  public double getEncoderPosition() {
+  public double getHeight() {
     return m_encoder.getPosition();
   }
 
-  public double getTargetPosition() {
-    return m_target;
+  public double getTargetHeight() {
+    return m_targetHeight;
   }
 
-  public boolean isLowPosition() {
+  public boolean isAtBottom() {
     return m_lowLimit.isPressed();
   }
 
-  public boolean elevatorReady() {
-    if (m_target == DEFAULT || m_target == CORAL_STATION_POSITION) {
-      return false;
-    } else {
-      return getEncoderPosition() >= m_target - 0.2;
-    }
+  private boolean atTargetHeight() {
+    return Math.abs(getHeight() - m_targetHeight) <= HEIGHT_TOLERANCE;
+  }
+
+  public boolean readyToScore() {
+    return atTargetHeight() && !(m_targetHeight == DEFAULT || m_targetHeight == CORAL_STATION_POSITION);
   }
 
   private double safeHeight(double targetHeight) {
@@ -144,44 +137,44 @@ public class Elevator extends SubsystemBase {
     return safeTarget;
   }
 
-  public Command elevatorDefaultCommand() {
-    return run(() -> m_target = DEFAULT);
-  }
-
-  public Command moveElevatorCommand(double height) {
-    return run(() -> m_target = height);
-  }
-
   public void changePID(double p, double i, double d) {
     m_config.closedLoop.pid(p, i, d);
-    m_motor1.configure(m_config, ResetMode.kResetSafeParameters,
+    m_motor.configure(m_config, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
   }
 
   public void changeFF1(double newFF) {
-    m_FFConstant1 = newFF;
+    m_FFStage1 = newFF;
   }
 
   public void changeFF2(double newFF) {
-    m_FFConstant2 = newFF;
+    m_FFStage2 = newFF;
   }
 
   public void changeMaxMotion(double mv, double ma, double ae) {
     m_config.closedLoop.maxMotion.maxVelocity(mv).maxAcceleration(ma).allowedClosedLoopError(ae);
-    m_motor1.configure(m_config, ResetMode.kResetSafeParameters,
+    m_motor.configure(m_config, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
   }
 
   @Override
   public void periodic() {
-    adjustElevator(safeHeight(m_target));
-    if (isLowPosition()) {
-      resetEncoder(LOW_POSITION);
+    adjustElevator(safeHeight(m_targetHeight));
+    if (isAtBottom()) {
+      resetEncoder(BOTTOM_POSITION);
     }
   }
 
   @Override
   public void simulationPeriodic() {
 
+  }
+
+  public Command elevatorDefaultCommand() {
+    return run(() -> m_targetHeight = DEFAULT);
+  }
+
+  public Command moveElevatorCommand(double height) {
+    return run(() -> m_targetHeight = height);
   }
 }
