@@ -81,8 +81,7 @@ public class DriveAssistCom extends Command {
    *         y and up is positive x).
    */
   private Translation2d getFieldRelativeDistances() {
-    // int id = m_staticTagID;
-    int id = 9;
+    int id = m_staticTagID;
     double idealYaw = swerve.getYawDegrees() - limelight.getTx();
     double limelightTagToRobot = limelight.getDistanceFromPrimaryTarget();
 
@@ -112,7 +111,7 @@ public class DriveAssistCom extends Command {
     double magnitude = 0;
     double desiredMagnitude = 0;
     int id = m_staticTagID;
-    Translation2d finalVelocities = null;
+    Translation2d finalVelocities = new Translation2d(0, 0);
     double inputX = m_controller.getLeftY();
     double inputY = m_controller.getLeftX();
     double inputAngle = Math.toDegrees(Math.atan2(inputX, inputY));
