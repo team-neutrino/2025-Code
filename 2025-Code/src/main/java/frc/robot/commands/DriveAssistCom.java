@@ -51,10 +51,10 @@ public class DriveAssistCom extends Command {
     Translation2d updatedDriverVel = getNewDriveVelocity();
     swerve.setIsAligned(isAligned());
     Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() - limelight.getTx());
-    swerve.setControl(req.withVelocityX((velocities.getX() +
-        updatedDriverVel.getX() * MAX_SPEED) / 2)
-        .withVelocityY((velocities.getY() + updatedDriverVel.getY() * MAX_SPEED) /
-            2)
+    swerve.setControl(req.withVelocityX((-velocities.getX() * 2) +
+        (-updatedDriverVel.getX() * MAX_SPEED) / 4)
+        .withVelocityY(((-velocities.getY() * 2) + -updatedDriverVel.getY() * 2) /
+            4)
         .withTargetDirection(angle));
   }
 
