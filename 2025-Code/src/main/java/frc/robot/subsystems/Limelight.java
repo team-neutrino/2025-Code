@@ -175,14 +175,9 @@ public class Limelight extends SubsystemBase {
     LimelightHelpers.setPipelineIndex(LIMELIGHT_1, id);
   }
 
-  private void updateOdometry() {
+  private void updateOdometryLL1() {
     LimelightHelpers.PoseEstimate limePoseEst1 = LimelightHelpers
         .getBotPoseEstimate_wpiBlue_MegaTag2(LIMELIGHT_1);
-    LimelightHelpers.PoseEstimate limePoseEst2 = LimelightHelpers
-        .getBotPoseEstimate_wpiBlue_MegaTag2(LIMELIGHT_2);
-
-    m_swerve.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
-
     double frame1 = getFrame(LIMELIGHT_1);
     if (limePoseEst1 != null && limePoseEst1.tagCount != 0
         && m_swerve.getState().Speeds.omegaRadiansPerSecond < 4 * Math.PI
@@ -190,7 +185,11 @@ public class Limelight extends SubsystemBase {
       m_swerve.addVisionMeasurement(limePoseEst1.pose, limePoseEst1.timestampSeconds);
     }
     m_lastFrame1 = frame1;
+  }
 
+  private void updateOdometryLL2() {
+    LimelightHelpers.PoseEstimate limePoseEst2 = LimelightHelpers
+        .getBotPoseEstimate_wpiBlue_MegaTag2(LIMELIGHT_2);
     double frame2 = getFrame(LIMELIGHT_2);
     if (limePoseEst2 != null && limePoseEst2.tagCount != 0
         && m_swerve.getState().Speeds.omegaRadiansPerSecond < 4 * Math.PI
@@ -198,6 +197,25 @@ public class Limelight extends SubsystemBase {
       m_swerve.addVisionMeasurement(limePoseEst2.pose, limePoseEst2.timestampSeconds);
     }
     m_lastFrame2 = frame2;
+  }
+
+  private void updateOdometry() {
+    m_swerve.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
+    int tagCt1 = LimelightHelpers.getRawFiducials(LIMELIGHT_1).length;
+    int tagCt2 = LimelightHelpers.getRawFiducials(LIMELIGHT_2).length;
+    if (tagCt1 + tagCt2 < 2) {
+      if (tagCt1 > 0) {
+        updateOdometryLL1();
+      } else {
+        updateOdometryLL2();
+      }
+      return;
+    }
+    if (Subsystem.coral.hasCoral()) {
+      updateOdometryLL1();
+    } else {
+      updateOdometryLL2();
+    }
   }
 
   private double getFrame(String limelight) {
