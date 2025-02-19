@@ -90,8 +90,8 @@
 ## Buttons Controller
 | Button     | Function       |
 | ---------- | -------------- |
-| Y          | Score Coral L1 |
-| X          | Score Coral L2 |
+| Y          | Score Coral L2 |
+| X          | Score Coral L1 |
 | B          | Score Coral L3 |
 | A          | Score Coral L4 |
 | LT         | Intake Coral   |
@@ -113,12 +113,12 @@
 | ---------- | --------------- |
 | Y          | Raise Climb Arm |
 | X          | Lock            |
-| B          | Unlock          |
+| B          | Drive To Point  |
 | A          | Lower Climb Arm |
 | LT         |                 |
-| LB         | Reset Climb Arm |
+| LB         | Driver Assist   |
 | RT         | Slow swerve     |
-| RB         | Reset Lock      |
+| RB         |                 |
 | DU         |                 |
 | DD         |                 |
 | DL         |                 |
