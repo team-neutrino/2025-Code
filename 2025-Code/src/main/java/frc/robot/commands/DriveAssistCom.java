@@ -38,8 +38,7 @@ public class DriveAssistCom extends Command {
 
   @Override
   public void execute() {
-    // if (!limelight.getTv() || exitExecute()) {
-    if (false) {
+    if (!limelight.getTv() || exitExecute()) {
       swerve.setControl(req.withVelocityX(0)
           .withVelocityY(0));
       return;
@@ -112,8 +111,7 @@ public class DriveAssistCom extends Command {
     double secondOffset = 0;
     double magnitude = 0;
     double desiredMagnitude = 0;
-    // int id = m_staticTagID;
-    int id = 7;
+    int id = m_staticTagID;
     Translation2d finalVelocities = null;
     double inputX = m_controller.getLeftY();
     double inputY = m_controller.getLeftX();
@@ -170,16 +168,6 @@ public class DriveAssistCom extends Command {
     desiredX = desiredMagnitude * (Math.cos(Math.toRadians(quadrantOffset)));
     desiredY = desiredMagnitude * (Math.sin(Math.toRadians(quadrantOffset)));
     finalVelocities = new Translation2d(desiredX, desiredY);
-    System.out.println(inputAngle);
-    double desiredAngle = Math.toDegrees(Math.atan2(desiredX, desiredY));
-    if (desiredAngle < 0) {
-      desiredAngle += 360;
-    }
-    System.out.println(desiredAngle);
-    // }
-    // if (finalVelocities == null) {
-    // return new Translation2d(0, 0);
-    // }
     return finalVelocities;
   }
 
