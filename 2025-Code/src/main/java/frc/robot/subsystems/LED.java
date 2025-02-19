@@ -61,6 +61,12 @@ public class LED extends SubsystemBase {
 
   @Override
   public void periodic() {
-    setColor();
+    if (Subsystem.arm.getAngularVelocity() > 1) {
+      color_pub.set("pink");
+      state_pub.set("solid");
+    } else if (Subsystem.arm.readyToScore()) {
+      color_pub.set("purple");
+      state_pub.set("solid");
+    }
   }
 }

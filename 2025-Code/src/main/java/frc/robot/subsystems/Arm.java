@@ -173,6 +173,7 @@ public class Arm extends SubsystemBase {
   @Override
   public void periodic() {
     adjustArm(safeAngle(m_targetAngle));
+
   }
 
   /**
