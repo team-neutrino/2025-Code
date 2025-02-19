@@ -23,7 +23,8 @@ public class Limelight extends SubsystemBase {
   private double[] pose = new double[11];
   private double[] targetPose = new double[6];
   private double[] targetPose2 = new double[6];
-  private double m_lastFrame = -2;
+  private double m_lastFrame1 = -2;
+  private double m_lastFrame2 = -2;
 
   /** Creates a new ExampleSubsystem. */
   public Limelight() {
@@ -174,34 +175,33 @@ public class Limelight extends SubsystemBase {
     LimelightHelpers.setPipelineIndex(LIMELIGHT_1, id);
   }
 
-  public boolean updateOdometry() {
-    LimelightHelpers.PoseEstimate limePoseEst = LimelightHelpers
+  private void updateOdometry() {
+    LimelightHelpers.PoseEstimate limePoseEst1 = LimelightHelpers
         .getBotPoseEstimate_wpiBlue_MegaTag2(LIMELIGHT_1);
-    // LimelightHelpers.PoseEstimate limePoseEst2 = LimelightHelpers
-    // .getBotPoseEstimate_wpiBlue_MegaTag2(LIMELIGHT_2);
-
-    if (limePoseEst == null || limePoseEst.tagCount == 0
-        || m_swerve.getState().Speeds.omegaRadiansPerSecond > 4 * Math.PI
-        || getFrame() <= m_lastFrame) {
-      return false;
-    }
-
-    // if (limePoseEst2 == null || limePoseEst2.tagCount == 0
-    // || m_swerve.getState().Speeds.omegaRadiansPerSecond > 4 * Math.PI
-    // || getFrame() <= m_lastFrame) {
-    // return false;
-    // }
+    LimelightHelpers.PoseEstimate limePoseEst2 = LimelightHelpers
+        .getBotPoseEstimate_wpiBlue_MegaTag2(LIMELIGHT_2);
 
     m_swerve.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
-    m_swerve.addVisionMeasurement(limePoseEst.pose, limePoseEst.timestampSeconds);
-    // m_swerve.addVisionMeasurement(limePoseEst2.pose,
-    // limePoseEst2.timestampSeconds);
 
-    return true;
+    double frame1 = getFrame(LIMELIGHT_1);
+    if (limePoseEst1 != null && limePoseEst1.tagCount != 0
+        && m_swerve.getState().Speeds.omegaRadiansPerSecond < 4 * Math.PI
+        && frame1 > m_lastFrame1) {
+      m_swerve.addVisionMeasurement(limePoseEst1.pose, limePoseEst1.timestampSeconds);
+    }
+    m_lastFrame1 = frame1;
+
+    double frame2 = getFrame(LIMELIGHT_2);
+    if (limePoseEst2 != null && limePoseEst2.tagCount != 0
+        && m_swerve.getState().Speeds.omegaRadiansPerSecond < 4 * Math.PI
+        && frame2 > m_lastFrame2) {
+      m_swerve.addVisionMeasurement(limePoseEst2.pose, limePoseEst2.timestampSeconds);
+    }
+    m_lastFrame2 = frame2;
   }
 
-  private double getFrame() {
-    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("hb").getDouble(-1);
+  private double getFrame(String limelight) {
+    return NetworkTableInstance.getDefault().getTable(limelight).getEntry("hb").getDouble(-1);
   }
 
   public Command limelightDefaultCommand() {
@@ -231,6 +231,8 @@ public class Limelight extends SubsystemBase {
     // according to limelight docs, this needs to be called before using
     // .getBotPoseEstimate_wpiBlue_MegaTag2
     LimelightHelpers.SetRobotOrientation(LIMELIGHT_1, Subsystem.swerve.getYawDegrees(), 0,
+        0, 0, 0, 0);
+    LimelightHelpers.SetRobotOrientation(LIMELIGHT_2, Subsystem.swerve.getYawDegrees(), 0,
         0, 0, 0, 0);
     updateOdometry();
   }
