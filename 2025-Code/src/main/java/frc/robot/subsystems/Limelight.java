@@ -218,20 +218,6 @@ public class Limelight extends SubsystemBase {
     } else if (hasPlayerStationTag) {
       updateOdometryLL2();
     }
-
-    // if (tagCt1 + tagCt2 < 2) {
-    // if (tagCt1 > 0) {
-    // updateOdometryLL1();
-    // } else {
-    // updateOdometryLL2();
-    // }
-    // return;
-    // }
-    // if (Subsystem.coral.hasCoral()) {
-    // updateOdometryLL1();
-    // } else {
-    // updateOdometryLL2();
-    // }
   }
 
   private double getFrame(String limelight) {
