@@ -108,9 +108,14 @@ public class DriveToPointCommand extends Command {
     m_pointControl.setTarget(m_reefPoses.get(id));
   }
 
+  private double getAngleFromTag() {
+    double[] target = Subsystem.limelight.getTargetPose();
+    return 0;
+  }
+
   private void drive() {
     SwerveRequestStash.driveWithVelocity.withVelocityX(m_pointControl.getXVelocity())
-        .withVelocityY(m_pointControl.getYVelocity()).withTargetDirection(m_pointControl.getRotation());
+        .withVelocityY(m_pointControl.getYVelocity()).withTargetDirection(Subsystem.limelight.getTargetYawRotation2d());
     swerve.setControl(SwerveRequestStash.driveWithVelocity);
   }
 }
