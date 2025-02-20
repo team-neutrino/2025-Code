@@ -1,5 +1,7 @@
 package frc.robot.subsystems.NetworkTables;
 
+import edu.wpi.first.networktables.BooleanPublisher;
+import edu.wpi.first.networktables.BooleanTopic;
 import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -15,9 +17,11 @@ public class ArmNT extends Arm {
     DoubleTopic encoderPosition = nt.getDoubleTopic("/arm/encoder_position");
     DoubleTopic targetPosition = nt.getDoubleTopic("/arm/target_position");
     DoubleTopic encoderVelocity = nt.getDoubleTopic("/arm/encoder_velocity");
+    BooleanTopic scoreReady = nt.getBooleanTopic("/arm/score_ready");
     final DoublePublisher encoderPositionPub;
     final DoublePublisher targetPositionPub;
     final DoublePublisher encoderVelocityPub;
+    final BooleanPublisher scoreReadyPub;
     private PIDTuner m_PIDTuner;
     private double m_previousP = ArmConstants.kp;
     private double m_previousI = ArmConstants.ki;
@@ -38,6 +42,9 @@ public class ArmNT extends Arm {
 
         encoderVelocityPub = encoderVelocity.publish();
         encoderVelocityPub.setDefault(0.0);
+
+        scoreReadyPub = scoreReady.publish();
+        scoreReadyPub.setDefault(false);
 
         m_PIDTuner = new PIDTuner("arm/{tuning}PIDF");
 
@@ -63,6 +70,7 @@ public class ArmNT extends Arm {
         encoderPositionPub.set(getAngle(), now);
         targetPositionPub.set(getTargetAngle(), now);
         encoderVelocityPub.set(getAngularVelocity(), now);
+        scoreReadyPub.set(readyToScore(), now);
 
         if (m_PIDTuner.isDifferentValues(m_previousP, m_previousI, m_previousD)) {
             changePID(m_PIDTuner.getP(), m_PIDTuner.getI(), m_PIDTuner.getD());
