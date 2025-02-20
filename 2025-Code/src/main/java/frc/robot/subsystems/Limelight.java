@@ -160,7 +160,11 @@ public class Limelight extends SubsystemBase {
   }
 
   public void setPointOfInterest(double x, double y) {
-    LimelightHelpers.setFiducial3DOffset("limelight", x, y, 0);
+    LimelightHelpers.setFiducial3DOffset(LIMELIGHT_1, x, y, 0);
+  }
+
+  public void setPointOfInterestForCamera2(double x, double y) {
+    LimelightHelpers.setFiducial3DOffset(LIMELIGHT_2, x, y, 0);
   }
 
   public void setPriorityID(int id) {
@@ -172,6 +176,10 @@ public class Limelight extends SubsystemBase {
   }
 
   public void setPipelineID(int id) {
+    LimelightHelpers.setPipelineIndex(LIMELIGHT_1, id);
+  }
+
+  public void setPipelineIDForCamera2(int id) {
     LimelightHelpers.setPipelineIndex(LIMELIGHT_1, id);
   }
 
