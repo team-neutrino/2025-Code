@@ -38,24 +38,40 @@ public class DriveAssistCom extends Command {
 
   @Override
   public void execute() {
-    if (!limelight.getTv() || exitExecute()) {
+    System.out.println("running");
+    if (LLHasTarget() == 0 || exitExecute()) {
       swerve.setControl(req.withVelocityX(0)
           .withVelocityY(0));
       return;
     }
     int pov = m_controller.getHID().getPOV();
     m_POIoffset = pov == 270 ? -REEF_OFFSET : pov == 90 ? REEF_OFFSET : m_POIoffset;
-    limelight.setPointOfInterest(0, m_POIoffset);
+    if (LLHasTarget() == 1) {
+      limelight.setPointOfInterest(0, m_POIoffset);
 
-    Translation2d velocities = getVelocities();
-    Translation2d updatedDriverVel = getNewDriveVelocity();
-    swerve.setIsAligned(isAligned());
-    Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() - limelight.getTx());
-    swerve.setControl(req.withVelocityX((-velocities.getX() * 2) +
-        (-updatedDriverVel.getX() * 2) / 4)
-        .withVelocityY(((-velocities.getY() * 2) + -updatedDriverVel.getY() * 2) /
-            4)
-        .withTargetDirection(angle));
+      Translation2d velocities = getVelocities();
+      Translation2d updatedDriverVel = getNewDriveVelocity();
+      swerve.setIsAligned(isAligned());
+      Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() - limelight.getTx());
+      swerve.setControl(req.withVelocityX((-velocities.getX() * 2) +
+          (-updatedDriverVel.getX() * 2) / 2)
+          .withVelocityY(((-velocities.getY() * 2) + -updatedDriverVel.getY() * 2) /
+              2)
+          .withTargetDirection(angle));
+    }
+    if (LLHasTarget() == 2) {
+      limelight.setPointOfInterestForCamera2(0, m_POIoffset);
+
+      Translation2d velocities = getVelocities();
+      Translation2d updatedDriverVel = getNewDriveVelocity();
+      swerve.setIsAligned(isAligned());
+      Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() - limelight.getTx());
+      swerve.setControl(req.withVelocityX((-velocities.getX() * 2) +
+          (-updatedDriverVel.getX() * 2) / 2)
+          .withVelocityY(((-velocities.getY() * 2) + -updatedDriverVel.getY() * 2) /
+              2)
+          .withTargetDirection(angle));
+    }
   }
 
   private boolean exitExecute() {
@@ -127,7 +143,6 @@ public class DriveAssistCom extends Command {
     } else if (id == 7 || id == 21) {
       return new Translation2d(-inputX, 0);
     }
-    // else if (0 < inputAngle || inputAngle < 60) {
     switch (id) {
       case 6:
         quadrantOffset = 120;
@@ -186,11 +201,56 @@ public class DriveAssistCom extends Command {
   }
 
   private void setPriorityID() {
-    m_staticTagID = limelight.getID();
+    if (LLHasTarget() == 3) {
+      if (whichLLHasReefTarget() == 1) {
+        m_staticTagID = limelight.getID();
+      } else if (whichLLHasReefTarget() == 2) {
+        m_staticTagID = limelight.getIDFromCamera2();
+      }
+    }
+    if (LLHasTarget() == 1) {
+      m_staticTagID = limelight.getID();
+    }
+    if (LLHasTarget() == 2) {
+      m_staticTagID = limelight.getIDFromCamera2();
+    }
+    if (LLHasTarget() == 0) {
+      m_staticTagID = limelight.getIDFromCamera2();
+    }
   }
 
   public boolean isAligned() {
     return Math.abs(error.getX()) + Math.abs(error.getY()) < Constants.SwerveConstants.isAlignedError;
+  }
+
+  public int LLHasTarget() {
+    if (limelight.getTv() && limelight.getTvFromCamera2()) {
+      return 3;
+    }
+    if (limelight.getTv()) {
+      return 1;
+    }
+    if (limelight.getTvFromCamera2()) {
+      return 2;
+    }
+    return 0;
+  }
+
+  public int whichLLHasReefTarget() {
+    if (limelight.getID() == 6 || limelight.getID() == 7 || limelight.getID() == 8 ||
+        limelight.getID() == 9 || limelight.getID() == 10 || limelight.getID() == 11 ||
+        limelight.getID() == 17 || limelight.getID() == 18 || limelight.getID() == 19
+        || limelight.getID() == 20 || limelight.getID() == 21 || limelight.getID() == 22) {
+      return 1;
+    } else if ((limelight.getIDFromCamera2() == 6 || limelight.getIDFromCamera2() == 7
+        || limelight.getIDFromCamera2() == 8 || limelight.getIDFromCamera2() == 9
+        || limelight.getIDFromCamera2() == 10 || limelight.getIDFromCamera2() == 11
+        || limelight.getIDFromCamera2() == 17 || limelight.getIDFromCamera2() == 18
+        || limelight.getIDFromCamera2() == 19 || limelight.getIDFromCamera2() == 20
+        || limelight.getIDFromCamera2() == 21 || limelight.getIDFromCamera2() == 22)) {
+      return 2;
+    }
+    return 0;
   }
 
   @Override
