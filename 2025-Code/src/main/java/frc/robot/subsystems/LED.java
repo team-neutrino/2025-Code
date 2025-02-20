@@ -11,9 +11,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
-import frc.robot.Constants;
-import frc.robot.Constants.LEDConstants;
-import frc.robot.Constants.LEDConstants.States;
 import frc.robot.util.Subsystem;
 
 public class LED extends SubsystemBase {
