@@ -31,6 +31,7 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
     public static final int kButtonsControllerPort = 1;
+    public static final int kPitControllerPort = 3;
   }
 
   public final class CANRateConstants {
@@ -159,11 +160,11 @@ public final class Constants {
     public static final int CLIMB_DOWN_POSITION = 0;
     public static final int RESET_CLIMB_ROTATION = -105;
 
-    public static final int CLIMB_MOTOR_POSITION_ERROR = 3;
+    public static final int CLIMB_MOTOR_POSITION_ERROR = 2;
 
     public static final int LOCK_POSITION = 15;
-    public static final int UNLOCK_POSITOIN = -15;
-    public static final int RESET_POSITION = 0;
+    public static final int UNLOCK_POSITION = -15;
+    public static final int RESET_LOCK_POSITION = 0;
 
     public static final double RATCHET_LOCK_POSITION = 0.7;
     public static final double RATCHET_UNLOCK_POSITION = 1;

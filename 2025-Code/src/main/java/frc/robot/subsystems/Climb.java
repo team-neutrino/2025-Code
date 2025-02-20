@@ -47,8 +47,10 @@ public class Climb extends SubsystemBase {
 
   private Servo m_lockRatchet = new Servo(RATCHET_PORT);
 
-  private double m_targetPositionClimbArm;
-  private double m_targetPositionLock;
+  private double m_targetPositionClimbArm = CLIMB_DOWN_POSITION;
+  private double m_targetPositionLock = RESET_LOCK_POSITION;
+  
+  private boolean m_isMotorOff = true;
 
   public Climb() {
     configureMotors();
@@ -93,9 +95,7 @@ public class Climb extends SubsystemBase {
   }
 
   private void moveToPosition(double targetPosition) {
-    PositionVoltage positionControl = new PositionVoltage(targetPosition);
     m_targetPositionClimbArm = targetPosition;
-    m_climbMotor.setControl(positionControl);
   }
 
   /**
@@ -124,17 +124,16 @@ public class Climb extends SubsystemBase {
     });
   }
 
-  public Command resetLockCommand(double targetPosition) {
-    return run(() -> {
-      m_targetPositionLock = targetPosition;
-    });
-  }
-
   public Command moveClimbArmCommand(double targetPosition) {
     return run(() -> {
       moveToPosition(targetPosition);
     });
-    //.until(() -> isTargetPosition());
+  }
+
+  public Command resetLockCommand(double targetPosition) {
+    return run(() -> {
+      m_targetPositionLock = targetPosition;
+    });
   }
 
   /**
@@ -144,20 +143,35 @@ public class Climb extends SubsystemBase {
     return run(() -> {
       moveToPosition(rotations);
       m_climbMotor.setPosition(0);
-    });
-    // .until(() -> isTargetPosition());
+    }).until(() -> isTargetPosition());
+  }
+
+  /**
+   * for default command
+   */
+  public Command motorOffFalseCommand() {
+    return run(() -> m_isMotorOff = false);
+  }
+
+  /**
+   * for default command
+   */
+  public Command motorOffTrueCommand() {
+    return run(() -> m_isMotorOff = true);
   }
 
   public Command climbDefaultCommand() {
     return run(() -> {
-      moveToPosition(CLIMB_DOWN_POSITION);
+      m_climbMotor.setVoltage(0);
       m_lockRatchet.set(RATCHET_LOCK_POSITION);
-      
     });
   }
 
   @Override
   public void periodic() {
+    if (!m_isMotorOff) {
+      m_climbMotor.setControl(new PositionVoltage(m_targetPositionClimbArm));
+    }
     m_pid.setReference(m_targetPositionLock, ControlType.kPosition);
   }
 

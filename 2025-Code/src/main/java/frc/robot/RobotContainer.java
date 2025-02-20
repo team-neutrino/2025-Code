@@ -27,6 +27,7 @@ public class RobotContainer {
       OperatorConstants.kDriverControllerPort);
   private final CommandXboxController m_buttonsController = new CommandXboxController(
       OperatorConstants.kButtonsControllerPort);
+  private final CommandXboxController m_pitController = new CommandXboxController(OperatorConstants.kPitControllerPort);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -43,7 +44,6 @@ public class RobotContainer {
     // driver controller
     m_driverController.y().onTrue(ClimbFactory.raiseClimb());
     m_driverController.x().onTrue(ClimbFactory.lockGrabber());
-    m_driverController.b().onTrue(ClimbFactory.unlockGrabber());
     m_driverController.a().onTrue(ClimbFactory.lowerClimb());
 
     m_driverController.rightBumper().onTrue(ClimbFactory.resetLock());
@@ -63,6 +63,14 @@ public class RobotContainer {
     m_buttonsController.a().whileTrue(SuperstructureFactory.scoreL4(m_buttonsController));
 
     m_buttonsController.leftBumper().whileTrue(SuperstructureFactory.intakeCoral());
+
+    // pit controller
+    m_pitController.rightBumper().onTrue(ClimbFactory.resetLock());
+
+    /**
+     * Only use when climb arm is in up position (relaxed). Moves arm down 105 rotations.
+     */
+    m_pitController.leftBumper().onTrue(ClimbFactory.resetClimb());
   }
 
   private void configureDefaultCommands() {
