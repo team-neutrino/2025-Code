@@ -181,6 +181,8 @@ public final class Constants {
     public static final double ACCELERATION = 0;
     public static final double JERK = 0;
     // subject to change
+
+    public static final double COMMAND_WAIT_TIME = 0.5;
   }
 
   public static class LimelightConstants {

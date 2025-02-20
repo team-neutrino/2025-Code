@@ -98,6 +98,10 @@ public class Climb extends SubsystemBase {
     m_targetPositionClimbArm = targetPosition;
   }
 
+  private void moveLock(double targetPosition) {
+    m_targetPositionLock = targetPosition;
+  }
+
   /**
    * checks if climb arm is within a certain range of error
    */
@@ -106,58 +110,43 @@ public class Climb extends SubsystemBase {
         .abs(m_targetPositionClimbArm - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_MOTOR_POSITION_ERROR;
   }
 
-  public Command engageRatchetCommand() {
+
+  public Command moveLockCommand(double targetPosition) {
     return run(() -> {
-      m_lockRatchet.set(RATCHET_LOCK_POSITION);
+      moveLock(targetPosition);
     });
   }
 
-  public Command disengageRatchetCommand() {
+  public Command prepareClimbCommand() {
     return run(() -> {
+      m_isMotorOff = false;
       m_lockRatchet.set(RATCHET_UNLOCK_POSITION);
+      moveLock(UNLOCK_POSITION);
     });
   }
 
-  public Command lockCommand(double targetPosition) {
+  public Command raiseClimbArmCommand() {
     return run(() -> {
-      m_targetPositionLock = targetPosition;
+      moveToPosition(CLIMB_UP_POSITION);
     });
   }
 
-  public Command moveClimbArmCommand(double targetPosition) {
+  public Command lowerClimbArmCommand() {
     return run(() -> {
-      moveToPosition(targetPosition);
-    });
-  }
-
-  public Command resetLockCommand(double targetPosition) {
-    return run(() -> {
-      m_targetPositionLock = targetPosition;
-    });
+      moveToPosition(CLIMB_DOWN_POSITION);
+      m_lockRatchet.set(RATCHET_LOCK_POSITION);
+    }).until(() -> isTargetPosition());
   }
 
   /**
    * only use when climb arm is in up position
    */
-  public Command resetClimbArmCommand(double rotations) {
+  public Command resetClimbArmCommand() {
     return run(() -> {
-      moveToPosition(rotations);
+      moveToPosition(RESET_CLIMB_ROTATION);
+      m_lockRatchet.set(RATCHET_LOCK_POSITION);
       m_climbMotor.setPosition(0);
     }).until(() -> isTargetPosition());
-  }
-
-  /**
-   * for default command
-   */
-  public Command motorOffFalseCommand() {
-    return run(() -> m_isMotorOff = false);
-  }
-
-  /**
-   * for default command
-   */
-  public Command motorOffTrueCommand() {
-    return run(() -> m_isMotorOff = true);
   }
 
   public Command climbDefaultCommand() {
