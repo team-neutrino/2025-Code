@@ -254,7 +254,7 @@ public class Swerve extends CommandSwerveDrivetrain {
 
   public Command swerveDefaultCommand(CommandXboxController controller) {
     return run(() -> {
-      double m_speed = Subsystem.elevator.getEncoderPosition() >= ElevatorConstants.L3 ? SLOW_SWERVE_SPEED : MAX_SPEED;
+      double m_speed = Subsystem.elevator.getHeight() >= ElevatorConstants.L3 ? SLOW_SWERVE_SPEED : MAX_SPEED;
       double forward = -controller.getLeftY() * m_speed, left = -controller.getLeftX() * m_speed;
       double stickAngle = Math.atan2(forward, left);
       double magnitude = Math.hypot(forward, left);
