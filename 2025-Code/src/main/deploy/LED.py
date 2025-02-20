@@ -24,14 +24,14 @@ pixels = neopixel.NeoPixel(board.D18, 19, auto_write=False)
 previousBlinkTime = 0
 amount = 0
 
-white = (255, 255, 255)
-red = (255, 0, 0)
-orange = (255, 80, 0)
-yellow = (255, 255, 0)
-green = (0, 255, 0)
+white = (64, 64, 64)
+red = (64, 0, 0)
+orange = (64, 20, 0)
+yellow = (64, 64, 0)
+green = (0, 64, 0)
 black = (0, 0, 0)
-cyan = (0, 255, 255)
-turquoise = (27, 220, 75)
+cyan = (0, 64, 64)
+turquoise = (9, 55, 19)
 
 NetworkTables.setDashboardMode(1735)
 NetworkTables.initialize(server=ip)
