@@ -36,6 +36,9 @@ public class Elevator extends SubsystemBase {
   private double m_FFStage1 = STAGE_1_FF;
   private double m_FFStage2 = STAGE_2_FF;
 
+  private boolean m_isAtTarget = false;
+  private boolean m_isMovingToTarget = false;
+
   public Elevator() {
     m_config
         .inverted(true)
@@ -138,6 +141,28 @@ public class Elevator extends SubsystemBase {
 
   private boolean atTargetHeight() {
     return Math.abs(getHeight() - m_targetHeight) <= HEIGHT_TOLERANCE;
+  public boolean isAtTarget() {
+    return m_isAtTarget;
+  }
+
+  public void setAtTarget(boolean value) {
+    m_isAtTarget = value;
+  }
+
+  public boolean isMovingToTarget() {
+    return m_isMovingToTarget;
+  }
+
+  public void setMovingToTarget(boolean value) {
+    m_isMovingToTarget = value;
+  }
+
+  public void movingToTarget() {
+    if (getEncoderVelocity() > 1) {
+      setAtTarget(false);
+      setMovingToTarget(true);
+    }
+  }
   }
 
   public boolean readyToScore() {
