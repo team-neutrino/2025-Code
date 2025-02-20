@@ -136,9 +136,6 @@
  2 CORAL TOP-Scores 1 coral on L1 from the top of the starting line to ID19, intake closest human playerstation, then score L1 to ID19 again 
  2 CORAL MIDDLE-Scores 1 coral on L1 from the top of the starting line to ID17, intake closest human playerstation, then score L1 to ID17 again
  2 CORAL PROCESSOR-Scores 1 coral on L1 from the top of the starting line to ID17, intake closest human playerstation, then score L1 to ID17 again
- 2 CORAL TOP(Score then score at 18)-Scores 1 coral on L1 from the top of the starting line to ID19, intake closest human playerstation, score L1 to ID18
- 2 CORAL PROCESSOR(Score the score at 18)-Scores 1 coral on L1 from the top of the starting line to ID17, intake closest human playerstation, score L1 to ID18
- 3 CORAL MIDDLE-Starts at middle of starting line goes back and forth from ID17 and human player 3 times, only scores L1
 
 ## Raspberry Pi
 contains code intended to be run on an FRC robot's coprocessor
