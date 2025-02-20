@@ -32,7 +32,6 @@ public class ClimbFactory {
      * only use when climb arm is in a state where it is all the way up (relaxed)
      * */ 
     public static Command resetClimb() {
-        return
-            climb.resetClimbArmCommand();
+        return climb.resetClimbArmCommand();
     }
 }

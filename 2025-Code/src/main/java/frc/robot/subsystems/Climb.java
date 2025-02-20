@@ -106,10 +106,16 @@ public class Climb extends SubsystemBase {
    * checks if climb arm is within a certain range of error
    */
   private boolean isTargetPosition() {
-    return Math
-        .abs(m_targetPositionClimbArm - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_MOTOR_POSITION_ERROR;
+    return Math.abs(m_targetPositionClimbArm - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_MOTOR_POSITION_ERROR;
   }
 
+  @Override
+  public void periodic() {
+    if (!m_isMotorOff) {
+      m_climbMotor.setControl(new PositionVoltage(m_targetPositionClimbArm));
+    }
+    m_pid.setReference(m_targetPositionLock, ControlType.kPosition);
+  }
 
   public Command moveLockCommand(double targetPosition) {
     return run(() -> {
@@ -154,14 +160,6 @@ public class Climb extends SubsystemBase {
       m_climbMotor.setVoltage(0);
       m_lockRatchet.set(RATCHET_LOCK_POSITION);
     });
-  }
-
-  @Override
-  public void periodic() {
-    if (!m_isMotorOff) {
-      m_climbMotor.setControl(new PositionVoltage(m_targetPositionClimbArm));
-    }
-    m_pid.setReference(m_targetPositionLock, ControlType.kPosition);
   }
 
   /* NETWORK TABLES */
