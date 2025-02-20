@@ -19,10 +19,12 @@ public class ElevatorNT extends Elevator {
     DoubleTopic encoderPosition = nt.getDoubleTopic("/elevator/encoder_position");
     DoubleTopic targetPosition = nt.getDoubleTopic("/elevator/target_position");
     BooleanTopic at_limit = nt.getBooleanTopic("/elevator/at_limit");
+    BooleanTopic scoreReady = nt.getBooleanTopic("/elevator/score_ready");
     final DoublePublisher encoderVelocityPub;
     final DoublePublisher encoderPositionPub;
     final DoublePublisher targetPositionPub;
     final BooleanPublisher lowLimitPub;
+    final BooleanPublisher scoreReadyPub;
     private PIDTuner m_PIDTuner;
     private double m_previousP = ElevatorConstants.P_VAL;
     private double m_previousI = ElevatorConstants.I_VAL;
@@ -48,6 +50,9 @@ public class ElevatorNT extends Elevator {
 
         lowLimitPub = at_limit.publish();
         lowLimitPub.setDefault(false);
+
+        scoreReadyPub = scoreReady.publish();
+        scoreReadyPub.setDefault(false);
 
         m_PIDTuner = new PIDTuner("elevator/{tuning}PID");
 
@@ -76,6 +81,7 @@ public class ElevatorNT extends Elevator {
         encoderPositionPub.set(getHeight(), now);
         targetPositionPub.set(getTargetHeight(), now);
         lowLimitPub.set(isAtBottom(), now);
+        scoreReadyPub.set(readyToScore(), now);
 
         if (m_PIDTuner.isDifferentValues(m_previousP, m_previousI, m_previousD)) {
             changePID(m_PIDTuner.getP(), m_PIDTuner.getI(), m_PIDTuner.getD());
