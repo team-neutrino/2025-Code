@@ -140,7 +140,10 @@ public class Elevator extends SubsystemBase {
   }
 
   private boolean atTargetHeight() {
+    setAtTarget(true);
     return Math.abs(getHeight() - m_targetHeight) <= HEIGHT_TOLERANCE;
+  }
+
   public boolean isAtTarget() {
     return m_isAtTarget;
   }
@@ -158,11 +161,10 @@ public class Elevator extends SubsystemBase {
   }
 
   public void movingToTarget() {
-    if (getEncoderVelocity() > 1) {
+    if (getVelocity() > 1) {
       setAtTarget(false);
       setMovingToTarget(true);
     }
-  }
   }
 
   public boolean readyToScore() {
