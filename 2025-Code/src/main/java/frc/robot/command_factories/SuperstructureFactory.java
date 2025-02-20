@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.subsystems.Coral;
 
 import static frc.robot.util.Subsystem.*;
 
@@ -54,7 +53,6 @@ public class SuperstructureFactory {
 
     public static Command scoreL1(CommandXboxController controller) {
         Command elevatorCom = ElevatorFactory.moveL1();
-        Command armDefaultCom = arm.armDefaultCommand();
         Command armScoreCom = ArmFactory.moveToL1();
         Command coralDefaultCom = coral.coralDefaultCommand();
         Command coralScoreCom = CoralFactory.runOuttake();
@@ -62,13 +60,12 @@ public class SuperstructureFactory {
                 && controller.getHID().getRightBumperButton());
         BooleanSupplier comEnd = () -> !coral.debouncedHasCoral();
 
-        return (elevatorCom.alongWith(armDefaultCom, coralDefaultCom).until(elevatorReady))
-                .andThen((armScoreCom).until(readyToScore)).andThen(coralScoreCom.until(comEnd));
+        return ((elevatorCom.alongWith(armScoreCom, coralDefaultCom))
+                .until(readyToScore)).andThen(coralScoreCom.until(comEnd));
     }
 
     public static Command scoreL2(CommandXboxController controller) {
         Command elevatorCom = ElevatorFactory.moveL2();
-        Command armDefaultCom = arm.armDefaultCommand();
         Command armScoreCom = ArmFactory.moveToL2();
         Command coralDefaultCom = coral.coralDefaultCommand();
         Command coralScoreCom = CoralFactory.runOuttake();
@@ -76,13 +73,12 @@ public class SuperstructureFactory {
                 && controller.getHID().getRightBumperButton());
         BooleanSupplier comEnd = () -> !coral.debouncedHasCoral();
 
-        return (elevatorCom.alongWith(armDefaultCom, coralDefaultCom).until(elevatorReady))
-                .andThen((armScoreCom).until(readyToScore)).andThen(coralScoreCom.until(comEnd));
+        return ((elevatorCom.alongWith(armScoreCom, coralDefaultCom))
+                .until(readyToScore)).andThen(coralScoreCom.until(comEnd));
     }
 
     public static Command scoreL3(CommandXboxController controller) {
         Command elevatorCom = ElevatorFactory.moveL3();
-        Command armDefaultCom = arm.armDefaultCommand();
         Command armScoreCom = ArmFactory.moveToL3();
         Command coralDefaultCom = coral.coralDefaultCommand();
         Command coralScoreCom = CoralFactory.runOuttake();
@@ -90,14 +86,13 @@ public class SuperstructureFactory {
                 && controller.getHID().getRightBumperButton());
         BooleanSupplier comEnd = () -> !coral.debouncedHasCoral();
 
-        return (elevatorCom.alongWith(armDefaultCom, coralDefaultCom).until(elevatorReady))
-                .andThen((armScoreCom).until(readyToScore)).andThen(coralScoreCom.until(comEnd));
+        return ((elevatorCom.alongWith(armScoreCom, coralDefaultCom))
+                .until(readyToScore)).andThen(
+                        coralScoreCom.until(comEnd));
     }
 
     public static Command scoreL4(CommandXboxController controller) {
-        Command armEvacCom = ArmFactory.evacuateScoreL4();
         Command elevatorCom = ElevatorFactory.moveL4();
-        Command armDefaultCom = arm.armDefaultCommand();
         Command armScoreCom = ArmFactory.moveToL4();
         Command coralDefaultCom = coral.coralDefaultCommand();
         Command coralScoreCom = CoralFactory.runOuttake();
@@ -106,8 +101,9 @@ public class SuperstructureFactory {
                 && controller.getHID().getRightBumperButton());
         BooleanSupplier comEnd = () -> !coral.debouncedHasCoral();
 
-        return (elevatorCom.alongWith(armDefaultCom, coralDefaultCom).until(elevatorReady))
-                .andThen((armScoreCom).until(readyToScore)).andThen(armEvacCom.alongWith(coralScoreCom).until(comEnd));
+        return ((elevatorCom.alongWith(armScoreCom, coralDefaultCom))
+                .until(readyToScore)).andThen(
+                        (armEvacCom.alongWith(coralScoreCom)).until(comEnd));
     }
 
     // AUTON COMMANDS
