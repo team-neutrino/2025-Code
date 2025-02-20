@@ -164,7 +164,7 @@ public class Arm extends SubsystemBase {
     // angle to 160 (if current angle is below 180), or set safe angle to 220 (if
     // current angle is above 180).
 
-    if (m_elevator.getHeight() < ElevatorConstants.L2 - ElevatorConstants.HEIGHT_TOLERANCE) {
+    if (Subsystem.elevator.getHeight() < ElevatorConstants.L2 - ElevatorConstants.HEIGHT_TOLERANCE) {
       if (getAngle() < 180 && getTargetAngle() > 160) {
         safeAngle = 160;
       }

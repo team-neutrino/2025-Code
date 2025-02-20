@@ -37,8 +37,6 @@ public class Elevator extends SubsystemBase {
   private double m_FFStage1 = STAGE_1_FF;
   private double m_FFStage2 = STAGE_2_FF;
 
-  private Arm m_arm = Subsystem.arm;
-
   public Elevator() {
     m_config
         .inverted(true)
@@ -133,19 +131,19 @@ public class Elevator extends SubsystemBase {
 
   private double safeHeight(double targetHeight) {
     double safeTarget = targetHeight;
-    // swerve modules: stop elevator from setting target to below CORAL_INTAKE when
+    // swerve modules: stop elevator from setting target to below L2 when
     // real arm angle OR arm target angle is below 90 or above 270. aka if arm is
     // below 90 or above 270,
-    // safeHeight is CORAL_INTAKE height
+    // safeHeight is L2 height
 
-    if ((m_arm.getAngle() < 90 || m_arm.getAngle() > 270 || m_arm.getTargetAngle() < 90
-        || m_arm.getTargetAngle() > 270) && (getTargetHeight() < CORAL_INTAKE)) {
-      safeTarget = CORAL_INTAKE;
+    if ((Subsystem.arm.getAngle() < 90 || Subsystem.arm.getAngle() > 270 || Subsystem.arm.getTargetAngle() < 90
+        || Subsystem.arm.getTargetAngle() > 270) && (getTargetHeight() < L2)) {
+      safeTarget = L2;
     }
     // if the arm target is above 180 when we are below (and vice versa) then set
     // the elevator target to L2.
-    else if ((m_arm.getTargetAngle() > 180 && m_arm.getAngle() < 180)
-        || (m_arm.getTargetAngle() < 180 && m_arm.getAngle() > 180)) {
+    else if ((Subsystem.arm.getTargetAngle() > 180 && Subsystem.arm.getAngle() < 180)
+        || (Subsystem.arm.getTargetAngle() < 180 && Subsystem.arm.getAngle() > 180)) {
       safeTarget = L2;
     }
 
