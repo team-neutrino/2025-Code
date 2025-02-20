@@ -33,9 +33,9 @@ public final class Constants {
     public static final int kButtonsControllerPort = 1;
   }
 
-  public final class ConfigSignals {
-    public static final int Period_MS_Fast = 5;
-    public static final int Period_MS_Slow = 10;
+  public final class CANRateConstants {
+    public static final int FASTEST_5MS = 5;
+    public static final int FAST_10MS = 10;
   }
 
   public static class SwerveConstants {
@@ -64,11 +64,11 @@ public final class Constants {
   }
 
   public static class ElevatorConstants {
-    public static final int MOTOR1_ID = 2;
-    public static final int MOTOR2_ID = 3;
+    public static final int MOTOR_ID = 2;
+    public static final int FOLLOWER_ID = 3;
     public static final int CURRENT_LIMIT = 50;
     public static final double DEFAULT = 0.0;
-    public static final double LOW_POSITION = 0.0;
+    public static final double BOTTOM_POSITION = 0.0;
     public static final double STAGE_ONE_UP = 26.0;
     public static final double CORAL_INTAKE = 36;
     public static final double REMOVE_ALGAE = 0.0;
@@ -88,8 +88,9 @@ public final class Constants {
     public static final double P_VAL = 0.11;
     public static final double I_VAL = 0.0;
     public static final double D_VAL = 0.0;
-    public static final double STAGE_1_FF_VAL = 0.25;
-    public static final double STAGE_2_FF_VAL = 0.30;
+    public static final double STAGE_1_FF = 0.25;
+    public static final double STAGE_2_FF = 0.30;
+    public static final double HEIGHT_TOLERANCE = 0.2;
   }
 
   public static class ArmConstants {
