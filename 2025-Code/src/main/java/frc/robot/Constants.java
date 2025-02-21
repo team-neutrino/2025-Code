@@ -161,6 +161,7 @@ public final class Constants {
     public static final int RESET_CLIMB_ROTATION = -105;
 
     public static final int CLIMB_MOTOR_POSITION_ERROR = 2;
+    public static final int LOCK_MOTOR_POSITION_SAFETY = -10;
 
     public static final int LOCK_POSITION = 15;
     public static final int UNLOCK_POSITION = -15;

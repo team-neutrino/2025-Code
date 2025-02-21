@@ -21,14 +21,19 @@ public class ClimbFactory {
     }
 
     public static Command lockGrabber() {
-        return climb.moveLockCommand(LOCK_POSITION);
+        return climb.lockCommand();
     }
 
+
+    /**
+     * pit controller. Sets the lock position to 0
+     */
     public static Command resetLock() {
-        return climb.moveLockCommand(RESET_LOCK_POSITION);
+        return climb.resetLockCommand();
     }
 
     /** 
+     * pit controller.
      * only use when climb arm is in a state where it is all the way up (relaxed)
      * */ 
     public static Command resetClimb() {

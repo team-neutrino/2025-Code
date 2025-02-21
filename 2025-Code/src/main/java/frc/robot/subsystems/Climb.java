@@ -47,10 +47,11 @@ public class Climb extends SubsystemBase {
 
   private Servo m_lockRatchet = new Servo(RATCHET_PORT);
 
-  private double m_targetPositionClimbArm = CLIMB_DOWN_POSITION;
-  private double m_targetPositionLock = RESET_LOCK_POSITION;
+  private double m_targetPositionClimbArm;
+  private double m_targetPositionLock;
+  private double m_targetPositionRatchet;
   
-  private boolean m_isMotorOff = true;
+  private boolean m_climbMotorOff = true;
 
   public Climb() {
     configureMotors();
@@ -94,14 +95,6 @@ public class Climb extends SubsystemBase {
     m_lockMotorEncoder.setPosition(0);
   }
 
-  private void moveToPosition(double targetPosition) {
-    m_targetPositionClimbArm = targetPosition;
-  }
-
-  private void moveLock(double targetPosition) {
-    m_targetPositionLock = targetPosition;
-  }
-
   /**
    * checks if climb arm is within a certain range of error
    */
@@ -109,38 +102,46 @@ public class Climb extends SubsystemBase {
     return Math.abs(m_targetPositionClimbArm - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_MOTOR_POSITION_ERROR;
   }
 
-  @Override
-  public void periodic() {
-    if (!m_isMotorOff) {
-      m_climbMotor.setControl(new PositionVoltage(m_targetPositionClimbArm));
-    }
-    m_pid.setReference(m_targetPositionLock, ControlType.kPosition);
+  /**
+   * command will only run when the motor position of the grabbers are unlocked. 
+   * If they are run when the position is at 0, they will jam the worm screw
+   */
+  public Command lockCommand() {
+    return run(() -> {
+      m_targetPositionClimbArm = CLIMB_UP_POSITION;
+      m_targetPositionRatchet = RATCHET_UNLOCK_POSITION;
+      m_targetPositionLock = LOCK_POSITION;
+    });
   }
 
-  public Command moveLockCommand(double targetPosition) {
+  public Command resetLockCommand() {
     return run(() -> {
-      moveLock(targetPosition);
+      m_targetPositionLock = RESET_LOCK_POSITION;
     });
   }
 
   public Command prepareClimbCommand() {
     return run(() -> {
-      m_isMotorOff = false;
-      m_lockRatchet.set(RATCHET_UNLOCK_POSITION);
-      moveLock(UNLOCK_POSITION);
+      m_climbMotorOff = true;
+      m_targetPositionRatchet = RATCHET_UNLOCK_POSITION;
+      m_targetPositionLock = UNLOCK_POSITION;
     });
   }
 
   public Command raiseClimbArmCommand() {
     return run(() -> {
-      moveToPosition(CLIMB_UP_POSITION);
+      m_climbMotorOff = true;
+      m_targetPositionRatchet = RATCHET_UNLOCK_POSITION;
+      m_targetPositionLock = UNLOCK_POSITION;
+      m_targetPositionClimbArm = CLIMB_UP_POSITION;
     });
   }
 
   public Command lowerClimbArmCommand() {
     return run(() -> {
-      moveToPosition(CLIMB_DOWN_POSITION);
-      m_lockRatchet.set(RATCHET_LOCK_POSITION);
+      m_targetPositionLock = LOCK_POSITION;
+      m_targetPositionRatchet = RATCHET_LOCK_POSITION;
+      m_targetPositionClimbArm = CLIMB_DOWN_POSITION;
     }).until(() -> isTargetPosition());
   }
 
@@ -149,17 +150,30 @@ public class Climb extends SubsystemBase {
    */
   public Command resetClimbArmCommand() {
     return run(() -> {
-      moveToPosition(RESET_CLIMB_ROTATION);
-      m_lockRatchet.set(RATCHET_LOCK_POSITION);
+      m_targetPositionClimbArm = RESET_CLIMB_ROTATION;
+      m_targetPositionRatchet = RATCHET_LOCK_POSITION;
       m_climbMotor.setPosition(0);
     }).until(() -> isTargetPosition());
   }
 
   public Command climbDefaultCommand() {
     return run(() -> {
-      m_climbMotor.setVoltage(0);
-      m_lockRatchet.set(RATCHET_LOCK_POSITION);
+      m_targetPositionLock = RESET_LOCK_POSITION;
+      m_targetPositionRatchet = RATCHET_LOCK_POSITION;
+      m_climbMotorOff = true;
     });
+  }
+
+  @Override
+  public void periodic() {
+    if (!m_climbMotorOff) {
+      m_climbMotor.setControl(new PositionVoltage(m_targetPositionClimbArm));
+    }
+    else {
+      m_climbMotor.setVoltage(0);
+    }
+    m_pid.setReference(m_targetPositionLock, ControlType.kPosition);
+    m_lockRatchet.set(m_targetPositionRatchet);
   }
 
   /* NETWORK TABLES */
