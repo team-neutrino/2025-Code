@@ -290,6 +290,8 @@ public final class Constants {
     public static final List<Pose2d> BLUE_REEF = List.of(BLUE_REEF_22B, BLUE_REEF_22A, BLUE_REEF_21B, BLUE_REEF_21A,
         BLUE_REEF_20B, BLUE_REEF_20A, BLUE_REEF_19B, BLUE_REEF_19A, BLUE_REEF_18B, BLUE_REEF_18A, BLUE_REEF_17B,
         BLUE_REEF_17A);
+    public static final double[] EXPECTED_ANGLE = { Integer.MAX_VALUE, -1, -1, -1, -1, -1, 120, 180, -120, -60, 0, 60,
+        -1, -1, -1, -1, -1, -120, 180, 120, 60, 0, -60 };
   }
 
 }

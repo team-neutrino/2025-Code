@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.Swerve.SwerveRequestStash;
@@ -14,6 +15,7 @@ import frc.robot.util.Subsystem;
 import static frc.robot.Constants.DriveToPoint.*;
 import static frc.robot.Constants.GlobalConstants.*;
 import static frc.robot.Constants.SwerveConstants.AT_POINT_TOLERANCE;
+import static frc.robot.util.Subsystem.limelight;
 import static frc.robot.util.Subsystem.swerve;
 
 import java.util.List;
@@ -53,6 +55,7 @@ public class DriveToPointCommand extends Command {
     m_reefPoses = redAlliance.get() ? RED_REEF : BLUE_REEF;
     m_coralStationPoses = redAlliance.get() ? POSE_LIST.subList(0, 2) : POSE_LIST.subList(2, 4);
 
+    System.out.println("angle going to: " + getAngle().getDegrees());
     checkBumpers();
     drive();
     isAtPoint();
@@ -108,9 +111,22 @@ public class DriveToPointCommand extends Command {
     m_pointControl.setTarget(m_reefPoses.get(id));
   }
 
+  private boolean targetIsReef() {
+    return m_reefPoses.contains(m_pointControl.getTarget());
+  }
+
+  private Rotation2d getAngle() {
+    if (!limelight.getTv()) {
+      return m_pointControl.getRotation();
+    }
+    double targetYaw = targetIsReef() ? limelight.getTargetYaw() : limelight.getTargetYawFromCamera2();
+    return Rotation2d.fromDegrees(targetYaw + swerve.getYawDegrees());
+  }
+
   private void drive() {
     SwerveRequestStash.driveWithVelocity.withVelocityX(m_pointControl.getXVelocity())
-        .withVelocityY(m_pointControl.getYVelocity()).withTargetDirection(Subsystem.limelight.getTargetYawRotation2d());
+        .withVelocityY(m_pointControl.getYVelocity())
+        .withTargetDirection(getAngle());
     swerve.setControl(SwerveRequestStash.driveWithVelocity);
   }
 }
