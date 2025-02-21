@@ -234,10 +234,10 @@ public final class Constants {
 
   public static class DriveToPoint {
     // the number correspond to the april tag on the object
-    public static final Pose2d RED_PLAYER_STATION_1 = new Pose2d(16.1, 1.17, Rotation2d.fromDegrees(126));
-    public static final Pose2d RED_PLAYER_STATION_2 = new Pose2d(16.4, 6.76, Rotation2d.fromDegrees(-126));
+    public static final Pose2d RED_PLAYER_STATION_1 = new Pose2d(16.08, 0.99, Rotation2d.fromDegrees(126));
+    public static final Pose2d RED_PLAYER_STATION_2 = new Pose2d(16.08, 7.06, Rotation2d.fromDegrees(-126));
 
-    public static final Pose2d BLUE_PLAYER_STATION_12 = new Pose2d(0.99, 1.4, Rotation2d.fromDegrees(54));
+    public static final Pose2d BLUE_PLAYER_STATION_12 = new Pose2d(1.47, 0.99, Rotation2d.fromDegrees(54));
     public static final Pose2d BLUE_PLAYER_STATION_13 = new Pose2d(1.47, 7.06, Rotation2d.fromDegrees(-54));
 
     public static final Pose2d RED_REEF_6A = new Pose2d(13.34, 2.58, Rotation2d.fromDegrees(120));
