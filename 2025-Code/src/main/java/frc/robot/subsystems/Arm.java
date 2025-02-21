@@ -35,8 +35,6 @@ public class Arm extends SubsystemBase {
   private double m_targetAngle = STARTING_POSITION;
   private double m_FFConstant = FFCONSTANT;
 
-  private Elevator m_elevator = Subsystem.elevator;
-
   public Arm() {
     initializeMotorControllers();
     m_sparkFlexConfigAccessor = m_motor.configAccessor;
@@ -151,18 +149,6 @@ public class Arm extends SubsystemBase {
 
   private double safeAngle(double targetAngle) {
     double safeAngle = targetAngle;
-    // if (targetAngle > ALMOST_FRONT_LIMIT && targetAngle <= 180
-    // && Subsystem.elevator.getHeight() < ElevatorConstants.STAGE_ONE_UP) {
-    // safeAngle = ALMOST_FRONT_LIMIT;
-    // } else if (targetAngle < ALMOST_BACK_LIMIT && targetAngle > 180
-    // && Subsystem.elevator.getHeight() < ElevatorConstants.STAGE_ONE_UP) {
-    // safeAngle = ALMOST_BACK_LIMIT;
-    // }
-
-    // elevator: stop arm from setting target between 160 and 220 when elevator real
-    // height is below L2. aka if elevator encoder height is below L2, set safe
-    // angle to 160 (if current angle is below 180), or set safe angle to 220 (if
-    // current angle is above 180).
 
     if (Subsystem.elevator.getHeight() < ElevatorConstants.L2 - ElevatorConstants.HEIGHT_TOLERANCE) {
       if (getAngle() < 180 && getTargetAngle() > 160) {

@@ -20,8 +20,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.Constants.ElevatorConstants.*;
-
-import static frc.robot.Constants.ArmConstants.CORAL_STATION_POSITION;
 import static frc.robot.Constants.CANRateConstants.*;
 
 public class Elevator extends SubsystemBase {
@@ -126,22 +124,17 @@ public class Elevator extends SubsystemBase {
   }
 
   public boolean readyToScore() {
-    return atTargetHeight() && !(m_targetHeight == DEFAULT || m_targetHeight == CORAL_STATION_POSITION);
+    return atTargetHeight() && !(m_targetHeight == DEFAULT || m_targetHeight == CORAL_INTAKE);
   }
 
   private double safeHeight(double targetHeight) {
     double safeTarget = targetHeight;
-    // swerve modules: stop elevator from setting target to below L2 when
-    // real arm angle OR arm target angle is below 90 or above 270. aka if arm is
-    // below 90 or above 270,
-    // safeHeight is L2 height
 
     if ((Subsystem.arm.getAngle() < 90 || Subsystem.arm.getAngle() > 270 || Subsystem.arm.getTargetAngle() < 90
         || Subsystem.arm.getTargetAngle() > 270) && (getTargetHeight() < L2)) {
       safeTarget = L2;
     }
-    // if the arm target is above 180 when we are below (and vice versa) then set
-    // the elevator target to L2.
+
     else if (((Subsystem.arm.getTargetAngle() > 180 && Subsystem.arm.getAngle() < 180)
         || (Subsystem.arm.getTargetAngle() < 180 && Subsystem.arm.getAngle() > 180)) && getTargetHeight() < L2) {
       safeTarget = L2;
