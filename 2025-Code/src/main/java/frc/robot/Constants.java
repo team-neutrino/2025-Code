@@ -100,7 +100,7 @@ public final class Constants {
     public static final double GROUND_ALGAE_POSITION = 95;
     public static final double CORAL_STATION_POSITION = 330;
     public static final double L1_UNDERHAND = 335.0;
-    public static final double L1_POSITION = 120.0;
+    public static final double L1_POSITION = 140.0;
     public static final double L2_POSITION = 130.0;
     public static final double L3_POSITION = 140.0;
     public static final double L4_POSITION = 155.0;

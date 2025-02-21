@@ -67,6 +67,7 @@ public class Arm extends SubsystemBase {
 
   public boolean readyToScore() {
     return atTargetAngle() && !(m_targetAngle == STARTING_POSITION || m_targetAngle == DEFAULT_POSITION
+        || m_targetAngle == DEFAULT_BACK_POSITION
         || m_targetAngle == CORAL_STATION_POSITION);
   }
 
