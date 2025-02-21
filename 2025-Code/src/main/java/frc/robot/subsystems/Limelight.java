@@ -117,20 +117,20 @@ public class Limelight extends SubsystemBase {
   }
 
   public double[] getTargetPoseFromCamera2() {
-    if (getTv()) {
-      targetPose2 = LimelightHelpers.getTargetPose_RobotSpace(LIMELIGHT_2);
-    }
+    // if (getTv()) {
+    targetPose2 = LimelightHelpers.getTargetPose_RobotSpace(LIMELIGHT_2);
+    // }
     return targetPose2;
   }
 
   public double getTargetYaw() {
     getTargetPose();
-    return targetPose[5];
+    return targetPose[4];
   }
 
   public double getTargetYawFromCamera2() {
     getTargetPoseFromCamera2();
-    return targetPose2[5];
+    return targetPose2[4];
   }
 
   public Rotation2d getTargetYawRotation2d() {
@@ -241,6 +241,10 @@ public class Limelight extends SubsystemBase {
       return;
     }
 
+    System.out.println(
+        "target yaw: " + getTargetYawFromCamera2() + " + robot yaw: "
+            + (getTargetYawFromCamera2() + Subsystem.swerve.getYawDegrees()));
+
     if (!DriverStation.isEnabled()) {
       // mode 0: use external yaw for MT2 localization only, ignore internal yaw
       LimelightHelpers.SetIMUMode(LIMELIGHT_1, 1);
@@ -259,6 +263,7 @@ public class Limelight extends SubsystemBase {
         0, 0, 0, 0);
     LimelightHelpers.SetRobotOrientation(LIMELIGHT_2, Subsystem.swerve.getYawDegrees(), 0,
         0, 0, 0, 0);
+    updateTagAngle();
     updateOdometry();
   }
 
