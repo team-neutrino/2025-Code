@@ -213,9 +213,14 @@ public class Limelight extends SubsystemBase {
 
     m_swerve.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
 
+    if (Subsystem.coral.hasCoral() && !hasReefTag) {
+      return;
+    } else if (!Subsystem.coral.hasCoral() && !hasPlayerStationTag) {
+      return;
+    }
     if (hasReefTag && (Subsystem.coral.hasCoral() || !hasPlayerStationTag)) {
       updateOdometryLL1();
-    } else if (!Subsystem.coral.hasCoral() || hasPlayerStationTag) {
+    } else if (hasPlayerStationTag) {
       updateOdometryLL2();
     }
   }
