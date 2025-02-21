@@ -157,6 +157,9 @@ public class Arm extends SubsystemBase {
       if (getAngle() > 180 && getTargetAngle() < DEFAULT_BACK_POSITION) {
         safeAngle = DEFAULT_BACK_POSITION;
       }
+      if (getTargetAngle() > 270) {
+        safeAngle = DEFAULT_BACK_POSITION;
+      }
     }
 
     return safeAngle;
