@@ -10,20 +10,20 @@ import static frc.robot.util.Subsystem.climb;
 public class ClimbFactory {
     public static Command raiseClimb() {
         return new SequentialCommandGroup(
-            climb.prepareClimbCommand(),
-            new WaitCommand(COMMAND_WAIT_TIME),
-            climb.raiseClimbArmCommand()
-        );
+                climb.prepareClimbCommand(),
+                new WaitCommand(COMMAND_WAIT_TIME),
+                climb.raiseClimbArmCommand());
     }
-    
+
     public static Command lowerClimb() {
-        return climb.lowerClimbArmCommand();
+        return new SequentialCommandGroup(
+                climb.lowerClimbArmCommand(),
+                climb.hasClimbCommand());
     }
 
     public static Command lockGrabber() {
         return climb.lockCommand();
     }
-
 
     /**
      * pit controller. Sets the lock position to 0
@@ -32,10 +32,10 @@ public class ClimbFactory {
         return climb.resetLockCommand();
     }
 
-    /** 
+    /**
      * pit controller.
      * only use when climb arm is in a state where it is all the way up (relaxed)
-     * */ 
+     */
     public static Command resetClimb() {
         return climb.resetClimbArmCommand();
     }

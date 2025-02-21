@@ -2,6 +2,8 @@ package frc.robot.subsystems.NetworkTables;
 
 import static frc.robot.Constants.ClimbConstants.*;
 
+import edu.wpi.first.networktables.BooleanPublisher;
+import edu.wpi.first.networktables.BooleanTopic;
 import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -18,6 +20,7 @@ public class ClimbNT extends Climb {
     DoubleTopic targetMotorPosition = nt.getDoubleTopic("/climb/target_motor_position");
     DoubleTopic motorVelocity = nt.getDoubleTopic("/climb/motor_velocity");
     DoubleTopic followerVelocity = nt.getDoubleTopic("/climb/follower_velocity");
+    BooleanTopic motorStatus = nt.getBooleanTopic("/climb/motor_status");
 
     DoubleTopic lockMotorVelocity = nt.getDoubleTopic("/climb/lock_motor_velocity");
     DoubleTopic lockMotorCurrent = nt.getDoubleTopic("/climb/lock_motor_current");
@@ -27,6 +30,7 @@ public class ClimbNT extends Climb {
     final DoublePublisher targetMotorPositionPub;
     final DoublePublisher motorVelocityPub;
     final DoublePublisher followerVelocityPub;
+    final BooleanPublisher motorStatusPub;
 
     final DoublePublisher lockMotorVelocityPub;
     final DoublePublisher lockMotorCurrentPub;
@@ -62,6 +66,9 @@ public class ClimbNT extends Climb {
         followerVelocityPub = followerVelocity.publish();
         followerVelocityPub.setDefault(0.0);
 
+        motorStatusPub = motorStatus.publish();
+        motorStatusPub.setDefault(false);
+
         lockMotorVelocityPub = lockMotorVelocity.publish();
         lockMotorVelocityPub.setDefault(0.0);
 
@@ -96,6 +103,8 @@ public class ClimbNT extends Climb {
 
         motorVelocityPub.set(getMotorVelocity(), now);
         followerVelocityPub.set(getFollowerVelocity(), now);
+
+        motorStatusPub.set(getMotorStatus(), now);
 
         lockMotorVelocityPub.set(getLockMotorVelocity(), now);
         lockMotorCurrentPub.set(getLockMotorCurrent(), now);

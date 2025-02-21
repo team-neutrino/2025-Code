@@ -50,7 +50,7 @@ public class Climb extends SubsystemBase {
   private double m_targetPositionClimbArm;
   private double m_targetPositionLock;
   private double m_targetPositionRatchet;
-  
+
   private boolean m_climbMotorOff = true;
 
   public Climb() {
@@ -99,15 +99,17 @@ public class Climb extends SubsystemBase {
    * checks if climb arm is within a certain range of error
    */
   private boolean isTargetPosition() {
-    return Math.abs(m_targetPositionClimbArm - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_MOTOR_POSITION_ERROR;
+    return Math
+        .abs(m_targetPositionClimbArm - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_MOTOR_POSITION_ERROR;
   }
 
   /**
-   * command will only run when the motor position of the grabbers are unlocked. 
+   * command will only run when the motor position of the grabbers are unlocked.
    * If they are run when the position is at 0, they will jam the worm screw
    */
   public Command lockCommand() {
     return run(() -> {
+      m_climbMotorOff = false;
       m_targetPositionClimbArm = CLIMB_UP_POSITION;
       m_targetPositionRatchet = RATCHET_UNLOCK_POSITION;
       m_targetPositionLock = LOCK_POSITION;
@@ -130,7 +132,7 @@ public class Climb extends SubsystemBase {
 
   public Command raiseClimbArmCommand() {
     return run(() -> {
-      m_climbMotorOff = true;
+      m_climbMotorOff = false;
       m_targetPositionRatchet = RATCHET_UNLOCK_POSITION;
       m_targetPositionLock = UNLOCK_POSITION;
       m_targetPositionClimbArm = CLIMB_UP_POSITION;
@@ -141,6 +143,7 @@ public class Climb extends SubsystemBase {
     return run(() -> {
       m_targetPositionLock = LOCK_POSITION;
       m_targetPositionRatchet = RATCHET_LOCK_POSITION;
+      m_climbMotorOff = false;
       m_targetPositionClimbArm = CLIMB_DOWN_POSITION;
     }).until(() -> isTargetPosition());
   }
@@ -150,10 +153,17 @@ public class Climb extends SubsystemBase {
    */
   public Command resetClimbArmCommand() {
     return run(() -> {
+      m_climbMotorOff = false;
       m_targetPositionClimbArm = RESET_CLIMB_ROTATION;
-      m_targetPositionRatchet = RATCHET_LOCK_POSITION;
-      m_climbMotor.setPosition(0);
     }).until(() -> isTargetPosition());
+  }
+
+  public Command hasClimbCommand() {
+    return run(() -> {
+      m_targetPositionLock = LOCK_POSITION;
+      m_targetPositionRatchet = RATCHET_LOCK_POSITION;
+      m_climbMotorOff = true;
+    });
   }
 
   public Command climbDefaultCommand() {
@@ -164,13 +174,18 @@ public class Climb extends SubsystemBase {
     });
   }
 
+  private void moveClimbArm(double targetPosition) {
+    PositionVoltage positionControl = new PositionVoltage(targetPosition);
+    m_climbMotor.setControl(positionControl);
+  }
+
   @Override
   public void periodic() {
-    if (!m_climbMotorOff) {
-      m_climbMotor.setControl(new PositionVoltage(m_targetPositionClimbArm));
-    }
-    else {
+    if (m_climbMotorOff) {
       m_climbMotor.setVoltage(0);
+    } else {
+      System.out.println("I am going to move the motor");
+      moveClimbArm(m_targetPositionClimbArm);
     }
     m_pid.setReference(m_targetPositionLock, ControlType.kPosition);
     m_lockRatchet.set(m_targetPositionRatchet);
@@ -195,6 +210,10 @@ public class Climb extends SubsystemBase {
 
   public double getFollowerVelocity() {
     return m_followMotor.getVelocity().getValueAsDouble();
+  }
+
+  public boolean getMotorStatus() {
+    return m_climbMotorOff;
   }
 
   public double getLockMotorVelocity() {

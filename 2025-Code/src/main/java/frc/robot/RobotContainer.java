@@ -61,14 +61,14 @@ public class RobotContainer {
     m_buttonsController.y().whileTrue(SuperstructureFactory.scoreL2(m_buttonsController));
     m_buttonsController.b().whileTrue(SuperstructureFactory.scoreL3(m_buttonsController));
     m_buttonsController.a().whileTrue(SuperstructureFactory.scoreL4(m_buttonsController));
-
     m_buttonsController.leftBumper().whileTrue(SuperstructureFactory.intakeCoral());
 
     // pit controller
     m_pitController.rightBumper().onTrue(ClimbFactory.resetLock());
 
     /**
-     * Only use when climb arm is in up position (relaxed). Moves arm down 105 rotations.
+     * Only use when climb arm is in up position (relaxed). Moves arm down 105
+     * rotations.
      */
     m_pitController.leftBumper().onTrue(ClimbFactory.resetClimb());
   }
