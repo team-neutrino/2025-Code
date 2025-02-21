@@ -48,7 +48,7 @@ public final class Constants {
         -1, -1, -1, -1, -1, -120, 180, 120, 60, 0, -60 };
     public static final double APRILTAG_ALIGN_LIMIT = 1.5;
     public static final double AUTO_ALIGN_P = 4;
-    public static final double AUTO_ALIGN_D = .05;
+    public static final double AUTO_ALIGN_D = .02;
     public static final double STALL_TORQUE = 7.09;
     public static final double STALL_CURRENT = 366;
     public static final double FREE_CURRENT_AMPS = 2;
@@ -113,7 +113,7 @@ public final class Constants {
     public static final double HITTING_LOW_HARD_LIMIT = 90;
     public static final double HITTING_HIGH_HARD_LIMIT = 270;
     public static final double ALMOST_BACK_LIMIT = 200;
-    public static final double ALMOST_FRONT_LIMIT = 150;
+    public static final double ALMOST_FRONT_LIMIT = 170;
 
     public static final int MOTOR_ID = 10;
 
@@ -124,7 +124,7 @@ public final class Constants {
     public static final double MAX_ACCELERATION = 25000;
     public static final double ALLOWED_ERROR = 0.7;
 
-    public static final double kp = 0.02;
+    public static final double kp = 0.01;
     public static final double ki = 0;
     public static final double kd = 0;
     public static final double ArmIZone = 0;
@@ -234,37 +234,37 @@ public final class Constants {
 
   public static class DriveToPoint {
     // the number correspond to the april tag on the object
-    public static final Pose2d RED_PLAYER_STATION_1 = new Pose2d(16.1, 1.17, Rotation2d.fromDegrees(126));
-    public static final Pose2d RED_PLAYER_STATION_2 = new Pose2d(16.4, 6.76, Rotation2d.fromDegrees(-126));
+    public static final Pose2d RED_PLAYER_STATION_1 = new Pose2d(16.08, 0.99, Rotation2d.fromDegrees(126));
+    public static final Pose2d RED_PLAYER_STATION_2 = new Pose2d(16.08, 7.06, Rotation2d.fromDegrees(-126));
 
-    public static final Pose2d BLUE_PLAYER_STATION_12 = new Pose2d(0.99, 1.4, Rotation2d.fromDegrees(54));
+    public static final Pose2d BLUE_PLAYER_STATION_12 = new Pose2d(1.47, 0.99, Rotation2d.fromDegrees(54));
     public static final Pose2d BLUE_PLAYER_STATION_13 = new Pose2d(1.47, 7.06, Rotation2d.fromDegrees(-54));
 
-    public static final Pose2d RED_REEF_6A = new Pose2d(13.53, 2.47, Rotation2d.fromDegrees(120));
-    public static final Pose2d RED_REEF_6B = new Pose2d(13.79, 2.69, Rotation2d.fromDegrees(120));
-    public static final Pose2d RED_REEF_7A = new Pose2d(14.6, 3.61, Rotation2d.fromDegrees(180));
-    public static final Pose2d RED_REEF_7B = new Pose2d(14.6, 4.02, Rotation2d.fromDegrees(180));
-    public static final Pose2d RED_REEF_8A = new Pose2d(14.16, 5.21, Rotation2d.fromDegrees(-120));
-    public static final Pose2d RED_REEF_8B = new Pose2d(13.81, 5.41, Rotation2d.fromDegrees(-120));
-    public static final Pose2d RED_REEF_9A = new Pose2d(12.66, 5.63, Rotation2d.fromDegrees(-60));
-    public static final Pose2d RED_REEF_9B = new Pose2d(12.33, 5.43, Rotation2d.fromDegrees(-60));
-    public static final Pose2d RED_REEF_10A = new Pose2d(11.49, 4.4, Rotation2d.fromDegrees(0));
-    public static final Pose2d RED_REEF_10B = new Pose2d(11.49, 4.1, Rotation2d.fromDegrees(0));
-    public static final Pose2d RED_REEF_11A = new Pose2d(11.99, 2.91, Rotation2d.fromDegrees(60));
-    public static final Pose2d RED_REEF_11B = new Pose2d(12.34, 2.67, Rotation2d.fromDegrees(60));
+    public static final Pose2d RED_REEF_6A = new Pose2d(13.34, 2.58, Rotation2d.fromDegrees(120));
+    public static final Pose2d RED_REEF_6B = new Pose2d(13.62, 2.74, Rotation2d.fromDegrees(120));
+    public static final Pose2d RED_REEF_7A = new Pose2d(14.45, 3.55, Rotation2d.fromDegrees(180));
+    public static final Pose2d RED_REEF_7B = new Pose2d(14.45, 3.87, Rotation2d.fromDegrees(180));
+    public static final Pose2d RED_REEF_8A = new Pose2d(14.17, 4.99, Rotation2d.fromDegrees(-120));
+    public static final Pose2d RED_REEF_8B = new Pose2d(13.89, 5.15, Rotation2d.fromDegrees(-120));
+    public static final Pose2d RED_REEF_9A = new Pose2d(12.78, 5.47, Rotation2d.fromDegrees(-60));
+    public static final Pose2d RED_REEF_9B = new Pose2d(12.5, 5.31, Rotation2d.fromDegrees(-60));
+    public static final Pose2d RED_REEF_10A = new Pose2d(11.67, 4.5, Rotation2d.fromDegrees(0));
+    public static final Pose2d RED_REEF_10B = new Pose2d(11.67, 4.18, Rotation2d.fromDegrees(0));
+    public static final Pose2d RED_REEF_11A = new Pose2d(11.95, 3.06, Rotation2d.fromDegrees(60));
+    public static final Pose2d RED_REEF_11B = new Pose2d(12.23, 2.9, Rotation2d.fromDegrees(60));
 
-    public static final Pose2d BLUE_REEF_17A = new Pose2d(3.7, 2.6, Rotation2d.fromDegrees(60));
-    public static final Pose2d BLUE_REEF_17B = new Pose2d(3.4, 2.85, Rotation2d.fromDegrees(60));
+    public static final Pose2d BLUE_REEF_17A = new Pose2d(3.66, 2.9, Rotation2d.fromDegrees(60));
+    public static final Pose2d BLUE_REEF_17B = new Pose2d(3.38, 3.06, Rotation2d.fromDegrees(60));
     public static final Pose2d BLUE_REEF_18A = new Pose2d(3.1, 4.18, Rotation2d.fromDegrees(0));
     public static final Pose2d BLUE_REEF_18B = new Pose2d(3.1, 4.5, Rotation2d.fromDegrees(0));
-    public static final Pose2d BLUE_REEF_19A = new Pose2d(3.87, 5.23, Rotation2d.fromDegrees(-60));
-    public static final Pose2d BLUE_REEF_19B = new Pose2d(3.94, 5.58, Rotation2d.fromDegrees(-60));
-    public static final Pose2d BLUE_REEF_20A = new Pose2d(5.26, 5.4, Rotation2d.fromDegrees(-120));
-    public static final Pose2d BLUE_REEF_20B = new Pose2d(5.55, 5.27, Rotation2d.fromDegrees(-120));
-    public static final Pose2d BLUE_REEF_21A = new Pose2d(6.02, 3.98, Rotation2d.fromDegrees(180));
-    public static final Pose2d BLUE_REEF_21B = new Pose2d(6.02, 3.62, Rotation2d.fromDegrees(180));
-    public static final Pose2d BLUE_REEF_22A = new Pose2d(5.2, 2.61, Rotation2d.fromDegrees(120));
-    public static final Pose2d BLUE_REEF_22B = new Pose2d(4.85, 2.49, Rotation2d.fromDegrees(120));
+    public static final Pose2d BLUE_REEF_19A = new Pose2d(3.97, 5.25, Rotation2d.fromDegrees(-60));
+    public static final Pose2d BLUE_REEF_19B = new Pose2d(4.12, 5.48, Rotation2d.fromDegrees(-60));
+    public static final Pose2d BLUE_REEF_20A = new Pose2d(5.32, 5.15, Rotation2d.fromDegrees(-120));
+    public static final Pose2d BLUE_REEF_20B = new Pose2d(5.6, 4.99, Rotation2d.fromDegrees(-120));
+    public static final Pose2d BLUE_REEF_21A = new Pose2d(5.88, 3.87, Rotation2d.fromDegrees(180));
+    public static final Pose2d BLUE_REEF_21B = new Pose2d(5.88, 3.55, Rotation2d.fromDegrees(180));
+    public static final Pose2d BLUE_REEF_22A = new Pose2d(5.05, 2.74, Rotation2d.fromDegrees(120));
+    public static final Pose2d BLUE_REEF_22B = new Pose2d(4.77, 2.58, Rotation2d.fromDegrees(120));
 
     // Don't reorder this list
     public static final List<Pose2d> POSE_LIST = List.of(RED_PLAYER_STATION_1, RED_PLAYER_STATION_2,
