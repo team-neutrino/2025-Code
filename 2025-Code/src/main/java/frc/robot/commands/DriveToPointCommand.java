@@ -90,6 +90,7 @@ public class DriveToPointCommand extends Command {
         && (Math.abs(m_pointControl.getTarget().getY() - swerve.getCurrentPose().getY()) < AT_POINT_TOLERANCE)) {
       swerve.setDrivingToPoint(false);
       swerve.setAtPoint(true);
+      DYNAMIC_ANGLE[POSE_LIST.indexOf(m_pointControl.getTarget())] = -1; // started work here, continue later...
     }
   }
 
