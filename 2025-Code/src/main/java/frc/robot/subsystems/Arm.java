@@ -175,7 +175,13 @@ public class Arm extends SubsystemBase {
    * @return The rotate wrist command
    */
   public Command armDefaultCommand() {
-    return run(() -> m_targetAngle = DEFAULT_POSITION);
+    return run(() -> {
+      if (Subsystem.coral.hasCoral()) {
+        m_targetAngle = DEFAULT_POSITION;
+      } else {
+        m_targetAngle = DEFAULT_BACK_POSITION;
+      }
+    });
   }
 
   /**
