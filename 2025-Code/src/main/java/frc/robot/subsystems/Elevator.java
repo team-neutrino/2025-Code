@@ -135,8 +135,9 @@ public class Elevator extends SubsystemBase {
       safeTarget = L2;
     }
 
-    else if (((Subsystem.arm.getTargetAngle() > 180 && Subsystem.arm.getAngle() < 180)
-        || (Subsystem.arm.getTargetAngle() < 180 && Subsystem.arm.getAngle() > 180)) && getTargetHeight() < L2) {
+    else if ((((Subsystem.arm.getTargetAngle() > 180 && Subsystem.arm.getAngle() < 180)
+        || (Subsystem.arm.getTargetAngle() < 180 && Subsystem.arm.getAngle() > 180))
+        || (Subsystem.arm.getAngle() > 160 && Subsystem.arm.getAngle() < 220)) && getTargetHeight() < L2) {
       safeTarget = L2;
     }
 
