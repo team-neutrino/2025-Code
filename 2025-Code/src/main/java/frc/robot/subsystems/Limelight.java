@@ -215,7 +215,7 @@ public class Limelight extends SubsystemBase {
 
     if (hasReefTag && (Subsystem.coral.hasCoral() || !hasPlayerStationTag)) {
       updateOdometryLL1();
-    } else if (hasPlayerStationTag) {
+    } else if (!Subsystem.coral.hasCoral() || hasPlayerStationTag) {
       updateOdometryLL2();
     }
   }
