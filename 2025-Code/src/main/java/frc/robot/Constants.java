@@ -59,7 +59,7 @@ public final class Constants {
     public static final double DRIVE_GEAR_RATIO = 5.6;
     public static final double REEF_OFFSET = Units.inchesToMeters(12.94) / 2;
     public static final double isAlignedError = 0;
-    public static final double DRIVE_TO_POINT_P = 2;
+    public static final double DRIVE_TO_POINT_P = 3;
     public static final double AT_POINT_TOLERANCE = 0.05;
   }
 
@@ -70,7 +70,7 @@ public final class Constants {
     public static final double DEFAULT = 0.0;
     public static final double BOTTOM_POSITION = 0.0;
     public static final double STAGE_ONE_UP = 26.0;
-    public static final double CORAL_INTAKE = 36;
+    public static final double CORAL_INTAKE = 34;
     public static final double REMOVE_ALGAE = 0.0;
     public static final double L1 = 14.0;
     public static final double L2 = 24.0;
@@ -238,7 +238,7 @@ public final class Constants {
     public static final Pose2d RED_PLAYER_STATION_2 = new Pose2d(16.4, 6.76, Rotation2d.fromDegrees(-126));
 
     public static final Pose2d BLUE_PLAYER_STATION_12 = new Pose2d(0.99, 1.4, Rotation2d.fromDegrees(54));
-    public static final Pose2d BLUE_PLAYER_STATION_13 = new Pose2d(1.59, 6.96, Rotation2d.fromDegrees(-54));
+    public static final Pose2d BLUE_PLAYER_STATION_13 = new Pose2d(1.47, 7.06, Rotation2d.fromDegrees(-54));
 
     public static final Pose2d RED_REEF_6A = new Pose2d(13.53, 2.47, Rotation2d.fromDegrees(120));
     public static final Pose2d RED_REEF_6B = new Pose2d(13.79, 2.69, Rotation2d.fromDegrees(120));
