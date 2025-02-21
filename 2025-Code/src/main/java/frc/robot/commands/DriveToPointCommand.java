@@ -7,7 +7,6 @@ package frc.robot.commands;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Constants;
 import frc.robot.subsystems.Swerve.SwerveRequestStash;
 import frc.robot.util.DriveToPointController;
 import frc.robot.util.Subsystem;
@@ -104,13 +103,6 @@ public class DriveToPointCommand extends Command {
     id = id > 11 ? 0 : id < 0 ? 11 : id; // wrap value
 
     m_pointControl.setTarget(m_reefPoses.get(id));
-  }
-
-  private double getAngleFromTag() {
-    double targetAngle = Subsystem.limelight.getTargetYaw();
-    double tx = Subsystem.limelight.getTx();
-    double yaw = swerve.getYawDegrees();
-    return 0;
   }
 
   private void drive() {
