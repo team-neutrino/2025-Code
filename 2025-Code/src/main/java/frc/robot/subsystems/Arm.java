@@ -151,11 +151,11 @@ public class Arm extends SubsystemBase {
     double safeAngle = targetAngle;
 
     if (Subsystem.elevator.getHeight() < ElevatorConstants.L2 - ElevatorConstants.HEIGHT_TOLERANCE) {
-      if (getAngle() < 180 && getTargetAngle() > 160) {
-        safeAngle = 160;
+      if (getAngle() < 180 && getTargetAngle() > DEFAULT_POSITION) {
+        safeAngle = DEFAULT_POSITION;
       }
-      if (getAngle() > 180 && getTargetAngle() < 220) {
-        safeAngle = 220;
+      if (getAngle() > 180 && getTargetAngle() < DEFAULT_BACK_POSITION) {
+        safeAngle = DEFAULT_BACK_POSITION;
       }
     }
 
@@ -175,7 +175,13 @@ public class Arm extends SubsystemBase {
    * @return The rotate wrist command
    */
   public Command armDefaultCommand() {
-    return run(() -> m_targetAngle = DEFAULT_POSITION);
+    return run(() -> {
+      if (Subsystem.coral.hasCoral()) {
+        m_targetAngle = DEFAULT_POSITION;
+      } else {
+        m_targetAngle = DEFAULT_BACK_POSITION;
+      }
+    });
   }
 
   /**
