@@ -149,13 +149,16 @@ public class Arm extends SubsystemBase {
 
   private double safeAngle(double targetAngle) {
     double safeAngle = targetAngle;
-    if (targetAngle > ALMOST_FRONT_LIMIT && targetAngle <= 180
-        && Subsystem.elevator.getHeight() < ElevatorConstants.STAGE_ONE_UP) {
-      safeAngle = ALMOST_FRONT_LIMIT;
-    } else if (targetAngle < ALMOST_BACK_LIMIT && targetAngle > 180
-        && Subsystem.elevator.getHeight() < ElevatorConstants.STAGE_ONE_UP) {
-      safeAngle = ALMOST_BACK_LIMIT;
+
+    if (Subsystem.elevator.getHeight() < ElevatorConstants.L2 - ElevatorConstants.HEIGHT_TOLERANCE) {
+      if (getAngle() < 180 && getTargetAngle() > 160) {
+        safeAngle = 160;
+      }
+      if (getAngle() > 180 && getTargetAngle() < 220) {
+        safeAngle = 220;
+      }
     }
+
     return safeAngle;
 
   }
