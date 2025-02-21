@@ -31,7 +31,12 @@ public class Coral extends SubsystemBase {
     private RelativeEncoder m_encoder;
     private double m_motorVoltage;
     private Canandcolor m_colorSensor = new Canandcolor(COLOR_SENSOR);
-    private CanandcolorSettings m_settings = new CanandcolorSettings();
+    /**
+     * Settings of the color sensor(used for lamp brightness)
+     */
+    private CanandcolorSettings m_settings_lamp_on = new CanandcolorSettings();
+    private CanandcolorSettings m_settings_lamp_off = new CanandcolorSettings();
+
     private Debouncer m_debouncer = new Debouncer(0.1, DebounceType.kFalling);
 
     public Coral() {
@@ -47,8 +52,9 @@ public class Coral extends SubsystemBase {
         m_motor.configure(m_motorConfig, SparkBase.ResetMode.kResetSafeParameters,
                 SparkBase.PersistMode.kPersistParameters);
 
-        m_settings.setLampLEDBrightness(1);
-        m_colorSensor.setSettings(m_settings);
+        m_settings_lamp_on.setLampLEDBrightness(1.0);
+        m_settings_lamp_off.setLampLEDBrightness(0.0);
+        m_colorSensor.setSettings(m_settings_lamp_on);
     }
 
     private boolean withinProximity(double distance) {
@@ -76,9 +82,14 @@ public class Coral extends SubsystemBase {
         return m_motorVoltage;
     }
 
+    private void setLampOn(boolean on) {
+        m_colorSensor.setSettings(on ? m_settings_lamp_on : m_settings_lamp_off, 0.0);
+    }
+
     @Override
     public void periodic() {
         m_motor.set(m_motorVoltage);
+        setLampOn(!hasCoral());
     }
 
     /**
