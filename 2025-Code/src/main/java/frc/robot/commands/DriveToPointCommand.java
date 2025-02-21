@@ -72,8 +72,7 @@ public class DriveToPointCommand extends Command {
   }
 
   private void obtainTarget() {
-    // boolean hasGamePiece = Subsystem.coral.hasCoral();
-    boolean hasGamePiece = true;
+    boolean hasGamePiece = Subsystem.coral.hasCoral();
     if (hasGamePiece) {
       m_pointControl.setTargetNearest(m_reefPoses);
     } else {
