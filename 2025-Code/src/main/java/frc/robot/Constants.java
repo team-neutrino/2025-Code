@@ -31,6 +31,7 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
     public static final int kButtonsControllerPort = 1;
+    public static final int kPitControllerPort = 3;
   }
 
   public final class CANRateConstants {
@@ -147,33 +148,42 @@ public final class Constants {
   }
 
   public static class ClimbConstants {
-    public static final int MAIN_MOTOR_ID = 30;
-    public static final int FOLLOW_MOTOR_ID = 31;
+    public static final int MAIN_MOTOR_ID = 31;
+    public static final int FOLLOW_MOTOR_ID = 30;
     public static final int LOCK_MOTOR_ID = 32;
+    public static final int RATCHET_PORT = 0;
 
-    public static final int CLIMB_CURRENT_LIMIT = 10;
-    public static final int LOCK_CURRENT_LIMIT = 10;
-    // subject to change
+    public static final int CLIMB_CURRENT_LIMIT = 80;
+    public static final int LOCK_CURRENT_LIMIT = 20;
 
-    public static final double LOCK_CURRENT_THRESHOLD = 20;
-    // subject to change
-
-    public static final double LOCK_VOLTAGE = 1;
-    // subject to change
-
-    public static final int CLIMB_UP_POSITION = 2;
+    public static final int CLIMB_UP_POSITION = 35;
     public static final int CLIMB_DOWN_POSITION = 0;
-    // subject to change
+    public static final int RESET_CLIMB_ROTATION = -105;
 
-    public static final double kP = 1;
-    public static final double kI = 0;
-    public static final double kD = 0;
-    // subject to change
+    public static final int CLIMB_POSITION_TOLERANCE = 2;
+    public static final int LOCK_MOTOR_POSITION_SAFETY = -10;
+
+    public static final int LOCK_POSITION = 15;
+    public static final int UNLOCK_POSITION = -15;
+    public static final int RESET_LOCK_POSITION = 0;
+
+    public static final double RATCHET_LOCK_POSITION = 0.7;
+    public static final double RATCHET_UNLOCK_POSITION = 1;
+
+    public static final double CLIMB_kP = 0.75;
+    public static final double CLIMB_kI = 0;
+    public static final double CLIMB_kD = 0;
+
+    public static final double LOCK_kP = 0.75;
+    public static final double LOCK_kI = 0;
+    public static final double LOCK_kD = 0;
 
     public static final double VELOCITY = 0;
     public static final double ACCELERATION = 0;
     public static final double JERK = 0;
     // subject to change
+
+    public static final double COMMAND_WAIT_TIME = 0.5;
   }
 
   public static class LimelightConstants {

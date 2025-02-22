@@ -29,8 +29,8 @@
 |           | left grabber   | 21     | Spark Max        |
 |           | color sensor   | 27     | Canandcolor      |
 | Climb     |                | 30-39  |                  |
-|           | 0              | 30     | Talon Fx         |
-|           | 1              | 31     | Talon Fx         |
+|           | follower       | 30     | Talon Fx         |
+|           | main           | 31     | Talon Fx         |
 |           | hook           | 32     | Spark Max        |
 
 ## DIO
@@ -40,7 +40,7 @@
 ## PWM
 | Subsystem | Description          | Port   |
 | --------- | -------------------- | ------ |
-| Climb     | Servo for ratchet    | 0      |
+| Climb     | servo for ratchet    | 0      |
 
 ## PDH
 | Port | Destination | Breaker | Gauge  |
