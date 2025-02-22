@@ -82,15 +82,15 @@ public final class Constants {
     public static final double GEAR_RATIO = 50 / 7; // 7.41:1
     public static final double FLOOR_TO_ELEVATOR_TOP = 70.88;
     public static final double FLOOR_TO_TOP_OF_BOTTOM_TUBE = 11.88;
-    public static final double MAX_VELOCITY = 3000;
-    public static final double MAX_ACCELERATION = 4000;
+    public static final double MAX_VELOCITY = 2300;
+    public static final double MAX_ACCELERATION = 2000;
     public static final double ALLOWED_ERROR = 0.1;
     public static final double P_VAL = 0.11;
     public static final double I_VAL = 0.0;
     public static final double D_VAL = 0.0;
     public static final double STAGE_1_FF = 0.25;
     public static final double STAGE_2_FF = 0.30;
-    public static final double HEIGHT_TOLERANCE = 0.2;
+    public static final double HEIGHT_TOLERANCE = 0.6;
   }
 
   public static class ArmConstants {
@@ -100,10 +100,10 @@ public final class Constants {
     public static final double GROUND_ALGAE_POSITION = 95;
     public static final double CORAL_STATION_POSITION = 330;
     public static final double L1_UNDERHAND = 335.0;
-    public static final double L1_POSITION = 120.0;
-    public static final double L2_POSITION = 130.0;
-    public static final double L3_POSITION = 140.0;
-    public static final double L4_POSITION = 155.0;
+    public static final double L1_POSITION = 140.0;
+    public static final double L2_POSITION = 125.0;
+    public static final double L3_POSITION = 135.0;
+    public static final double L4_POSITION = 150.0;
     public static final double EVACUATE_ANGLE = 15.0;
     public static final double REEF_L2_DESCORE_POSITION = 0.0;
     public static final double REEF_L3_DESCORE_POSITION = 0.0;
@@ -120,14 +120,14 @@ public final class Constants {
     public static final double ENCODER_ZERO_OFFSET = 0;
     public static final int CURRENT_LIMIT = 40;
 
-    public static final double MAX_VELOCITY = 4000;
-    public static final double MAX_ACCELERATION = 25000;
+    public static final double MAX_VELOCITY = 4500;
+    public static final double MAX_ACCELERATION = 35000;
     public static final double ALLOWED_ERROR = 0.7;
 
     public static final double kp = 0.01;
-    public static final double ki = 0;
+    public static final double ki = 0.01;
     public static final double kd = 0;
-    public static final double ArmIZone = 0;
+    public static final double ArmIZone = 2;
 
     public static final double FFCONSTANT = 0.04;
 
@@ -139,6 +139,7 @@ public final class Constants {
     public static final int GRABBER_CURRENT_LIMIT = 20;
     public static final double INTAKE_MOTOR_VOLTAGE = 0.7;
     public static final double HOLD_PIECE_VOLTAGE = .1;
+    public static final double SLOW_MOTOR_VOLTAGE = 0.3;
 
     public static final int COLOR_SENSOR = 27;
 

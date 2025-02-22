@@ -67,6 +67,7 @@ public class Arm extends SubsystemBase {
 
   public boolean readyToScore() {
     return atTargetAngle() && !(m_targetAngle == STARTING_POSITION || m_targetAngle == DEFAULT_POSITION
+        || m_targetAngle == DEFAULT_BACK_POSITION
         || m_targetAngle == CORAL_STATION_POSITION);
   }
 
@@ -89,7 +90,8 @@ public class Arm extends SubsystemBase {
 
     m_motorConfig.closedLoop
         .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
-        .pid(kp, ki, kd, ClosedLoopSlot.kSlot0);
+        .pid(kp, ki, kd, ClosedLoopSlot.kSlot0)
+        .iZone(ArmIZone);
     m_pid = m_motor.getClosedLoopController();
 
     m_motorConfig.closedLoop.maxMotion
@@ -155,6 +157,9 @@ public class Arm extends SubsystemBase {
         safeAngle = DEFAULT_POSITION;
       }
       if (getAngle() > 180 && getTargetAngle() < DEFAULT_BACK_POSITION) {
+        safeAngle = DEFAULT_BACK_POSITION;
+      }
+      if (getTargetAngle() > 270) {
         safeAngle = DEFAULT_BACK_POSITION;
       }
     }

@@ -199,21 +199,28 @@ public class Limelight extends SubsystemBase {
     m_lastFrame2 = frame2;
   }
 
+  private boolean hasReefTag() {
+    return LimelightHelpers.getRawFiducials(LIMELIGHT_1).length > 0;
+  }
+
+  private boolean hasPlayerStationTag() {
+    return LimelightHelpers.getRawFiducials(LIMELIGHT_2).length > 0;
+  }
+
   private void updateOdometry() {
+    boolean hasReefTag = hasReefTag();
+    boolean hasPlayerStationTag = hasPlayerStationTag();
+
     m_swerve.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
-    int tagCt1 = LimelightHelpers.getRawFiducials(LIMELIGHT_1).length;
-    int tagCt2 = LimelightHelpers.getRawFiducials(LIMELIGHT_2).length;
-    if (tagCt1 + tagCt2 < 2) {
-      if (tagCt1 > 0) {
-        updateOdometryLL1();
-      } else {
-        updateOdometryLL2();
-      }
+
+    if (Subsystem.coral.hasCoral() && !hasReefTag) {
+      return;
+    } else if (!Subsystem.coral.hasCoral() && !hasPlayerStationTag) {
       return;
     }
-    if (Subsystem.coral.hasCoral()) {
+    if (hasReefTag && (Subsystem.coral.hasCoral() || !hasPlayerStationTag)) {
       updateOdometryLL1();
-    } else {
+    } else if (hasPlayerStationTag) {
       updateOdometryLL2();
     }
   }

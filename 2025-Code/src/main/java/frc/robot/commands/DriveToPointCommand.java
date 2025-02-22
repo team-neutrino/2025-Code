@@ -7,7 +7,6 @@ package frc.robot.commands;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Constants;
 import frc.robot.subsystems.Swerve.SwerveRequestStash;
 import frc.robot.util.DriveToPointController;
 import frc.robot.util.Subsystem;
@@ -25,6 +24,7 @@ public class DriveToPointCommand extends Command {
   private List<Pose2d> m_reefPoses;
   private List<Pose2d> m_coralStationPoses;
   private boolean m_bumperWasPressed = false;
+  private boolean m_hadGamePiece;
 
   public DriveToPointCommand(CommandXboxController xboxController) {
     m_xboxController = xboxController;
@@ -56,6 +56,9 @@ public class DriveToPointCommand extends Command {
     checkBumpers();
     drive();
     isAtPoint();
+    if (swerve.isAtPoint() && (Subsystem.coral.hasCoral() != m_hadGamePiece)) {
+      obtainTarget();
+    }
   }
 
   @Override
@@ -66,13 +69,12 @@ public class DriveToPointCommand extends Command {
 
   @Override
   public boolean isFinished() {
-    boolean triedMove = Math.abs(m_xboxController.getLeftX()) > .5 || Math.abs(m_xboxController.getLeftY()) > .5;
-    boolean triedTurn = Math.abs(m_xboxController.getRightX()) > .5;
-    return triedMove || triedTurn;
+    return false;
   }
 
   private void obtainTarget() {
     boolean hasGamePiece = Subsystem.coral.hasCoral();
+    m_hadGamePiece = hasGamePiece;
     if (hasGamePiece) {
       m_pointControl.setTargetNearest(m_reefPoses);
     } else {
