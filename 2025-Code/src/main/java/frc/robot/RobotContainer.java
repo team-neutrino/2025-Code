@@ -46,7 +46,7 @@ public class RobotContainer {
     m_driverController.x().onTrue(ClimbFactory.lockGrabber());
     m_driverController.a().onTrue(ClimbFactory.lowerClimb());
 
-    m_driverController.rightBumper().onTrue(ClimbFactory.resetLock());
+    m_driverController.rightBumper().onTrue(ClimbFactory.resetGrabber());
 
     /**
      * Only use when climb arm is in up position (relaxed). Moves arm down 105
@@ -65,7 +65,7 @@ public class RobotContainer {
     m_buttonsController.leftBumper().whileTrue(SuperstructureFactory.intakeCoral());
 
     // pit controller
-    m_pitController.rightBumper().onTrue(ClimbFactory.resetLock());
+    m_pitController.rightBumper().onTrue(ClimbFactory.resetGrabber());
 
     /**
      * Only use when climb arm is in up position (relaxed). Moves arm down 105

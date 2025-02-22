@@ -12,7 +12,6 @@ import static frc.robot.Constants.ClimbConstants.*;
 
 import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
-import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.PositionVoltage;
@@ -32,26 +31,25 @@ public class Climb extends SubsystemBase {
   private final CANBus m_CANBus = new CANBus("rio");
 
   private TalonFX m_climbMotor = new TalonFX(MAIN_MOTOR_ID, m_CANBus);
-  private TalonFX m_followMotor = new TalonFX(FOLLOW_MOTOR_ID, m_CANBus);
+  private TalonFX m_climbFollower = new TalonFX(FOLLOW_MOTOR_ID, m_CANBus);
   private TalonFXConfiguration m_climbMotorConfig = new TalonFXConfiguration();
-  private TalonFXConfiguration m_followMotorConfig = new TalonFXConfiguration();
-  private MotionMagicConfigs m_motionMagicConfig = new MotionMagicConfigs();
+  private TalonFXConfiguration m_climbFollowerConfig = new TalonFXConfiguration();
 
   private final CurrentLimitsConfigs m_currentLimitConfig = new CurrentLimitsConfigs();
   private Follower m_followRequest = new Follower(MAIN_MOTOR_ID, true);
 
-  private SparkMax m_lockMotor = new SparkMax(LOCK_MOTOR_ID, MotorType.kBrushless);
-  private SparkMaxConfig m_lockMotorConfig = new SparkMaxConfig();
-  private RelativeEncoder m_lockMotorEncoder = m_lockMotor.getEncoder();
-  private SparkClosedLoopController m_pid = m_lockMotor.getClosedLoopController();
+  private SparkMax m_grabMotor = new SparkMax(LOCK_MOTOR_ID, MotorType.kBrushless);
+  private SparkMaxConfig m_grabMotorConfig = new SparkMaxConfig();
+  private RelativeEncoder m_grabEncoder = m_grabMotor.getEncoder();
+  private SparkClosedLoopController m_grabPid = m_grabMotor.getClosedLoopController();
 
-  private Servo m_lockRatchet = new Servo(RATCHET_PORT);
+  private Servo m_ratchetServo = new Servo(RATCHET_PORT);
 
-  private double m_targetPositionClimbArm;
-  private double m_targetPositionLock;
+  private double m_targetPositionClimb;
+  private double m_targetPositionGrab;
   private double m_targetPositionRatchet;
 
-  private boolean m_climbMotorOff = true;
+  private boolean m_climbMotorOff;
 
   public Climb() {
     configureMotors();
@@ -69,56 +67,50 @@ public class Climb extends SubsystemBase {
     m_climbMotorConfig.Slot0.kI = CLIMB_kI;
     m_climbMotorConfig.Slot0.kD = CLIMB_kD;
 
-    m_motionMagicConfig.MotionMagicCruiseVelocity = VELOCITY;
-    m_motionMagicConfig.MotionMagicAcceleration = ACCELERATION;
-    m_motionMagicConfig.MotionMagicJerk = JERK;
-
-    // m_climbMotorConfig.withMotionMagic(m_motionMagicConfig);
-
     m_climbMotor.setNeutralMode(NeutralModeValue.Brake);
     m_climbMotor.getConfigurator().apply(m_climbMotorConfig);
 
-    m_followMotorConfig.CurrentLimits = m_currentLimitConfig;
-    m_followMotor.setNeutralMode(NeutralModeValue.Brake);
-    m_followMotor.getConfigurator().apply(m_followMotorConfig);
-    m_followMotor.setControl(m_followRequest);
+    m_climbFollowerConfig.CurrentLimits = m_currentLimitConfig;
+    m_climbFollower.setNeutralMode(NeutralModeValue.Brake);
+    m_climbFollower.getConfigurator().apply(m_climbFollowerConfig);
+    m_climbFollower.setControl(m_followRequest);
 
-    m_lockMotorConfig.smartCurrentLimit(LOCK_CURRENT_LIMIT);
-    m_lockMotorConfig.closedLoop
+    m_grabMotorConfig.smartCurrentLimit(LOCK_CURRENT_LIMIT);
+    m_grabMotorConfig.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
         .pid(LOCK_kP, LOCK_kI, LOCK_kD);
-    m_lockMotor.configure(m_lockMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    m_grabMotor.configure(m_grabMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
   private void resetEncoderPosition() {
     m_climbMotor.setPosition(0);
-    m_lockMotorEncoder.setPosition(0);
+    m_grabEncoder.setPosition(0);
   }
 
   /**
-   * checks if climb arm is within a certain range of error
+   * checks if climb arm is within a certain range of tolerance
    */
   private boolean isTargetPosition() {
     return Math
-        .abs(m_targetPositionClimbArm - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_MOTOR_POSITION_ERROR;
+        .abs(m_targetPositionClimb - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_POSITION_TOLERANCE;
   }
 
   /**
    * command will only run when the motor position of the grabbers are unlocked.
    * If they are run when the position is at 0, they will jam the worm screw
    */
-  public Command lockCommand() {
+  public Command lockGrabberCommand() {
     return run(() -> {
       m_climbMotorOff = false;
-      m_targetPositionClimbArm = CLIMB_UP_POSITION;
+      m_targetPositionClimb = CLIMB_UP_POSITION;
       m_targetPositionRatchet = RATCHET_UNLOCK_POSITION;
-      m_targetPositionLock = LOCK_POSITION;
+      m_targetPositionGrab = LOCK_POSITION;
     });
   }
 
-  public Command resetLockCommand() {
+  public Command resetGrabberCommand() {
     return run(() -> {
-      m_targetPositionLock = RESET_LOCK_POSITION;
+      m_targetPositionGrab = RESET_LOCK_POSITION;
     });
   }
 
@@ -126,41 +118,41 @@ public class Climb extends SubsystemBase {
     return run(() -> {
       m_climbMotorOff = true;
       m_targetPositionRatchet = RATCHET_UNLOCK_POSITION;
-      m_targetPositionLock = UNLOCK_POSITION;
+      m_targetPositionGrab = UNLOCK_POSITION;
     });
   }
 
-  public Command raiseClimbArmCommand() {
+  public Command raiseClimbCommand() {
     return run(() -> {
       m_climbMotorOff = false;
       m_targetPositionRatchet = RATCHET_UNLOCK_POSITION;
-      m_targetPositionLock = UNLOCK_POSITION;
-      m_targetPositionClimbArm = CLIMB_UP_POSITION;
+      m_targetPositionGrab = UNLOCK_POSITION;
+      m_targetPositionClimb = CLIMB_UP_POSITION;
     });
   }
 
-  public Command lowerClimbArmCommand() {
+  public Command lowerClimbCommand() {
     return run(() -> {
-      m_targetPositionLock = LOCK_POSITION;
+      m_targetPositionGrab = LOCK_POSITION;
       m_targetPositionRatchet = RATCHET_LOCK_POSITION;
       m_climbMotorOff = false;
-      m_targetPositionClimbArm = CLIMB_DOWN_POSITION;
+      m_targetPositionClimb = CLIMB_DOWN_POSITION;
     }).until(() -> isTargetPosition());
   }
 
   /**
    * only use when climb arm is in up position
    */
-  public Command resetClimbArmCommand() {
+  public Command resetClimbCommand() {
     return run(() -> {
       m_climbMotorOff = false;
-      m_targetPositionClimbArm = RESET_CLIMB_ROTATION;
+      m_targetPositionClimb = RESET_CLIMB_ROTATION;
     }).until(() -> isTargetPosition());
   }
 
   public Command hasClimbCommand() {
     return run(() -> {
-      m_targetPositionLock = LOCK_POSITION;
+      m_targetPositionGrab = LOCK_POSITION;
       m_targetPositionRatchet = RATCHET_LOCK_POSITION;
       m_climbMotorOff = true;
     });
@@ -168,7 +160,7 @@ public class Climb extends SubsystemBase {
 
   public Command climbDefaultCommand() {
     return run(() -> {
-      m_targetPositionLock = RESET_LOCK_POSITION;
+      m_targetPositionGrab = RESET_LOCK_POSITION;
       m_targetPositionRatchet = RATCHET_LOCK_POSITION;
       m_climbMotorOff = true;
     });
@@ -185,10 +177,10 @@ public class Climb extends SubsystemBase {
       m_climbMotor.setVoltage(0);
     } else {
       System.out.println("I am going to move the motor");
-      moveClimbArm(m_targetPositionClimbArm);
+      moveClimbArm(m_targetPositionClimb);
     }
-    m_pid.setReference(m_targetPositionLock, ControlType.kPosition);
-    m_lockRatchet.set(m_targetPositionRatchet);
+    m_grabPid.setReference(m_targetPositionGrab, ControlType.kPosition);
+    m_ratchetServo.set(m_targetPositionRatchet);
   }
 
   /* NETWORK TABLES */
@@ -197,11 +189,11 @@ public class Climb extends SubsystemBase {
   }
 
   public double getFollowerPosition() {
-    return m_followMotor.getPosition().getValueAsDouble();
+    return m_climbFollower.getPosition().getValueAsDouble();
   }
 
   public double getTargetPosition() {
-    return m_targetPositionClimbArm;
+    return m_targetPositionClimb;
   }
 
   public double getMotorVelocity() {
@@ -209,19 +201,19 @@ public class Climb extends SubsystemBase {
   }
 
   public double getFollowerVelocity() {
-    return m_followMotor.getVelocity().getValueAsDouble();
+    return m_climbFollower.getVelocity().getValueAsDouble();
   }
 
-  public boolean getMotorStatus() {
+  public boolean getMotoroff() {
     return m_climbMotorOff;
   }
 
   public double getLockMotorVelocity() {
-    return m_lockMotorEncoder.getVelocity();
+    return m_grabEncoder.getVelocity();
   }
 
   public double getLockMotorCurrent() {
-    return m_lockMotor.getOutputCurrent();
+    return m_grabMotor.getOutputCurrent();
   }
 
   public void changePID(double p, double i, double d) {
@@ -233,19 +225,10 @@ public class Climb extends SubsystemBase {
   }
 
   public void changeLockPID(double p, double i, double d) {
-    m_lockMotorConfig.closedLoop
+    m_grabMotorConfig.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
         .pid(p, i, d);
 
-    m_lockMotor.configure(m_lockMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-  }
-
-  public void changeMotionMagic(double velocity, double acceleration, double jerk) {
-    m_motionMagicConfig.MotionMagicCruiseVelocity = velocity;
-    m_motionMagicConfig.MotionMagicAcceleration = acceleration;
-    m_motionMagicConfig.MotionMagicJerk = jerk;
-
-    m_climbMotorConfig.withMotionMagic(m_motionMagicConfig);
-    m_climbMotor.getConfigurator().apply(m_climbMotorConfig);
+    m_grabMotor.configure(m_grabMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 }
