@@ -61,7 +61,6 @@ public class LED extends SubsystemBase {
       color_pub.set("green");
     } else {
       color_pub.set("orange");
-      state_pub.set("solid");
     }
     state_pub.set("solid");
   }
