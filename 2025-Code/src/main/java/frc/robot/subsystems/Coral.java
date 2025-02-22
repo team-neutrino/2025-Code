@@ -36,7 +36,7 @@ public class Coral extends SubsystemBase {
      */
     private CanandcolorSettings m_settings = new CanandcolorSettings();
 
-    private Debouncer m_debouncer = new Debouncer(3, DebounceType.kFalling);
+    private Debouncer m_debouncer = new Debouncer(0.1, DebounceType.kFalling);
 
     public Coral() {
         m_encoder = m_motor.getEncoder();
