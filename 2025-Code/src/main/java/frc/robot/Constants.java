@@ -10,6 +10,7 @@ import java.util.Optional;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
+import frc.robot.util.DriveToPointCalculator;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -244,38 +245,66 @@ public final class Constants {
   }
 
   public static class DriveToPoint {
+    public static final double offsetOfArm = .32;
+    public static final double offsetToReef = .56;
+    public static final double reefWidth = 0.33;
+
     // the number correspond to the april tag on the object
     public static final Pose2d RED_PLAYER_STATION_1 = new Pose2d(16.08, 0.99, Rotation2d.fromDegrees(126));
     public static final Pose2d RED_PLAYER_STATION_2 = new Pose2d(16.08, 7.06, Rotation2d.fromDegrees(-126));
 
-    public static final Pose2d BLUE_PLAYER_STATION_12 = new Pose2d(1.6, .9, Rotation2d.fromDegrees(54));
+    public static final Pose2d BLUE_PLAYER_STATION_12 = new Pose2d(1.47, 0.99, Rotation2d.fromDegrees(54));
     public static final Pose2d BLUE_PLAYER_STATION_13 = new Pose2d(1.47, 7.06, Rotation2d.fromDegrees(-54));
 
-    public static final Pose2d RED_REEF_6A = new Pose2d(13.34, 2.58, Rotation2d.fromDegrees(120));
-    public static final Pose2d RED_REEF_6B = new Pose2d(13.62, 2.74, Rotation2d.fromDegrees(120));
-    public static final Pose2d RED_REEF_7A = new Pose2d(14.45, 3.55, Rotation2d.fromDegrees(180));
-    public static final Pose2d RED_REEF_7B = new Pose2d(14.45, 3.87, Rotation2d.fromDegrees(180));
-    public static final Pose2d RED_REEF_8A = new Pose2d(14.17, 4.99, Rotation2d.fromDegrees(-120));
-    public static final Pose2d RED_REEF_8B = new Pose2d(13.89, 5.15, Rotation2d.fromDegrees(-120));
-    public static final Pose2d RED_REEF_9A = new Pose2d(12.78, 5.47, Rotation2d.fromDegrees(-60));
-    public static final Pose2d RED_REEF_9B = new Pose2d(12.5, 5.31, Rotation2d.fromDegrees(-60));
-    public static final Pose2d RED_REEF_10A = new Pose2d(11.67, 4.5, Rotation2d.fromDegrees(0));
-    public static final Pose2d RED_REEF_10B = new Pose2d(11.67, 4.18, Rotation2d.fromDegrees(0));
-    public static final Pose2d RED_REEF_11A = new Pose2d(11.95, 3.06, Rotation2d.fromDegrees(60));
-    public static final Pose2d RED_REEF_11B = new Pose2d(12.23, 2.9, Rotation2d.fromDegrees(60));
+    public static final Pose2d RED_REEF_6A = DriveToPointCalculator.CalculatePoint(FieldConstants.tenAprilTags.get(6),
+        offsetToReef, offsetOfArm, reefWidth, true);
+    public static final Pose2d RED_REEF_6B = DriveToPointCalculator.CalculatePoint(FieldConstants.tenAprilTags.get(6),
+        offsetToReef, offsetOfArm, reefWidth, false);
+    public static final Pose2d RED_REEF_7A = DriveToPointCalculator.CalculatePoint(FieldConstants.tenAprilTags.get(7),
+        offsetToReef, offsetOfArm, reefWidth, true);
+    public static final Pose2d RED_REEF_7B = DriveToPointCalculator.CalculatePoint(FieldConstants.tenAprilTags.get(7),
+        offsetToReef, offsetOfArm, reefWidth, false);
+    public static final Pose2d RED_REEF_8A = DriveToPointCalculator.CalculatePoint(FieldConstants.tenAprilTags.get(8),
+        offsetToReef, offsetOfArm, reefWidth, true);
+    public static final Pose2d RED_REEF_8B = DriveToPointCalculator.CalculatePoint(FieldConstants.tenAprilTags.get(8),
+        offsetToReef, offsetOfArm, reefWidth, false);
+    public static final Pose2d RED_REEF_9A = DriveToPointCalculator.CalculatePoint(FieldConstants.tenAprilTags.get(9),
+        offsetToReef, offsetOfArm, reefWidth, true);
+    public static final Pose2d RED_REEF_9B = DriveToPointCalculator.CalculatePoint(FieldConstants.tenAprilTags.get(9),
+        offsetToReef, offsetOfArm, reefWidth, false);
+    public static final Pose2d RED_REEF_10A = DriveToPointCalculator.CalculatePoint(FieldConstants.tenAprilTags.get(10),
+        offsetToReef, offsetOfArm, reefWidth, true);
+    public static final Pose2d RED_REEF_10B = DriveToPointCalculator.CalculatePoint(FieldConstants.tenAprilTags.get(10),
+        offsetToReef, offsetOfArm, reefWidth, false);
+    public static final Pose2d RED_REEF_11A = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.twentyAprilTags.get(11), offsetToReef, offsetOfArm, reefWidth, true);
+    public static final Pose2d RED_REEF_11B = DriveToPointCalculator.CalculatePoint(FieldConstants.tenAprilTags.get(11),
+        offsetToReef, offsetOfArm, reefWidth, false);
 
-    public static final Pose2d BLUE_REEF_17A = new Pose2d(3.66, 2.9, Rotation2d.fromDegrees(60));
-    public static final Pose2d BLUE_REEF_17B = new Pose2d(3.38, 3.06, Rotation2d.fromDegrees(60));
-    public static final Pose2d BLUE_REEF_18A = new Pose2d(3.1, 4.18, Rotation2d.fromDegrees(0));
-    public static final Pose2d BLUE_REEF_18B = new Pose2d(3.1, 4.5, Rotation2d.fromDegrees(0));
-    public static final Pose2d BLUE_REEF_19A = new Pose2d(3.97, 5.25, Rotation2d.fromDegrees(-60));
-    public static final Pose2d BLUE_REEF_19B = new Pose2d(4.12, 5.48, Rotation2d.fromDegrees(-60));
-    public static final Pose2d BLUE_REEF_20A = new Pose2d(5.32, 5.15, Rotation2d.fromDegrees(-120));
-    public static final Pose2d BLUE_REEF_20B = new Pose2d(5.6, 4.99, Rotation2d.fromDegrees(-120));
-    public static final Pose2d BLUE_REEF_21A = new Pose2d(5.88, 3.87, Rotation2d.fromDegrees(180));
-    public static final Pose2d BLUE_REEF_21B = new Pose2d(5.88, 3.55, Rotation2d.fromDegrees(180));
-    public static final Pose2d BLUE_REEF_22A = new Pose2d(5.05, 2.74, Rotation2d.fromDegrees(120));
-    public static final Pose2d BLUE_REEF_22B = new Pose2d(4.77, 2.58, Rotation2d.fromDegrees(120));
+    public static final Pose2d BLUE_REEF_17A = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.twentyAprilTags.get(17), offsetToReef, offsetOfArm, reefWidth, true);
+    public static final Pose2d BLUE_REEF_17B = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.twentyAprilTags.get(17), offsetToReef, offsetOfArm, reefWidth, false);
+    public static final Pose2d BLUE_REEF_18A = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.twentyAprilTags.get(18), offsetToReef, offsetOfArm, reefWidth, true);
+    public static final Pose2d BLUE_REEF_18B = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.twentyAprilTags.get(18), offsetToReef, offsetOfArm, reefWidth, false);
+    public static final Pose2d BLUE_REEF_19A = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.twentyAprilTags.get(19), offsetToReef, offsetOfArm, reefWidth, true);
+    public static final Pose2d BLUE_REEF_19B = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.twentyAprilTags.get(19), offsetToReef, offsetOfArm, reefWidth, false);
+    public static final Pose2d BLUE_REEF_20A = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.twentyAprilTags.get(20), offsetToReef, offsetOfArm, reefWidth, true);
+    public static final Pose2d BLUE_REEF_20B = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.twentyAprilTags.get(20), offsetToReef, offsetOfArm, reefWidth, false);
+    public static final Pose2d BLUE_REEF_21A = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.twentyTwoAprilTags.get(21), offsetToReef, offsetOfArm, reefWidth, true);
+    public static final Pose2d BLUE_REEF_21B = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.twentyTwoAprilTags.get(21), offsetToReef, offsetOfArm, reefWidth, false);
+    public static final Pose2d BLUE_REEF_22A = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.twentyTwoAprilTags.get(22), offsetToReef, offsetOfArm, reefWidth, true);
+    public static final Pose2d BLUE_REEF_22B = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.twentyTwoAprilTags.get(22), offsetToReef, offsetOfArm, reefWidth, false);
 
     // Don't reorder this list
     public static final List<Pose2d> POSE_LIST = List.of(RED_PLAYER_STATION_1, RED_PLAYER_STATION_2,
