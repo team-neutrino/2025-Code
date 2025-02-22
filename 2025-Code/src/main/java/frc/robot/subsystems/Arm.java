@@ -90,7 +90,8 @@ public class Arm extends SubsystemBase {
 
     m_motorConfig.closedLoop
         .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
-        .pid(kp, ki, kd, ClosedLoopSlot.kSlot0);
+        .pid(kp, ki, kd, ClosedLoopSlot.kSlot0)
+        .iZone(ArmIZone);
     m_pid = m_motor.getClosedLoopController();
 
     m_motorConfig.closedLoop.maxMotion

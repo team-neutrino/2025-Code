@@ -125,9 +125,9 @@ public final class Constants {
     public static final double ALLOWED_ERROR = 0.7;
 
     public static final double kp = 0.01;
-    public static final double ki = 0;
+    public static final double ki = 0.01;
     public static final double kd = 0;
-    public static final double ArmIZone = 0;
+    public static final double ArmIZone = 2;
 
     public static final double FFCONSTANT = 0.04;
 
