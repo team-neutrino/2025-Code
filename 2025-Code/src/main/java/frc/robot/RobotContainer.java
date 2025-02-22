@@ -27,7 +27,8 @@ public class RobotContainer {
       OperatorConstants.kDriverControllerPort);
   private final CommandXboxController m_buttonsController = new CommandXboxController(
       OperatorConstants.kButtonsControllerPort);
-  private final CommandXboxController m_pitController = new CommandXboxController(OperatorConstants.kPitControllerPort);
+  // private final CommandXboxController m_pitController = new
+  // CommandXboxController(OperatorConstants.kPitControllerPort);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -46,16 +47,17 @@ public class RobotContainer {
     m_driverController.x().onTrue(ClimbFactory.lockGrabber());
     m_driverController.a().onTrue(ClimbFactory.lowerClimb());
 
-    m_driverController.rightBumper().onTrue(ClimbFactory.resetGrabber());
+    // m_driverController.rightBumper().onTrue(ClimbFactory.resetGrabber());
 
     /**
      * Only use when climb arm is in up position (relaxed). Moves arm down 105
      * rotations.
      */
-    m_driverController.leftBumper().onTrue(ClimbFactory.resetClimb());
+    // m_driverController.leftBumper().onTrue(ClimbFactory.resetClimb());
 
     m_driverController.leftTrigger().whileTrue(new DriveAssistCom(m_driverController));
     m_driverController.back().whileTrue(swerve.resetYawCommand());
+    m_driverController.b().whileTrue(new DriveToPointCommand(m_driverController));
 
     // buttons controller
     m_buttonsController.x().whileTrue(SuperstructureFactory.scoreL1(m_buttonsController));
@@ -65,13 +67,13 @@ public class RobotContainer {
     m_buttonsController.leftBumper().whileTrue(SuperstructureFactory.intakeCoral());
 
     // pit controller
-    m_pitController.rightBumper().onTrue(ClimbFactory.resetGrabber());
+    // m_pitController.rightBumper().onTrue(ClimbFactory.resetGrabber());
 
     /**
      * Only use when climb arm is in up position (relaxed). Moves arm down 105
      * rotations.
      */
-    m_pitController.leftBumper().onTrue(ClimbFactory.resetClimb());
+    // m_pitController.leftBumper().onTrue(ClimbFactory.resetClimb());
   }
 
   private void configureDefaultCommands() {

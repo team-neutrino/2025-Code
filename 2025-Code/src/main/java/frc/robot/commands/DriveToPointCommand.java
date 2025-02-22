@@ -52,7 +52,7 @@ public class DriveToPointCommand extends Command {
     }
     m_reefPoses = redAlliance.get() ? RED_REEF : BLUE_REEF;
     m_coralStationPoses = redAlliance.get() ? POSE_LIST.subList(0, 2) : POSE_LIST.subList(2, 4);
-
+    System.out.println(m_pointControl.getTarget());
     checkBumpers();
     drive();
     isAtPoint();
