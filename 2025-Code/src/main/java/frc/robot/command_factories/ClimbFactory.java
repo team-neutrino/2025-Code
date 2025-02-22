@@ -10,8 +10,7 @@ import static frc.robot.util.Subsystem.climb;
 public class ClimbFactory {
     public static Command raiseClimb() {
         return new SequentialCommandGroup(
-                climb.prepareClimbCommand(),
-                new WaitCommand(COMMAND_WAIT_TIME),
+                climb.prepareClimbCommand().withTimeout(COMMAND_WAIT_TIME),
                 climb.raiseClimbArmCommand());
     }
 

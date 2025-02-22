@@ -41,7 +41,7 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    // driver controller
+    // ONLY RUN CLIMB IN ORDER AS LISTED BELOW vv
     m_driverController.y().onTrue(ClimbFactory.raiseClimb());
     m_driverController.x().onTrue(ClimbFactory.lockGrabber());
     m_driverController.a().onTrue(ClimbFactory.lowerClimb());
@@ -49,7 +49,8 @@ public class RobotContainer {
     m_driverController.rightBumper().onTrue(ClimbFactory.resetLock());
 
     /**
-     * Only use when climb arm is in up position (relaxed). Moves arm down 105 rotations.
+     * Only use when climb arm is in up position (relaxed). Moves arm down 105
+     * rotations.
      */
     m_driverController.leftBumper().onTrue(ClimbFactory.resetClimb());
 
