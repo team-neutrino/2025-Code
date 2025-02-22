@@ -139,6 +139,7 @@ public final class Constants {
     public static final int GRABBER_CURRENT_LIMIT = 20;
     public static final double INTAKE_MOTOR_VOLTAGE = 0.7;
     public static final double HOLD_PIECE_VOLTAGE = .1;
+    public static final double SLOW_MOTOR_VOLTAGE = 0.3;
 
     public static final int COLOR_SENSOR = 27;
 
