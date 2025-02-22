@@ -90,7 +90,7 @@ public final class Constants {
     public static final double D_VAL = 0.0;
     public static final double STAGE_1_FF = 0.25;
     public static final double STAGE_2_FF = 0.30;
-    public static final double HEIGHT_TOLERANCE = 0.2;
+    public static final double HEIGHT_TOLERANCE = 0.4;
   }
 
   public static class ArmConstants {
@@ -103,7 +103,7 @@ public final class Constants {
     public static final double L1_POSITION = 140.0;
     public static final double L2_POSITION = 130.0;
     public static final double L3_POSITION = 140.0;
-    public static final double L4_POSITION = 155.0;
+    public static final double L4_POSITION = 150.0;
     public static final double EVACUATE_ANGLE = 15.0;
     public static final double REEF_L2_DESCORE_POSITION = 0.0;
     public static final double REEF_L3_DESCORE_POSITION = 0.0;
