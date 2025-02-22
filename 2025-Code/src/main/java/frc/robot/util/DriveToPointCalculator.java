@@ -25,12 +25,12 @@ public class DriveToPointCalculator {
 
                 }
 
-                double x = tagPosition.getX() + offsetFromReef * Math.cos(reefAngle)
-                                + leftRightOffsetX;
-                double y = tagPosition.getY() + offsetFromReef * Math.cos(reefAngle)
-                                + leftRightOffsetY;
+        double x = tagPosition.getX() + offsetFromReef * Math.cos(reefAngle)
+                + leftRightOffsetX;
+        double y = tagPosition.getY() + offsetFromReef * Math.sin(reefAngle)
+                + leftRightOffsetY;
 
-                return new Pose2d(x, y, Rotation2d.fromRadians(reefAngle + Math.PI));
+        return new Pose2d(x, y, Rotation2d.fromRadians(reefAngle + Math.PI));
 
         }
 }
