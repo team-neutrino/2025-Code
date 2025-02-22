@@ -60,6 +60,7 @@ public class RobotContainer {
     m_buttonsController.a().whileTrue(SuperstructureFactory.scoreL4(m_buttonsController));
 
     m_buttonsController.leftBumper().whileTrue(SuperstructureFactory.intakeCoral());
+    m_buttonsController.rightBumper().whileTrue(SuperstructureFactory.outtake());
   }
 
   private void configureDefaultCommands() {
