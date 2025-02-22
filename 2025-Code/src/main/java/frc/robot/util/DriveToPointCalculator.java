@@ -10,7 +10,7 @@ public class DriveToPointCalculator {
         double leftRightOffsetX;
         double leftRightOffsetY;
         double reefAngle = tagPosition.getRotation().getAngle();
-        double perpendicularReefAngle = reefAngle + Math.toRadians(90);
+        double perpendicularReefAngle = reefAngle - Math.toRadians(90);
         if (isA) {
             leftRightOffsetX = offsetFromReef * Math.cos(perpendicularReefAngle)
                     + (reefWidth / 2) * Math.cos(perpendicularReefAngle);
@@ -19,9 +19,9 @@ public class DriveToPointCalculator {
 
         } else {
             leftRightOffsetX = offsetFromReef * Math.cos(perpendicularReefAngle)
-                    + (reefWidth / 2) * Math.cos(perpendicularReefAngle - Math.PI);
+                    + (reefWidth / 2) * Math.cos(perpendicularReefAngle + Math.PI);
             leftRightOffsetY = offsetFromReef * Math.sin(perpendicularReefAngle)
-                    + (reefWidth / 2) * Math.sin(perpendicularReefAngle - Math.PI);
+                    + (reefWidth / 2) * Math.sin(perpendicularReefAngle + Math.PI);
 
         }
 

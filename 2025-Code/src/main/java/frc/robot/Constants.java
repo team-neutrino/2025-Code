@@ -278,7 +278,8 @@ public final class Constants {
         offsetToReef, offsetOfArm, reefWidth, false);
     public static final Pose2d RED_REEF_11A = DriveToPointCalculator
         .CalculatePoint(FieldConstants.twentyAprilTags.get(11), offsetToReef, offsetOfArm, reefWidth, true);
-    public static final Pose2d RED_REEF_11B = DriveToPointCalculator.CalculatePoint(FieldConstants.tenAprilTags.get(11),
+    public static final Pose2d RED_REEF_11B = DriveToPointCalculator.CalculatePoint(
+        FieldConstants.twentyAprilTags.get(11),
         offsetToReef, offsetOfArm, reefWidth, false);
 
     public static final Pose2d BLUE_REEF_17A = DriveToPointCalculator

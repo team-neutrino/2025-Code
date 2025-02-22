@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.util.Subsystem;
 
@@ -171,6 +172,7 @@ public class Arm extends SubsystemBase {
   @Override
   public void periodic() {
     adjustArm(safeAngle(m_targetAngle));
+    // System.out.println(Constants.DriveToPoint.RED_REEF_6A);
   }
 
   /**
