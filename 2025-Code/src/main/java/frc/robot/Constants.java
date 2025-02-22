@@ -147,6 +147,13 @@ public final class Constants {
     public static final double PROXIMITY = 0.05;
   }
 
+  public static class AlgaeConstants {
+    public static final int MOTOR_ID = 23;
+    public static final int CURRENT_LIMIT = 20;
+    public static final double MOTOR_SPEED = 0.5;
+    public static final double DEFAULT_SPEED = 0.0;
+  }
+
   public static class ClimbConstants {
     public static final int MAIN_MOTOR_ID = 31;
     public static final int FOLLOW_MOTOR_ID = 30;

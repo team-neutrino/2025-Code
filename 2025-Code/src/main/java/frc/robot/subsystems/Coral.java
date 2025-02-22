@@ -81,7 +81,7 @@ public class Coral extends SubsystemBase {
 
     @Override
     public void periodic() {
-        m_motor.set(m_motorVoltage);
+        m_motor.set(0.1);
     }
 
     /**

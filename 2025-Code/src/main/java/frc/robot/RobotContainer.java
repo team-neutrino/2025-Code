@@ -72,6 +72,8 @@ public class RobotContainer {
      * rotations.
      */
     m_pitController.leftBumper().onTrue(ClimbFactory.resetClimb());
+    m_buttonsController.leftBumper().whileTrue(SuperstructureFactory.intakeCoral());
+    m_buttonsController.leftTrigger().whileTrue(algae.runIntake(Constants.AlgaeConstants.MOTOR_SPEED));
   }
 
   private void configureDefaultCommands() {

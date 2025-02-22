@@ -14,6 +14,7 @@ public class Subsystem {
     public static final Elevator elevator = new ElevatorNT();
     public static final Climb climb = new ClimbNT();
     public static Swerve swerve = null;
+    public static Algae algae = null;
     public static Limelight limelight = null;
     public static final LED LED = new LED();
     public static final Arm arm = new ArmNT();
