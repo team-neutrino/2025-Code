@@ -176,7 +176,6 @@ public class Climb extends SubsystemBase {
     if (m_climbMotorOff) {
       m_climbMotor.setVoltage(0);
     } else {
-      System.out.println("I am going to move the motor");
       moveClimbArm(m_targetPositionClimb);
     }
     m_grabPid.setReference(m_targetPositionGrab, ControlType.kPosition);
