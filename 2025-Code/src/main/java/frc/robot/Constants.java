@@ -74,7 +74,7 @@ public final class Constants {
     public static final double CORAL_INTAKE = 34;
     public static final double REMOVE_ALGAE = 0.0;
     public static final double L1 = 14.0;
-    public static final double L2 = 24.0;
+    public static final double L2 = 26.0;
     public static final double L3 = 36.0;
     public static final double L4 = 54.9;
     public static final double ARM_WILL_NOT_HIT_BASE_HEIGHT = 20.0;
@@ -248,7 +248,7 @@ public final class Constants {
     public static final Pose2d RED_PLAYER_STATION_1 = new Pose2d(16.08, 0.99, Rotation2d.fromDegrees(126));
     public static final Pose2d RED_PLAYER_STATION_2 = new Pose2d(16.08, 7.06, Rotation2d.fromDegrees(-126));
 
-    public static final Pose2d BLUE_PLAYER_STATION_12 = new Pose2d(1.47, 0.99, Rotation2d.fromDegrees(54));
+    public static final Pose2d BLUE_PLAYER_STATION_12 = new Pose2d(1.6, .9, Rotation2d.fromDegrees(54));
     public static final Pose2d BLUE_PLAYER_STATION_13 = new Pose2d(1.47, 7.06, Rotation2d.fromDegrees(-54));
 
     public static final Pose2d RED_REEF_6A = new Pose2d(13.34, 2.58, Rotation2d.fromDegrees(120));
