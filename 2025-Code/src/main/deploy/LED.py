@@ -20,13 +20,13 @@ global newColorRGB
 targetColorRGB = [0, 0, 0]
 newColorRGB = [0, 0, 0]
 blink = False
-pixels = neopixel.NeoPixel(board.D18, 19, auto_write=False)
+pixels = neopixel.NeoPixel(board.D18, 298, auto_write=False)
 previousBlinkTime = 0
 amount = 0
 
 white = (64, 64, 64)
 red = (64, 0, 0)
-orange = (64, 20, 0)
+orange = (84, 18, 0)
 yellow = (64, 64, 0)
 green = (0, 64, 0)
 black = (0, 0, 0)

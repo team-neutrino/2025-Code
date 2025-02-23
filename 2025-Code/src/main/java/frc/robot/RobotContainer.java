@@ -80,7 +80,6 @@ public class RobotContainer {
     coral.setDefaultCommand(coral.coralDefaultCommand());
     arm.setDefaultCommand(arm.armDefaultCommand());
     elevator.setDefaultCommand(elevator.elevatorDefaultCommand());
-    LED.setDefaultCommand(LED.LEDefaultCommand());
     limelight.setDefaultCommand(limelight.limelightDefaultCommand());
     climb.setDefaultCommand(climb.climbDefaultCommand());
     if (swerve == null) {
