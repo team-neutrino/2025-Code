@@ -6,13 +6,13 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest.FieldCentricFacingAngle;
+import com.ctre.phoenix6.swerve.SwerveRequest.ForwardPerspectiveValue;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.ModuleConfig;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
-import com.reduxrobotics.canand.CanandDeviceDetails.Enums.SettingCommand;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -35,8 +35,6 @@ import java.io.IOException;
 import org.json.simple.parser.ParseException;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.util.DriveToPointController;
-import static frc.robot.util.Subsystem.LED;
-import frc.robot.Constants.LEDConstants.States;
 import frc.robot.util.Subsystem;
 import frc.robot.util.GeneratedSwerveCode.*;
 
@@ -286,7 +284,7 @@ public class Swerve extends CommandSwerveDrivetrain {
 
   @Override
   public void periodic() {
-
+    super.periodic();
   }
 
   /**
@@ -296,7 +294,8 @@ public class Swerve extends CommandSwerveDrivetrain {
     public static final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
         .withDriveRequestType(DriveRequestType.Velocity)
         .withDeadband(MAX_SPEED * 0.06)
-        .withRotationalDeadband(MAX_ROTATION_SPEED * 0.06);
+        .withRotationalDeadband(MAX_ROTATION_SPEED * 0.06)
+        .withForwardPerspective(ForwardPerspectiveValue.OperatorPerspective);
     public static final SwerveRequest.FieldCentric driveWithoutDeadband = new SwerveRequest.FieldCentric()
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
     public static final SwerveRequest.FieldCentricFacingAngle driveAssist = new FieldCentricFacingAngle()
@@ -306,7 +305,8 @@ public class Swerve extends CommandSwerveDrivetrain {
     public static final SwerveRequest.RobotCentric autonDrive = new SwerveRequest.RobotCentric()
         .withDriveRequestType(DriveRequestType.Velocity);
     public static final SwerveRequest.FieldCentricFacingAngle driveWithVelocity = new SwerveRequest.FieldCentricFacingAngle()
-        .withDriveRequestType(DriveRequestType.Velocity);
+        .withDriveRequestType(DriveRequestType.Velocity)
+        .withForwardPerspective(ForwardPerspectiveValue.BlueAlliance);
   }
 
   public void configureRequestPID() {

@@ -27,7 +27,6 @@ public class RobotContainer {
       OperatorConstants.kDriverControllerPort);
   private final CommandXboxController m_buttonsController = new CommandXboxController(
       OperatorConstants.kButtonsControllerPort);
-  private final CommandXboxController m_pitController = new CommandXboxController(OperatorConstants.kPitControllerPort);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -41,21 +40,15 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    // ONLY RUN CLIMB IN ORDER AS LISTED BELOW vv
+    // driver controller
+    // ONLY RUN CLIMB IN ORDER AS LISTED BELOW vvv
     m_driverController.y().onTrue(ClimbFactory.raiseClimb());
     m_driverController.x().onTrue(ClimbFactory.lockGrabber());
     m_driverController.a().onTrue(ClimbFactory.lowerClimb());
 
-    m_driverController.rightBumper().onTrue(ClimbFactory.resetGrabber());
-
-    /**
-     * Only use when climb arm is in up position (relaxed). Moves arm down 105
-     * rotations.
-     */
-    m_driverController.leftBumper().onTrue(ClimbFactory.resetClimb());
-
     m_driverController.leftTrigger().whileTrue(new DriveAssistCom(m_driverController));
     m_driverController.back().whileTrue(swerve.resetYawCommand());
+    m_driverController.b().whileTrue(new DriveToPointCommand(m_driverController));
 
     // buttons controller
     m_buttonsController.x().whileTrue(SuperstructureFactory.scoreL1(m_buttonsController));
@@ -63,22 +56,12 @@ public class RobotContainer {
     m_buttonsController.b().whileTrue(SuperstructureFactory.scoreL3(m_buttonsController));
     m_buttonsController.a().whileTrue(SuperstructureFactory.scoreL4(m_buttonsController));
     m_buttonsController.leftBumper().whileTrue(SuperstructureFactory.intakeCoral());
-
-    // pit controller
-    m_pitController.rightBumper().onTrue(ClimbFactory.resetGrabber());
-
-    /**
-     * Only use when climb arm is in up position (relaxed). Moves arm down 105
-     * rotations.
-     */
-    m_pitController.leftBumper().onTrue(ClimbFactory.resetClimb());
   }
 
   private void configureDefaultCommands() {
     coral.setDefaultCommand(coral.coralDefaultCommand());
     arm.setDefaultCommand(arm.armDefaultCommand());
     elevator.setDefaultCommand(elevator.elevatorDefaultCommand());
-    LED.setDefaultCommand(LED.LEDefaultCommand());
     limelight.setDefaultCommand(limelight.limelightDefaultCommand());
     climb.setDefaultCommand(climb.climbDefaultCommand());
     if (swerve == null) {
@@ -112,7 +95,7 @@ public class RobotContainer {
       return new InstantCommand();
     }
     try {
-      auto = new PathPlannerAuto("Nothing");
+      auto = new PathPlannerAuto("LEAVE PROCESSOR");
     } catch (Exception e) {
       auto = new PathPlannerAuto("Nothing");
     }
