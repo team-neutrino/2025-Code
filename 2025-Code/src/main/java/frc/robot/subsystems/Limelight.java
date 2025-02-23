@@ -4,14 +4,12 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DriverStation;
-import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
 import static frc.robot.Constants.LimelightConstants.*;
 
@@ -257,10 +255,6 @@ public class Limelight extends SubsystemBase {
 
     // according to limelight docs, this needs to be called before using
     // .getBotPoseEstimate_wpiBlue_MegaTag2
-
-    // double testing = Subsystem.swerve.getYawDegrees();
-    // testing += Constants.GlobalConstants.redAlliance.get() ? 180 : 0;
-    // testing = MathUtil.angleModulus(Math.toRadians(testing));
     LimelightHelpers.SetRobotOrientation(LIMELIGHT_1, Subsystem.swerve.getYawDegrees(), 0,
         0, 0, 0, 0);
     LimelightHelpers.SetRobotOrientation(LIMELIGHT_2, Subsystem.swerve.getYawDegrees(), 0,

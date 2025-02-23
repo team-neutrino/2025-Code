@@ -35,8 +35,6 @@ import java.io.IOException;
 import org.json.simple.parser.ParseException;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.util.DriveToPointController;
-import static frc.robot.util.Subsystem.LED;
-import frc.robot.Constants.LEDConstants.States;
 import frc.robot.util.Subsystem;
 import frc.robot.util.GeneratedSwerveCode.*;
 
@@ -264,8 +262,7 @@ public class Swerve extends CommandSwerveDrivetrain {
       left = Math.cos(stickAngle) * magnitude;
       this.setControl(SwerveRequestStash.drive.withVelocityX(forward)
           .withVelocityY(left)
-          .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED)
-          .withForwardPerspective(ForwardPerspectiveValue.OperatorPerspective));
+          .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED));
     });
   }
 
