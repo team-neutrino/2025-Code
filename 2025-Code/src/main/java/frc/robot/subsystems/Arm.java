@@ -172,7 +172,6 @@ public class Arm extends SubsystemBase {
   @Override
   public void periodic() {
     adjustArm(safeAngle(m_targetAngle));
-    // System.out.println(Constants.DriveToPoint.RED_REEF_6A);
   }
 
   /**

@@ -60,7 +60,8 @@ public class Coral extends SubsystemBase {
     }
 
     public boolean hasCoral() {
-        return true;
+        return withinProximity(PROXIMITY)
+                && (m_colorSensor.getBlue() > 0.7 && m_colorSensor.getRed() > 0.7 && m_colorSensor.getGreen() > 0.7);
     }
 
     /**
