@@ -11,7 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "4-Mid Coral"
+                  "pathName": null
                 }
               },
               {
@@ -36,7 +36,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "4-Mid Coral (Reef to Ps)"
+                  "pathName": null
                 }
               },
               {
@@ -61,7 +61,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "4-Mid Coral (Ps to Reef)"
+                  "pathName": null
                 }
               },
               {
