@@ -8,8 +8,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.StringTopic;
 import edu.wpi.first.wpilibj.DriverStation;
 
+import static frc.robot.util.Subsystem.elevator;
+import static frc.robot.util.Subsystem.arm;
+
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
+import frc.robot.command_factories.SuperstructureFactory;
 import frc.robot.util.Subsystem;
 
 public class LED extends SubsystemBase {
@@ -42,6 +46,14 @@ public class LED extends SubsystemBase {
       if (coral.debouncedHasCoral()) {
         setToGamePieceColor();
         return;
+      } else if (arm.readyToScore() || elevator.readyToScore()) {
+        if (arm.readyToScore() && elevator.readyToScore()) {
+          color_pub.set("");
+        } else if (arm.readyToScore()) {
+          color_pub.set("");
+        } else {
+          color_pub.set("");
+        }
       }
     } else {
       color_pub.set("orange");
