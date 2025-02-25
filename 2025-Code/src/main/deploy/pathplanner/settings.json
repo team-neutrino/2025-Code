@@ -10,7 +10,8 @@
   "autoFolders": [
     "1 CORAL",
     "2 CORAL",
-    "LEAVE"
+    "LEAVE",
+    "3 CORAL"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,

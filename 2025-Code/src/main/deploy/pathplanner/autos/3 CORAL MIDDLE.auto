@@ -86,7 +86,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "4-Mid Coral (Reef to Ps)"
+                  "pathName": "3- Mid Coral (Reef to Ps)"
                 }
               },
               {
@@ -133,6 +133,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "2 CORAL",
+  "folder": "3 CORAL",
   "choreoAuto": false
 }
