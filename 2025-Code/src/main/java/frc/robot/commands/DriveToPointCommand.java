@@ -38,7 +38,7 @@ public class DriveToPointCommand extends Command {
       System.out.println("NO ALLIANCE VALUE YET");
       return;
     }
-    m_reefPoses = redAlliance.get() ? RED_REEF : BLUE_REEF;
+    m_reefPoses = redAlliance.get() ? RED_REEF_RIGHT : BLUE_REEF_RIGHT;
     m_coralStationPoses = redAlliance.get() ? POSE_LIST.subList(0, 2) : POSE_LIST.subList(2, 4);
 
     obtainTarget();
@@ -50,7 +50,7 @@ public class DriveToPointCommand extends Command {
       System.out.println("NO ALLIANCE VALUE YET");
       return;
     }
-    m_reefPoses = redAlliance.get() ? RED_REEF : BLUE_REEF;
+    m_reefPoses = redAlliance.get() ? RED_REEF_RIGHT : BLUE_REEF_RIGHT;
     m_coralStationPoses = redAlliance.get() ? POSE_LIST.subList(0, 2) : POSE_LIST.subList(2, 4);
     checkBumpers();
     drive();

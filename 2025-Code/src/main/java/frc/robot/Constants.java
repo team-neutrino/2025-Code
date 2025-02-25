@@ -320,9 +320,15 @@ public final class Constants {
     public static final List<Pose2d> RED_REEF = List.of(RED_REEF_6A, RED_REEF_6B, RED_REEF_7A, RED_REEF_7B, RED_REEF_8A,
         RED_REEF_8B, RED_REEF_9A, RED_REEF_9B, RED_REEF_10A, RED_REEF_10B, RED_REEF_11A, RED_REEF_11B);
 
+    public static final List<Pose2d> RED_REEF_RIGHT = List.of(RED_REEF_6B, RED_REEF_7B, RED_REEF_8B, RED_REEF_9B,
+        RED_REEF_10B, RED_REEF_11B);
+
     public static final List<Pose2d> BLUE_REEF = List.of(BLUE_REEF_22B, BLUE_REEF_22A, BLUE_REEF_21B, BLUE_REEF_21A,
         BLUE_REEF_20B, BLUE_REEF_20A, BLUE_REEF_19B, BLUE_REEF_19A, BLUE_REEF_18B, BLUE_REEF_18A, BLUE_REEF_17B,
         BLUE_REEF_17A);
+
+    public static final List<Pose2d> BLUE_REEF_RIGHT = List.of(BLUE_REEF_22A,
+        BLUE_REEF_21A, BLUE_REEF_20A, BLUE_REEF_19A, BLUE_REEF_18A, BLUE_REEF_17A);
   }
 
 }
