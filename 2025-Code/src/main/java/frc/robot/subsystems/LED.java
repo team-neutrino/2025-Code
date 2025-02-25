@@ -7,7 +7,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.StringTopic;
 import edu.wpi.first.wpilibj.DriverStation;
-
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
 import frc.robot.util.Subsystem;
@@ -38,10 +37,9 @@ public class LED extends SubsystemBase {
     if (DriverStation.isAutonomousEnabled()) {
       color_pub.set("cyan");
     } else if (DriverStation.isTeleopEnabled()) {
-      setDriveToPointColor();
+      setActionColor();
       if (coral.debouncedHasCoral()) {
         setToGamePieceColor();
-        return;
       }
     } else {
       color_pub.set("orange");
@@ -49,8 +47,12 @@ public class LED extends SubsystemBase {
     }
   }
 
-  public void setDriveToPointColor() {
-    if (Subsystem.swerve.isDrivingToPoint()) {
+  public void setActionColor() {
+    if (Subsystem.arm.isAtTarget()) {
+      color_pub.set("pink");
+    } else if (Subsystem.arm.goingToTarget()) {
+      color_pub.set("purple");
+    } else if (Subsystem.swerve.isDrivingToPoint()) {
       color_pub.set("red");
     } else if (Subsystem.swerve.isAtPoint()) {
       color_pub.set("green");
@@ -62,6 +64,5 @@ public class LED extends SubsystemBase {
 
   @Override
   public void periodic() {
-    setColor();
   }
 }
