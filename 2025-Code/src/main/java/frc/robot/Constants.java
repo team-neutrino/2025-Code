@@ -283,29 +283,29 @@ public final class Constants {
         offsetToReef, offsetOfArm, reefWidth, false);
 
     public static final Pose2d BLUE_REEF_17A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.twentyAprilTags.get(17), offsetToReef, offsetOfArm, reefWidth, true);
-    public static final Pose2d BLUE_REEF_17B = DriveToPointCalculator
         .CalculatePoint(FieldConstants.twentyAprilTags.get(17), offsetToReef, offsetOfArm, reefWidth, false);
+    public static final Pose2d BLUE_REEF_17B = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.twentyAprilTags.get(17), offsetToReef, offsetOfArm, reefWidth, true);
     public static final Pose2d BLUE_REEF_18A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.twentyAprilTags.get(18), offsetToReef, offsetOfArm, reefWidth, true);
-    public static final Pose2d BLUE_REEF_18B = DriveToPointCalculator
         .CalculatePoint(FieldConstants.twentyAprilTags.get(18), offsetToReef, offsetOfArm, reefWidth, false);
+    public static final Pose2d BLUE_REEF_18B = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.twentyAprilTags.get(18), offsetToReef, offsetOfArm, reefWidth, true);
     public static final Pose2d BLUE_REEF_19A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.twentyAprilTags.get(19), offsetToReef, offsetOfArm, reefWidth, true);
-    public static final Pose2d BLUE_REEF_19B = DriveToPointCalculator
         .CalculatePoint(FieldConstants.twentyAprilTags.get(19), offsetToReef, offsetOfArm, reefWidth, false);
+    public static final Pose2d BLUE_REEF_19B = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.twentyAprilTags.get(19), offsetToReef, offsetOfArm, reefWidth, true);
     public static final Pose2d BLUE_REEF_20A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.twentyAprilTags.get(20), offsetToReef, offsetOfArm, reefWidth, true);
-    public static final Pose2d BLUE_REEF_20B = DriveToPointCalculator
         .CalculatePoint(FieldConstants.twentyAprilTags.get(20), offsetToReef, offsetOfArm, reefWidth, false);
+    public static final Pose2d BLUE_REEF_20B = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.twentyAprilTags.get(20), offsetToReef, offsetOfArm, reefWidth, true);
     public static final Pose2d BLUE_REEF_21A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.twentyTwoAprilTags.get(21), offsetToReef, offsetOfArm, reefWidth, true);
-    public static final Pose2d BLUE_REEF_21B = DriveToPointCalculator
         .CalculatePoint(FieldConstants.twentyTwoAprilTags.get(21), offsetToReef, offsetOfArm, reefWidth, false);
+    public static final Pose2d BLUE_REEF_21B = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.twentyTwoAprilTags.get(21), offsetToReef, offsetOfArm, reefWidth, true);
     public static final Pose2d BLUE_REEF_22A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.twentyTwoAprilTags.get(22), offsetToReef, offsetOfArm, reefWidth, true);
-    public static final Pose2d BLUE_REEF_22B = DriveToPointCalculator
         .CalculatePoint(FieldConstants.twentyTwoAprilTags.get(22), offsetToReef, offsetOfArm, reefWidth, false);
+    public static final Pose2d BLUE_REEF_22B = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.twentyTwoAprilTags.get(22), offsetToReef, offsetOfArm, reefWidth, true);
 
     // Don't reorder this list
     public static final List<Pose2d> POSE_LIST = List.of(RED_PLAYER_STATION_1, RED_PLAYER_STATION_2,
