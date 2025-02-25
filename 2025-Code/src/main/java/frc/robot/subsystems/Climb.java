@@ -95,16 +95,15 @@ public class Climb extends SubsystemBase {
         .abs(m_targetPositionClimb - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_POSITION_TOLERANCE;
   }
 
-  /**
-   * command will only run when the motor position of the grabbers are unlocked.
-   * If they are run when the position is at 0, they will jam the worm screw
-   */
+  private boolean isSafePosition() {
+    return Math.abs(m_climbMotor.getPosition().getValueAsDouble() - UNLOCK_POSITION) < GRABBER_POSITION_TOLERANCE;
+  }
+
   public Command lockGrabberCommand() {
     return run(() -> {
-      m_climbMotorOff = false;
-      m_targetPositionClimb = CLIMB_UP_POSITION;
-      m_targetPositionRatchet = RATCHET_UNLOCK_POSITION;
+      // if (isSafePosition()) {
       m_targetPositionGrab = LOCK_POSITION;
+      // }
     });
   }
 
@@ -133,7 +132,9 @@ public class Climb extends SubsystemBase {
 
   public Command lowerClimbCommand() {
     return run(() -> {
+      // if (isSafePosition()) {
       m_targetPositionGrab = LOCK_POSITION;
+      // }
       m_targetPositionRatchet = RATCHET_LOCK_POSITION;
       m_climbMotorOff = false;
       m_targetPositionClimb = CLIMB_DOWN_POSITION;

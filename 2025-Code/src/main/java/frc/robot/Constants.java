@@ -162,19 +162,19 @@ public final class Constants {
         public static final int LOCK_MOTOR_ID = 32;
         public static final int RATCHET_PORT = 0;
 
-        public static final int CLIMB_CURRENT_LIMIT = 80;
-        public static final int LOCK_CURRENT_LIMIT = 20;
+    public static final int CLIMB_CURRENT_LIMIT = 80;
+    public static final int LOCK_CURRENT_LIMIT = 10;
 
         public static final int CLIMB_UP_POSITION = 35;
         public static final int CLIMB_DOWN_POSITION = 0;
         public static final int RESET_CLIMB_ROTATION = -105;
 
-        public static final int CLIMB_POSITION_TOLERANCE = 2;
-        public static final int LOCK_MOTOR_POSITION_SAFETY = -10;
+    public static final int CLIMB_POSITION_TOLERANCE = 2;
+    public static final int GRABBER_POSITION_TOLERANCE = 3;
 
-        public static final int LOCK_POSITION = 15;
-        public static final int UNLOCK_POSITION = -15;
-        public static final int RESET_LOCK_POSITION = 0;
+    public static final int LOCK_POSITION = 30;
+    public static final int UNLOCK_POSITION = -40;
+    public static final int RESET_LOCK_POSITION = 0;
 
         public static final double RATCHET_LOCK_POSITION = 0.9;
         public static final double RATCHET_UNLOCK_POSITION = 1;
