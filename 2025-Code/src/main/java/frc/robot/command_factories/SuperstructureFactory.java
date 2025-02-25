@@ -31,11 +31,23 @@ public class SuperstructureFactory {
         return elevatorCom.alongWith(armCom, coralCom).until(() -> coral.debouncedHasCoral());
     }
 
+    public static Command knockOffAlgaeL2() {
+        Command elevatorCom = ElevatorFactory.movetoRemoveAlgaeL2();
+        Command armCom = ArmFactory.armToDescoreL2();
+        return elevatorCom.alongWith(armCom).until(() -> coral.debouncedHasCoral());
+    }
+
     public static Command descoreAlgaeL3() {
         Command elevatorCom = ElevatorFactory.movetoRemoveAlgaeL3();
         Command armCom = ArmFactory.armToDescoreL3();
         Command coralCom = CoralFactory.runIntake();
         return elevatorCom.alongWith(armCom, coralCom).until(() -> coral.debouncedHasCoral());
+    }
+
+    public static Command knockOffAlgaeL3() {
+        Command elevatorCom = ElevatorFactory.movetoRemoveAlgaeL2();
+        Command armCom = ArmFactory.armToDescoreL2();
+        return elevatorCom.alongWith(armCom).until(() -> coral.debouncedHasCoral());
     }
 
     public static Command scoreUnderhand(CommandXboxController controller) {
