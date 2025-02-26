@@ -95,21 +95,37 @@ public class Climb extends SubsystemBase {
         .abs(m_targetPositionClimb - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_POSITION_TOLERANCE;
   }
 
-  private boolean isSafePosition() {
-    return Math.abs(m_climbMotor.getPosition().getValueAsDouble() - UNLOCK_POSITION) < GRABBER_POSITION_TOLERANCE;
+  /**
+   * checks if climb is safe to raise
+   */
+  private boolean isRaiseClimbSafe() {
+    return 
+      (Math.abs(CLIMB_DOWN_POSITION - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_POSITION_TOLERANCE &&
+      Math.abs(GRANNY_GRABBER_POSITION - m_grabEncoder.getPosition()) < GRABBER_POSITION_TOLERANCE &&
+      Math.abs(RATCHET_LOCK_POSITION - m_ratchetServo.getPosition()) < RATCHET_POSITION_TOLERANCE) || 
+      Math.abs(LOCK_GRABBER_POSITION - m_grabEncoder.getPosition()) < GRABBER_POSITION_TOLERANCE;
   }
 
-  public Command lockGrabberCommand() {
-    return run(() -> {
-      if (isSafePosition()) {
-      m_targetPositionGrab = LOCK_POSITION;
-      }
-    });
+  /**
+   * checks if grabbers are safe to move to lock position
+   */
+  private boolean isLockGrabSafe() {
+    return Math.abs(m_climbMotor.getPosition().getValueAsDouble() - UNLOCK_GRABBER_POSITION) < GRABBER_POSITION_TOLERANCE;
+  }
+
+  /**
+   * checks if climb is safe to lower
+   */
+  private boolean isLowerClimbSafe() {
+    return
+      Math.abs(CLIMB_UP_POSITION - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_POSITION_TOLERANCE &&
+      Math.abs(LOCK_GRABBER_POSITION - m_grabEncoder.getPosition()) < GRABBER_POSITION_TOLERANCE &&
+      Math.abs(RATCHET_LOCK_POSITION - m_ratchetServo.getPosition()) < RATCHET_POSITION_TOLERANCE;
   }
 
   public Command resetGrabberCommand() {
     return run(() -> {
-      m_targetPositionGrab = RESET_LOCK_POSITION;
+      m_targetPositionGrab = GRANNY_GRABBER_POSITION;
     });
   }
 
@@ -117,28 +133,32 @@ public class Climb extends SubsystemBase {
     return run(() -> {
       m_climbMotorOff = true;
       m_targetPositionRatchet = RATCHET_UNLOCK_POSITION;
-      m_targetPositionGrab = UNLOCK_POSITION;
-    });
+      m_targetPositionGrab = UNLOCK_GRABBER_POSITION;
+    }).onlyIf(() -> isRaiseClimbSafe());
   }
 
   public Command raiseClimbCommand() {
     return run(() -> {
       m_climbMotorOff = false;
       m_targetPositionRatchet = RATCHET_UNLOCK_POSITION;
-      m_targetPositionGrab = UNLOCK_POSITION;
+      m_targetPositionGrab = UNLOCK_GRABBER_POSITION;
       m_targetPositionClimb = CLIMB_UP_POSITION;
     });
   }
 
+  public Command lockGrabberCommand() {
+    return run(() -> {
+      m_targetPositionGrab = LOCK_GRABBER_POSITION;
+    }).onlyIf(() -> isLockGrabSafe());
+  }
+
   public Command lowerClimbCommand() {
     return run(() -> {
-      if (isSafePosition()) {
-        m_targetPositionGrab = LOCK_POSITION;
-      }
+      m_targetPositionGrab = LOCK_GRABBER_POSITION;
       m_targetPositionRatchet = RATCHET_LOCK_POSITION;
       m_climbMotorOff = false;
       m_targetPositionClimb = CLIMB_DOWN_POSITION;
-    }).until(() -> isTargetPosition());
+    }).onlyIf(() -> isLowerClimbSafe()).until(() -> isTargetPosition());
   }
 
   /**
@@ -153,7 +173,7 @@ public class Climb extends SubsystemBase {
 
   public Command hasClimbCommand() {
     return run(() -> {
-      m_targetPositionGrab = LOCK_POSITION;
+      m_targetPositionGrab = LOCK_GRABBER_POSITION;
       m_targetPositionRatchet = RATCHET_LOCK_POSITION;
       m_climbMotorOff = true;
     });
@@ -161,7 +181,7 @@ public class Climb extends SubsystemBase {
 
   public Command climbDefaultCommand() {
     return run(() -> {
-      m_targetPositionGrab = RESET_LOCK_POSITION;
+      m_targetPositionGrab = GRANNY_GRABBER_POSITION;
       m_targetPositionRatchet = RATCHET_LOCK_POSITION;
       m_climbMotorOff = true;
     });
@@ -214,6 +234,18 @@ public class Climb extends SubsystemBase {
 
   public double getLockMotorCurrent() {
     return m_grabMotor.getOutputCurrent();
+  }
+
+  public boolean getIsRaiseClimbSafe() {
+    return isRaiseClimbSafe();
+  }
+
+  public boolean getIsLockGrabSafe() {
+    return isLockGrabSafe();
+  }
+
+  public boolean getIsLowerClimbSafe() {
+    return isLowerClimbSafe();
   }
 
   public void changePID(double p, double i, double d) {

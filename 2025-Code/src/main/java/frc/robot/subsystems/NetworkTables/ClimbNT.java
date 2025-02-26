@@ -24,6 +24,10 @@ public class ClimbNT extends Climb {
     DoubleTopic grabVelocity = nt.getDoubleTopic("/climb/grab_velocity");
     DoubleTopic grabCurrent = nt.getDoubleTopic("/climb/grab_current");
 
+    BooleanTopic isRaiseClimbSafe = nt.getBooleanTopic("/climb/is_raise_climb_safe");
+    BooleanTopic isLockGrabSafe = nt.getBooleanTopic("/climb/is_lock_grab_safe");
+    BooleanTopic isLowerClimbSafe = nt.getBooleanTopic("/climb/is_lower_climb_safe");
+
     final DoublePublisher actualClimbPositionPub;
     final DoublePublisher followerClimbPositionPub;
     final DoublePublisher targetClimbPositionPub;
@@ -33,6 +37,10 @@ public class ClimbNT extends Climb {
 
     final DoublePublisher grabVelocityPub;
     final DoublePublisher grabCurrentPub;
+
+    final BooleanPublisher isRaiseClimbSafePub;
+    final BooleanPublisher isLockGrabSafePub;
+    final BooleanPublisher isLowerClimbSafePub;
 
     private PIDTuner m_PIDTuner;
     private double m_previousClimbP = CLIMB_kP;
@@ -69,6 +77,15 @@ public class ClimbNT extends Climb {
         grabCurrentPub = grabCurrent.publish();
         grabCurrentPub.setDefault(0);
 
+        isRaiseClimbSafePub = isRaiseClimbSafe.publish();
+        isRaiseClimbSafePub.setDefault(false);
+
+        isLockGrabSafePub = isLockGrabSafe.publish();
+        isLockGrabSafePub.setDefault(false);
+
+        isLowerClimbSafePub = isLowerClimbSafe.publish();
+        isLowerClimbSafePub.setDefault(false);
+
         m_PIDTuner = new PIDTuner("climb/{tuning}PID");
         m_PIDTuner.setP(m_previousClimbP);
         m_PIDTuner.setI(m_previousClimbI);
@@ -97,6 +114,10 @@ public class ClimbNT extends Climb {
 
         grabVelocityPub.set(getLockMotorVelocity(), now);
         grabCurrentPub.set(getLockMotorCurrent(), now);
+
+        isRaiseClimbSafePub.set(getIsRaiseClimbSafe(), now);
+        isLockGrabSafePub.set(getIsLockGrabSafe(), now);
+        isLowerClimbSafePub.set(getIsLowerClimbSafe(), now);
 
         if (m_PIDTuner.isDifferentValues(m_previousClimbP, m_previousClimbI, m_previousClimbD)) {
             changePID(m_PIDTuner.getP(), m_PIDTuner.getI(), m_PIDTuner.getD());
