@@ -36,11 +36,11 @@ public class ArmFactory {
     }
 
     public static Command armToDescoreL2() {
-        return arm.armRotateCommand(REEF_L2_DESCORE_POSITION);
+        return arm.armRotateCommand(REEF_DESCORE_POSITION);
     }
 
     public static Command armToDescoreL3() {
-        return arm.armRotateCommand(REEF_L3_DESCORE_POSITION);
+        return arm.armRotateCommand(REEF_DESCORE_POSITION);
     }
 
     public static Command armToScore(double level) {
