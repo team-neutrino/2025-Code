@@ -24,7 +24,7 @@ public class DriveAssistCom extends Command {
   private CommandXboxController m_controller;
   private double m_POIoffset = 0;
   private int m_staticTagID;
-  Translation2d error;
+  private Translation2d m_error;
 
   public DriveAssistCom(CommandXboxController p_controller) {
     addRequirements(swerve);
@@ -38,7 +38,7 @@ public class DriveAssistCom extends Command {
 
   @Override
   public void execute() {
-    if (!limelight.getTv() || exitExecute()) {
+    if (!limelight.getTvReef() || exitExecute()) {
       swerve.setControl(req.withVelocityX(0)
           .withVelocityY(0));
       return;
@@ -47,18 +47,18 @@ public class DriveAssistCom extends Command {
     m_POIoffset = pov == 270 ? -REEF_OFFSET : pov == 90 ? REEF_OFFSET : m_POIoffset;
     limelight.setPointOfInterest(0, m_POIoffset);
 
-    Translation2d velocities = getVelocities();
+    updateError();
     swerve.setIsAligned(isAligned());
-    Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() - limelight.getTx());
-    swerve.setControl(req.withVelocityX(velocities.getX() + -m_controller.getLeftY() * MAX_SPEED)
-        .withVelocityY(velocities.getY() + -m_controller.getLeftX() * MAX_SPEED).withTargetDirection(angle));
+    Rotation2d angle = Rotation2d.fromDegrees(swerve.getYawDegrees() - limelight.getTxReef());
+    swerve.setControl(req.withVelocityX(m_error.getX() + -m_controller.getLeftY() * MAX_SPEED)
+        .withVelocityY(m_error.getY() + -m_controller.getLeftX() * MAX_SPEED).withTargetDirection(angle));
   }
 
   private boolean exitExecute() {
     if (m_staticTagID == -1) {
-      setPriorityID();
+      m_staticTagID = limelight.getIDReef();
     }
-    return m_staticTagID != limelight.getID();
+    return m_staticTagID != limelight.getIDReef();
 
   }
 
@@ -78,7 +78,7 @@ public class DriveAssistCom extends Command {
    */
   private Translation2d getFieldRelativeDistances() {
     int id = m_staticTagID;
-    double idealYaw = swerve.getYawDegrees() - limelight.getTx();
+    double idealYaw = swerve.getYawDegrees() - limelight.getTxReef();
     double limelightTagToRobot = limelight.getDistanceFromPrimaryTarget();
 
     // ID 7/18 edge case
@@ -108,20 +108,15 @@ public class DriveAssistCom extends Command {
    * @return A translation2d in the WPiLB standard coordinate system: (left is
    *         positive y and up is positive x).
    */
-  private Translation2d getVelocities() {
-    error = getFieldRelativeDistances();
-    double xVel = MathUtil.clamp(error.getX() * DRIVE_ASSIST_KP, -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
-    double yVel = MathUtil.clamp(error.getY() * DRIVE_ASSIST_KP, -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
-    Translation2d ret = new Translation2d(xVel, yVel);
-    return ret;
-  }
-
-  private void setPriorityID() {
-    m_staticTagID = limelight.getID();
+  private void updateError() {
+    Translation2d ret = getFieldRelativeDistances();
+    double xVel = MathUtil.clamp(ret.getX() * DRIVE_ASSIST_KP, -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
+    double yVel = MathUtil.clamp(ret.getY() * DRIVE_ASSIST_KP, -APRILTAG_ALIGN_LIMIT, APRILTAG_ALIGN_LIMIT);
+    m_error = new Translation2d(xVel, yVel);
   }
 
   public boolean isAligned() {
-    return Math.abs(error.getX()) + Math.abs(error.getY()) < Constants.SwerveConstants.isAlignedError;
+    return Math.abs(m_error.getX()) + Math.abs(m_error.getY()) < Constants.SwerveConstants.isAlignedError;
   }
 
   @Override

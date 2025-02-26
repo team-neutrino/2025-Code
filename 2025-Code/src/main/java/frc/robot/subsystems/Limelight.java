@@ -11,9 +11,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.LimelightHelpers;
-import static frc.robot.Constants.LimelightConstants.*;
-
 import frc.robot.util.Subsystem;
+
+import static frc.robot.Constants.LimelightConstants.*;
 
 public class Limelight extends SubsystemBase {
   LimelightHelpers m_limelightHelpers;
@@ -32,8 +32,8 @@ public class Limelight extends SubsystemBase {
     m_limelightHelpers = new LimelightHelpers();
     // fake pipeline number
     // LimelightHelpers.setPipelineIndex(LIMELIGHT_1, 1);
-    LimelightHelpers.setLEDMode_ForceOff(LIMELIGHT_1);
-    LimelightHelpers.setCameraPose_RobotSpace(LIMELIGHT_1,
+    LimelightHelpers.setLEDMode_ForceOff(LL_REEF);
+    LimelightHelpers.setCameraPose_RobotSpace(LL_REEF,
         CAMERA_FORWARD_OFFSET, // Forward offset (meters)
         CAMERA_SIDE_OFFSET, // Side offset (meters) left is positive
         CAMERA_HEIGHT_OFFSET, // Height offset (meters)
@@ -41,11 +41,11 @@ public class Limelight extends SubsystemBase {
         CAMERA_PITCH_OFFSET, // Pitch (degrees)
         CAMERA_YAW_OFFSET // Yaw (degrees)
     );
-    LimelightHelpers.SetFiducialDownscalingOverride(LIMELIGHT_1, 3);
+    LimelightHelpers.SetFiducialDownscalingOverride(LL_REEF, 3);
 
     // change name later
-    LimelightHelpers.setLEDMode_ForceOff(LIMELIGHT_2);
-    LimelightHelpers.setCameraPose_RobotSpace(LIMELIGHT_2,
+    LimelightHelpers.setLEDMode_ForceOff(LL_STATION);
+    LimelightHelpers.setCameraPose_RobotSpace(LL_STATION,
         CAMERA2_FORWARD_OFFSET, // Forward offset (meters)
         CAMERA2_SIDE_OFFSET, // Side offset (meters) left is positive
         CAMERA2_HEIGHT_OFFSET, // Height offset (meters)
@@ -56,21 +56,21 @@ public class Limelight extends SubsystemBase {
   }
 
   // **get valid target from camera 1*/
-  public boolean getTv() {
-    return LimelightHelpers.getTV(LIMELIGHT_1);
+  public boolean getTvReef() {
+    return LimelightHelpers.getTV(LL_REEF);
   }
 
   // **get valid target from camera 2*/
-  public boolean getTvFromCamera2() {
-    return LimelightHelpers.getTV(LIMELIGHT_2);
+  public boolean getTvStation() {
+    return LimelightHelpers.getTV(LL_STATION);
   }
 
   /**
    * get Horizontal Offset From Crosshair To Target (LL1: -27 degrees to 27
    * degrees / LL2: -29.8 to 29.8 degrees)
    */
-  public double getTx() {
-    return LimelightHelpers.getTX(LIMELIGHT_1);
+  public double getTxReef() {
+    return LimelightHelpers.getTX(LL_REEF);
   }
 
   /**
@@ -78,16 +78,16 @@ public class Limelight extends SubsystemBase {
    * degrees to 27
    * degrees / LL2: -29.8 to 29.8 degrees)
    */
-  public double getTxFromCamera2() {
-    return LimelightHelpers.getTX(LIMELIGHT_2);
+  public double getTxStation() {
+    return LimelightHelpers.getTX(LL_STATION);
   }
 
   /**
    * get Vertical Offset From Crosshair To Target (LL1: -20.5 degrees to 20.5
    * degrees / LL2: -24.85 to 24.85 degrees)
    */
-  public double getTy() {
-    return LimelightHelpers.getTY(LIMELIGHT_1);
+  public double getTyReef() {
+    return LimelightHelpers.getTY(LL_REEF);
   }
 
   /**
@@ -95,60 +95,60 @@ public class Limelight extends SubsystemBase {
    * degrees to 20.5
    * degrees / LL2: -24.85 to 24.85 degrees)
    */
-  public double getTyFromCamera2() {
-    return LimelightHelpers.getTY(LIMELIGHT_2);
+  public double getTyStation() {
+    return LimelightHelpers.getTY(LL_STATION);
   }
 
   /** get ID of the primary in-view AprilTag */
-  public int getID() {
-    return (int) LimelightHelpers.getFiducialID(LIMELIGHT_1);
+  public int getIDReef() {
+    return (int) LimelightHelpers.getFiducialID(LL_REEF);
   }
 
   /** get ID of the primary in-view AprilTag from the Second Camera */
-  public int getIDFromCamera2() {
-    return (int) LimelightHelpers.getFiducialID(LIMELIGHT_2);
+  public int getIDStation() {
+    return (int) LimelightHelpers.getFiducialID(LL_STATION);
   }
 
-  public double[] getTargetPose() {
-    if (getTv()) {
-      targetPose = LimelightHelpers.getTargetPose_RobotSpace(LIMELIGHT_1);
+  public double[] getTargetPoseReef() {
+    if (getTvReef()) {
+      targetPose = LimelightHelpers.getTargetPose_RobotSpace(LL_REEF);
     }
     return targetPose;
   }
 
-  public double[] getTargetPoseFromCamera2() {
-    if (getTv()) {
-      targetPose2 = LimelightHelpers.getTargetPose_RobotSpace(LIMELIGHT_2);
+  public double[] getTargetPoseStation() {
+    if (getTvReef()) {
+      targetPose2 = LimelightHelpers.getTargetPose_RobotSpace(LL_STATION);
     }
     return targetPose2;
   }
 
-  public double getTargetYaw() {
-    getTargetPose();
+  public double getTargetYawReef() {
+    getTargetPoseReef();
     return targetPose[5];
   }
 
-  public double getTargetYawFromCamera2() {
-    getTargetPoseFromCamera2();
+  public double getTargetYawStation() {
+    getTargetPoseStation();
     return targetPose2[5];
   }
 
-  public Rotation2d getTargetYawRotation2d() {
-    getTargetPose();
+  public Rotation2d getTargetYawRotation2dReef() {
+    getTargetPoseReef();
     return Rotation2d.fromDegrees(targetPose[5]);
   }
 
-  public Rotation2d getTargetYawRotation2dFromCamera2() {
-    getTargetPoseFromCamera2();
+  public Rotation2d getTargetYawRotation2dStation() {
+    getTargetPoseStation();
     return Rotation2d.fromDegrees(targetPose2[5]);
   }
 
   public double[] getBotPose() {
     // depending on how we do want to do our vision we could have regular getBotPose
-    if (getTv()) {
-      pose = LimelightHelpers.getBotPose_wpiBlue(LIMELIGHT_1);
-    } else if (getTvFromCamera2()) {
-      pose = LimelightHelpers.getBotPose_wpiBlue(LIMELIGHT_2);
+    if (getTvReef()) {
+      pose = LimelightHelpers.getBotPose_wpiBlue(LL_REEF);
+    } else if (getTvStation()) {
+      pose = LimelightHelpers.getBotPose_wpiBlue(LL_STATION);
     }
     return pose;
     // currently defaults to 0 if there's no pose
@@ -163,22 +163,18 @@ public class Limelight extends SubsystemBase {
     LimelightHelpers.setFiducial3DOffset("limelight", x, y, 0);
   }
 
-  public void setPriorityID(int id) {
-    LimelightHelpers.setPriorityTagID(LIMELIGHT_1, id);
+  public void setPriorityIDReef(int id) {
+    LimelightHelpers.setPriorityTagID(LL_REEF, id);
   }
 
-  public void setPriorityIDForCamera2(int id) {
-    LimelightHelpers.setPriorityTagID(LIMELIGHT_2, id);
+  public void setPriorityIDStation(int id) {
+    LimelightHelpers.setPriorityTagID(LL_STATION, id);
   }
 
-  public void setPipelineID(int id) {
-    LimelightHelpers.setPipelineIndex(LIMELIGHT_1, id);
-  }
-
-  private void updateOdometryLL1() {
+  private void updateOdometryReef() {
     LimelightHelpers.PoseEstimate limePoseEst1 = LimelightHelpers
-        .getBotPoseEstimate_wpiBlue_MegaTag2(LIMELIGHT_1);
-    double frame1 = getFrame(LIMELIGHT_1);
+        .getBotPoseEstimate_wpiBlue_MegaTag2(LL_REEF);
+    double frame1 = getFrame(LL_REEF);
     if (limePoseEst1 != null && limePoseEst1.tagCount != 0
         && m_swerve.getState().Speeds.omegaRadiansPerSecond < 4 * Math.PI
         && frame1 > m_lastFrame1) {
@@ -187,10 +183,10 @@ public class Limelight extends SubsystemBase {
     m_lastFrame1 = frame1;
   }
 
-  private void updateOdometryLL2() {
+  private void updateOdometryStation() {
     LimelightHelpers.PoseEstimate limePoseEst2 = LimelightHelpers
-        .getBotPoseEstimate_wpiBlue_MegaTag2(LIMELIGHT_2);
-    double frame2 = getFrame(LIMELIGHT_2);
+        .getBotPoseEstimate_wpiBlue_MegaTag2(LL_STATION);
+    double frame2 = getFrame(LL_STATION);
     if (limePoseEst2 != null && limePoseEst2.tagCount != 0
         && m_swerve.getState().Speeds.omegaRadiansPerSecond < 4 * Math.PI
         && frame2 > m_lastFrame2) {
@@ -200,11 +196,11 @@ public class Limelight extends SubsystemBase {
   }
 
   private boolean hasReefTag() {
-    return LimelightHelpers.getRawFiducials(LIMELIGHT_1).length > 0;
+    return LimelightHelpers.getRawFiducials(LL_REEF).length > 0;
   }
 
   private boolean hasPlayerStationTag() {
-    return LimelightHelpers.getRawFiducials(LIMELIGHT_2).length > 0;
+    return LimelightHelpers.getRawFiducials(LL_STATION).length > 0;
   }
 
   private void updateOdometry() {
@@ -219,9 +215,9 @@ public class Limelight extends SubsystemBase {
       return;
     }
     if (hasReefTag && (Subsystem.coral.hasCoral() || !hasPlayerStationTag)) {
-      updateOdometryLL1();
+      updateOdometryReef();
     } else if (hasPlayerStationTag) {
-      updateOdometryLL2();
+      updateOdometryStation();
     }
   }
 
@@ -243,21 +239,21 @@ public class Limelight extends SubsystemBase {
 
     if (!DriverStation.isEnabled()) {
       // mode 0: use external yaw for MT2 localization only, ignore internal yaw
-      LimelightHelpers.SetIMUMode(LIMELIGHT_1, 1);
+      LimelightHelpers.SetIMUMode(LL_REEF, 1);
       // use external IMU yaw submitted via setRobotOrientation() and configure the
       // LL4 internal IMU's fused yaw to match the submitted yaw value
-      LimelightHelpers.SetIMUMode(LIMELIGHT_2, 1);
+      LimelightHelpers.SetIMUMode(LL_STATION, 1);
     } else {
-      LimelightHelpers.SetIMUMode(LIMELIGHT_1, 2);
+      LimelightHelpers.SetIMUMode(LL_REEF, 2);
       // use internal IMU for MT2 localization. External IMU data is ignored entirely.
-      LimelightHelpers.SetIMUMode(LIMELIGHT_2, 2);
+      LimelightHelpers.SetIMUMode(LL_STATION, 2);
     }
 
     // according to limelight docs, this needs to be called before using
     // .getBotPoseEstimate_wpiBlue_MegaTag2
-    LimelightHelpers.SetRobotOrientation(LIMELIGHT_1, Subsystem.swerve.getYawDegrees(), 0,
+    LimelightHelpers.SetRobotOrientation(LL_REEF, Subsystem.swerve.getYawDegrees(), 0,
         0, 0, 0, 0);
-    LimelightHelpers.SetRobotOrientation(LIMELIGHT_2, Subsystem.swerve.getYawDegrees(), 0,
+    LimelightHelpers.SetRobotOrientation(LL_STATION, Subsystem.swerve.getYawDegrees(), 0,
         0, 0, 0, 0);
     updateOdometry();
   }

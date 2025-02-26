@@ -7,57 +7,56 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.StringTopic;
 import edu.wpi.first.wpilibj.DriverStation;
-
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
 import frc.robot.util.Subsystem;
 
 public class LED extends SubsystemBase {
 
-  NetworkTableInstance inst = NetworkTableInstance.getDefault();
-  StringTopic color_topic = inst.getStringTopic("/LED/color");
-  StringTopic state_topic = inst.getStringTopic("/LED/state");
-  Coral coral = Subsystem.coral;
+  private NetworkTableInstance m_nt = NetworkTableInstance.getDefault();
+  private StringTopic m_color_topic = m_nt.getStringTopic("/LED/color");
+  private StringTopic m_state_topic = m_nt.getStringTopic("/LED/state");
+  private Coral m_coral = Subsystem.coral;
 
-  final StringPublisher color_pub;
-  final StringPublisher state_pub;
+  private final StringPublisher m_color_pub;
+  private final StringPublisher m_state_pub;
 
   public LED() {
-    color_pub = color_topic.publish();
-    state_pub = state_topic.publish();
+    m_color_pub = m_color_topic.publish();
+    m_state_pub = m_state_topic.publish();
   }
 
-  public void setToGamePieceColor() {
-    if (coral.hasCoral()) {
-      state_pub.set("blinktwice");
-      color_pub.set("white");
+  private void setToGamePieceColor() {
+    if (m_coral.hasCoral()) {
+      m_state_pub.set("blinktwice");
+      m_color_pub.set("white");
     }
   }
 
-  public void setColor() {
+  private void setColor() {
     if (DriverStation.isAutonomousEnabled()) {
-      color_pub.set("cyan");
+      m_color_pub.set("cyan");
     } else if (DriverStation.isTeleopEnabled()) {
       setDriveToPointColor();
-      if (coral.debouncedHasCoral()) {
+      if (m_coral.debouncedHasCoral()) {
         setToGamePieceColor();
         return;
       }
     } else {
-      color_pub.set("orange");
-      state_pub.set("blink");
+      m_color_pub.set("orange");
+      m_state_pub.set("blink");
     }
   }
 
-  public void setDriveToPointColor() {
+  private void setDriveToPointColor() {
     if (Subsystem.swerve.isDrivingToPoint()) {
-      color_pub.set("red");
+      m_color_pub.set("red");
     } else if (Subsystem.swerve.isAtPoint()) {
-      color_pub.set("green");
+      m_color_pub.set("green");
     } else {
-      color_pub.set("orange");
+      m_color_pub.set("orange");
     }
-    state_pub.set("solid");
+    m_state_pub.set("solid");
   }
 
   @Override
