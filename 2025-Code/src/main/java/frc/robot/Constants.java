@@ -256,56 +256,55 @@ public final class Constants {
     public static final Pose2d BLUE_PLAYER_STATION_12 = new Pose2d(1.47, 0.99, Rotation2d.fromDegrees(54));
     public static final Pose2d BLUE_PLAYER_STATION_13 = new Pose2d(1.47, 7.06, Rotation2d.fromDegrees(-54));
 
-    public static final Pose2d RED_REEF_6A = DriveToPointCalculator.CalculatePoint(FieldConstants.AprilTags.get(6),
-        offsetToReef, offsetOfArm, reefWidth, true);
-    public static final Pose2d RED_REEF_6B = DriveToPointCalculator.CalculatePoint(FieldConstants.AprilTags.get(6),
-        offsetToReef, offsetOfArm, reefWidth, false);
-    public static final Pose2d RED_REEF_7A = DriveToPointCalculator.CalculatePoint(FieldConstants.AprilTags.get(7),
-        offsetToReef, offsetOfArm, reefWidth, true);
-    public static final Pose2d RED_REEF_7B = DriveToPointCalculator.CalculatePoint(FieldConstants.AprilTags.get(7),
-        offsetToReef, offsetOfArm, reefWidth, false);
-    public static final Pose2d RED_REEF_8A = DriveToPointCalculator.CalculatePoint(FieldConstants.AprilTags.get(8),
-        offsetToReef, offsetOfArm, reefWidth, true);
-    public static final Pose2d RED_REEF_8B = DriveToPointCalculator.CalculatePoint(FieldConstants.AprilTags.get(8),
-        offsetToReef, offsetOfArm, reefWidth, false);
-    public static final Pose2d RED_REEF_9A = DriveToPointCalculator.CalculatePoint(FieldConstants.AprilTags.get(9),
-        offsetToReef, offsetOfArm, reefWidth, true);
-    public static final Pose2d RED_REEF_9B = DriveToPointCalculator.CalculatePoint(FieldConstants.AprilTags.get(9),
-        offsetToReef, offsetOfArm, reefWidth, false);
-    public static final Pose2d RED_REEF_10A = DriveToPointCalculator.CalculatePoint(FieldConstants.AprilTags.get(10),
-        offsetToReef, offsetOfArm, reefWidth, true);
-    public static final Pose2d RED_REEF_10B = DriveToPointCalculator.CalculatePoint(FieldConstants.AprilTags.get(10),
-        offsetToReef, offsetOfArm, reefWidth, false);
+    public static final Pose2d RED_REEF_6A = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[6], true);
+    public static final Pose2d RED_REEF_6B = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[6], false);
+    public static final Pose2d RED_REEF_7A = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[7], true);
+    public static final Pose2d RED_REEF_7B = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[7], false);
+    public static final Pose2d RED_REEF_8A = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[8], true);
+    public static final Pose2d RED_REEF_8B = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[8], false);
+    public static final Pose2d RED_REEF_9A = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[9], true);
+    public static final Pose2d RED_REEF_9B = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[9], false);
+    public static final Pose2d RED_REEF_10A = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[10], true);
+    public static final Pose2d RED_REEF_10B = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[10], false);
     public static final Pose2d RED_REEF_11A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.AprilTags.get(11), offsetToReef, offsetOfArm, reefWidth, true);
-    public static final Pose2d RED_REEF_11B = DriveToPointCalculator.CalculatePoint(
-        FieldConstants.AprilTags.get(11),
-        offsetToReef, offsetOfArm, reefWidth, false);
+        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[11], true);
+    public static final Pose2d RED_REEF_11B = DriveToPointCalculator
+        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[11], false);
 
     public static final Pose2d BLUE_REEF_17A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.AprilTags.get(17), offsetToReef, offsetOfArm, reefWidth, false);
+        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[17], false);
     public static final Pose2d BLUE_REEF_17B = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.AprilTags.get(17), offsetToReef, offsetOfArm, reefWidth, true);
+        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[17], true);
     public static final Pose2d BLUE_REEF_18A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.AprilTags.get(18), offsetToReef, offsetOfArm, reefWidth, false);
+        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[18], false);
     public static final Pose2d BLUE_REEF_18B = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.AprilTags.get(18), offsetToReef, offsetOfArm, reefWidth, true);
+        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[18], true);
     public static final Pose2d BLUE_REEF_19A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.AprilTags.get(19), offsetToReef, offsetOfArm, reefWidth, false);
+        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[19], false);
     public static final Pose2d BLUE_REEF_19B = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.AprilTags.get(19), offsetToReef, offsetOfArm, reefWidth, true);
+        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[19], true);
     public static final Pose2d BLUE_REEF_20A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.AprilTags.get(20), offsetToReef, offsetOfArm, reefWidth, false);
+        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[20], false);
     public static final Pose2d BLUE_REEF_20B = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.AprilTags.get(20), offsetToReef, offsetOfArm, reefWidth, true);
+        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[20], true);
     public static final Pose2d BLUE_REEF_21A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.AprilTags.get(21), offsetToReef, offsetOfArm, reefWidth, false);
+        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[21], false);
     public static final Pose2d BLUE_REEF_21B = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.AprilTags.get(21), offsetToReef, offsetOfArm, reefWidth, true);
+        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[21], true);
     public static final Pose2d BLUE_REEF_22A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.AprilTags.get(22), offsetToReef, offsetOfArm, reefWidth, false);
+        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[22], false);
     public static final Pose2d BLUE_REEF_22B = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.AprilTags.get(22), offsetToReef, offsetOfArm, reefWidth, true);
+        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[22], true);
 
     // Don't reorder this list
     public static final List<Pose2d> POSE_LIST = List.of(RED_PLAYER_STATION_1, RED_PLAYER_STATION_2,
