@@ -84,7 +84,7 @@ public final class Constants {
     public static final double GEAR_RATIO = 50 / 7; // 7.41:1
     public static final double FLOOR_TO_ELEVATOR_TOP = 70.88;
     public static final double FLOOR_TO_TOP_OF_BOTTOM_TUBE = 11.88;
-    public static final double MAX_VELOCITY = 2300;
+    public static final double MAX_VELOCITY = 4000;
     public static final double MAX_ACCELERATION = 2000;
     public static final double ALLOWED_ERROR = 0.1;
     public static final double P_VAL = 0.11;
