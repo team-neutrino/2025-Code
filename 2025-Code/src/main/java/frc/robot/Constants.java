@@ -76,7 +76,7 @@ public final class Constants {
     public static final double STAGE_ONE_UP = 26.0;
     public static final double CORAL_INTAKE = 34;
     public static final double REMOVE_L2_ALGAE = 0.0;
-    public static final double REMOVE_L3_ALGAE = 0.0;
+    public static final double REMOVE_L3_ALGAE = 54.9;
     public static final double L1 = 14.0;
     public static final double L2 = 26.0;
     public static final double L3 = 36.0;
@@ -116,8 +116,7 @@ public final class Constants {
     public static final double L3_POSITION = 135.0;
     public static final double L4_POSITION = 150.0;
     public static final double EVACUATE_ANGLE = 15.0;
-    public static final double REEF_L2_DESCORE_POSITION = 0.0;
-    public static final double REEF_L3_DESCORE_POSITION = 0.0;
+    public static final double REEF_DESCORE_POSITION = 90;
     public static final double ANGLE_TOLERANCE = 0.5;
     public static final double DRIVING_ANGLE_TOLERANCE = 2.0;
 
