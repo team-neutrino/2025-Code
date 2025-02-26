@@ -209,8 +209,8 @@ public final class Constants {
     public static final double CAMERA2_PITCH_OFFSET = 30.0;
     public static final double CAMERA2_YAW_OFFSET = 180.0;
 
-    public static final String LIMELIGHT_1 = "limelight-limeade";
-    public static final String LIMELIGHT_2 = "limelight-limebee";
+    public static final String LL_REEF = "limelight-limeade";
+    public static final String LL_STATION = "limelight-limebee";
   }
 
   public static class LEDConstants {
