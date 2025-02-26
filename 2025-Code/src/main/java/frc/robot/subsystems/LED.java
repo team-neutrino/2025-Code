@@ -42,8 +42,8 @@ public class LED extends SubsystemBase {
         setToGamePieceColor();
       }
     } else {
-      m_color_pub.set("orange");
-      m_state_pub.set("blink");
+      color_pub.set("orange");
+      state_pub.set("solid");
     }
   }
 
@@ -64,5 +64,6 @@ public class LED extends SubsystemBase {
 
   @Override
   public void periodic() {
+    setColor();
   }
 }
