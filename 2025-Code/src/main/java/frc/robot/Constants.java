@@ -68,7 +68,7 @@ public final class Constants {
   public static class ElevatorConstants {
     public static final int MOTOR_ID = 2;
     public static final int FOLLOWER_ID = 3;
-    public static final int CURRENT_LIMIT = 50;
+    public static final int CURRENT_LIMIT = 60;
     public static final double DEFAULT = 0.0;
     public static final double BOTTOM_POSITION = 0.0;
     public static final double STAGE_ONE_UP = 26.0;
@@ -84,7 +84,7 @@ public final class Constants {
     public static final double GEAR_RATIO = 50 / 7; // 7.41:1
     public static final double FLOOR_TO_ELEVATOR_TOP = 70.88;
     public static final double FLOOR_TO_TOP_OF_BOTTOM_TUBE = 11.88;
-    public static final double MAX_VELOCITY = 2300;
+    public static final double MAX_VELOCITY = 4000;
     public static final double MAX_ACCELERATION = 2000;
     public static final double ALLOWED_ERROR = 0.1;
     public static final double P_VAL = 0.11;
@@ -100,7 +100,7 @@ public final class Constants {
     public static final double DEFAULT_POSITION = 160;
     public static final double DEFAULT_BACK_POSITION = 250;
     public static final double GROUND_ALGAE_POSITION = 95;
-    public static final double CORAL_STATION_POSITION = 330;
+    public static final double CORAL_STATION_POSITION = 328;
     public static final double L1_UNDERHAND = 335.0;
     public static final double L1_POSITION = 140.0;
     public static final double L2_POSITION = 125.0;
@@ -109,7 +109,6 @@ public final class Constants {
     public static final double EVACUATE_ANGLE = 15.0;
     public static final double REEF_L2_DESCORE_POSITION = 0.0;
     public static final double REEF_L3_DESCORE_POSITION = 0.0;
-    public static final double ANGLE_TOLERANCE = 0.5;
     public static final double DRIVING_ANGLE_TOLERANCE = 2.0;
 
     public static final double HITTING_LOW_HARD_LIMIT = 90;
@@ -120,15 +119,20 @@ public final class Constants {
     public static final int MOTOR_ID = 10;
 
     public static final double ENCODER_ZERO_OFFSET = 0;
-    public static final int CURRENT_LIMIT = 40;
+    public static final int CURRENT_LIMIT = 60;
 
-    public static final double MAX_VELOCITY = 4500;
-    public static final double MAX_ACCELERATION = 35000;
+    public static final double MAX_VELOCITY = 40000;
+    public static final double MAX_ACCELERATION = 50000;
     public static final double ALLOWED_ERROR = 0.7;
 
-    public static final double kp = 0.01;
-    public static final double ki = 0.01;
+    public static final double GAIN_THRESHOLD = 6;
+
+    public static final double kp = 0.03;
+    public static final double ki = 0;
     public static final double kd = 0;
+    public static final double kp1 = 0.05;
+    public static final double ki1 = 0;
+    public static final double kd1 = 0;
     public static final double ArmIZone = 2;
 
     public static final double FFCONSTANT = 0.04;
