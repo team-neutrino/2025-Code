@@ -87,10 +87,11 @@ public class Arm extends SubsystemBase {
         || m_targetAngle == CORAL_STATION_POSITION);
   }
 
-  public void movingToTarget() {
+  public boolean movingToTarget() {
     if (Subsystem.arm.getAngularVelocity() > 1) {
-      setAtTarget(false);
-      setGoingToTarget(true);
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -199,6 +200,16 @@ public class Arm extends SubsystemBase {
   public void periodic() {
     adjustArm(safeAngle(m_targetAngle));
 
+    if (readyToScore()) {
+      setAtTarget(true);
+      setGoingToTarget(false);
+    } else if (movingToTarget()) {
+      setAtTarget(false);
+      setGoingToTarget(true);
+    } else {
+      setAtTarget(false);
+      setGoingToTarget(false);
+    }
   }
 
   /**

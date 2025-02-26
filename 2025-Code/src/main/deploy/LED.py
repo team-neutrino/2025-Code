@@ -33,7 +33,7 @@ purple = (64, 0, 64)
 black = (0, 0, 0)
 cyan = (0, 64, 64)
 turquoise = (9, 55, 19)
-pink = (64, 35, 40)
+pink = (80, 30, 30)
 
 NetworkTables.setDashboardMode(1735)
 NetworkTables.initialize(server=ip)
