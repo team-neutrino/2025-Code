@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.util.Subsystem;
 
@@ -63,7 +62,11 @@ public class Arm extends SubsystemBase {
   }
 
   private boolean atTargetAngle() {
-    return Math.abs(getAngle() - m_targetAngle) <= ANGLE_TOLERANCE;
+    return Math.abs(getAngle() - m_targetAngle) <= ALLOWED_ERROR;
+  }
+
+  private boolean nearTargetAngle() {
+    return Math.abs(getAngle() - m_targetAngle) <= GAIN_THRESHOLD;
   }
 
   public boolean readyToScore() {
@@ -92,7 +95,7 @@ public class Arm extends SubsystemBase {
     m_motorConfig.closedLoop
         .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
         .pid(kp, ki, kd, ClosedLoopSlot.kSlot0)
-        .iZone(ArmIZone);
+        .pid(kp1, ki1, kd1, ClosedLoopSlot.kSlot1);
     m_pid = m_motor.getClosedLoopController();
 
     m_motorConfig.closedLoop.maxMotion
@@ -116,6 +119,9 @@ public class Arm extends SubsystemBase {
    * @return volts
    */
   private void adjustArm(double targetAngle) {
+    if (nearTargetAngle()) {
+      m_pid.setReference(targetAngle, ControlType.kPosition, ClosedLoopSlot.kSlot1, feedForwardCalculation());
+    }
     m_pid.setReference(targetAngle, ControlType.kMAXMotionPositionControl, ClosedLoopSlot.kSlot0,
         feedForwardCalculation());
   }

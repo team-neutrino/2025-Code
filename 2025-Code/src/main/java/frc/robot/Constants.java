@@ -109,7 +109,6 @@ public final class Constants {
     public static final double EVACUATE_ANGLE = 15.0;
     public static final double REEF_L2_DESCORE_POSITION = 0.0;
     public static final double REEF_L3_DESCORE_POSITION = 0.0;
-    public static final double ANGLE_TOLERANCE = 0.5;
     public static final double DRIVING_ANGLE_TOLERANCE = 2.0;
 
     public static final double HITTING_LOW_HARD_LIMIT = 90;
@@ -126,9 +125,14 @@ public final class Constants {
     public static final double MAX_ACCELERATION = 35000;
     public static final double ALLOWED_ERROR = 0.7;
 
+    public static final double GAIN_THRESHOLD = 6;
+
     public static final double kp = 0.01;
-    public static final double ki = 0.01;
+    public static final double ki = 0;
     public static final double kd = 0;
+    public static final double kp1 = 0.05;
+    public static final double ki1 = 0;
+    public static final double kd1 = 0;
     public static final double ArmIZone = 2;
 
     public static final double FFCONSTANT = 0.04;
