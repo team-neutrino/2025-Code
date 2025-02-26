@@ -101,9 +101,9 @@ public class Climb extends SubsystemBase {
 
   public Command lockGrabberCommand() {
     return run(() -> {
-      // if (isSafePosition()) {
+      if (isSafePosition()) {
       m_targetPositionGrab = LOCK_POSITION;
-      // }
+      }
     });
   }
 
@@ -132,9 +132,9 @@ public class Climb extends SubsystemBase {
 
   public Command lowerClimbCommand() {
     return run(() -> {
-      // if (isSafePosition()) {
-      m_targetPositionGrab = LOCK_POSITION;
-      // }
+      if (isSafePosition()) {
+        m_targetPositionGrab = LOCK_POSITION;
+      }
       m_targetPositionRatchet = RATCHET_LOCK_POSITION;
       m_climbMotorOff = false;
       m_targetPositionClimb = CLIMB_DOWN_POSITION;
