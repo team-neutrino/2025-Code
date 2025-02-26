@@ -88,7 +88,7 @@ public class Arm extends SubsystemBase {
   }
 
   public boolean movingToTarget() {
-    if (Subsystem.arm.getAngularVelocity() > 1) {
+    if (Math.abs(Subsystem.arm.getAngularVelocity()) > 2) {
       return true;
     } else {
       return false;
