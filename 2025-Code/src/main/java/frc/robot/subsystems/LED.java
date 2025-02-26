@@ -37,10 +37,11 @@ public class LED extends SubsystemBase {
     if (DriverStation.isAutonomousEnabled()) {
       m_color_pub.set("cyan");
     } else if (DriverStation.isTeleopEnabled()) {
+      // if (coral.debouncedHasCoral()) {
+      // setToGamePieceColor();
+      // }
+      System.out.println("isAtTarget = " + Subsystem.arm.isAtTarget());
       setActionColor();
-      if (coral.debouncedHasCoral()) {
-        setToGamePieceColor();
-      }
     } else {
       color_pub.set("orange");
       state_pub.set("solid");
