@@ -47,7 +47,7 @@ public final class FieldConstants {
                         new Pose3d(Units.inchesToMeters(497.77), Units.inchesToMeters(130.17),
                                         Units.inchesToMeters(12.13),
                                         new Rotation3d(Math.toRadians(240), 0, 0)),
-                        new Pose3d(Units.inchesToMeters(33.51), Units.inchesToMeters(25.8),
+                        new Pose3d(Units.inchesToMeters(33.51), Units.inchesToMeters(291.2),
                                         Units.inchesToMeters(58.5),
                                         new Rotation3d(Math.toRadians(54), 0, 0)),
                         new Pose3d(Units.inchesToMeters(33.51), Units.inchesToMeters(25.8),

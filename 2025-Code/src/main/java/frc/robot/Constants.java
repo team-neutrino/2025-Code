@@ -251,7 +251,7 @@ public final class Constants {
   public static class DriveToPoint {
     public static final double offsetOfArm = .32;
     public static final double offsetToReef = .56;
-    public static final double offsetToStation = .75;
+    public static final double offsetToStation = .6;
     public static final double reefWidth = 0.33;
 
     // the number correspond to the april tag on the object
@@ -262,6 +262,8 @@ public final class Constants {
     public static final Pose2d BLUE_PLAYER_STATION_13 = new Pose2d(1.47, 7.06, Rotation2d.fromDegrees(-54));
     public static final Pose2d DYNAM_BLUE_PLAYER_STATION_13 = DriveToPointCalculator
         .CalculatePSPoint(FieldConstants.APRIL_TAG_POSITIONS[13]);
+    public static final Pose2d DYNAM_BLUE_PLAYER_STATION_12 = DriveToPointCalculator
+        .CalculatePSPoint(FieldConstants.APRIL_TAG_POSITIONS[12]);
 
     public static final Pose2d RED_REEF_6A = DriveToPointCalculator
         .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[6], true);
@@ -315,7 +317,7 @@ public final class Constants {
 
     // Don't reorder this list
     public static final List<Pose2d> POSE_LIST = List.of(RED_PLAYER_STATION_1, RED_PLAYER_STATION_2,
-        DYNAM_BLUE_PLAYER_STATION_13, DYNAM_BLUE_PLAYER_STATION_13, RED_REEF_6A, RED_REEF_6B, RED_REEF_7A, RED_REEF_7B,
+        DYNAM_BLUE_PLAYER_STATION_12, DYNAM_BLUE_PLAYER_STATION_13, RED_REEF_6A, RED_REEF_6B, RED_REEF_7A, RED_REEF_7B,
         RED_REEF_8A,
         RED_REEF_8B, RED_REEF_9A, RED_REEF_9B, RED_REEF_10A, RED_REEF_10B, RED_REEF_11A, RED_REEF_11B, BLUE_REEF_17A,
         BLUE_REEF_17B, BLUE_REEF_18A, BLUE_REEF_18B, BLUE_REEF_19A, BLUE_REEF_19B, BLUE_REEF_20A, BLUE_REEF_20B,
