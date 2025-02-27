@@ -9,7 +9,10 @@ import edu.wpi.first.networktables.StringTopic;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
+import frc.robot.Constants;
 import frc.robot.util.Subsystem;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.XboxController;
 
 public class LED extends SubsystemBase {
 
@@ -18,8 +21,13 @@ public class LED extends SubsystemBase {
   private StringTopic m_state_topic = m_nt.getStringTopic("/LED/state");
   private Coral m_coral = Subsystem.coral;
 
+  private XboxController m_buttonsxboxController;
+  private XboxController m_driverxboxController;
+
   private final StringPublisher m_color_pub;
   private final StringPublisher m_state_pub;
+
+  private boolean m_previousCoralIntake = false;
 
   public LED() {
     m_color_pub = m_color_topic.publish();
@@ -28,8 +36,16 @@ public class LED extends SubsystemBase {
 
   private void setToGamePieceColor() {
     if (m_coral.hasCoral()) {
+      if(m_previousCoralIntake){
+        m_driverxboxController.setRumble(RumbleType.kBothRumble, Constants.OperatorConstants.RUMBLE_SPEED);
+        m_buttonsxboxController.setRumble(RumbleType.kBothRumble, Constants.OperatorConstants.RUMBLE_SPEED);
+      }
       m_state_pub.set("blinktwice");
       m_color_pub.set("white");
+
+      m_previousCoralIntake = true;
+    } else {
+      m_previousCoralIntake = false;
     }
   }
 
@@ -37,26 +53,29 @@ public class LED extends SubsystemBase {
     if (DriverStation.isAutonomousEnabled()) {
       m_color_pub.set("cyan");
     } else if (DriverStation.isTeleopEnabled()) {
-      setDriveToPointColor();
       if (m_coral.debouncedHasCoral()) {
         setToGamePieceColor();
-        return;
       }
+      setActionColor();
     } else {
       m_color_pub.set("orange");
-      m_state_pub.set("blink");
+      m_state_pub.set("solid");
     }
   }
 
-  private void setDriveToPointColor() {
-    if (Subsystem.swerve.isDrivingToPoint()) {
-      m_color_pub.set("red");
-    } else if (Subsystem.swerve.isAtPoint()) {
+  public void setActionColor() {
+    if (Subsystem.swerve.isAtPoint()) {
       m_color_pub.set("green");
+      m_state_pub.set("solid");
+    } else if (Subsystem.swerve.isDrivingToPoint()) {
+      m_color_pub.set("red");
+    } else if (Subsystem.arm.readyToScore()) {
+      m_color_pub.set("yellow");
+    } else if (!Subsystem.arm.atTargetAngle()) {
+      m_color_pub.set("purple");
     } else {
       m_color_pub.set("orange");
     }
-    m_state_pub.set("solid");
   }
 
   @Override

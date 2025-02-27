@@ -29,9 +29,11 @@ red = (64, 0, 0)
 orange = (84, 18, 0)
 yellow = (64, 64, 0)
 green = (0, 64, 0)
+purple = (64, 0, 64)
 black = (0, 0, 0)
 cyan = (0, 64, 64)
 turquoise = (9, 55, 19)
+pink = (75, 22, 25)
 
 NetworkTables.setDashboardMode(1735)
 NetworkTables.initialize(server=ip)
@@ -98,6 +100,10 @@ def valueColorChanged(table, key, value, isNew):
         setTargetColor(cyan)
     if value =="turquoise":
         setTargetColor(turquoise)
+    if value == "pink":
+        setTargetColor(pink)
+    if value == "purple":
+        setTargetColor(purple)
     for t in range(19,0,-1):
         for i in range(t, t + 19):
             if value == "rainbow":
