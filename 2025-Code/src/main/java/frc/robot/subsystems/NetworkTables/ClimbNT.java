@@ -17,12 +17,13 @@ public class ClimbNT extends Climb {
     DoubleTopic actualClimbPosition = nt.getDoubleTopic("/climb/actual_climb_position");
     DoubleTopic followerClimbPosition = nt.getDoubleTopic("/climb/follower_climb_position");
     DoubleTopic targetClimbPosition = nt.getDoubleTopic("/climb/target_climb_position");
-    DoubleTopic climbVelocity = nt.getDoubleTopic("/climb/climb_velocity");
-    DoubleTopic followerVelocity = nt.getDoubleTopic("/climb/follower_climb_velocity");
+    DoubleTopic climbCurrent = nt.getDoubleTopic("/climb/climb_velocity");
+    DoubleTopic followerCurrent = nt.getDoubleTopic("/climb/follower_climb_velocity");
     BooleanTopic motorOff = nt.getBooleanTopic("/climb/motor_off");
 
-    DoubleTopic grabVelocity = nt.getDoubleTopic("/climb/grab_velocity");
     DoubleTopic grabCurrent = nt.getDoubleTopic("/climb/grab_current");
+    DoubleTopic grabPosition = nt.getDoubleTopic("/climb/grab_position");
+    DoubleTopic grabTargetPosition = nt.getDoubleTopic("/climb/grab_target_position");
 
     BooleanTopic isRaiseClimbSafe = nt.getBooleanTopic("/climb/is_raise_climb_safe");
     BooleanTopic isLockGrabSafe = nt.getBooleanTopic("/climb/is_lock_grab_safe");
@@ -31,12 +32,13 @@ public class ClimbNT extends Climb {
     final DoublePublisher actualClimbPositionPub;
     final DoublePublisher followerClimbPositionPub;
     final DoublePublisher targetClimbPositionPub;
-    final DoublePublisher climbVelocityPub;
-    final DoublePublisher followerVelocityPub;
+    final DoublePublisher climbCurrentPub;
+    final DoublePublisher followerCurrentPub;
     final BooleanPublisher motorOffPub;
 
-    final DoublePublisher grabVelocityPub;
     final DoublePublisher grabCurrentPub;
+    final DoublePublisher grabPositionPub;
+    final DoublePublisher grabTargetPositionPub;
 
     final BooleanPublisher isRaiseClimbSafePub;
     final BooleanPublisher isLockGrabSafePub;
@@ -62,20 +64,23 @@ public class ClimbNT extends Climb {
         targetClimbPositionPub = targetClimbPosition.publish();
         targetClimbPositionPub.setDefault(0.0);
 
-        climbVelocityPub = climbVelocity.publish();
-        climbVelocityPub.setDefault(0.0);
+        climbCurrentPub = climbCurrent.publish();
+        climbCurrentPub.setDefault(0.0);
 
-        followerVelocityPub = followerVelocity.publish();
-        followerVelocityPub.setDefault(0.0);
+        followerCurrentPub = followerCurrent.publish();
+        followerCurrentPub.setDefault(0.0);
 
         motorOffPub = motorOff.publish();
         motorOffPub.setDefault(false);
 
-        grabVelocityPub = grabVelocity.publish();
-        grabVelocityPub.setDefault(0.0);
-
         grabCurrentPub = grabCurrent.publish();
         grabCurrentPub.setDefault(0);
+
+        grabPositionPub = grabPosition.publish();
+        grabPositionPub.setDefault(0);
+
+        grabTargetPositionPub = grabTargetPosition.publish();
+        grabTargetPositionPub.setDefault(0);
 
         isRaiseClimbSafePub = isRaiseClimbSafe.publish();
         isRaiseClimbSafePub.setDefault(false);
@@ -104,16 +109,16 @@ public class ClimbNT extends Climb {
 
         actualClimbPositionPub.set(getMotorPosition(), now);
         followerClimbPositionPub.set(getFollowerPosition(), now);
-
         targetClimbPositionPub.set(getTargetPosition(), now);
 
-        climbVelocityPub.set(getMotorVelocity(), now);
-        followerVelocityPub.set(getFollowerVelocity(), now);
+        climbCurrentPub.set(getClimbMotorCurrent(), now);
+        followerCurrentPub.set(getClimbFollowerCurrent(), now);
+
+        grabCurrentPub.set(getGrabMotorCurrent(), now);
+        grabPositionPub.set(getGrabMotorPosition(), now);
+        grabTargetPositionPub.set(getGrabMotorTargetPosition(), now);
 
         motorOffPub.set(getMotoroff(), now);
-
-        grabVelocityPub.set(getLockMotorVelocity(), now);
-        grabCurrentPub.set(getLockMotorCurrent(), now);
 
         isRaiseClimbSafePub.set(getIsRaiseClimbSafe(), now);
         isLockGrabSafePub.set(getIsLockGrabSafe(), now);

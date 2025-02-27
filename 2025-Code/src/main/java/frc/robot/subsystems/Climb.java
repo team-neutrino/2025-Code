@@ -216,24 +216,28 @@ public class Climb extends SubsystemBase {
     return m_targetPositionClimb;
   }
 
-  public double getMotorVelocity() {
-    return m_climbMotor.getVelocity().getValueAsDouble();
+  public double getClimbMotorCurrent() {
+    return m_climbMotor.getSupplyCurrent().getValueAsDouble();
   }
 
-  public double getFollowerVelocity() {
-    return m_climbFollower.getVelocity().getValueAsDouble();
+  public double getClimbFollowerCurrent() {
+    return m_climbFollower.getSupplyCurrent().getValueAsDouble();
   }
 
   public boolean getMotoroff() {
     return m_climbMotorOff;
   }
 
-  public double getLockMotorVelocity() {
-    return m_grabEncoder.getVelocity();
+  public double getGrabMotorCurrent() {
+    return m_grabMotor.getOutputCurrent();
   }
 
-  public double getLockMotorCurrent() {
-    return m_grabMotor.getOutputCurrent();
+  public double getGrabMotorPosition() {
+    return m_grabEncoder.getPosition();
+  }
+
+  public double getGrabMotorTargetPosition() {
+    return m_targetPositionGrab;
   }
 
   public boolean getIsRaiseClimbSafe() {
