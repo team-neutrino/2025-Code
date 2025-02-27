@@ -11,13 +11,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "3- Mid Coral (Start out)"
+                  "pathName": "22- Mid Coral"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToScoringL1"
+                  "name": "MoveToScoringL2"
                 }
               }
             ]
@@ -26,7 +26,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreL1"
+            "name": "ScoreL2"
           }
         },
         {
@@ -36,7 +36,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "3- Mid Coral (Start to Ps)"
+                  "pathName": "22-Mid Coral (Reef to Ps)"
                 }
               },
               {
@@ -61,13 +61,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "3- Mid Coral (score across station)"
+                  "pathName": "18-Mid Coral (Ps to Reef)"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToScoringL1"
+                  "name": "MoveToScoringL2"
                 }
               }
             ]
@@ -76,7 +76,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreL1"
+            "name": "ScoreL2"
           }
         },
         {
@@ -86,7 +86,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "3- Mid Coral (Reef to Ps)"
+                  "pathName": "18-Mid Coral (Reef to Ps)"
                 }
               },
               {
@@ -111,13 +111,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "3- Mid Coral (score middle)"
+                  "pathName": "20-Mid Coral (Ps to Reef)"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToScoringL1"
+                  "name": "MoveToScoringL2"
                 }
               }
             ]
@@ -126,7 +126,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreL1"
+            "name": "ScoreL2"
           }
         }
       ]
