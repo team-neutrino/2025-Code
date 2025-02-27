@@ -58,7 +58,7 @@ public class Arm extends SubsystemBase {
   }
 
   private boolean atTargetAngle() {
-    return Math.abs(getAngle() - m_targetAngle) <= ANGLE_TOLERANCE;
+    return Math.abs(getAngle() - m_targetAngle) <= ALLOWED_ERROR;
   }
 
   private boolean nearTargetAngle() {
