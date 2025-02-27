@@ -11,13 +11,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "1- Pro Coral"
+                  "pathName": "22-Pro Coral"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToScoringL4"
+                  "name": "MoveToScoringL2"
                 }
               }
             ]
@@ -26,7 +26,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreL4"
+            "name": "ScoreL2"
           }
         },
         {
@@ -36,7 +36,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "2- Pro Coral"
+                  "pathName": "22- Pro Coral (Reef to Ps)"
                 }
               },
               {
@@ -61,13 +61,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "3- Pro Coral"
+                  "pathName": "22-Pro Coral (Ps to Reef)"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToScoringL4"
+                  "name": "MoveToScoringL2"
                 }
               }
             ]
@@ -76,7 +76,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreL4"
+            "name": "ScoreL2"
           }
         }
       ]
