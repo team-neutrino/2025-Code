@@ -155,15 +155,15 @@ public final class Constants {
   public static class ClimbConstants {
     public static final int MAIN_MOTOR_ID = 31;
     public static final int FOLLOW_MOTOR_ID = 30;
-    public static final int LOCK_MOTOR_ID = 32;
-    public static final int RATCHET_PORT = 0;
+    public static final int GRAB_MOTOR_ID = 32;
+    public static final int RATCHET_SERVO_PORT = 0;
 
     public static final int CLIMB_CURRENT_LIMIT = 80;
-    public static final int LOCK_CURRENT_LIMIT = 10;
+    public static final int GRAB_CURRENT_LIMIT = 10;
 
-    public static final int CLIMB_UP_POSITION = 35;
-    public static final int CLIMB_DOWN_POSITION = 0;
-    public static final int RESET_CLIMB_ROTATION = -105;
+    public static final int RAISE_CLIMB_POSITION = 35;
+    public static final int LOWER_CLIMB_POSITION = 0;
+    public static final int RESET_CLIMB_ROTATIONS = -105;
 
     public static final int CLIMB_POSITION_TOLERANCE = 3;
     public static final int GRABBER_POSITION_TOLERANCE = 2;
@@ -183,11 +183,6 @@ public final class Constants {
     public static final double LOCK_kP = 0.75;
     public static final double LOCK_kI = 0;
     public static final double LOCK_kD = 0;
-
-    public static final double VELOCITY = 0;
-    public static final double ACCELERATION = 0;
-    public static final double JERK = 0;
-    // subject to change
 
     public static final double COMMAND_WAIT_TIME = 0.5;
   }
