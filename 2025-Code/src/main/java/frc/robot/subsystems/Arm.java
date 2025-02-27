@@ -30,8 +30,6 @@ public class Arm extends SubsystemBase {
   private SparkClosedLoopController m_pid;
   private double m_targetAngle = STARTING_POSITION;
   private double m_FFConstant = FFCONSTANT;
-  private boolean m_isAtTarget = false;
-  private boolean m_isGoingToTarget = false;
 
   public Arm() {
     initializeMotorControllers();
@@ -65,22 +63,6 @@ public class Arm extends SubsystemBase {
     return Math.abs(getAngle() - m_targetAngle) <= GAIN_THRESHOLD;
   }
 
-  public boolean isAtTarget() {
-    return m_isAtTarget;
-  }
-
-  public void setAtTarget(boolean value) {
-    m_isAtTarget = value;
-  }
-
-  public boolean goingToTarget() {
-    return m_isGoingToTarget;
-  }
-
-  public void setGoingToTarget(boolean value) {
-    m_isGoingToTarget = value;
-  }
-
   public boolean readyToScore() {
     return atTargetAngle() && !(m_targetAngle == STARTING_POSITION || m_targetAngle == DEFAULT_POSITION
         || m_targetAngle == DEFAULT_BACK_POSITION
@@ -88,7 +70,7 @@ public class Arm extends SubsystemBase {
   }
 
   public boolean movingToTarget() {
-    if (Math.abs(Subsystem.arm.getAngularVelocity()) > 2) {
+    if (Math.abs(getAngularVelocity()) > 2) {
       return true;
     } else {
       return false;
@@ -199,17 +181,6 @@ public class Arm extends SubsystemBase {
   @Override
   public void periodic() {
     adjustArm(safeAngle(m_targetAngle));
-
-    if (readyToScore()) {
-      setAtTarget(true);
-      setGoingToTarget(false);
-    } else if (movingToTarget()) {
-      setAtTarget(false);
-      setGoingToTarget(true);
-    } else {
-      setAtTarget(false);
-      setGoingToTarget(false);
-    }
   }
 
   /**

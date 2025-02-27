@@ -50,16 +50,16 @@ public class LED extends SubsystemBase {
   public void setActionColor() {
     if (Subsystem.swerve.isAtPoint()) {
       m_color_pub.set("green");
+      m_state_pub.set("solid");
     } else if (Subsystem.swerve.isDrivingToPoint()) {
       m_color_pub.set("red");
-    } else if (Subsystem.arm.isAtTarget()) {
+    } else if (Subsystem.arm.readyToScore()) {
       m_color_pub.set("yellow");
-    } else if (Subsystem.arm.goingToTarget()) {
+    } else if (Subsystem.arm.movingToTarget()) {
       m_color_pub.set("purple");
     } else {
       m_color_pub.set("orange");
     }
-    m_state_pub.set("solid");
   }
 
   @Override
