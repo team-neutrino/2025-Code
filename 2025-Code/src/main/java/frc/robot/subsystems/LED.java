@@ -55,7 +55,7 @@ public class LED extends SubsystemBase {
       m_color_pub.set("red");
     } else if (Subsystem.arm.readyToScore()) {
       m_color_pub.set("yellow");
-    } else if (Subsystem.arm.movingToTarget()) {
+    } else if (!Subsystem.arm.atTargetAngle()) {
       m_color_pub.set("purple");
     } else {
       m_color_pub.set("orange");

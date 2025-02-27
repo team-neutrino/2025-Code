@@ -55,7 +55,7 @@ public class Arm extends SubsystemBase {
     return m_encoder.getVelocity();
   }
 
-  private boolean atTargetAngle() {
+  public boolean atTargetAngle() {
     return Math.abs(getAngle() - m_targetAngle) <= ALLOWED_ERROR;
   }
 
@@ -67,10 +67,6 @@ public class Arm extends SubsystemBase {
     return atTargetAngle() && !(m_targetAngle == STARTING_POSITION || m_targetAngle == DEFAULT_POSITION
         || m_targetAngle == DEFAULT_BACK_POSITION
         || m_targetAngle == CORAL_STATION_POSITION);
-  }
-
-  public boolean movingToTarget() {
-    return Math.abs(getAngularVelocity()) > 2;
   }
 
   /**
