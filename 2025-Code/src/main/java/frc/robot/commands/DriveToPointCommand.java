@@ -58,6 +58,7 @@ public class DriveToPointCommand extends Command {
     if (swerve.isAtPoint() && (Subsystem.coral.hasCoral() != m_hadGamePiece)) {
       obtainTarget();
     }
+    System.out.println(m_pointControl.getTarget());
   }
 
   @Override

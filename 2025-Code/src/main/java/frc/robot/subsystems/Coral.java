@@ -16,9 +16,10 @@ import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import static frc.robot.Constants.CoralConstants.*;
 import com.reduxrobotics.sensors.canandcolor.Canandcolor;
 import com.reduxrobotics.sensors.canandcolor.CanandcolorSettings;
+
+import static frc.robot.Constants.CoralConstants.*;
 
 /**
  * Class that represents the coral subsystem on the robot.
@@ -29,13 +30,8 @@ public class Coral extends SubsystemBase {
     private SparkMaxConfig m_motorConfig = new SparkMaxConfig();
     private RelativeEncoder m_encoder;
     private double m_motorVoltage;
-
     private Canandcolor m_colorSensor = new Canandcolor(COLOR_SENSOR);
-    /**
-     * Settings of the color sensor(used for lamp brightness)
-     */
     private CanandcolorSettings m_settings = new CanandcolorSettings();
-
     private Debouncer m_debouncer = new Debouncer(0.1, DebounceType.kFalling);
 
     public Coral() {
@@ -65,7 +61,7 @@ public class Coral extends SubsystemBase {
     }
 
     /**
-     * debounced the hasCoral for use with scoring commands
+     * debounced the falling edge of hasCoral for use with scoring commands
      */
     public boolean debouncedHasCoral() {
         return m_debouncer.calculate(hasCoral());

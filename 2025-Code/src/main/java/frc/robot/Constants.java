@@ -68,7 +68,7 @@ public final class Constants {
   public static class ElevatorConstants {
     public static final int MOTOR_ID = 2;
     public static final int FOLLOWER_ID = 3;
-    public static final int CURRENT_LIMIT = 50;
+    public static final int CURRENT_LIMIT = 60;
     public static final double DEFAULT = 0.0;
     public static final double BOTTOM_POSITION = 0.0;
     public static final double STAGE_ONE_UP = 26.0;
@@ -84,7 +84,7 @@ public final class Constants {
     public static final double GEAR_RATIO = 50 / 7; // 7.41:1
     public static final double FLOOR_TO_ELEVATOR_TOP = 70.88;
     public static final double FLOOR_TO_TOP_OF_BOTTOM_TUBE = 11.88;
-    public static final double MAX_VELOCITY = 2300;
+    public static final double MAX_VELOCITY = 4000;
     public static final double MAX_ACCELERATION = 2000;
     public static final double ALLOWED_ERROR = 0.1;
     public static final double P_VAL = 0.11;
@@ -100,7 +100,7 @@ public final class Constants {
     public static final double DEFAULT_POSITION = 160;
     public static final double DEFAULT_BACK_POSITION = 250;
     public static final double GROUND_ALGAE_POSITION = 95;
-    public static final double CORAL_STATION_POSITION = 330;
+    public static final double CORAL_STATION_POSITION = 328;
     public static final double L1_UNDERHAND = 335.0;
     public static final double L1_POSITION = 140.0;
     public static final double L2_POSITION = 125.0;
@@ -109,7 +109,6 @@ public final class Constants {
     public static final double EVACUATE_ANGLE = 15.0;
     public static final double REEF_L2_DESCORE_POSITION = 0.0;
     public static final double REEF_L3_DESCORE_POSITION = 0.0;
-    public static final double ANGLE_TOLERANCE = 0.5;
     public static final double DRIVING_ANGLE_TOLERANCE = 2.0;
 
     public static final double HITTING_LOW_HARD_LIMIT = 90;
@@ -120,15 +119,20 @@ public final class Constants {
     public static final int MOTOR_ID = 10;
 
     public static final double ENCODER_ZERO_OFFSET = 0;
-    public static final int CURRENT_LIMIT = 40;
+    public static final int CURRENT_LIMIT = 60;
 
-    public static final double MAX_VELOCITY = 4500;
-    public static final double MAX_ACCELERATION = 35000;
+    public static final double MAX_VELOCITY = 40000;
+    public static final double MAX_ACCELERATION = 50000;
     public static final double ALLOWED_ERROR = 0.7;
 
-    public static final double kp = 0.01;
-    public static final double ki = 0.01;
+    public static final double GAIN_THRESHOLD = 6;
+
+    public static final double kp = 0.03;
+    public static final double ki = 0;
     public static final double kd = 0;
+    public static final double kp1 = 0.05;
+    public static final double ki1 = 0;
+    public static final double kd1 = 0;
     public static final double ArmIZone = 2;
 
     public static final double FFCONSTANT = 0.04;
@@ -205,8 +209,8 @@ public final class Constants {
     public static final double CAMERA2_PITCH_OFFSET = 30.0;
     public static final double CAMERA2_YAW_OFFSET = 180.0;
 
-    public static final String LIMELIGHT_1 = "limelight-limeade";
-    public static final String LIMELIGHT_2 = "limelight-limebee";
+    public static final String LL_REEF = "limelight-limeade";
+    public static final String LL_STATION = "limelight-limebee";
   }
 
   public static class LEDConstants {
@@ -247,17 +251,23 @@ public final class Constants {
   public static class DriveToPoint {
     public static final double offsetOfArm = .32;
     public static final double offsetToReef = .56;
-    public static final double offsetToStation = .75;
+    public static final double offsetToStation = .85;
     public static final double reefWidth = 0.33;
 
     // the number correspond to the april tag on the object
     public static final Pose2d RED_PLAYER_STATION_1 = new Pose2d(16.08, 0.99, Rotation2d.fromDegrees(126));
     public static final Pose2d RED_PLAYER_STATION_2 = new Pose2d(16.08, 7.06, Rotation2d.fromDegrees(-126));
+    public static final Pose2d DYNAM_RED_PLAYER_STATION_1 = DriveToPointCalculator
+        .CalculatePSPoint(FieldConstants.APRIL_TAG_POSITIONS[1]);
+    public static final Pose2d DYNAM_RED_PLAYER_STATION_2 = DriveToPointCalculator
+        .CalculatePSPoint(FieldConstants.APRIL_TAG_POSITIONS[2]);
 
     public static final Pose2d BLUE_PLAYER_STATION_12 = new Pose2d(1.47, 0.99, Rotation2d.fromDegrees(54));
     public static final Pose2d BLUE_PLAYER_STATION_13 = new Pose2d(1.47, 7.06, Rotation2d.fromDegrees(-54));
     public static final Pose2d DYNAM_BLUE_PLAYER_STATION_13 = DriveToPointCalculator
         .CalculatePSPoint(FieldConstants.APRIL_TAG_POSITIONS[13]);
+    public static final Pose2d DYNAM_BLUE_PLAYER_STATION_12 = DriveToPointCalculator
+        .CalculatePSPoint(FieldConstants.APRIL_TAG_POSITIONS[12]);
 
     public static final Pose2d RED_REEF_6A = DriveToPointCalculator
         .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[6], true);
@@ -310,8 +320,8 @@ public final class Constants {
         .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[22], true);
 
     // Don't reorder this list
-    public static final List<Pose2d> POSE_LIST = List.of(RED_PLAYER_STATION_1, RED_PLAYER_STATION_2,
-        DYNAM_BLUE_PLAYER_STATION_13, DYNAM_BLUE_PLAYER_STATION_13, RED_REEF_6A, RED_REEF_6B, RED_REEF_7A, RED_REEF_7B,
+    public static final List<Pose2d> POSE_LIST = List.of(DYNAM_RED_PLAYER_STATION_1, DYNAM_RED_PLAYER_STATION_2,
+        DYNAM_BLUE_PLAYER_STATION_12, DYNAM_BLUE_PLAYER_STATION_13, RED_REEF_6A, RED_REEF_6B, RED_REEF_7A, RED_REEF_7B,
         RED_REEF_8A,
         RED_REEF_8B, RED_REEF_9A, RED_REEF_9B, RED_REEF_10A, RED_REEF_10B, RED_REEF_11A, RED_REEF_11B, BLUE_REEF_17A,
         BLUE_REEF_17B, BLUE_REEF_18A, BLUE_REEF_18B, BLUE_REEF_19A, BLUE_REEF_19B, BLUE_REEF_20A, BLUE_REEF_20B,

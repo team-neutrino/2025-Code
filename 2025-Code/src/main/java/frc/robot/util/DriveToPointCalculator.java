@@ -1,5 +1,6 @@
 package frc.robot.util;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -23,18 +24,16 @@ public class DriveToPointCalculator {
 
         public static Pose2d CalculatePSPoint(Pose3d tagPosition) {
                 double stationAngle = tagPosition.getRotation().getAngle();
-                double perpendicularReefAngle = stationAngle;
+                double testAngle = stationAngle + 180;
 
-                double leftRightOffsetX = offsetOfArm * Math.cos(perpendicularReefAngle)
-                                + (reefWidth / 2) * Math.cos(perpendicularReefAngle);
-                double leftRightOffsetY = offsetOfArm * Math.sin(perpendicularReefAngle)
-                                + (reefWidth / 2) * Math.sin(perpendicularReefAngle);
-                leftRightOffsetX = 0;
-                leftRightOffsetY = 0;
+                double leftRightOffsetX = offsetOfArm * Math.cos(testAngle)
+                                + (reefWidth / 2) * Math.cos(testAngle);
+                double leftRightOffsetY = offsetOfArm * Math.sin(testAngle)
+                                + (reefWidth / 2) * Math.sin(testAngle);
 
-                double x = tagPosition.getX() + offsetToStation * Math.cos(stationAngle) + leftRightOffsetX;
-                double y = tagPosition.getY() + offsetToStation * Math.sin(stationAngle) + leftRightOffsetY;
+                double x = tagPosition.getX() + (offsetToStation * Math.cos(stationAngle)) + leftRightOffsetX;
+                double y = tagPosition.getY() + (offsetToStation * Math.sin(stationAngle)) + leftRightOffsetY;
 
-                return new Pose2d(x, y, Rotation2d.fromRadians(stationAngle - 90));
+                return new Pose2d(x, y, Rotation2d.fromRadians(stationAngle));
         }
 }

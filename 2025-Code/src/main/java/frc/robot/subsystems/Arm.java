@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.util.Subsystem;
 
@@ -18,9 +17,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
-import com.revrobotics.spark.config.SparkFlexConfigAccessor;
 import com.revrobotics.AbsoluteEncoder;
-import com.revrobotics.spark.config.ClosedLoopConfigAccessor;
 import static frc.robot.Constants.ArmConstants.*;
 
 /**
@@ -31,15 +28,11 @@ public class Arm extends SubsystemBase {
   private SparkFlexConfig m_motorConfig = new SparkFlexConfig();
   private AbsoluteEncoder m_encoder;
   private SparkClosedLoopController m_pid;
-  private SparkFlexConfigAccessor m_sparkFlexConfigAccessor;
-  public ClosedLoopConfigAccessor m_pidAccessor;
   private double m_targetAngle = STARTING_POSITION;
   private double m_FFConstant = FFCONSTANT;
 
   public Arm() {
     initializeMotorControllers();
-    m_sparkFlexConfigAccessor = m_motor.configAccessor;
-    m_pidAccessor = m_sparkFlexConfigAccessor.closedLoop;
   }
 
   /**
@@ -63,7 +56,11 @@ public class Arm extends SubsystemBase {
   }
 
   private boolean atTargetAngle() {
-    return Math.abs(getAngle() - m_targetAngle) <= ANGLE_TOLERANCE;
+    return Math.abs(getAngle() - m_targetAngle) <= ALLOWED_ERROR;
+  }
+
+  private boolean nearTargetAngle() {
+    return Math.abs(getAngle() - m_targetAngle) <= GAIN_THRESHOLD;
   }
 
   public boolean readyToScore() {
@@ -92,7 +89,7 @@ public class Arm extends SubsystemBase {
     m_motorConfig.closedLoop
         .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
         .pid(kp, ki, kd, ClosedLoopSlot.kSlot0)
-        .iZone(ArmIZone);
+        .pid(kp1, ki1, kd1, ClosedLoopSlot.kSlot1);
     m_pid = m_motor.getClosedLoopController();
 
     m_motorConfig.closedLoop.maxMotion
@@ -109,17 +106,21 @@ public class Arm extends SubsystemBase {
     return getAngle() <= 270 && getAngle() >= 90;
   }
 
+  private void adjustArm(double targetAngle) {
+    if (nearTargetAngle()) {
+      m_pid.setReference(targetAngle, ControlType.kPosition, ClosedLoopSlot.kSlot1, feedForwardCalculation());
+    } else {
+      m_pid.setReference(targetAngle, ControlType.kMAXMotionPositionControl, ClosedLoopSlot.kSlot0,
+          feedForwardCalculation());
+    }
+  }
+
   /**
    * Determines the necessary volts needed for the Feedforward. Used to pass into
    * closed loop controller
    * 
    * @return volts
    */
-  private void adjustArm(double targetAngle) {
-    m_pid.setReference(targetAngle, ControlType.kMAXMotionPositionControl, ClosedLoopSlot.kSlot0,
-        feedForwardCalculation());
-  }
-
   private double feedForwardCalculation() {
     double currentAngle = (getAngle() - 90) * (Math.PI / 180);
     double volts = m_FFConstant * Math.cos(currentAngle);
