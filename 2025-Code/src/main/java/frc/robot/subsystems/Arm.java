@@ -70,11 +70,7 @@ public class Arm extends SubsystemBase {
   }
 
   public boolean movingToTarget() {
-    if (Math.abs(getAngularVelocity()) > 2) {
-      return true;
-    } else {
-      return false;
-    }
+    return Math.abs(getAngularVelocity()) > 2;
   }
 
   /**
