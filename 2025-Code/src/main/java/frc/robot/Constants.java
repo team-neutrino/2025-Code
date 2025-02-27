@@ -251,12 +251,16 @@ public final class Constants {
   public static class DriveToPoint {
     public static final double offsetOfArm = .32;
     public static final double offsetToReef = .56;
-    public static final double offsetToStation = .6;
+    public static final double offsetToStation = .85;
     public static final double reefWidth = 0.33;
 
     // the number correspond to the april tag on the object
     public static final Pose2d RED_PLAYER_STATION_1 = new Pose2d(16.08, 0.99, Rotation2d.fromDegrees(126));
     public static final Pose2d RED_PLAYER_STATION_2 = new Pose2d(16.08, 7.06, Rotation2d.fromDegrees(-126));
+    public static final Pose2d DYNAM_RED_PLAYER_STATION_1 = DriveToPointCalculator
+        .CalculatePSPoint(FieldConstants.APRIL_TAG_POSITIONS[1]);
+    public static final Pose2d DYNAM_RED_PLAYER_STATION_2 = DriveToPointCalculator
+        .CalculatePSPoint(FieldConstants.APRIL_TAG_POSITIONS[2]);
 
     public static final Pose2d BLUE_PLAYER_STATION_12 = new Pose2d(1.47, 0.99, Rotation2d.fromDegrees(54));
     public static final Pose2d BLUE_PLAYER_STATION_13 = new Pose2d(1.47, 7.06, Rotation2d.fromDegrees(-54));
@@ -316,7 +320,7 @@ public final class Constants {
         .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[22], true);
 
     // Don't reorder this list
-    public static final List<Pose2d> POSE_LIST = List.of(RED_PLAYER_STATION_1, RED_PLAYER_STATION_2,
+    public static final List<Pose2d> POSE_LIST = List.of(DYNAM_RED_PLAYER_STATION_1, DYNAM_RED_PLAYER_STATION_2,
         DYNAM_BLUE_PLAYER_STATION_12, DYNAM_BLUE_PLAYER_STATION_13, RED_REEF_6A, RED_REEF_6B, RED_REEF_7A, RED_REEF_7B,
         RED_REEF_8A,
         RED_REEF_8B, RED_REEF_9A, RED_REEF_9B, RED_REEF_10A, RED_REEF_10B, RED_REEF_11A, RED_REEF_11B, BLUE_REEF_17A,
