@@ -33,6 +33,7 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
     public static final int kButtonsControllerPort = 1;
     public static final int kPitControllerPort = 3;
+    public static final double RUMBLE_SPEED = 0.5;
   }
 
   public final class CANRateConstants {
@@ -214,11 +215,6 @@ public final class Constants {
   }
 
   public static class LEDConstants {
-    public enum States {
-      DEFAULT,
-      LOCKCLIMB,
-      CLIMBING
-    }
   }
 
   public static class AprilTagConstants {
