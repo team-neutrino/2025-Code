@@ -39,8 +39,16 @@ public class ArmFactory {
         return arm.armRotateCommand(REEF_DESCORE_POSITION);
     }
 
+    public static Command knockOffAlgaeL2() {
+        return arm.armRotateCommand(ALGAE_KNOCK_OFF_POSITION_L2);
+    }
+
     public static Command armToDescoreL3() {
         return arm.armRotateCommand(REEF_DESCORE_POSITION);
+    }
+
+    public static Command knockOffAlgaeL3() {
+        return arm.armRotateCommand(ALGAE_KNOCK_OFF_POSITION_L3);
     }
 
     public static Command armToScore(double level) {
