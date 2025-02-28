@@ -39,14 +39,14 @@ public class LED extends SubsystemBase {
       m_color_pub.set("white");
       return;
   public void setActionColor() {
-    if (Subsystem.elevator.isAtTarget()) {
-      color_pub.set("blue");
-    } else if (Subsystem.elevator.isMovingToTarget()) {
-      color_pub.set("cyan");
-    } else if (Subsystem.swerve.isDrivingToPoint()) {
+    if (Subsystem.swerve.isDrivingToPoint()) {
       m_color_pub.set("red");
     } else if (Subsystem.swerve.isAtPoint()) {
       m_color_pub.set("green");
+    } else if (Subsystem.elevator.readyToScore()) {
+      m_color_pub.set("yellow");
+    } else if (!Subsystem.elevator.atTargetHeight()) {
+      m_color_pub.set("cyan");
     } else {
       m_color_pub.set("orange");
     }

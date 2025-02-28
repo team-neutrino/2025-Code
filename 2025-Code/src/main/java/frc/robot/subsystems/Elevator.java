@@ -139,31 +139,12 @@ public class Elevator extends SubsystemBase {
     return m_lowLimit.isPressed();
   }
 
-  private boolean atTargetHeight() {
-    setAtTarget(true);
+  public boolean atTargetHeight() {
     return Math.abs(getHeight() - m_targetHeight) <= HEIGHT_TOLERANCE;
-  }
-
-  public boolean isAtTarget() {
-    return m_isAtTarget;
-  }
-
-  public void setAtTarget(boolean value) {
-    m_isAtTarget = value;
-  }
-
-  public boolean isMovingToTarget() {
-    return m_isMovingToTarget;
-  }
-
-  public void setMovingToTarget(boolean value) {
-    m_isMovingToTarget = value;
   }
 
   public void movingToTarget() {
     if (getVelocity() > 1) {
-      setAtTarget(false);
-      setMovingToTarget(true);
     }
   }
 
