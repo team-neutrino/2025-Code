@@ -252,12 +252,12 @@ public final class Constants {
   }
 
   public static class DriveToPoint {
-    public static final AprilTagFieldLayout layout = AprilTagFieldLayout
+    public static AprilTagFieldLayout layout = AprilTagFieldLayout
         .loadField(AprilTagFields.k2025ReefscapeWelded);
-    public static final double offsetOfArm = .32;
-    public static final double offsetToReef = .56;
-    public static final double offsetToStation = .7;
-    public static final double reefWidth = 0.33;
+    public static double offsetOfArm = .32;
+    public static double offsetToReef = .56;
+    public static double offsetToStation = .7;
+    public static double reefWidth = 0.33;
 
     // CURRENTLY TESTING WITH THIS LIBRARY THING
     public static final Pose2d RED_PLAYER_STATION_1 = DriveToPointCalculator
@@ -321,8 +321,7 @@ public final class Constants {
         .CalculatePoint(layout.getTagPose(22).get(), true);
 
     // Don't reorder this list
-
-    public static final List<Pose2d> POSE_LIST = List.of(RED_PLAYER_STATION_1, RED_PLAYER_STATION_2,
+    public static List<Pose2d> POSE_LIST = List.of(RED_PLAYER_STATION_1, RED_PLAYER_STATION_2,
         BLUE_PLAYER_STATION_12, BLUE_PLAYER_STATION_13, RED_REEF_6A, RED_REEF_6B, RED_REEF_7A,
         RED_REEF_7B,
         RED_REEF_8A,
@@ -331,19 +330,108 @@ public final class Constants {
         BLUE_REEF_17B, BLUE_REEF_18A, BLUE_REEF_18B, BLUE_REEF_19A, BLUE_REEF_19B, BLUE_REEF_20A, BLUE_REEF_20B,
         BLUE_REEF_21A, BLUE_REEF_21B, BLUE_REEF_22A, BLUE_REEF_22B);
 
-    public static final List<Pose2d> RED_REEF = List.of(RED_REEF_6A, RED_REEF_6B, RED_REEF_7A, RED_REEF_7B,
+    public static List<Pose2d> RED_REEF = List.of(RED_REEF_6A, RED_REEF_6B, RED_REEF_7A, RED_REEF_7B,
         RED_REEF_8A,
         RED_REEF_8B, RED_REEF_9A, RED_REEF_9B, RED_REEF_10A, RED_REEF_10B, RED_REEF_11A, RED_REEF_11B);
 
-    public static final List<Pose2d> RED_REEF_RIGHT = List.of(RED_REEF_6B, RED_REEF_7B, RED_REEF_8B, RED_REEF_9B,
+    public static List<Pose2d> RED_REEF_RIGHT = List.of(RED_REEF_6B, RED_REEF_7B, RED_REEF_8B, RED_REEF_9B,
         RED_REEF_10B, RED_REEF_11B);
 
-    public static final List<Pose2d> BLUE_REEF = List.of(BLUE_REEF_22B, BLUE_REEF_22A, BLUE_REEF_21B, BLUE_REEF_21A,
+    public static List<Pose2d> BLUE_REEF = List.of(BLUE_REEF_22B, BLUE_REEF_22A, BLUE_REEF_21B, BLUE_REEF_21A,
         BLUE_REEF_20B, BLUE_REEF_20A, BLUE_REEF_19B, BLUE_REEF_19A, BLUE_REEF_18B, BLUE_REEF_18A, BLUE_REEF_17B,
         BLUE_REEF_17A);
 
-    public static final List<Pose2d> BLUE_REEF_RIGHT = List.of(BLUE_REEF_22A,
+    public static List<Pose2d> BLUE_REEF_RIGHT = List.of(BLUE_REEF_22A,
         BLUE_REEF_21A, BLUE_REEF_20A, BLUE_REEF_19A, BLUE_REEF_18A, BLUE_REEF_17A);
+
+    public static List<Pose2d> makePoseList() {
+      offsetOfArm = .32;
+      offsetToReef = .56;
+      offsetToStation = .7;
+      Pose2d RED_PLAYER_STATION_1 = DriveToPointCalculator
+          .CalculatePSPoint(layout.getTagPose(1).get());
+      Pose2d RED_PLAYER_STATION_2 = DriveToPointCalculator
+          .CalculatePSPoint(layout.getTagPose(2).get());
+
+      Pose2d BLUE_PLAYER_STATION_13 = DriveToPointCalculator
+          .CalculatePSPoint(layout.getTagPose(13).get());
+      Pose2d BLUE_PLAYER_STATION_12 = DriveToPointCalculator
+          .CalculatePSPoint(layout.getTagPose(12).get());
+
+      Pose2d RED_REEF_6A = DriveToPointCalculator
+          .CalculatePoint(layout.getTagPose(6).get(), true);
+      Pose2d RED_REEF_6B = DriveToPointCalculator
+          .CalculatePoint(layout.getTagPose(6).get(), false);
+      Pose2d RED_REEF_7A = DriveToPointCalculator
+          .CalculatePoint(layout.getTagPose(7).get(), true);
+      Pose2d RED_REEF_7B = DriveToPointCalculator
+          .CalculatePoint(layout.getTagPose(7).get(), false);
+      Pose2d RED_REEF_8A = DriveToPointCalculator
+          .CalculatePoint(layout.getTagPose(8).get(), true);
+      Pose2d RED_REEF_8B = DriveToPointCalculator
+          .CalculatePoint(layout.getTagPose(8).get(), false);
+      Pose2d RED_REEF_9A = DriveToPointCalculator
+          .CalculatePoint(layout.getTagPose(9).get(), true);
+      Pose2d RED_REEF_9B = DriveToPointCalculator
+          .CalculatePoint(layout.getTagPose(9).get(), false);
+      Pose2d RED_REEF_10A = DriveToPointCalculator
+          .CalculatePoint(layout.getTagPose(10).get(), true);
+      Pose2d RED_REEF_10B = DriveToPointCalculator
+          .CalculatePoint(layout.getTagPose(10).get(), false);
+      Pose2d RED_REEF_11A = DriveToPointCalculator
+          .CalculatePoint(layout.getTagPose(11).get(), true);
+      Pose2d RED_REEF_11B = DriveToPointCalculator
+          .CalculatePoint(layout.getTagPose(11).get(), false);
+
+      Pose2d BLUE_REEF_17A = DriveToPointCalculator
+          .CalculatePoint(layout.getTagPose(17).get(), false);
+      Pose2d BLUE_REEF_17B = DriveToPointCalculator
+          .CalculatePoint(layout.getTagPose(17).get(), true);
+      Pose2d BLUE_REEF_18A = DriveToPointCalculator
+          .CalculatePoint(layout.getTagPose(18).get(), false);
+      Pose2d BLUE_REEF_18B = DriveToPointCalculator
+          .CalculatePoint(layout.getTagPose(18).get(), true);
+      Pose2d BLUE_REEF_19A = DriveToPointCalculator
+          .CalculatePoint(layout.getTagPose(19).get(), false);
+      Pose2d BLUE_REEF_19B = DriveToPointCalculator
+          .CalculatePoint(layout.getTagPose(19).get(), true);
+      Pose2d BLUE_REEF_20A = DriveToPointCalculator
+          .CalculatePoint(layout.getTagPose(20).get(), false);
+      Pose2d BLUE_REEF_20B = DriveToPointCalculator
+          .CalculatePoint(layout.getTagPose(20).get(), true);
+      Pose2d BLUE_REEF_21A = DriveToPointCalculator
+          .CalculatePoint(layout.getTagPose(21).get(), false);
+      Pose2d BLUE_REEF_21B = DriveToPointCalculator
+          .CalculatePoint(layout.getTagPose(21).get(), true);
+      Pose2d BLUE_REEF_22A = DriveToPointCalculator
+          .CalculatePoint(layout.getTagPose(22).get(), false);
+      Pose2d BLUE_REEF_22B = DriveToPointCalculator
+          .CalculatePoint(layout.getTagPose(22).get(), true);
+
+      POSE_LIST = List.of(RED_PLAYER_STATION_1, RED_PLAYER_STATION_2,
+          BLUE_PLAYER_STATION_12, BLUE_PLAYER_STATION_13, RED_REEF_6A, RED_REEF_6B, RED_REEF_7A,
+          RED_REEF_7B,
+          RED_REEF_8A,
+          RED_REEF_8B, RED_REEF_9A, RED_REEF_9B, RED_REEF_10A, RED_REEF_10B, RED_REEF_11A, RED_REEF_11B,
+          BLUE_REEF_17A,
+          BLUE_REEF_17B, BLUE_REEF_18A, BLUE_REEF_18B, BLUE_REEF_19A, BLUE_REEF_19B, BLUE_REEF_20A, BLUE_REEF_20B,
+          BLUE_REEF_21A, BLUE_REEF_21B, BLUE_REEF_22A, BLUE_REEF_22B);
+
+      RED_REEF = List.of(RED_REEF_6A, RED_REEF_6B, RED_REEF_7A, RED_REEF_7B,
+          RED_REEF_8A,
+          RED_REEF_8B, RED_REEF_9A, RED_REEF_9B, RED_REEF_10A, RED_REEF_10B, RED_REEF_11A, RED_REEF_11B);
+
+      RED_REEF_RIGHT = List.of(RED_REEF_6B, RED_REEF_7B, RED_REEF_8B, RED_REEF_9B,
+          RED_REEF_10B, RED_REEF_11B);
+
+      BLUE_REEF = List.of(BLUE_REEF_22B, BLUE_REEF_22A, BLUE_REEF_21B, BLUE_REEF_21A,
+          BLUE_REEF_20B, BLUE_REEF_20A, BLUE_REEF_19B, BLUE_REEF_19A, BLUE_REEF_18B, BLUE_REEF_18A, BLUE_REEF_17B,
+          BLUE_REEF_17A);
+
+      BLUE_REEF_RIGHT = List.of(BLUE_REEF_22A,
+          BLUE_REEF_21A, BLUE_REEF_20A, BLUE_REEF_19A, BLUE_REEF_18A, BLUE_REEF_17A);
+      return null;
+    }
   }
 
 }
