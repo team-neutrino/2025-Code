@@ -4,14 +4,17 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.networktables.StringTopic;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.GenericHID;
+
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
 import frc.robot.Constants;
 import frc.robot.util.Subsystem;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.XboxController;
 
 public class LED extends SubsystemBase {
@@ -22,7 +25,7 @@ public class LED extends SubsystemBase {
   private Coral m_coral = Subsystem.coral;
 
   private XboxController m_buttonsxboxController;
-  private XboxController m_driverxboxController;
+  private XboxController m_driverxboxController = new XboxController(0);
 
   private final StringPublisher m_color_pub;
   private final StringPublisher m_state_pub;
@@ -36,9 +39,11 @@ public class LED extends SubsystemBase {
 
   private void setToGamePieceColor() {
     if (m_coral.hasCoral()) {
-      if(m_previousCoralIntake){
-        m_driverxboxController.setRumble(RumbleType.kBothRumble, Constants.OperatorConstants.RUMBLE_SPEED);
-        m_buttonsxboxController.setRumble(RumbleType.kBothRumble, Constants.OperatorConstants.RUMBLE_SPEED);
+      System.out.println("working");
+      if (m_previousCoralIntake) {
+        m_driverxboxController.setRumble(GenericHID.RumbleType.kLeftRumble, Constants.OperatorConstants.RUMBLE_SPEED);
+        // m_buttonsxboxController.setRumble(GenericHID.RumbleType.kBothRumble,
+        // Constants.OperatorConstants.RUMBLE_SPEED);
       }
       m_state_pub.set("blinktwice");
       m_color_pub.set("white");
@@ -81,5 +86,10 @@ public class LED extends SubsystemBase {
   @Override
   public void periodic() {
     setColor();
+  }
+
+  public Command LEDDefaultCommand(CommandXboxController p_buttonsController,
+      CommandXboxController p_driverController) {
+    return run(() -> m_driverxboxController = p_driverController.getHID());
   }
 }
