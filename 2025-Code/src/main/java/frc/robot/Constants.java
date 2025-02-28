@@ -157,7 +157,7 @@ public final class Constants {
     }
 
   public static class ClimbConstants {
-    public static final int MAIN_MOTOR_ID = 31;
+    public static final int CLIMB_MOTOR_ID = 31;
     public static final int FOLLOW_MOTOR_ID = 30;
     public static final int GRAB_MOTOR_ID = 32;
     public static final int RATCHET_SERVO_PORT = 0;
@@ -170,7 +170,7 @@ public final class Constants {
     public static final int RESET_CLIMB_ROTATIONS = -105;
 
     public static final int CLIMB_POSITION_TOLERANCE = 3;
-    public static final int GRABBER_POSITION_TOLERANCE = 2;
+    public static final int GRABBER_POSITION_TOLERANCE = 3;
     public static final double RATCHET_POSITION_TOLERANCE = 0.1;
 
     public static final int LOCK_GRABBER_POSITION = 30;
