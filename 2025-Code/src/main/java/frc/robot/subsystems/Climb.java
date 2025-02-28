@@ -100,7 +100,7 @@ public class Climb extends SubsystemBase {
    */
   private boolean isRaiseClimbSafe() {
     return 
-      (Math.abs(LOWER_CLIMB_POSITION - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_POSITION_TOLERANCE &&
+      (Math.abs(START_CLIMB_POSITION - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_POSITION_TOLERANCE &&
       Math.abs(GRANNY_GRABBER_POSITION - m_grabEncoder.getPosition()) < GRABBER_POSITION_TOLERANCE) || 
       Math.abs(UNLOCK_GRABBER_POSITION - m_grabEncoder.getPosition()) < GRABBER_POSITION_TOLERANCE;
   }
