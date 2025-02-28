@@ -30,13 +30,13 @@ import com.revrobotics.RelativeEncoder;
 public class Climb extends SubsystemBase {
   private final CANBus m_CANBus = new CANBus("rio");
 
-  private TalonFX m_climbMotor = new TalonFX(MAIN_MOTOR_ID, m_CANBus);
+  private TalonFX m_climbMotor = new TalonFX(CLIMB_MOTOR_ID, m_CANBus);
   private TalonFX m_climbFollower = new TalonFX(FOLLOW_MOTOR_ID, m_CANBus);
   private TalonFXConfiguration m_climbMotorConfig = new TalonFXConfiguration();
   private TalonFXConfiguration m_climbFollowerConfig = new TalonFXConfiguration();
 
   private final CurrentLimitsConfigs m_currentLimitConfig = new CurrentLimitsConfigs();
-  private Follower m_followRequest = new Follower(MAIN_MOTOR_ID, true);
+  private Follower m_followRequest = new Follower(CLIMB_MOTOR_ID, true);
 
   private SparkMax m_grabMotor = new SparkMax(GRAB_MOTOR_ID, MotorType.kBrushless);
   private SparkMaxConfig m_grabMotorConfig = new SparkMaxConfig();
@@ -88,7 +88,7 @@ public class Climb extends SubsystemBase {
   }
 
   /**
-   * checks if climb arm is within a certain range of tolerance
+   * checks if climb arm is in low position within a certain range of tolerance
    */
   private boolean isLowerPosition() {
     return Math
@@ -101,8 +101,7 @@ public class Climb extends SubsystemBase {
   private boolean isRaiseClimbSafe() {
     return 
       (Math.abs(LOWER_CLIMB_POSITION - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_POSITION_TOLERANCE &&
-      Math.abs(GRANNY_GRABBER_POSITION - m_grabEncoder.getPosition()) < GRABBER_POSITION_TOLERANCE &&
-      Math.abs(RATCHET_LOCK_POSITION - m_ratchetServo.getPosition()) < RATCHET_POSITION_TOLERANCE) || 
+      Math.abs(GRANNY_GRABBER_POSITION - m_grabEncoder.getPosition()) < GRABBER_POSITION_TOLERANCE) || 
       Math.abs(UNLOCK_GRABBER_POSITION - m_grabEncoder.getPosition()) < GRABBER_POSITION_TOLERANCE;
   }
 
@@ -110,7 +109,7 @@ public class Climb extends SubsystemBase {
    * checks if grabbers are safe to move to lock position
    */
   private boolean isLockGrabSafe() {
-    return Math.abs(m_climbMotor.getPosition().getValueAsDouble() - UNLOCK_GRABBER_POSITION) < GRABBER_POSITION_TOLERANCE;
+    return Math.abs(UNLOCK_GRABBER_POSITION - m_grabEncoder.getPosition()) < GRABBER_POSITION_TOLERANCE;
   }
 
   /**
