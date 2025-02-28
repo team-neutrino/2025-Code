@@ -97,7 +97,7 @@ public class RobotContainer {
       return new InstantCommand();
     }
     try {
-      auto = new PathPlannerAuto("L2 TOP CORAL");
+      auto = new PathPlannerAuto("L2 CORAL TOP");
     } catch (Exception e) {
       auto = new PathPlannerAuto("Nothing");
     }
