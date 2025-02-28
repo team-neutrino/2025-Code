@@ -260,14 +260,14 @@ public final class Constants {
     public static final double reefWidth = 0.33;
 
     // CURRENTLY TESTING WITH THIS LIBRARY THING
-    public static final Pose2d SPED_RED_PLAYER_STATION_1 = DriveToPointCalculator
+    public static final Pose2d RED_PLAYER_STATION_1 = DriveToPointCalculator
         .CalculatePSPoint(layout.getTagPose(1).get());
-    public static final Pose2d SPED_RED_PLAYER_STATION_2 = DriveToPointCalculator
+    public static final Pose2d RED_PLAYER_STATION_2 = DriveToPointCalculator
         .CalculatePSPoint(layout.getTagPose(2).get());
 
-    public static final Pose2d DYNAM_BLUE_PLAYER_STATION_13 = DriveToPointCalculator
+    public static final Pose2d BLUE_PLAYER_STATION_13 = DriveToPointCalculator
         .CalculatePSPoint(layout.getTagPose(13).get());
-    public static final Pose2d DYNAM_BLUE_PLAYER_STATION_12 = DriveToPointCalculator
+    public static final Pose2d BLUE_PLAYER_STATION_12 = DriveToPointCalculator
         .CalculatePSPoint(layout.getTagPose(12).get());
 
     public static final Pose2d RED_REEF_6A = DriveToPointCalculator
@@ -322,8 +322,8 @@ public final class Constants {
 
     // Don't reorder this list
 
-    public static final List<Pose2d> POSE_LIST = List.of(SPED_RED_PLAYER_STATION_1, SPED_RED_PLAYER_STATION_2,
-        DYNAM_BLUE_PLAYER_STATION_12, DYNAM_BLUE_PLAYER_STATION_13, RED_REEF_6A, RED_REEF_6B, RED_REEF_7A,
+    public static final List<Pose2d> POSE_LIST = List.of(RED_PLAYER_STATION_1, RED_PLAYER_STATION_2,
+        BLUE_PLAYER_STATION_12, BLUE_PLAYER_STATION_13, RED_REEF_6A, RED_REEF_6B, RED_REEF_7A,
         RED_REEF_7B,
         RED_REEF_8A,
         RED_REEF_8B, RED_REEF_9A, RED_REEF_9B, RED_REEF_10A, RED_REEF_10B, RED_REEF_11A, RED_REEF_11B,
