@@ -206,7 +206,7 @@ public final class Constants {
     // placeholder values (in meters)
     public static final double CAMERA2_FORWARD_OFFSET = -0.216;
     public static final double CAMERA2_SIDE_OFFSET = 0.121;
-    public static final double CAMERA2_HEIGHT_OFFSET = 0.7874;
+    public static final double CAMERA2_HEIGHT_OFFSET = 0.84990178;
     // placeholder values (in degrees)
     public static final double CAMERA2_ROLL_OFFSET = 0.0;
     public static final double CAMERA2_PITCH_OFFSET = 30.0;
@@ -256,7 +256,7 @@ public final class Constants {
         .loadField(AprilTagFields.k2025ReefscapeWelded);
     public static final double offsetOfArm = .32;
     public static final double offsetToReef = .56;
-    public static final double offsetToStation = .85;
+    public static final double offsetToStation = .7;
     public static final double reefWidth = 0.33;
 
     // CURRENTLY TESTING WITH THIS LIBRARY THING

@@ -16,6 +16,7 @@ import static frc.robot.util.Subsystem.*;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -34,6 +35,9 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    // "layout" wouldn't initialize until the b button was pressed, causing a 2-3
+    // second delay. this forces it to initialize on startup.
+    AprilTagFieldLayout tmp = Constants.DriveToPoint.layout;
     DigitalInput m_robot_select = new DigitalInput(9);
     subsystemContainer = new Subsystem(!m_robot_select.get());
     configureBindings();
