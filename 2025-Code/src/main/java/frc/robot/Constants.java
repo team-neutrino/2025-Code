@@ -7,6 +7,8 @@ package frc.robot;
 import java.util.List;
 import java.util.Optional;
 
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
@@ -46,7 +48,8 @@ public final class Constants {
     public static final double MAX_ROTATION_SPEED = 1.5 * Math.PI;
     public static final double SLOW_ROTATION_SPEED = 0.8 * Math.PI;
     public static final double DRIVE_ASSIST_KP = 4;
-    public static final double[] HEXAGON_ANGLES = { Integer.MAX_VALUE, -1, -1, -1, -1, -1, 120, 180, -120, -60, 0, 60,
+    public static final double[] HEXAGON_ANGLES = { Integer.MAX_VALUE, -1, -1, -1, -1, -1, 120, 180, -120, -60, 0,
+        60,
         -1, -1, -1, -1, -1, -120, 180, 120, 60, 0, -60 };
     public static final double APRILTAG_ALIGN_LIMIT = 1.5;
     public static final double AUTO_ALIGN_P = 4;
@@ -249,75 +252,87 @@ public final class Constants {
   }
 
   public static class DriveToPoint {
+    public static final AprilTagFieldLayout layout = AprilTagFieldLayout
+        .loadField(AprilTagFields.k2025ReefscapeWelded);
     public static final double offsetOfArm = .32;
     public static final double offsetToReef = .56;
+    public static final double offsetToStation = .85;
     public static final double reefWidth = 0.33;
 
-    // the number correspond to the april tag on the object
-    public static final Pose2d RED_PLAYER_STATION_1 = new Pose2d(16.08, 0.99, Rotation2d.fromDegrees(126));
-    public static final Pose2d RED_PLAYER_STATION_2 = new Pose2d(16.08, 7.06, Rotation2d.fromDegrees(-126));
+    // CURRENTLY TESTING WITH THIS LIBRARY THING
+    public static final Pose2d RED_PLAYER_STATION_1 = DriveToPointCalculator
+        .CalculatePSPoint(layout.getTagPose(1).get());
+    public static final Pose2d RED_PLAYER_STATION_2 = DriveToPointCalculator
+        .CalculatePSPoint(layout.getTagPose(2).get());
 
-    public static final Pose2d BLUE_PLAYER_STATION_12 = new Pose2d(1.47, 0.99, Rotation2d.fromDegrees(54));
-    public static final Pose2d BLUE_PLAYER_STATION_13 = new Pose2d(1.47, 7.06, Rotation2d.fromDegrees(-54));
+    public static final Pose2d BLUE_PLAYER_STATION_13 = DriveToPointCalculator
+        .CalculatePSPoint(layout.getTagPose(13).get());
+    public static final Pose2d BLUE_PLAYER_STATION_12 = DriveToPointCalculator
+        .CalculatePSPoint(layout.getTagPose(12).get());
 
     public static final Pose2d RED_REEF_6A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[6], true);
+        .CalculatePoint(layout.getTagPose(6).get(), true);
     public static final Pose2d RED_REEF_6B = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[6], false);
+        .CalculatePoint(layout.getTagPose(6).get(), false);
     public static final Pose2d RED_REEF_7A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[7], true);
+        .CalculatePoint(layout.getTagPose(7).get(), true);
     public static final Pose2d RED_REEF_7B = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[7], false);
+        .CalculatePoint(layout.getTagPose(7).get(), false);
     public static final Pose2d RED_REEF_8A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[8], true);
+        .CalculatePoint(layout.getTagPose(8).get(), true);
     public static final Pose2d RED_REEF_8B = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[8], false);
+        .CalculatePoint(layout.getTagPose(8).get(), false);
     public static final Pose2d RED_REEF_9A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[9], true);
+        .CalculatePoint(layout.getTagPose(9).get(), true);
     public static final Pose2d RED_REEF_9B = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[9], false);
+        .CalculatePoint(layout.getTagPose(9).get(), false);
     public static final Pose2d RED_REEF_10A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[10], true);
+        .CalculatePoint(layout.getTagPose(10).get(), true);
     public static final Pose2d RED_REEF_10B = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[10], false);
+        .CalculatePoint(layout.getTagPose(10).get(), false);
     public static final Pose2d RED_REEF_11A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[11], true);
+        .CalculatePoint(layout.getTagPose(11).get(), true);
     public static final Pose2d RED_REEF_11B = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[11], false);
+        .CalculatePoint(layout.getTagPose(11).get(), false);
 
     public static final Pose2d BLUE_REEF_17A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[17], false);
+        .CalculatePoint(layout.getTagPose(17).get(), false);
     public static final Pose2d BLUE_REEF_17B = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[17], true);
+        .CalculatePoint(layout.getTagPose(17).get(), true);
     public static final Pose2d BLUE_REEF_18A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[18], false);
+        .CalculatePoint(layout.getTagPose(18).get(), false);
     public static final Pose2d BLUE_REEF_18B = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[18], true);
+        .CalculatePoint(layout.getTagPose(18).get(), true);
     public static final Pose2d BLUE_REEF_19A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[19], false);
+        .CalculatePoint(layout.getTagPose(19).get(), false);
     public static final Pose2d BLUE_REEF_19B = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[19], true);
+        .CalculatePoint(layout.getTagPose(19).get(), true);
     public static final Pose2d BLUE_REEF_20A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[20], false);
+        .CalculatePoint(layout.getTagPose(20).get(), false);
     public static final Pose2d BLUE_REEF_20B = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[20], true);
+        .CalculatePoint(layout.getTagPose(20).get(), true);
     public static final Pose2d BLUE_REEF_21A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[21], false);
+        .CalculatePoint(layout.getTagPose(21).get(), false);
     public static final Pose2d BLUE_REEF_21B = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[21], true);
+        .CalculatePoint(layout.getTagPose(21).get(), true);
     public static final Pose2d BLUE_REEF_22A = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[22], false);
+        .CalculatePoint(layout.getTagPose(22).get(), false);
     public static final Pose2d BLUE_REEF_22B = DriveToPointCalculator
-        .CalculatePoint(FieldConstants.APRIL_TAG_POSITIONS[22], true);
+        .CalculatePoint(layout.getTagPose(22).get(), true);
 
     // Don't reorder this list
+
     public static final List<Pose2d> POSE_LIST = List.of(RED_PLAYER_STATION_1, RED_PLAYER_STATION_2,
-        BLUE_PLAYER_STATION_12, BLUE_PLAYER_STATION_13, RED_REEF_6A, RED_REEF_6B, RED_REEF_7A, RED_REEF_7B, RED_REEF_8A,
-        RED_REEF_8B, RED_REEF_9A, RED_REEF_9B, RED_REEF_10A, RED_REEF_10B, RED_REEF_11A, RED_REEF_11B, BLUE_REEF_17A,
+        BLUE_PLAYER_STATION_12, BLUE_PLAYER_STATION_13, RED_REEF_6A, RED_REEF_6B, RED_REEF_7A,
+        RED_REEF_7B,
+        RED_REEF_8A,
+        RED_REEF_8B, RED_REEF_9A, RED_REEF_9B, RED_REEF_10A, RED_REEF_10B, RED_REEF_11A, RED_REEF_11B,
+        BLUE_REEF_17A,
         BLUE_REEF_17B, BLUE_REEF_18A, BLUE_REEF_18B, BLUE_REEF_19A, BLUE_REEF_19B, BLUE_REEF_20A, BLUE_REEF_20B,
         BLUE_REEF_21A, BLUE_REEF_21B, BLUE_REEF_22A, BLUE_REEF_22B);
 
-    public static final List<Pose2d> RED_REEF = List.of(RED_REEF_6A, RED_REEF_6B, RED_REEF_7A, RED_REEF_7B, RED_REEF_8A,
+    public static final List<Pose2d> RED_REEF = List.of(RED_REEF_6A, RED_REEF_6B, RED_REEF_7A, RED_REEF_7B,
+        RED_REEF_8A,
         RED_REEF_8B, RED_REEF_9A, RED_REEF_9B, RED_REEF_10A, RED_REEF_10B, RED_REEF_11A, RED_REEF_11B);
 
     public static final List<Pose2d> BLUE_REEF = List.of(BLUE_REEF_22B, BLUE_REEF_22A, BLUE_REEF_21B, BLUE_REEF_21A,
