@@ -7,13 +7,14 @@ package frc.robot.commands;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Constants.ElevatorConstants;
 import frc.robot.subsystems.Swerve.SwerveRequestStash;
 import frc.robot.util.DriveToPointController;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.Constants.DriveToPoint.*;
+import static frc.robot.Constants.SwerveConstants.*;
 import static frc.robot.Constants.GlobalConstants.*;
-import static frc.robot.Constants.SwerveConstants.AT_POINT_TOLERANCE;
 import static frc.robot.util.Subsystem.swerve;
 
 import java.util.List;
@@ -50,7 +51,7 @@ public class DriveToPointCommand extends Command {
       System.out.println("NO ALLIANCE VALUE YET");
       return;
     }
-    m_reefPoses = redAlliance.get() ? RED_REEF_RIGHT : BLUE_REEF_RIGHT;
+    m_reefPoses = redAlliance.get() ? RED_REEF : BLUE_REEF;
     m_coralStationPoses = redAlliance.get() ? POSE_LIST.subList(0, 2) : POSE_LIST.subList(2, 4);
     checkBumpers();
     drive();
@@ -101,15 +102,19 @@ public class DriveToPointCommand extends Command {
     m_bumperWasPressed = leftBumper || rightBumper;
 
     int id = m_reefPoses.indexOf(m_pointControl.getTarget());
+    System.out.println("raw id: " + id);
     id += leftBumper ? -1 : rightBumper ? 1 : 0;
     id = id > 11 ? 0 : id < 0 ? 11 : id; // wrap value
+    System.out.println("edited id: " + id);
 
     m_pointControl.setTarget(m_reefPoses.get(id));
   }
 
   private void drive() {
-    SwerveRequestStash.driveWithVelocity.withVelocityX(m_pointControl.getXVelocity())
-        .withVelocityY(m_pointControl.getYVelocity()).withTargetDirection(m_pointControl.getRotation());
+    SwerveRequestStash.driveWithVelocity
+        .withVelocityX(m_pointControl.getXVelocity())
+        .withVelocityY(m_pointControl.getYVelocity())
+        .withTargetDirection(m_pointControl.getRotation());
     swerve.setControl(SwerveRequestStash.driveWithVelocity);
   }
 }

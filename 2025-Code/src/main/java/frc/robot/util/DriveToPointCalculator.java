@@ -11,9 +11,9 @@ public class DriveToPointCalculator {
                 double reefAngle = tagPosition.getRotation().getAngle();
                 double perpendicularReefAngle = reefAngle - Math.toRadians(90);
 
-                double leftRightOffsetX = offsetOfArm * Math.cos(perpendicularReefAngle)
+                double leftRightOffsetX = offsetOfArmReef * Math.cos(perpendicularReefAngle)
                                 + (reefWidth / 2) * Math.cos(perpendicularReefAngle + (isA ? 0 : Math.PI));
-                double leftRightOffsetY = offsetOfArm * Math.sin(perpendicularReefAngle)
+                double leftRightOffsetY = offsetOfArmReef * Math.sin(perpendicularReefAngle)
                                 + (reefWidth / 2) * Math.sin(perpendicularReefAngle + (isA ? 0 : Math.PI));
 
                 double x = tagPosition.getX() + offsetToReef * Math.cos(reefAngle) + leftRightOffsetX;
@@ -23,13 +23,12 @@ public class DriveToPointCalculator {
         }
 
         public static Pose2d CalculatePSPoint(Pose3d tagPosition) {
-                double correctArmOffset = -offsetOfArm;
                 double stationAngle = tagPosition.getRotation().getAngle();
                 double perpendicularReefAngle = stationAngle - Math.toRadians(90);
 
-                double leftRightOffsetX = correctArmOffset * Math.cos(perpendicularReefAngle)
+                double leftRightOffsetX = offsetOfArmStation * Math.cos(perpendicularReefAngle)
                                 + (reefWidth / 2) * Math.cos(perpendicularReefAngle);
-                double leftRightOffsetY = correctArmOffset * Math.sin(perpendicularReefAngle)
+                double leftRightOffsetY = offsetOfArmStation * Math.sin(perpendicularReefAngle)
                                 + (reefWidth / 2) * Math.sin(perpendicularReefAngle);
 
                 double x = tagPosition.getX() + (offsetToStation * Math.cos(stationAngle)) + leftRightOffsetX;
