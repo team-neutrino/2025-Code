@@ -276,54 +276,54 @@ public final class Constants {
                 .CalculatePSPoint(layout.getTagPose(12).get());
 
         public static final Pose2d RED_REEF_6A = DriveToPointCalculator
-                .CalculatePoint(layout.getTagPose(6).get(), true);
+                .CalculatePointRed(layout.getTagPose(6).get(), true);
         public static final Pose2d RED_REEF_6B = DriveToPointCalculator
-                .CalculatePoint(layout.getTagPose(6).get(), false);
+                .CalculatePointRed(layout.getTagPose(6).get(), false);
         public static final Pose2d RED_REEF_7A = DriveToPointCalculator
-                .CalculatePoint(layout.getTagPose(7).get(), true);
+                .CalculatePointRed(layout.getTagPose(7).get(), true);
         public static final Pose2d RED_REEF_7B = DriveToPointCalculator
-                .CalculatePoint(layout.getTagPose(7).get(), false);
+                .CalculatePointRed(layout.getTagPose(7).get(), false);
         public static final Pose2d RED_REEF_8A = DriveToPointCalculator
-                .CalculatePoint(layout.getTagPose(8).get(), true);
+                .CalculatePointRed(layout.getTagPose(8).get(), true);
         public static final Pose2d RED_REEF_8B = DriveToPointCalculator
-                .CalculatePoint(layout.getTagPose(8).get(), false);
+                .CalculatePointRed(layout.getTagPose(8).get(), false);
         public static final Pose2d RED_REEF_9A = DriveToPointCalculator
-                .CalculatePoint(layout.getTagPose(9).get(), true);
+                .CalculatePointRed(layout.getTagPose(9).get(), true);
         public static final Pose2d RED_REEF_9B = DriveToPointCalculator
-                .CalculatePoint(layout.getTagPose(9).get(), false);
+                .CalculatePointRed(layout.getTagPose(9).get(), false);
         public static final Pose2d RED_REEF_10A = DriveToPointCalculator
-                .CalculatePoint(layout.getTagPose(10).get(), true);
+                .CalculatePointRed(layout.getTagPose(10).get(), true);
         public static final Pose2d RED_REEF_10B = DriveToPointCalculator
-                .CalculatePoint(layout.getTagPose(10).get(), false);
+                .CalculatePointRed(layout.getTagPose(10).get(), false);
         public static final Pose2d RED_REEF_11A = DriveToPointCalculator
-                .CalculatePoint(layout.getTagPose(11).get(), true);
+                .CalculatePointRed(layout.getTagPose(11).get(), true);
         public static final Pose2d RED_REEF_11B = DriveToPointCalculator
-                .CalculatePoint(layout.getTagPose(11).get(), false);
+                .CalculatePointRed(layout.getTagPose(11).get(), false);
 
         public static final Pose2d BLUE_REEF_17A = DriveToPointCalculator
-                .CalculatePoint(layout.getTagPose(17).get(), false);
+                .CalculatePointBlue(layout.getTagPose(17).get(), false);
         public static final Pose2d BLUE_REEF_17B = DriveToPointCalculator
-                .CalculatePoint(layout.getTagPose(17).get(), true);
+                .CalculatePointBlue(layout.getTagPose(17).get(), true);
         public static final Pose2d BLUE_REEF_18A = DriveToPointCalculator
-                .CalculatePoint(layout.getTagPose(18).get(), false);
+                .CalculatePointBlue(layout.getTagPose(18).get(), false);
         public static final Pose2d BLUE_REEF_18B = DriveToPointCalculator
-                .CalculatePoint(layout.getTagPose(18).get(), true);
+                .CalculatePointBlue(layout.getTagPose(18).get(), true);
         public static final Pose2d BLUE_REEF_19A = DriveToPointCalculator
-                .CalculatePoint(layout.getTagPose(19).get(), false);
+                .CalculatePointBlue(layout.getTagPose(19).get(), false);
         public static final Pose2d BLUE_REEF_19B = DriveToPointCalculator
-                .CalculatePoint(layout.getTagPose(19).get(), true);
+                .CalculatePointBlue(layout.getTagPose(19).get(), true);
         public static final Pose2d BLUE_REEF_20A = DriveToPointCalculator
-                .CalculatePoint(layout.getTagPose(20).get(), false);
+                .CalculatePointBlue(layout.getTagPose(20).get(), false);
         public static final Pose2d BLUE_REEF_20B = DriveToPointCalculator
-                .CalculatePoint(layout.getTagPose(20).get(), true);
+                .CalculatePointBlue(layout.getTagPose(20).get(), true);
         public static final Pose2d BLUE_REEF_21A = DriveToPointCalculator
-                .CalculatePoint(layout.getTagPose(21).get(), false);
+                .CalculatePointBlue(layout.getTagPose(21).get(), false);
         public static final Pose2d BLUE_REEF_21B = DriveToPointCalculator
-                .CalculatePoint(layout.getTagPose(21).get(), true);
+                .CalculatePointBlue(layout.getTagPose(21).get(), true);
         public static final Pose2d BLUE_REEF_22A = DriveToPointCalculator
-                .CalculatePoint(layout.getTagPose(22).get(), false);
+                .CalculatePointBlue(layout.getTagPose(22).get(), false);
         public static final Pose2d BLUE_REEF_22B = DriveToPointCalculator
-                .CalculatePoint(layout.getTagPose(22).get(), true);
+                .CalculatePointBlue(layout.getTagPose(22).get(), true);
 
         // Don't reorder this list
 
