@@ -112,7 +112,7 @@ public class DriveToPointCommand extends Command {
   private void drive() {
     double velx = m_pointControl.getXVelocity(), vely = m_pointControl.getYVelocity();
     double xsign = Math.signum(velx), ysign = Math.signum(vely);
-    if (Subsystem.elevator.getHeight() >= ElevatorConstants.L3) {
+    if (Subsystem.elevator.getHeight() >= ElevatorConstants.SLOW_MOVE_THRESHOLD) {
       velx = xsign * Math.min(Math.abs(velx), SLOW_SWERVE_SPEED);
       vely = ysign * Math.min(Math.abs(vely), SLOW_SWERVE_SPEED);
     }
