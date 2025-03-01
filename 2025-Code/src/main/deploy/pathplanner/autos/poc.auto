@@ -5,22 +5,9 @@
     "data": {
       "commands": [
         {
-          "type": "deadline",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "18- Pro Coral"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveToScoringL4"
-                }
-              }
-            ]
+            "pathName": "Mid Starting Pose"
           }
         },
         {
@@ -36,7 +23,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToScoringL4"
+                  "name": "MoveToScoringL2"
                 }
               }
             ]
@@ -45,13 +32,13 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreL4"
+            "name": "ScoreL2"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "1 CORAL",
+  "folder": null,
   "choreoAuto": false
 }
