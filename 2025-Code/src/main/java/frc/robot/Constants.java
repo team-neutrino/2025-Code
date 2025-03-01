@@ -78,8 +78,8 @@ public final class Constants {
         public static final double CORAL_INTAKE = 34;
         public static final double REMOVE_ALGAE = 0.0;
         public static final double L1 = 10.0;
-        public static final double L2 = 17.0;
-        public static final double L3 = 40.0;
+        public static final double L2 = 16.0;
+        public static final double L3 = 30.0;
         public static final double L4 = 54.9;
         public static final double ARM_WILL_NOT_HIT_BASE_HEIGHT = 20.0;
         public static final double STAGE_1_LENGTH = 29;
@@ -255,9 +255,9 @@ public final class Constants {
         public static final AprilTagFieldLayout layout = AprilTagFieldLayout
                 .loadField(AprilTagFields.k2025ReefscapeWelded);
         // right is more negative, left is more positive
-        public static final double offsetOfArmReef = .3;
+        public static final double offsetOfArmReef = .275;
         // right is more negative, left is more positive
-        public static final double offsetOfArmStation = -.425;
+        public static final double offsetOfArmStation = -.42;
         public static final double offsetToReef = .56;
         public static final double offsetToStation = .617;
         public static final double reefWidth = 0.33;
