@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -109,9 +110,15 @@ public class DriveToPointCommand extends Command {
   }
 
   private void drive() {
+    double velx = m_pointControl.getXVelocity(), vely = m_pointControl.getYVelocity();
+    double xsign = Math.signum(velx), ysign = Math.signum(vely);
+    if (Subsystem.elevator.getHeight() >= ElevatorConstants.L3) {
+      velx = xsign * Math.min(Math.abs(velx), SLOW_SWERVE_SPEED);
+      vely = ysign * Math.min(Math.abs(vely), SLOW_SWERVE_SPEED);
+    }
     SwerveRequestStash.driveWithVelocity
-        .withVelocityX(m_pointControl.getXVelocity())
-        .withVelocityY(m_pointControl.getYVelocity())
+        .withVelocityX(velx)
+        .withVelocityY(vely)
         .withTargetDirection(m_pointControl.getRotation());
     swerve.setControl(SwerveRequestStash.driveWithVelocity);
   }
