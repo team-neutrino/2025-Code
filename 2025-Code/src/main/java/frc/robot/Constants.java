@@ -168,7 +168,6 @@ public final class Constants {
     public static final int START_CLIMB_POSITION = 0;
     public static final int RAISE_CLIMB_POSITION = 23;
     public static final int LOWER_CLIMB_POSITION = -12;
-    public static final int RESET_CLIMB_ROTATIONS = -105;
     // needs adjustments/tuning
 
     public static final int CLIMB_POSITION_TOLERANCE = 3;
