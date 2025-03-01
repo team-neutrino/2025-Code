@@ -58,7 +58,7 @@ public class Swerve extends CommandSwerveDrivetrain {
 
   private boolean m_drivingToPoint = false;
   private boolean m_atPoint = false;
-  private Debouncer m_debouncer = new Debouncer(1, DebounceType.kRising);
+  private Debouncer m_debouncer = new Debouncer(1.2, DebounceType.kRising);
 
   private Telemetry m_telemetry = new Telemetry(MAX_SPEED);
 

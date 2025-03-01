@@ -17,7 +17,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToScoringL2"
+                  "name": "MoveToScoringL4"
                 }
               }
             ]
@@ -36,7 +36,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToScoringL2"
+                  "name": "MoveToScoringL4"
                 }
               }
             ]
@@ -45,7 +45,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreL2"
+            "name": "ScoreL4"
           }
         }
       ]
