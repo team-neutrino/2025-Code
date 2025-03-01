@@ -87,6 +87,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("ScoreL2", SuperstructureFactory.scoreCoralL2AutonCommand());
     NamedCommands.registerCommand("ScoreL1", SuperstructureFactory.scoreCoralL1AutonCommand());
     NamedCommands.registerCommand("Intake", SuperstructureFactory.intakeCoralAutonCommand());
+    NamedCommands.registerCommand("DriveToPoint",
+        new DriveToPointCommand(m_driverController).until(() -> swerve.isAtPointDebounced()));
   }
 
   /**

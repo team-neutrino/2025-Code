@@ -15,7 +15,9 @@ import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -56,6 +58,7 @@ public class Swerve extends CommandSwerveDrivetrain {
 
   private boolean m_drivingToPoint = false;
   private boolean m_atPoint = false;
+  private Debouncer m_debouncer = new Debouncer(1, DebounceType.kRising);
 
   private Telemetry m_telemetry = new Telemetry(MAX_SPEED);
 
@@ -244,6 +247,10 @@ public class Swerve extends CommandSwerveDrivetrain {
 
   public boolean isAtPoint() {
     return m_atPoint;
+  }
+
+  public boolean isAtPointDebounced() {
+    return m_debouncer.calculate(m_atPoint);
   }
 
   public void setAtPoint(boolean value) {

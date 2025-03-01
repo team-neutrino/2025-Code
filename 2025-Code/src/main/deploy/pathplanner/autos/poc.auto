@@ -5,22 +5,9 @@
     "data": {
       "commands": [
         {
-          "type": "deadline",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "20-Top Coral"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveToScoringL2"
-                }
-              }
-            ]
+            "pathName": "Mid Starting Pose"
           }
         },
         {
@@ -52,6 +39,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "1 CORAL",
+  "folder": null,
   "choreoAuto": false
 }
