@@ -36,6 +36,8 @@ public class DriveToPointCommand extends Command {
   @Override
   public void initialize() {
     swerve.setDrivingToPoint(true);
+    swerve.setAtPoint(false);
+
     if (!redAlliance.isPresent()) {
       System.out.println("NO ALLIANCE VALUE YET");
       return;
@@ -74,6 +76,8 @@ public class DriveToPointCommand extends Command {
   }
 
   private void obtainTarget() {
+    swerve.setDrivingToPoint(true);
+    swerve.setAtPoint(false);
     boolean hasGamePiece = Subsystem.coral.hasCoral();
     m_hadGamePiece = hasGamePiece;
     if (hasGamePiece) {
