@@ -102,10 +102,8 @@ public class DriveToPointCommand extends Command {
     m_bumperWasPressed = leftBumper || rightBumper;
 
     int id = m_reefPoses.indexOf(m_pointControl.getTarget());
-    System.out.println("raw id: " + id);
     id += leftBumper ? -1 : rightBumper ? 1 : 0;
     id = id > 11 ? 0 : id < 0 ? 11 : id; // wrap value
-    System.out.println("edited id: " + id);
 
     m_pointControl.setTarget(m_reefPoses.get(id));
   }
