@@ -26,41 +26,23 @@ public class LED extends SubsystemBase {
     m_state_pub = m_state_topic.publish();
   }
 
-  private void setToGamePieceColor() {
-    if (m_coral.hasCoral()) {
-      m_state_pub.set("blinktwice");
-      m_color_pub.set("white");
-    }
-  }
-
-  private void setColor() {
-    if (DriverStation.isAutonomousEnabled()) {
-      m_color_pub.set("cyan");
-    } else if (DriverStation.isTeleopEnabled()) {
-      setDriveToPointColor();
-      if (m_coral.debouncedHasCoral()) {
-        setToGamePieceColor();
-        return;
-      }
-    } else {
-      m_color_pub.set("orange");
-      m_state_pub.set("blink");
-    }
-  }
-
-  private void setDriveToPointColor() {
-    if (Subsystem.swerve.isDrivingToPoint()) {
-      m_color_pub.set("red");
-    } else if (Subsystem.swerve.isAtPoint()) {
-      m_color_pub.set("green");
-    } else {
-      m_color_pub.set("orange");
-    }
-    m_state_pub.set("solid");
-  }
-
   @Override
   public void periodic() {
-    setColor();
+
+    if (Subsystem.swerve.isAtPoint()) {
+      m_color_pub.set("green");
+      m_state_pub.set("solid");
+      return;
+    }
+
+    if (m_coral.debouncedHasCoral()) {
+      m_state_pub.set("solid");
+      m_color_pub.set("white");
+      return;
+    }
+
+    // default to orange
+    m_color_pub.set("orange");
+    m_state_pub.set("blink");
   }
 }
