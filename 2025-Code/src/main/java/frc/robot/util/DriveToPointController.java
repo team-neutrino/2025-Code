@@ -28,12 +28,12 @@ public class DriveToPointController {
     }
 
     public double getXVelocity() {
-        return (applyDeadband((m_target.getX() - Subsystem.swerve.getCurrentPose().getX()), 0.01, 70.0)
+        return (applyDeadband((m_target.getX() - Subsystem.swerve.getCurrentPose().getX()), 0.00000001, 70.0)
                 * DRIVE_TO_POINT_P);
     }
 
     public double getYVelocity() {
-        return (applyDeadband((m_target.getY() - Subsystem.swerve.getCurrentPose().getY()), 0.01, 70.0)
+        return (applyDeadband((m_target.getY() - Subsystem.swerve.getCurrentPose().getY()), 0.000000001, 70.0)
                 * DRIVE_TO_POINT_P);
     }
 

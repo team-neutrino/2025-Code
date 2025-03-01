@@ -121,8 +121,8 @@ public class SuperstructureFactory {
     }
 
     public static Command scoreCoralL2AutonCommand() {
-        Command elevatorCom = ElevatorFactory.moveL1();
-        Command armScoreCom = ArmFactory.moveToL1();
+        Command elevatorCom = ElevatorFactory.moveL2();
+        Command armScoreCom = ArmFactory.moveToL2();
         Command coralDefaultCom = coral.coralDefaultCommand();
         Command coralScoreCom = CoralFactory.runOuttake();
         BooleanSupplier readyToScore = () -> (arm.readyToScore() && elevator.readyToScore());

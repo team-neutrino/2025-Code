@@ -32,7 +32,7 @@ public class Coral extends SubsystemBase {
     private double m_motorVoltage;
     private Canandcolor m_colorSensor = new Canandcolor(COLOR_SENSOR);
     private CanandcolorSettings m_settings = new CanandcolorSettings();
-    private Debouncer m_debouncer = new Debouncer(0.1, DebounceType.kFalling);
+    private Debouncer m_debouncer = new Debouncer(0.2, DebounceType.kFalling);
 
     public Coral() {
         m_encoder = m_motor.getEncoder();

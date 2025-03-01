@@ -7,13 +7,14 @@ package frc.robot.commands;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Constants.ElevatorConstants;
 import frc.robot.subsystems.Swerve.SwerveRequestStash;
 import frc.robot.util.DriveToPointController;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.Constants.DriveToPoint.*;
+import static frc.robot.Constants.SwerveConstants.*;
 import static frc.robot.Constants.GlobalConstants.*;
-import static frc.robot.Constants.SwerveConstants.AT_POINT_TOLERANCE;
 import static frc.robot.util.Subsystem.swerve;
 
 import java.util.List;
@@ -50,7 +51,7 @@ public class DriveToPointCommand extends Command {
       System.out.println("NO ALLIANCE VALUE YET");
       return;
     }
-    m_reefPoses = redAlliance.get() ? RED_REEF_RIGHT : BLUE_REEF_RIGHT;
+    m_reefPoses = redAlliance.get() ? RED_REEF : BLUE_REEF;
     m_coralStationPoses = redAlliance.get() ? POSE_LIST.subList(0, 2) : POSE_LIST.subList(2, 4);
     checkBumpers();
     drive();
@@ -108,8 +109,10 @@ public class DriveToPointCommand extends Command {
   }
 
   private void drive() {
-    SwerveRequestStash.driveWithVelocity.withVelocityX(m_pointControl.getXVelocity())
-        .withVelocityY(m_pointControl.getYVelocity()).withTargetDirection(m_pointControl.getRotation());
+    SwerveRequestStash.driveWithVelocity
+        .withVelocityX(m_pointControl.getXVelocity())
+        .withVelocityY(m_pointControl.getYVelocity())
+        .withTargetDirection(m_pointControl.getRotation());
     swerve.setControl(SwerveRequestStash.driveWithVelocity);
   }
 }
