@@ -21,6 +21,7 @@ import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
@@ -38,7 +39,11 @@ public class RobotContainer {
   public RobotContainer() {
     // testing with a new idea - intialized the entire class on startup, perhaps the
     // point calculations rather than the layout was causing delay
+    System.out.println("-----------before drivetopoint constants class intialized------------------");
     DriveToPoint test = new DriveToPoint();
+    System.out.println(
+        "-----------------after drivetopoint constants intialized (fmap + all math calculations)------------------");
+
     // "layout" wouldn't initialize until the b button was pressed, causing a 2-3
     // second delay. this forces it to initialize on startup.
     // AprilTagFieldLayout tmp = Constants.DriveToPoint.layout;
@@ -107,7 +112,9 @@ public class RobotContainer {
       return new InstantCommand();
     }
     try {
-      auto = new PathPlannerAuto("2 CORAL PROCESSOR");
+      System.out.println("-----------------------loading auto-----------------------");
+      auto = new PathPlannerAuto("19 L2 CORAL TOP").alongWith(Commands.print("AUTON RUNNING"));
+      System.out.println("------------------auto loaded------------------");
     } catch (Exception e) {
       auto = new PathPlannerAuto("Nothing");
     }
