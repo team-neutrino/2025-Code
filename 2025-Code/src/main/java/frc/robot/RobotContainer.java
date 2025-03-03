@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.Constants.DriveToPoint;
 import frc.robot.Constants.OperatorConstants;
 import static frc.robot.Constants.DriveToPoint.*;
 import frc.robot.command_factories.*;
@@ -35,9 +36,12 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    // testing with a new idea - intialized the entire class on startup, perhaps the
+    // point calculations rather than the layout was causing delay
+    DriveToPoint test = new DriveToPoint();
     // "layout" wouldn't initialize until the b button was pressed, causing a 2-3
     // second delay. this forces it to initialize on startup.
-    AprilTagFieldLayout tmp = Constants.DriveToPoint.layout;
+    // AprilTagFieldLayout tmp = Constants.DriveToPoint.layout;
     DigitalInput m_robot_select = new DigitalInput(9);
     subsystemContainer = new Subsystem(!m_robot_select.get());
     configureBindings();
