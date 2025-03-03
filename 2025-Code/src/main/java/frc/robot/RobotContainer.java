@@ -113,6 +113,7 @@ public class RobotContainer {
     }
     try {
       System.out.println("-----------------------loading auto-----------------------");
+      // try storing auto as a variable, not recreating
       auto = new PathPlannerAuto("19 L2 CORAL TOP").alongWith(Commands.print("AUTON RUNNING"));
       System.out.println("------------------auto loaded------------------");
     } catch (Exception e) {
