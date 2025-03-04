@@ -13,48 +13,45 @@ import frc.robot.util.Subsystem;
 public class LED extends SubsystemBase {
 
   private NetworkTableInstance m_nt = NetworkTableInstance.getDefault();
-  private StringTopic m_color_topic = m_nt.getStringTopic("/LED/color");
-  private StringTopic m_state_topic = m_nt.getStringTopic("/LED/state");
+  private StringTopic m_colortopic = m_nt.getStringTopic("/LED/color");
+  private StringTopic m_statetopic = m_nt.getStringTopic("/LED/state");
   private Coral m_coral = Subsystem.coral;
 
-  private final StringPublisher m_color_pub;
-  private final StringPublisher m_state_pub;
+  private final StringPublisher m_colorpub;
+  private final StringPublisher m_statepub;
 
   public LED() {
-    m_color_pub = m_color_topic.publish();
-    m_state_pub = m_state_topic.publish();
+    m_colorpub = m_colortopic.publish();
+    m_statepub = m_statetopic.publish();
   }
-
-  public void setActionColor() {
-    if (Subsystem.swerve.isDrivingToPoint()) {
-      m_color_pub.set("red");
-    } else if (Subsystem.swerve.isAtPoint()) {
-      m_color_pub.set("green");
-    } else if (Subsystem.elevator.readyToScore()) {
-      m_color_pub.set("yellow");
-    } else if (!Subsystem.elevator.atTargetHeight()) {
-      m_color_pub.set("cyan");
-    } else {
-      m_color_pub.set("orange");
-    }
-  }
+  
   @Override
   public void periodic() {
+    if(Subsystem.swerve.isDrivingToPoint() && !Subsystem.elevator.atTargetHeight() && !Subsystem.arm.atTargetAngle()){
+      m_statepub.set("solid");
+      m_colorpub.set("cyan");
+    } else if (Subsystem.swerve.isDrivingToPoint() && !Subsystem.elevator.readyToScore()) {
+      m_statepub.set("solid");
+      m_colorpub.set("purple");
+    }else if (Subsystem.swerve.isDrivingToPoint()) {
+      m_statepub.set("solid");
+      m_colorpub.set("red");
+    }
 
-    if (Subsystem.swerve.isAtPoint()) {
-      m_color_pub.set("green");
-      m_state_pub.set("solid");
+    if (Subsystem.swerve.isAtPoint() && Subsystem.elevator.readyToScore() && Subsystem.arm.readyToScore()) {
+      m_colorpub.set("green");
+      m_statepub.set("solid");
       return;
     }
 
-    if (m_coral.debouncedHasCoral()) {
-      m_state_pub.set("solid");
-      m_color_pub.set("white");
+  if (m_coral.debouncedHasCoral()) {
+      m_statepub.set("blinktwice");
+      m_colorpub.set("white");
       return;
     }
 
     // default to orange
-    m_color_pub.set("orange");
-    m_state_pub.set("blink");
+    m_colorpub.set("orange");
+    m_statepub.set("solid");
   }
 }
