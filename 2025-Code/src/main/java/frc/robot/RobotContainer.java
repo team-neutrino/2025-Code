@@ -8,6 +8,7 @@ import frc.robot.Constants.OperatorConstants;
 import static frc.robot.Constants.DriveToPoint.*;
 import frc.robot.command_factories.*;
 import frc.robot.commands.DriveAssistCom;
+import frc.robot.commands.DriveToAlgaeCommand;
 import frc.robot.commands.DriveToPointCommand;
 import frc.robot.util.Subsystem;
 
@@ -52,9 +53,9 @@ public class RobotContainer {
     m_driverController.x().onTrue(ClimbFactory.lockGrabber());
     m_driverController.a().onTrue(ClimbFactory.lowerClimb());
 
-    m_driverController.leftTrigger().whileTrue(new DriveAssistCom(m_driverController));
     m_driverController.back().whileTrue(swerve.resetYawCommand());
     m_driverController.b().whileTrue(new DriveToPointCommand(m_driverController));
+    m_driverController.rightTrigger().whileTrue(new DriveToAlgaeCommand());
 
     // buttons controller
     m_buttonsController.x().whileTrue(SuperstructureFactory.scoreL1(m_buttonsController));
