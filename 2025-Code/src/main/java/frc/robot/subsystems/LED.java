@@ -25,6 +25,19 @@ public class LED extends SubsystemBase {
     m_state_pub = m_state_topic.publish();
   }
 
+  public void setActionColor() {
+    if (Subsystem.swerve.isDrivingToPoint()) {
+      m_color_pub.set("red");
+    } else if (Subsystem.swerve.isAtPoint()) {
+      m_color_pub.set("green");
+    } else if (Subsystem.elevator.readyToScore()) {
+      m_color_pub.set("yellow");
+    } else if (!Subsystem.elevator.atTargetHeight()) {
+      m_color_pub.set("cyan");
+    } else {
+      m_color_pub.set("orange");
+    }
+  }
   @Override
   public void periodic() {
 
@@ -38,17 +51,6 @@ public class LED extends SubsystemBase {
       m_state_pub.set("solid");
       m_color_pub.set("white");
       return;
-  public void setActionColor() {
-    if (Subsystem.swerve.isDrivingToPoint()) {
-      m_color_pub.set("red");
-    } else if (Subsystem.swerve.isAtPoint()) {
-      m_color_pub.set("green");
-    } else if (Subsystem.elevator.readyToScore()) {
-      m_color_pub.set("yellow");
-    } else if (!Subsystem.elevator.atTargetHeight()) {
-      m_color_pub.set("cyan");
-    } else {
-      m_color_pub.set("orange");
     }
 
     // default to orange
