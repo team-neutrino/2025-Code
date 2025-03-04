@@ -30,12 +30,15 @@ public class LED extends SubsystemBase {
     if(Subsystem.swerve.isDrivingToPoint() && !Subsystem.elevator.atTargetHeight() && !Subsystem.arm.atTargetAngle()){
       m_statepub.set("solid");
       m_colorpub.set("cyan");
+      return;
     } else if (Subsystem.swerve.isDrivingToPoint() && !Subsystem.elevator.readyToScore()) {
       m_statepub.set("solid");
       m_colorpub.set("purple");
+      return;
     }else if (Subsystem.swerve.isDrivingToPoint()) {
       m_statepub.set("solid");
       m_colorpub.set("red");
+      return;
     }
 
     if (Subsystem.swerve.isAtPoint() && Subsystem.elevator.readyToScore() && Subsystem.arm.readyToScore()) {
