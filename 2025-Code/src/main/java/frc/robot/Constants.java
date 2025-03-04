@@ -265,6 +265,7 @@ public final class Constants {
                 public static final double reefWidth = 0.33;
 
                 public static final double offsetOfArmAlgae = -0.12;
+                // negative is more right
 
                 // CURRENTLY TESTING WITH THIS LIBRARY THING
                 public static final Pose2d RED_PLAYER_STATION_1 = DriveToPointCalculator
