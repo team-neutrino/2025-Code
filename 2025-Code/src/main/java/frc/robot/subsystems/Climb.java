@@ -99,10 +99,9 @@ public class Climb extends SubsystemBase {
    * checks if climb is safe to raise
    */
   private boolean isRaiseClimbSafe() {
-    return 
-      (Math.abs(START_CLIMB_POSITION - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_POSITION_TOLERANCE &&
-      Math.abs(GRANNY_GRABBER_POSITION - m_grabEncoder.getPosition()) < GRABBER_POSITION_TOLERANCE) || 
-      Math.abs(UNLOCK_GRABBER_POSITION - m_grabEncoder.getPosition()) < GRABBER_POSITION_TOLERANCE;
+    return (Math.abs(START_CLIMB_POSITION - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_POSITION_TOLERANCE &&
+        Math.abs(GRANNY_GRABBER_POSITION - m_grabEncoder.getPosition()) < GRABBER_POSITION_TOLERANCE) ||
+        Math.abs(UNLOCK_GRABBER_POSITION - m_grabEncoder.getPosition()) < GRABBER_POSITION_TOLERANCE;
   }
 
   /**
@@ -116,9 +115,8 @@ public class Climb extends SubsystemBase {
    * checks if climb is safe to lower
    */
   private boolean isLowerClimbSafe() {
-    return
-      Math.abs(RAISE_CLIMB_POSITION - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_POSITION_TOLERANCE &&
-      Math.abs(LOCK_GRABBER_POSITION - m_grabEncoder.getPosition()) < GRABBER_POSITION_TOLERANCE;
+    return Math.abs(RAISE_CLIMB_POSITION - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_POSITION_TOLERANCE &&
+        Math.abs(LOCK_GRABBER_POSITION - m_grabEncoder.getPosition()) < GRABBER_LOCK_POSITION_TOLERANCE;
   }
 
   public Command resetGrabberCommand() {
