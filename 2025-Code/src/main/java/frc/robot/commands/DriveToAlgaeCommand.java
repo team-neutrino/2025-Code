@@ -6,7 +6,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.subsystems.Swerve.SwerveRequestStash;
 import frc.robot.util.DriveToPointController;
@@ -19,16 +18,11 @@ import static frc.robot.util.Subsystem.swerve;
 
 import java.util.List;
 
-public class DriveToPointCommand extends Command {
+public class DriveToAlgaeCommand extends Command {
   private DriveToPointController m_pointControl = new DriveToPointController();
-  private CommandXboxController m_xboxController;
   private List<Pose2d> m_reefPoses;
-  private List<Pose2d> m_coralStationPoses;
-  private boolean m_bumperWasPressed = false;
-  private boolean m_hadGamePiece;
 
-  public DriveToPointCommand(CommandXboxController xboxController) {
-    m_xboxController = xboxController;
+  public DriveToAlgaeCommand() {
     addRequirements(swerve);
   }
 
@@ -41,8 +35,7 @@ public class DriveToPointCommand extends Command {
       System.out.println("NO ALLIANCE VALUE YET");
       return;
     }
-    m_reefPoses = redAlliance.get() ? RED_REEF_RIGHT : BLUE_REEF_RIGHT;
-    m_coralStationPoses = redAlliance.get() ? POSE_LIST.subList(0, 2) : POSE_LIST.subList(2, 4);
+    m_reefPoses = redAlliance.get() ? RED_REEF_CENTER : BLUE_REEF_CENTER;
 
     obtainTarget();
   }
@@ -53,12 +46,10 @@ public class DriveToPointCommand extends Command {
       System.out.println("NO ALLIANCE VALUE YET");
       return;
     }
-    m_reefPoses = redAlliance.get() ? RED_REEF : BLUE_REEF;
-    m_coralStationPoses = redAlliance.get() ? POSE_LIST.subList(0, 2) : POSE_LIST.subList(2, 4);
-    checkBumpers();
+    m_reefPoses = redAlliance.get() ? RED_REEF_CENTER : BLUE_REEF_CENTER;
     drive();
     isAtPoint();
-    if (swerve.isAtPoint() && (Subsystem.coral.hasCoral() != m_hadGamePiece)) {
+    if (swerve.isAtPoint()) {
       obtainTarget();
     }
   }
@@ -77,13 +68,7 @@ public class DriveToPointCommand extends Command {
   private void obtainTarget() {
     swerve.setDrivingToPoint(true);
     swerve.setAtPoint(false);
-    boolean hasGamePiece = Subsystem.coral.hasCoral();
-    m_hadGamePiece = hasGamePiece;
-    if (hasGamePiece) {
-      m_pointControl.setTargetNearest(m_reefPoses);
-    } else {
-      m_pointControl.setTargetNearest(m_coralStationPoses);
-    }
+    m_pointControl.setTargetNearest(m_reefPoses);
   }
 
   public void isAtPoint() {
@@ -92,24 +77,6 @@ public class DriveToPointCommand extends Command {
       swerve.setDrivingToPoint(false);
       swerve.setAtPoint(true);
     }
-  }
-
-  private void checkBumpers() {
-    boolean leftBumper = m_xboxController.getHID().getLeftBumperButton();
-    boolean rightBumper = m_xboxController.getHID().getRightBumperButton();
-    if (m_bumperWasPressed && (!leftBumper && !rightBumper)) {
-      m_bumperWasPressed = false;
-    }
-    if (!m_reefPoses.contains(m_pointControl.getTarget()) || m_bumperWasPressed) {
-      return;
-    }
-    m_bumperWasPressed = leftBumper || rightBumper;
-
-    int id = m_reefPoses.indexOf(m_pointControl.getTarget());
-    id += leftBumper ? -1 : rightBumper ? 1 : 0;
-    id = id > 11 ? 0 : id < 0 ? 11 : id; // wrap value
-
-    m_pointControl.setTarget(m_reefPoses.get(id));
   }
 
   private void drive() {
