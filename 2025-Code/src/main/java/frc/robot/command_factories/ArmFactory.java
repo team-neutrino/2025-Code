@@ -35,20 +35,12 @@ public class ArmFactory {
         return arm.armRotateCommand(CORAL_STATION_POSITION);
     }
 
-    public static Command armToDescoreL2() {
-        return arm.armRotateCommand(REEF_DESCORE_POSITION);
+    public static Command armToDescorePart1() {
+        return arm.armRotateCommand(REEF_DESCORE_POSITION_PART_1);
     }
 
-    public static Command knockOffAlgaeL2() {
-        return arm.armRotateCommand(ALGAE_KNOCK_OFF_POSITION_L2);
-    }
-
-    public static Command armToDescoreL3() {
-        return arm.armRotateCommand(REEF_DESCORE_POSITION);
-    }
-
-    public static Command knockOffAlgaeL3() {
-        return arm.armRotateCommand(ALGAE_KNOCK_OFF_POSITION_L3);
+    public static Command armToDescorePart2() {
+        return arm.armRotateCommand(REEF_DESCORE_POSITION_PART_2);
     }
 
     public static Command armToScore(double level) {

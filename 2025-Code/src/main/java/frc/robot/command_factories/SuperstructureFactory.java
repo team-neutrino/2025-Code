@@ -24,18 +24,18 @@ public class SuperstructureFactory {
         return elevatorCom.alongWith(armCom, coralCom);
     }
 
-    public static Command descoreAlgaeL2() {
-        Command elevatorCom = ElevatorFactory.movetoRemoveAlgaeL2();
-        Command armCom = ArmFactory.armToDescoreL2();
-        Command coralCom = CoralFactory.runIntake();
-        return elevatorCom.alongWith(armCom, coralCom).until(() -> coral.debouncedHasCoral());
+    public static Command descoreAlgaePart1(CommandXboxController controller) {
+        Command elevatorCom = ElevatorFactory.movetoRemoveAlgaePart1();
+        Command armCom = ArmFactory.armToDescorePart1();
+        return elevatorCom.alongWith(armCom).until(() -> controller.getHID().getRightTriggerAxis() <= 0.1)
+                .andThen(descoreAlgaePart2(controller));
     }
 
-    public static Command descoreAlgaeL3() {
-        Command elevatorCom = ElevatorFactory.movetoRemoveAlgaeL3();
-        Command armCom = ArmFactory.armToDescoreL3();
-        Command coralCom = CoralFactory.runIntake();
-        return elevatorCom.alongWith(armCom, coralCom).until(() -> coral.debouncedHasCoral());
+    public static Command descoreAlgaePart2(CommandXboxController controller) {
+        Command elevatorCom = ElevatorFactory.movetoRemoveAlgaePart2();
+        Command armCom = ArmFactory.armToDescorePart2();
+        boolean comEnd = arm.readyToScore() && elevator.readyToScore();
+        return elevatorCom.alongWith(armCom).until(() -> comEnd);
     }
 
     public static Command scoreUnderhand(CommandXboxController controller) {

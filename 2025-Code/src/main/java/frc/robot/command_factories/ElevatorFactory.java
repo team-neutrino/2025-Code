@@ -27,12 +27,12 @@ public class ElevatorFactory {
         return elevator.moveElevatorCommand(CORAL_INTAKE);
     }
 
-    public static Command movetoRemoveAlgaeL2() {
-        return elevator.moveElevatorCommand(REMOVE_L2_ALGAE);
+    public static Command movetoRemoveAlgaePart1() {
+        return elevator.moveElevatorCommand(REMOVE_ALGAE_PART_1);
     }
 
-    public static Command movetoRemoveAlgaeL3() {
-        return elevator.moveElevatorCommand(REMOVE_L3_ALGAE);
+    public static Command movetoRemoveAlgaePart2() {
+        return elevator.moveElevatorCommand(REMOVE_ALGAE_PART_2);
     }
 
 }
