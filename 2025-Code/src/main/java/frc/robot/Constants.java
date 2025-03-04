@@ -76,7 +76,8 @@ public final class Constants {
                 public static final double BOTTOM_POSITION = 0.0;
                 public static final double STAGE_ONE_UP = 26.0;
                 public static final double CORAL_INTAKE = 34;
-                public static final double REMOVE_ALGAE = 0.0;
+                public static final double REMOVE_ALGAE_L2 = 6.0;
+                public static final double REMOVE_ALGAE_L3 = 27.0;
                 public static final double L1 = 10.0;
                 public static final double L2 = 16.0;
                 public static final double L3 = 30.0;
@@ -111,8 +112,8 @@ public final class Constants {
                 public static final double L3_POSITION = 135.0;
                 public static final double L4_POSITION = 133.0;
                 public static final double EVACUATE_ANGLE = 15.0;
-                public static final double REEF_L2_DESCORE_POSITION = 0.0;
-                public static final double REEF_L3_DESCORE_POSITION = 0.0;
+                public static final double REEF_L2_DESCORE_POSITION = 100.0;
+                public static final double REEF_L3_DESCORE_POSITION = 100.0;
                 public static final double DRIVING_ANGLE_TOLERANCE = 2.0;
 
                 public static final double HITTING_LOW_HARD_LIMIT = 90;
@@ -264,7 +265,8 @@ public final class Constants {
                 public static final double offsetToStation = .617;
                 public static final double reefWidth = 0.33;
 
-                public static final double offsetOfArmAlgae = -0.12;
+                public static final double offsetOfArmAlgae = 0.33;
+                public static final double offsetToReefAlgae = 0.08;
                 // negative is more right
 
                 // CURRENTLY TESTING WITH THIS LIBRARY THING
