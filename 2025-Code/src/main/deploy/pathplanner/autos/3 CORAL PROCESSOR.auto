@@ -53,6 +53,25 @@
           "data": {
             "commands": [
               {
+                "type": "path",
+                "data": {
+                  "pathName": "22- Pro Coral (Reed to Ps)"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
                 "type": "named",
                 "data": {
                   "name": "DriveToPoint"

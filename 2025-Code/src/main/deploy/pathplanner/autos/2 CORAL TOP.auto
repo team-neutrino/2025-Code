@@ -11,7 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "18-Top Coral"
+                  "pathName": "19-Top Coral"
                 }
               },
               {
@@ -53,25 +53,6 @@
           "data": {
             "commands": [
               {
-                "type": "path",
-                "data": {
-                  "pathName": "18-Top Coral (Reef to Ps)"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveToIntake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
                 "type": "named",
                 "data": {
                   "name": "DriveToPoint"
@@ -90,6 +71,25 @@
           "type": "named",
           "data": {
             "name": "Intake"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "18- Top Coral (Ps to Reef)"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToScoringL4"
+                }
+              }
+            ]
           }
         },
         {
