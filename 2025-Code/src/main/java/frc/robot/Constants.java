@@ -176,7 +176,7 @@ public final class Constants {
         public static final int UNLOCK_POSITION = -15;
         public static final int RESET_LOCK_POSITION = 0;
 
-        public static final double RATCHET_LOCK_POSITION = 0.7;
+        public static final double RATCHET_LOCK_POSITION = 0.9;
         public static final double RATCHET_UNLOCK_POSITION = 1;
 
         public static final double CLIMB_kP = 0.75;
