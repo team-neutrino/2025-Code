@@ -55,7 +55,9 @@ public class RobotContainer {
 
     m_driverController.back().whileTrue(swerve.resetYawCommand());
     m_driverController.b().whileTrue(new DriveToPointCommand(m_driverController));
-    m_driverController.rightTrigger().whileTrue(new DriveToAlgaeCommand());
+    Command algae = new DriveToAlgaeCommand();
+    algae.setName(ALGAE_ALIGN_COMMAND);
+    m_driverController.rightTrigger().whileTrue(algae);
 
     // buttons controller
     m_buttonsController.x().whileTrue(SuperstructureFactory.scoreL1(m_buttonsController));

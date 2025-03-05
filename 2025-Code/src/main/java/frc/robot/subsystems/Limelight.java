@@ -10,7 +10,9 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.Constants.DriveToPoint;
 import frc.robot.LimelightHelpers;
+import frc.robot.commands.DriveToAlgaeCommand;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.Constants.LimelightConstants.*;
@@ -204,20 +206,28 @@ public class Limelight extends SubsystemBase {
   }
 
   private void updateOdometry() {
+    Command currentCom = Subsystem.swerve.getCurrentCommand();
+    boolean algaeCommandRunning = currentCom != null ? currentCom.getName().equals(DriveToPoint.ALGAE_ALIGN_COMMAND)
+        : false;
+
     boolean hasReefTag = hasReefTag();
     boolean hasPlayerStationTag = hasPlayerStationTag();
 
     m_swerve.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
 
-    if (Subsystem.coral.hasCoral() && !hasReefTag) {
-      return;
-    } else if (!Subsystem.coral.hasCoral() && !hasPlayerStationTag) {
-      return;
-    }
-    if (hasReefTag && (Subsystem.coral.hasCoral() || !hasPlayerStationTag)) {
+    if (algaeCommandRunning) {
       updateOdometryReef();
-    } else if (hasPlayerStationTag) {
-      updateOdometryStation();
+    } else {
+      if (Subsystem.coral.hasCoral() && !hasReefTag) {
+        return;
+      } else if (!Subsystem.coral.hasCoral() && !hasPlayerStationTag) {
+        return;
+      }
+      if (hasReefTag && (Subsystem.coral.hasCoral() || !hasPlayerStationTag)) {
+        updateOdometryReef();
+      } else if (hasPlayerStationTag) {
+        updateOdometryStation();
+      }
     }
   }
 
