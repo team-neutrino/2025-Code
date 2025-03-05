@@ -151,7 +151,7 @@ public class Climb extends SubsystemBase {
   public Command lowerClimbCommand() {
     return run(() -> {
       m_targetPositionGrab = LOCK_GRABBER_POSITION;
-      m_targetPositionRatchet = RATCHET_LOCK_POSITION;
+      m_targetPositionRatchet = RATCHET_UNLOCK_POSITION;
       m_climbMotorOff = false;
       m_targetPositionClimb = LOWER_CLIMB_POSITION;
     }).onlyIf(() -> isLowerClimbSafe()).until(() -> isLowerPosition());
