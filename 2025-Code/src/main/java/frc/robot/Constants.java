@@ -181,7 +181,7 @@ public final class Constants {
                 public static final int GRANNY_GRABBER_POSITION = 0;
                 // needs adjustments/tuning
 
-                public static final double RATCHET_LOCK_POSITION = 0.7;
+                public static final double RATCHET_LOCK_POSITION = 0.9;
                 public static final double RATCHET_UNLOCK_POSITION = 1;
                 // needs adjustments/tuning
 
