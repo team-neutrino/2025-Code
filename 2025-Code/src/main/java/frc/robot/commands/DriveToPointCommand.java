@@ -26,8 +26,10 @@ public class DriveToPointCommand extends Command {
   private List<Pose2d> m_coralStationPoses;
   private boolean m_bumperWasPressed = false;
   private boolean m_hadGamePiece;
+  private final boolean m_algae;
 
-  public DriveToPointCommand(CommandXboxController xboxController) {
+  public DriveToPointCommand(CommandXboxController xboxController, boolean algae) {
+    m_algae = algae;
     m_xboxController = xboxController;
     addRequirements(swerve);
   }
@@ -41,7 +43,7 @@ public class DriveToPointCommand extends Command {
       System.out.println("NO ALLIANCE VALUE YET");
       return;
     }
-    m_reefPoses = redAlliance.get() ? RED_REEF_RIGHT : BLUE_REEF_RIGHT;
+    m_reefPoses = m_algae ? REEF_ALGAE : (redAlliance.get() ? RED_REEF_RIGHT : BLUE_REEF_RIGHT);
     m_coralStationPoses = redAlliance.get() ? POSE_LIST.subList(0, 2) : POSE_LIST.subList(2, 4);
 
     obtainTarget();
@@ -49,13 +51,9 @@ public class DriveToPointCommand extends Command {
 
   @Override
   public void execute() {
-    if (!redAlliance.isPresent()) {
-      System.out.println("NO ALLIANCE VALUE YET");
-      return;
+    if (!m_algae) {
+      checkBumpers();
     }
-    m_reefPoses = redAlliance.get() ? RED_REEF : BLUE_REEF;
-    m_coralStationPoses = redAlliance.get() ? POSE_LIST.subList(0, 2) : POSE_LIST.subList(2, 4);
-    checkBumpers();
     drive();
     isAtPoint();
     if (swerve.isAtPoint() && (Subsystem.coral.hasCoral() != m_hadGamePiece)) {
@@ -77,6 +75,10 @@ public class DriveToPointCommand extends Command {
   private void obtainTarget() {
     swerve.setDrivingToPoint(true);
     swerve.setAtPoint(false);
+    if (m_algae) {
+      m_pointControl.setTargetNearest(m_reefPoses);
+      return;
+    }
     boolean hasGamePiece = Subsystem.coral.hasCoral();
     m_hadGamePiece = hasGamePiece;
     if (hasGamePiece) {

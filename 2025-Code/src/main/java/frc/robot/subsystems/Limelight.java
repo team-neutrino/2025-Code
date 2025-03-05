@@ -12,9 +12,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.Constants.DriveToPoint;
 import frc.robot.LimelightHelpers;
-import frc.robot.commands.DriveToAlgaeCommand;
 import frc.robot.util.Subsystem;
 
+import static frc.robot.Constants.DriveToPoint.ALGAE_ALIGN_COMMAND;
 import static frc.robot.Constants.LimelightConstants.*;
 
 public class Limelight extends SubsystemBase {
@@ -206,16 +206,19 @@ public class Limelight extends SubsystemBase {
   }
 
   private void updateOdometry() {
-    Command currentCom = Subsystem.swerve.getCurrentCommand();
-    boolean algaeCommandRunning = currentCom != null ? currentCom.getName().equals(DriveToPoint.ALGAE_ALIGN_COMMAND)
-        : false;
+    Command com = Subsystem.swerve.getCurrentCommand();
+    boolean deAlgaefying = false;
+    if (com != null) {
+      deAlgaefying = com.getName().equals(ALGAE_ALIGN_COMMAND);
+    }
 
     boolean hasReefTag = hasReefTag();
     boolean hasPlayerStationTag = hasPlayerStationTag();
 
     m_swerve.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
 
-    if (algaeCommandRunning) {
+    // if aligning to an algae position, force odometry updates from reef.
+    if (deAlgaefying) {
       updateOdometryReef();
     } else {
       if (Subsystem.coral.hasCoral() && !hasReefTag) {
@@ -229,6 +232,7 @@ public class Limelight extends SubsystemBase {
         updateOdometryStation();
       }
     }
+
   }
 
   private double getFrame(String limelight) {
