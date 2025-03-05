@@ -17,7 +17,26 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToScoringL2"
+                  "name": "MoveToScoringL4"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "DriveToPoint"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToScoringL4"
                 }
               }
             ]
@@ -26,7 +45,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreL2"
+            "name": "ScoreL4"
           }
         },
         {
@@ -36,7 +55,76 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": null
+                  "pathName": "22- Pro Coral (Reed to Ps)"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "DriveToPoint"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "DriveToPoint"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToScoringL4"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ScoreL4"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "DriveToPoint"
                 }
               },
               {
@@ -67,16 +155,10 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToScoringL2"
+                  "name": "MoveToScoringL4"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ScoreL2"
           }
         },
         {
@@ -84,15 +166,15 @@
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "18-Pro Coral (Reef to Ps)"
+                  "name": "DriveToPoint"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToIntake"
+                  "name": "MoveToScoringL4"
                 }
               }
             ]
@@ -101,32 +183,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Intake"
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "20-Pro Coral (Ps to Reef)"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveToScoringL2"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ScoreL2"
+            "name": "ScoreL4"
           }
         }
       ]

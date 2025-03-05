@@ -11,13 +11,32 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "22- Mid Coral"
+                  "pathName": "21- Mid Coral"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToScoringL2"
+                  "name": "MoveToScoringL4"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "DriveToPoint"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToScoringL4"
                 }
               }
             ]
@@ -26,7 +45,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreL2"
+            "name": "ScoreL4"
           }
         },
         {
@@ -36,7 +55,26 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "22-Mid Coral (Reef to Ps)"
+                  "pathName": "21- Mid Coral (Reef to Ps)"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "DriveToPoint"
                 }
               },
               {
@@ -61,13 +99,32 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "18-Mid Coral (Ps to Reef)"
+                  "pathName": "22-Mid Coral (Ps to Reef)"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToScoringL2"
+                  "name": "MoveToScoringL4"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "DriveToPoint"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToScoringL4"
                 }
               }
             ]
@@ -76,7 +133,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreL2"
+            "name": "ScoreL4"
           }
         },
         {
@@ -86,7 +143,26 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "18-Mid Coral (Reef to Ps)"
+                  "pathName": "22- Mid Coral (Reed to Ps)"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "DriveToPoint"
                 }
               },
               {
@@ -109,15 +185,15 @@
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "20-Mid Coral (Ps to Reef)"
+                  "name": "DriveToPoint"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToScoringL2"
+                  "name": "MoveToScoringL4"
                 }
               }
             ]
@@ -126,7 +202,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreL2"
+            "name": "ScoreL4"
           }
         }
       ]
