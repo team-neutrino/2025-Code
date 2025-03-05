@@ -47,6 +47,7 @@ public class DriveToPointCommand extends Command {
     m_coralStationPoses = redAlliance.get() ? POSE_LIST.subList(0, 2) : POSE_LIST.subList(2, 4);
 
     obtainTarget();
+    m_reefPoses = m_algae ? REEF_ALGAE : (redAlliance.get() ? RED_REEF : BLUE_REEF);
   }
 
   @Override
