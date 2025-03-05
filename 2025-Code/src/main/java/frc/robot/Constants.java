@@ -78,7 +78,7 @@ public final class Constants {
                 public static final double CORAL_INTAKE = 34;
                 public static final double REMOVE_ALGAE_L2 = 16.0;
                 public static final double REMOVE_ALGAE_L3 = 27.0;
-                public static final double L1 = 10.0;
+                public static final double L1 = 16.0;
                 public static final double L2 = 16.0;
                 public static final double L3 = 30.0;
                 public static final double L4 = 54.9;
@@ -107,7 +107,7 @@ public final class Constants {
                 public static final double GROUND_ALGAE_POSITION = 95;
                 public static final double CORAL_STATION_POSITION = 323;
                 public static final double L1_UNDERHAND = 335.0;
-                public static final double L1_POSITION = 140.0;
+                public static final double L1_POSITION = 130.0;
                 public static final double L2_POSITION = 135.0;
                 public static final double L3_POSITION = 135.0;
                 public static final double L4_POSITION = 133.0;
