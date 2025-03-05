@@ -103,16 +103,7 @@ def valueColorChanged(table, key, value, isNew):
     if value == "pink":
         setTargetColor(pink)
     if value == "purple":
-        setTargetColor(purple)
-    for t in range(19,0,-1):
-        for i in range(t, t + 19):
-            if value == "rainbow":
-                c = Color(hsv=((i-t) * (360/19), 1, 1))
-                if(i < 19):
-                    pixels[i] = (c.red, c.green, c.blue)
-                else:
-                    pixels[i - 19] = (c.red, c.green, c.blue)
-                    
+        setTargetColor(purple)                 
 
 def valueStateChanged(table, key, value, isNew):
     print("valueStateChanged: key: '%s'; value: %s; isNew: %s" % (key, value, isNew))
@@ -139,16 +130,6 @@ color = led.getAutoUpdateValue("color", "")
 state = led.getAutoUpdateValue("state", "")
 color.addListener(valueColorChanged, NetworkTables.NotifyFlags.UPDATE)
 state.addListener(valueStateChanged, NetworkTables.NotifyFlags.UPDATE)
-
-# def printRGB():
-    # print("rc %d" % targetColorRGB[0])
-    # print("gc %d" % targetColorRGB[1])
-    # print("bc %d" % targetColorRGB[2])
-    # print(" ")
-    # print("rp %d" % newColorRGB[0])
-    # print("gp %d" % newColorRGB[1])
-    # print("bp %d" % newColorRGB[2])
-    # print(" ")
 
 while True:
     time.sleep(0.01)

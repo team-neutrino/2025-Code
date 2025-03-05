@@ -8,14 +8,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.StringTopic;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
-import frc.robot.util.Subsystem;
+import static frc.robot.util.Subsystem.*;
 
 public class LED extends SubsystemBase {
 
   private NetworkTableInstance m_nt = NetworkTableInstance.getDefault();
   private StringTopic m_colortopic = m_nt.getStringTopic("/LED/color");
   private StringTopic m_statetopic = m_nt.getStringTopic("/LED/state");
-  private Coral m_coral = Subsystem.coral;
+  private Coral m_coral = coral;
 
   private final StringPublisher m_colorpub;
   private final StringPublisher m_statepub;
@@ -24,37 +24,37 @@ public class LED extends SubsystemBase {
     m_colorpub = m_colortopic.publish();
     m_statepub = m_statetopic.publish();
   }
+
+  private void setStateAndColor(String state, String color){
+    m_statepub.set(state);
+    m_colorpub.set(color);
+  }
   
   @Override
   public void periodic() {
-    if(Subsystem.swerve.isDrivingToPoint() && !Subsystem.elevator.atTargetHeight() && !Subsystem.arm.atTargetAngle()){
-      m_statepub.set("solid");
-      m_colorpub.set("cyan");
-      return;
-    } else if (Subsystem.swerve.isDrivingToPoint() && !Subsystem.elevator.readyToScore()) {
-      m_statepub.set("solid");
-      m_colorpub.set("purple");
-      return;
-    }else if (Subsystem.swerve.isDrivingToPoint()) {
-      m_statepub.set("solid");
-      m_colorpub.set("red");
+    if(swerve.isDrivingToPoint()) {
+      if(!elevator.atTargetHeight() && !arm.atTargetAngle()) {
+        setStateAndColor("solid", "cyan");
+      }
+      else if (!elevator.atTargetHeight()) {
+        setStateAndColor("solid", "purple");
+      } else {
+        setStateAndColor("solid", "red");
+      }
       return;
     }
 
-    if (Subsystem.swerve.isAtPoint() && Subsystem.elevator.readyToScore() && Subsystem.arm.readyToScore()) {
-      m_colorpub.set("green");
-      m_statepub.set("solid");
+    if (swerve.isAtPoint() && elevator.readyToScore() && arm.readyToScore()) {
+      setStateAndColor("solid", "green");
       return;
     }
 
   if (m_coral.debouncedHasCoral()) {
-      m_statepub.set("blinktwice");
-      m_colorpub.set("white");
+    setStateAndColor("blinktwice", "white");
       return;
     }
 
     // default to orange
-    m_colorpub.set("orange");
-    m_statepub.set("solid");
+    setStateAndColor("solid", "orange");
   }
 }
