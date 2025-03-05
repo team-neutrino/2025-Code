@@ -7,7 +7,6 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import static frc.robot.Constants.DriveToPoint.*;
 import frc.robot.command_factories.*;
-import frc.robot.commands.DriveAssistCom;
 import frc.robot.commands.DriveToPointCommand;
 import frc.robot.util.Subsystem;
 
@@ -17,7 +16,6 @@ import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -48,7 +46,7 @@ public class RobotContainer {
   private void configureBindings() {
     // driver controller
     // ONLY RUN CLIMB IN ORDER AS LISTED BELOW vvv
-    // m_driverController.y().onTrue(ClimbFactory.raiseClimb());
+    m_driverController.y().onTrue(ClimbFactory.raiseClimb());
     m_driverController.x().onTrue(ClimbFactory.lockGrabber());
     m_driverController.a().onTrue(ClimbFactory.lowerClimb());
 
@@ -57,7 +55,7 @@ public class RobotContainer {
 
     Command deAlgae = new DriveToPointCommand(m_driverController, true);
     deAlgae.setName(ALGAE_ALIGN_COMMAND);
-    m_driverController.y().whileTrue(deAlgae);
+    m_driverController.rightTrigger().whileTrue(deAlgae);
 
     // buttons controller
     m_buttonsController.x().whileTrue(SuperstructureFactory.scoreL1(m_buttonsController));
