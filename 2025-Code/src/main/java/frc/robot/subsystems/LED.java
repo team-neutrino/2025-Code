@@ -28,6 +28,10 @@ public class LED extends SubsystemBase {
   @Override
   public void periodic() {
 
+    if (Subsystem.climb.m_climbingLEDs) {
+      m_color_pub.set("yellow");
+      m_state_pub.set("solid");
+    }
     if (Subsystem.swerve.isAtPoint()) {
       m_color_pub.set("green");
       m_state_pub.set("solid");

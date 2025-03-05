@@ -51,6 +51,8 @@ public class Climb extends SubsystemBase {
 
   private boolean m_climbMotorOff;
 
+  public boolean m_climbingLEDs = false;
+
   public Climb() {
     configureMotors();
     resetEncoderPosition();
@@ -142,6 +144,7 @@ public class Climb extends SubsystemBase {
 
   public Command lowerClimbCommand() {
     return run(() -> {
+      m_climbingLEDs = true;
       m_targetPositionGrab = LOCK_GRABBER_POSITION;
       m_targetPositionRatchet = RATCHET_UNLOCK_POSITION;
       m_climbMotorOff = false;

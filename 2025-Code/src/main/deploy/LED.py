@@ -104,14 +104,6 @@ def valueColorChanged(table, key, value, isNew):
         setTargetColor(pink)
     if value == "purple":
         setTargetColor(purple)
-    for t in range(19,0,-1):
-        for i in range(t, t + 19):
-            if value == "rainbow":
-                c = Color(hsv=((i-t) * (360/19), 1, 1))
-                if(i < 19):
-                    pixels[i] = (c.red, c.green, c.blue)
-                else:
-                    pixels[i - 19] = (c.red, c.green, c.blue)
                     
 
 def valueStateChanged(table, key, value, isNew):
