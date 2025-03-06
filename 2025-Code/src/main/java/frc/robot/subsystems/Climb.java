@@ -157,13 +157,13 @@ public class Climb extends SubsystemBase {
     }).onlyIf(() -> isLowerClimbSafe()).until(() -> isLowerPosition());
   }
 
-  public Command lockRatchetCommand() {
-    return run(() -> m_targetPositionRatchet = RATCHET_LOCK_POSITION);
-  }
+  // public Command lockRatchetCommand() {
+  // return run(() -> m_targetPositionRatchet = RATCHET_LOCK_POSITION);
+  // }
 
-  public Command unlockRatchetCommand() {
-    return run(() -> m_targetPositionRatchet = RATCHET_UNLOCK_POSITION);
-  }
+  // public Command unlockRatchetCommand() {
+  // return run(() -> m_targetPositionRatchet = RATCHET_UNLOCK_POSITION);
+  // }
 
   public Command hasClimbCommand() {
     return run(() -> {

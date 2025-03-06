@@ -169,7 +169,6 @@ public final class Constants {
                 public static final int START_CLIMB_POSITION = 0;
                 public static final int RAISE_CLIMB_POSITION = 20;
                 public static final int LOWER_CLIMB_POSITION = -20;
-                // needs adjustments/tuning
 
                 public static final int CLIMB_POSITION_TOLERANCE = 3;
                 public static final int GRABBER_POSITION_TOLERANCE = 5;
@@ -179,11 +178,9 @@ public final class Constants {
                 public static final int LOCK_GRABBER_POSITION = 15;
                 public static final int UNLOCK_GRABBER_POSITION = -43;
                 public static final int GRANNY_GRABBER_POSITION = 0;
-                // needs adjustments/tuning
 
-                public static final double RATCHET_LOCK_POSITION = 0.9;
+                public static final double RATCHET_LOCK_POSITION = 0.86;
                 public static final double RATCHET_UNLOCK_POSITION = 1;
-                // needs adjustments/tuning
 
                 public static final double CLIMB_kP = 0.75;
                 public static final double CLIMB_kI = 0;
