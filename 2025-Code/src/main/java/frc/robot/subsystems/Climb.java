@@ -95,14 +95,15 @@ public class Climb extends SubsystemBase {
         .abs(LOWER_CLIMB_POSITION - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_POSITION_TOLERANCE;
   }
 
-  /**
-   * checks if climb is safe to raise
-   */
-  private boolean isRaiseClimbSafe() {
-    return (Math.abs(START_CLIMB_POSITION - m_climbMotor.getPosition().getValueAsDouble()) < CLIMB_POSITION_TOLERANCE &&
-        Math.abs(GRANNY_GRABBER_POSITION - m_grabEncoder.getPosition()) < GRABBER_POSITION_TOLERANCE) ||
-        Math.abs(LOCK_GRABBER_POSITION - m_grabEncoder.getPosition()) < GRABBER_POSITION_TOLERANCE;
-  }
+  // /**
+  // * checks if climb is safe to raise
+  // */
+  // private boolean isRaiseClimbSafe() {
+  // return (Math.abs(GRANNY_GRABBER_POSITION - m_grabEncoder.getPosition()) <
+  // GRABBER_POSITION_TOLERANCE) ||
+  // Math.abs(LOCK_GRABBER_POSITION - m_grabEncoder.getPosition()) <
+  // GRABBER_POSITION_TOLERANCE;
+  // }
 
   /**
    * checks if grabbers are safe to move to lock position
@@ -127,10 +128,12 @@ public class Climb extends SubsystemBase {
 
   public Command prepareClimbCommand() {
     return run(() -> {
-      m_climbMotorOff = true;
+      m_climbMotorOff = false;
+      m_targetPositionClimb = m_climbMotor.getPosition().getValueAsDouble() - 0.5;
       m_targetPositionRatchet = RATCHET_UNLOCK_POSITION;
       m_targetPositionGrab = UNLOCK_GRABBER_POSITION;
-    }).onlyIf(() -> isRaiseClimbSafe());
+    });
+    // .onlyIf(() -> isRaiseClimbSafe());
   }
 
   public Command raiseClimbCommand() {
@@ -234,9 +237,9 @@ public class Climb extends SubsystemBase {
     return m_targetPositionGrab;
   }
 
-  public boolean getIsRaiseClimbSafe() {
-    return isRaiseClimbSafe();
-  }
+  // public boolean getIsRaiseClimbSafe() {
+  // return isRaiseClimbSafe();
+  // }
 
   public boolean getIsLockGrabSafe() {
     return isLockGrabSafe();

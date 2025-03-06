@@ -120,7 +120,7 @@ public class ClimbNT extends Climb {
 
         motorOffPub.set(getMotoroff(), now);
 
-        isRaiseClimbSafePub.set(getIsRaiseClimbSafe(), now);
+        // isRaiseClimbSafePub.set(getIsRaiseClimbSafe(), now);
         isLockGrabSafePub.set(getIsLockGrabSafe(), now);
         isLowerClimbSafePub.set(getIsLowerClimbSafe(), now);
 
