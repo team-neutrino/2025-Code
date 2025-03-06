@@ -97,7 +97,7 @@ public final class Constants {
                 public static final double STAGE_1_FF = 0.25;
                 public static final double STAGE_2_FF = 0.30;
                 public static final double HEIGHT_TOLERANCE = 0.6;
-                public static final double SLOW_MOVE_THRESHOLD = CORAL_INTAKE + HEIGHT_TOLERANCE + 1;
+                public static final double SLOW_MOVE_THRESHOLD = 40.0;
         }
 
         public static class ArmConstants {

@@ -16,4 +16,8 @@ public class CoralFactory {
     public static Command runSlowOuttake() {
         return coral.runIntake(-SLOW_MOTOR_VOLTAGE);
     }
+
+    public static Command runSlowIntake() {
+        return coral.runIntake(SLOW_MOTOR_VOLTAGE);
+    }
 }
