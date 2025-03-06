@@ -15,7 +15,7 @@ public class ClimbFactory {
 
     public static Command lowerClimb() {
         return new SequentialCommandGroup(
-                climb.lowerClimbCommand(),
+                climb.lowerClimbCommand().withTimeout(LOWER_CLIMB_TIMEOUT),
                 climb.hasClimbCommand());
     }
 
