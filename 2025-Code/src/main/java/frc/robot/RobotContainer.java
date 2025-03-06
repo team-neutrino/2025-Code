@@ -7,7 +7,6 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import static frc.robot.Constants.DriveToPoint.*;
 import frc.robot.command_factories.*;
-import frc.robot.commands.DriveAssistCom;
 import frc.robot.commands.DriveToPointCommand;
 import frc.robot.util.Subsystem;
 
@@ -17,7 +16,6 @@ import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -52,15 +50,22 @@ public class RobotContainer {
     m_driverController.x().onTrue(ClimbFactory.lockGrabber());
     m_driverController.a().onTrue(ClimbFactory.lowerClimb());
 
-    m_driverController.leftTrigger().whileTrue(new DriveAssistCom(m_driverController));
     m_driverController.back().whileTrue(swerve.resetYawCommand());
-    m_driverController.b().whileTrue(new DriveToPointCommand(m_driverController));
+    m_driverController.b().whileTrue(new DriveToPointCommand(m_driverController, false));
+
+    Command deAlgae = new DriveToPointCommand(m_driverController, true);
+    deAlgae.setName(ALGAE_ALIGN_COMMAND);
+    m_driverController.rightTrigger().whileTrue(deAlgae);
 
     // buttons controller
     m_buttonsController.x().whileTrue(SuperstructureFactory.scoreL1(m_buttonsController));
     m_buttonsController.y().whileTrue(SuperstructureFactory.scoreL2(m_buttonsController));
     m_buttonsController.b().whileTrue(SuperstructureFactory.scoreL3(m_buttonsController));
     m_buttonsController.a().whileTrue(SuperstructureFactory.scoreL4(m_buttonsController));
+
+    m_buttonsController.rightTrigger().whileTrue(SuperstructureFactory.descoreAlgaeL3());
+    m_buttonsController.leftTrigger().whileTrue(SuperstructureFactory.descoreAlgaeL2());
+
     m_buttonsController.leftBumper().whileTrue(SuperstructureFactory.intakeCoral());
   }
 
@@ -88,7 +93,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("ScoreL1", SuperstructureFactory.scoreCoralL1AutonCommand());
     NamedCommands.registerCommand("Intake", SuperstructureFactory.intakeCoralAutonCommand());
     NamedCommands.registerCommand("DriveToPoint",
-        new DriveToPointCommand(m_driverController).until(() -> swerve.isAtPointDebounced()));
+        new DriveToPointCommand(m_driverController, false).until(() -> swerve.isAtPointDebounced()));
   }
 
   /**

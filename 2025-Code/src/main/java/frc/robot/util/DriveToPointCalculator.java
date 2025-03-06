@@ -38,4 +38,19 @@ public class DriveToPointCalculator {
 
                 return new Pose2d(x, y, Rotation2d.fromRadians(stationAngle));
         }
+
+        public static Pose2d CalculateAlgaePoint(Pose3d tagPosition) {
+                double reefAngle = tagPosition.getRotation().getAngle();
+                double perpendicularReefAngle = reefAngle - Math.toRadians(90);
+
+                double offsetX = (offsetOfArmAlgae)
+                                * Math.cos(perpendicularReefAngle);
+                double offsetY = (offsetOfArmAlgae)
+                                * Math.sin(perpendicularReefAngle);
+
+                double x = tagPosition.getX() + offsetToReefAlgae * Math.cos(reefAngle) + offsetX;
+                double y = tagPosition.getY() + offsetToReefAlgae * Math.sin(reefAngle) + offsetY;
+
+                return new Pose2d(x, y, Rotation2d.fromRadians(reefAngle + Math.PI));
+        }
 }
