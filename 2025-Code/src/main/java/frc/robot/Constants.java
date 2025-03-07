@@ -265,7 +265,7 @@ public final class Constants {
                 public static final double reefWidth = 0.33;
 
                 public static final double offsetOfArmAlgae = 0.33;
-                public static final double offsetToReefAlgae = 0.08;
+                public static final double offsetToReefAlgae = 0.09;
                 // negative is more right
 
                 // CURRENTLY TESTING WITH THIS LIBRARY THING
