@@ -57,9 +57,6 @@ public class RobotContainer {
     deAlgae.setName(ALGAE_ALIGN_COMMAND);
     m_driverController.rightTrigger().whileTrue(deAlgae);
 
-    // m_driverController.leftBumper().onTrue(climb.unlockRatchetCommand());
-    // m_driverController.rightBumper().onTrue(climb.lockRatchetCommand());
-
     // buttons controller
     m_buttonsController.x().whileTrue(SuperstructureFactory.scoreL1(m_buttonsController));
     m_buttonsController.y().whileTrue(SuperstructureFactory.scoreL2(m_buttonsController));
