@@ -89,9 +89,9 @@ public final class Constants {
                 public static final double FLOOR_TO_ELEVATOR_TOP = 70.88;
                 public static final double FLOOR_TO_TOP_OF_BOTTOM_TUBE = 11.88;
                 public static final double MAX_VELOCITY = 4000;
-                public static final double MAX_ACCELERATION = 2000;
+                public static final double MAX_ACCELERATION = 3000;
                 public static final double ALLOWED_ERROR = 0.1;
-                public static final double P_VAL = 0.11;
+                public static final double P_VAL = 0.15;
                 public static final double I_VAL = 0.0;
                 public static final double D_VAL = 0.0;
                 public static final double STAGE_1_FF = 0.25;
