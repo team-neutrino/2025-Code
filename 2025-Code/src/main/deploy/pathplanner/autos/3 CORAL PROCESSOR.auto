@@ -157,12 +157,6 @@
                 "data": {
                   "pathName": "18-Pro Coral (Ps to Reef)"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveToScoringL3"
-                }
               }
             ]
           }
@@ -180,7 +174,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToScoringL3"
+                  "name": "MoveToScoringL4"
                 }
               }
             ]
@@ -189,7 +183,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreL3"
+            "name": "ScoreL4"
           }
         }
       ]
