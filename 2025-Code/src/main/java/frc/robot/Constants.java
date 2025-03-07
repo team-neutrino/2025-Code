@@ -256,7 +256,7 @@ public final class Constants {
                 public static final AprilTagFieldLayout layout = AprilTagFieldLayout
                                 .loadField(AprilTagFields.k2025ReefscapeWelded);
                 // right is more negative, left is more positive
-                public static final double offsetOfArmReef = .3;
+                public static final double offsetOfArmReef = .29; // .3
                 public static final double offsetOfArmReefLeft = .35;
                 // right is more negative, left is more positive
                 public static final double offsetOfArmStation = -.42;

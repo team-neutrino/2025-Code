@@ -56,6 +56,7 @@ public class RobotContainer {
     Command deAlgae = new DriveToPointCommand(m_driverController, true);
     deAlgae.setName(ALGAE_ALIGN_COMMAND);
     m_driverController.rightTrigger().whileTrue(deAlgae);
+    m_driverController.leftTrigger().whileTrue(swerve.slowDefaultCommand(m_driverController));
 
     // buttons controller
     m_buttonsController.x().whileTrue(SuperstructureFactory.scoreL1(m_buttonsController));
@@ -109,7 +110,7 @@ public class RobotContainer {
       return new InstantCommand();
     }
     try {
-      auto = new PathPlannerAuto("2 CORAL TOP");
+      auto = new PathPlannerAuto("2 CORAL PROCESSOR");
     } catch (Exception e) {
       auto = new PathPlannerAuto("Nothing");
     }
