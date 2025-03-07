@@ -24,7 +24,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 public class RobotContainer {
   // @SuppressWarnings("unused")
   private Subsystem subsystemContainer;
-  private Command m_autonPath = new PathPlannerAuto("3 CORAL PROCESSOR");
+  private Command m_autonPath;
   private final CommandXboxController m_driverController = new CommandXboxController(
       OperatorConstants.kDriverControllerPort);
   private final CommandXboxController m_buttonsController = new CommandXboxController(
@@ -39,6 +39,7 @@ public class RobotContainer {
     AprilTagFieldLayout tmp = Constants.DriveToPoint.layout;
     DigitalInput m_robot_select = new DigitalInput(9);
     subsystemContainer = new Subsystem(!m_robot_select.get());
+    m_autonPath = new PathPlannerAuto("3 CORAL PROCESSOR");
     configureBindings();
     configureDefaultCommands();
     configureNamedCommands();
