@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 public class RobotContainer {
   // @SuppressWarnings("unused")
   private Subsystem subsystemContainer;
+  private Command m_autonPath = new PathPlannerAuto("3 CORAL PROCESSOR");
   private final CommandXboxController m_driverController = new CommandXboxController(
       OperatorConstants.kDriverControllerPort);
   private final CommandXboxController m_buttonsController = new CommandXboxController(
@@ -110,7 +111,7 @@ public class RobotContainer {
       return new InstantCommand();
     }
     try {
-      auto = new PathPlannerAuto("3 CORAL PROCESSOR");
+      auto = m_autonPath;
     } catch (Exception e) {
       auto = new PathPlannerAuto("Nothing");
     }
