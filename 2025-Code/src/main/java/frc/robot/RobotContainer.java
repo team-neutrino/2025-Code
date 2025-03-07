@@ -110,7 +110,7 @@ public class RobotContainer {
       return new InstantCommand();
     }
     try {
-      auto = new PathPlannerAuto("2 CORAL PROCESSOR");
+      auto = new PathPlannerAuto("3 CORAL PROCESSOR");
     } catch (Exception e) {
       auto = new PathPlannerAuto("Nothing");
     }

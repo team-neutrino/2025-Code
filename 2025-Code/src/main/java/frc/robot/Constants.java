@@ -260,7 +260,7 @@ public final class Constants {
                 public static final double offsetOfArmReefLeft = .35;
                 // right is more negative, left is more positive
                 public static final double offsetOfArmStation = -.42;
-                public static final double offsetToReef = .54;
+                public static final double offsetToReef = .525;
                 public static final double offsetToStation = .595;
                 public static final double reefWidth = 0.33;
 

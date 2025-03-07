@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6999818571834815,
-        "y": 1.6408258021255933
+        "x": 2.4934426229508198,
+        "y": 1.3817110655737712
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.1,
-        "y": 4.1
+        "x": 5.826024590163935,
+        "y": 1.9691086065573769
       },
       "prevControl": {
-        "x": 1.8471227425322534,
-        "y": 3.2571162045361226
+        "x": 5.5731473326961884,
+        "y": 1.1262248110934998
       },
       "nextControl": null,
       "isLocked": false,
@@ -41,13 +41,13 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 0.0
+    "velocity": 5.0,
+    "rotation": 119.99999999999999
   },
   "reversed": false,
   "folder": "Processor Side",
   "idealStartingState": {
-    "velocity": 0,
+    "velocity": 0.0,
     "rotation": 50.0
   },
   "useDefaultConstraints": false
