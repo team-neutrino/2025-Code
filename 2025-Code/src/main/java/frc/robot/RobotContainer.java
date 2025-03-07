@@ -39,10 +39,11 @@ public class RobotContainer {
     AprilTagFieldLayout tmp = Constants.DriveToPoint.layout;
     DigitalInput m_robot_select = new DigitalInput(9);
     subsystemContainer = new Subsystem(!m_robot_select.get());
-    m_autonPath = new PathPlannerAuto("3 CORAL PROCESSOR");
     configureBindings();
     configureDefaultCommands();
     configureNamedCommands();
+    m_autonPath = new PathPlannerAuto("3 CORAL PROCESSOR");
+
   }
 
   private void configureBindings() {
