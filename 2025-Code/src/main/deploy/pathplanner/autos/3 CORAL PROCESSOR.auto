@@ -55,13 +55,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "SwerveDefault"
+                  "name": "ScoreL4"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "ScoreL4"
+                  "name": "SwerveDefault"
                 }
               }
             ]
@@ -112,13 +112,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "SwerveDefault"
+                  "name": "Intake"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "Intake"
+                  "name": "SwerveDefault"
                 }
               }
             ]
@@ -163,13 +163,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "SwerveDefault"
+                  "name": "ScoreL4"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "ScoreL4"
+                  "name": "SwerveDefault"
                 }
               }
             ]
@@ -201,13 +201,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "SwerveDefault"
+                  "name": "Intake"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "Intake"
+                  "name": "SwerveDefault"
                 }
               }
             ]
@@ -252,13 +252,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "SwerveDefault"
+                  "name": "ScoreL4"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "ScoreL4"
+                  "name": "SwerveDefault"
                 }
               }
             ]

@@ -20,8 +20,8 @@
         "y": 1.2618340163934432
       },
       "prevControl": {
-        "x": 6.245594262295082,
-        "y": 0.5425717213114762
+        "x": 6.209631147540984,
+        "y": 0.734375
       },
       "nextControl": null,
       "isLocked": false,
@@ -41,14 +41,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 6.0,
+    "velocity": 4.0,
     "rotation": 122.0
   },
   "reversed": false,
   "folder": "Processor Side",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 90.0
   },
   "useDefaultConstraints": false
 }
