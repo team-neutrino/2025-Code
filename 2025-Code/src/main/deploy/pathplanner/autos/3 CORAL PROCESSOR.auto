@@ -61,7 +61,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "SwerveDefault"
+                  "name": "DriveToPoint"
                 }
               }
             ]
@@ -101,6 +101,12 @@
                 "data": {
                   "name": "MoveToIntake"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeOnly"
+                }
               }
             ]
           }
@@ -118,7 +124,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "SwerveDefault"
+                  "name": "DriveToPoint"
                 }
               }
             ]
@@ -169,7 +175,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "SwerveDefault"
+                  "name": "DriveToPoint"
                 }
               }
             ]
@@ -190,6 +196,12 @@
                 "data": {
                   "name": "MoveToIntake"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeOnly"
+                }
               }
             ]
           }
@@ -207,7 +219,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "SwerveDefault"
+                  "name": "DriveToPoint"
                 }
               }
             ]
@@ -258,7 +270,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "SwerveDefault"
+                  "name": "DriveToPoint"
                 }
               }
             ]

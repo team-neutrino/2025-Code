@@ -43,7 +43,7 @@ public final class Constants {
 
         public static class SwerveConstants {
                 public static final double MAX_SPEED = 5.7;
-                public static final double SLOW_SWERVE_SPEED = 1;
+                public static final double SLOW_SWERVE_SPEED = 3;
                 public static final double MAX_ROTATION_SPEED = 1.5 * Math.PI;
                 public static final double SLOW_ROTATION_SPEED = 0.8 * Math.PI;
                 public static final double DRIVE_ASSIST_KP = 4;
@@ -89,7 +89,7 @@ public final class Constants {
                 public static final double FLOOR_TO_ELEVATOR_TOP = 70.88;
                 public static final double FLOOR_TO_TOP_OF_BOTTOM_TUBE = 11.88;
                 public static final double MAX_VELOCITY = 4000;
-                public static final double MAX_ACCELERATION = 3000;
+                public static final double MAX_ACCELERATION = 6000;
                 public static final double ALLOWED_ERROR = 0.1;
                 public static final double P_VAL = 0.15;
                 public static final double I_VAL = 0.0;
@@ -97,7 +97,7 @@ public final class Constants {
                 public static final double STAGE_1_FF = 0.25;
                 public static final double STAGE_2_FF = 0.30;
                 public static final double HEIGHT_TOLERANCE = 0.6;
-                public static final double SLOW_MOVE_THRESHOLD = 40.0;
+                public static final double SLOW_MOVE_THRESHOLD = 45.0;
         }
 
         public static class ArmConstants {
@@ -256,12 +256,12 @@ public final class Constants {
                 public static final AprilTagFieldLayout layout = AprilTagFieldLayout
                                 .loadField(AprilTagFields.k2025ReefscapeWelded);
                 // right is more negative, left is more positive
-                public static final double offsetOfArmReef = .29; // .3
+                public static final double offsetOfArmReef = .3;
                 public static final double offsetOfArmReefLeft = .35;
                 // right is more negative, left is more positive
                 public static final double offsetOfArmStation = -.42;
-                public static final double offsetToReef = .525;
-                public static final double offsetToStation = .595;
+                public static final double offsetToReef = .515;
+                public static final double offsetToStation = .58;
                 public static final double reefWidth = 0.33;
 
                 public static final double offsetOfArmAlgae = 0.33;

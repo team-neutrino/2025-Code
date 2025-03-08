@@ -100,6 +100,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("DriveToPoint",
         new DriveToPointCommand(m_driverController, false).until(() -> swerve.isAtPointDebounced()));
     NamedCommands.registerCommand("SwerveDefault", swerve.getDefaultCommand());
+    NamedCommands.registerCommand("IntakeOnly", CoralFactory.runIntake());
   }
 
   /**
