@@ -12,7 +12,7 @@ public class Subsystem {
 
     public static final Coral coral = new CoralNT();
     public static final Elevator elevator = new ElevatorNT();
-    public static final Climb climb = new ClimbNT();
+    public static final Climb climb = new Climb();
     public static Swerve swerve = null;
     public static Limelight limelight = null;
     public static final LED LED = new LED();

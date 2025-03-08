@@ -4,6 +4,8 @@ import edu.wpi.first.networktables.BooleanPublisher;
 import edu.wpi.first.networktables.BooleanTopic;
 import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.DoubleTopic;
+import edu.wpi.first.networktables.IntegerPublisher;
+import edu.wpi.first.networktables.IntegerTopic;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTablesJNI;
 import frc.robot.subsystems.Elevator;
@@ -20,11 +22,19 @@ public class ElevatorNT extends Elevator {
     DoubleTopic targetPosition = nt.getDoubleTopic("/elevator/target_position");
     BooleanTopic at_limit = nt.getBooleanTopic("/elevator/at_limit");
     BooleanTopic scoreReady = nt.getBooleanTopic("/elevator/score_ready");
+    DoubleTopic busVoltage = nt.getDoubleTopic("/elevator/bus_voltage");
+    DoubleTopic outputCurrent = nt.getDoubleTopic("/elevator/output_current");
+    IntegerTopic rawBits = nt.getIntegerTopic("/elevator/raw_bits_fault");
+    BooleanTopic gateDriver = nt.getBooleanTopic("/elevator/gate_driver_fault");
     final DoublePublisher encoderVelocityPub;
     final DoublePublisher encoderPositionPub;
     final DoublePublisher targetPositionPub;
     final BooleanPublisher lowLimitPub;
     final BooleanPublisher scoreReadyPub;
+    final DoublePublisher busVoltagePub;
+    final DoublePublisher outputCurrentPub;
+    final IntegerPublisher rawBitsPub;
+    final BooleanPublisher gateDriverPub;
     private PIDTuner m_PIDTuner;
     private double m_previousP = ElevatorConstants.P_VAL;
     private double m_previousI = ElevatorConstants.I_VAL;
@@ -54,6 +64,18 @@ public class ElevatorNT extends Elevator {
         scoreReadyPub = scoreReady.publish();
         scoreReadyPub.setDefault(false);
 
+        busVoltagePub = busVoltage.publish();
+        busVoltagePub.setDefault(0);
+
+        outputCurrentPub = outputCurrent.publish();
+        outputCurrentPub.setDefault(0);
+
+        rawBitsPub = rawBits.publish();
+        rawBitsPub.setDefault(0);
+
+        gateDriverPub = gateDriver.publish();
+        gateDriverPub.setDefault(false);
+
         m_PIDTuner = new PIDTuner("elevator/{tuning}PID");
 
         m_PIDTuner.setP(m_previousP);
@@ -82,6 +104,10 @@ public class ElevatorNT extends Elevator {
         targetPositionPub.set(getTargetHeight(), now);
         lowLimitPub.set(isAtBottom(), now);
         scoreReadyPub.set(readyToScore(), now);
+        busVoltagePub.set(getBusVoltage(), now);
+        outputCurrentPub.set(getOutputCurrent(), now);
+        rawBitsPub.set(getFaultRawBits(), now);
+        gateDriverPub.set(getGateDriver(), now);
 
         if (m_PIDTuner.isDifferentValues(m_previousP, m_previousI, m_previousD)) {
             changePID(m_PIDTuner.getP(), m_PIDTuner.getI(), m_PIDTuner.getD());
