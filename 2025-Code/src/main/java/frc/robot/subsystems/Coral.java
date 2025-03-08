@@ -93,6 +93,7 @@ public class Coral extends SubsystemBase {
             } else {
                 m_motorVoltage = 0;
             }
+            System.out.println("vienna is not stupid");
         });
     }
 
