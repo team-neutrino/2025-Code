@@ -123,7 +123,6 @@ public class Climb extends SubsystemBase {
       m_targetPositionRatchet = RATCHET_UNLOCK_POSITION;
       m_targetPositionGrab = UNLOCK_GRABBER_POSITION;
     });
-    // .onlyIf(() -> isRaiseClimbSafe());
   }
 
   public Command raiseClimbCommand() {
@@ -218,10 +217,6 @@ public class Climb extends SubsystemBase {
   public double getGrabMotorTargetPosition() {
     return m_targetPositionGrab;
   }
-
-  // public boolean getIsRaiseClimbSafe() {
-  // return isRaiseClimbSafe();
-  // }
 
   public boolean getIsLockGrabSafe() {
     return isLockGrabSafe();
