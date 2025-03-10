@@ -22,8 +22,9 @@ import java.util.List;
 public class DriveToPointCommand extends Command {
   private DriveToPointController m_pointControl = new DriveToPointController();
   private CommandXboxController m_xboxController;
-  private List<Pose2d> m_reefPoses;
-  private List<Pose2d> m_coralStationPoses;
+  // private List<Pose2d> m_reefPoses;
+  // private List<Pose2d> m_coralStationPoses;
+  private List<Pose2d> localList;
   private boolean m_bumperWasPressed = false;
   private boolean m_hadGamePiece;
   private final boolean m_algae;
@@ -43,11 +44,7 @@ public class DriveToPointCommand extends Command {
       System.out.println("NO ALLIANCE VALUE YET");
       return;
     }
-    m_reefPoses = m_algae ? REEF_ALGAE : (redAlliance.get() ? RED_REEF_RIGHT : BLUE_REEF_RIGHT);
-    m_coralStationPoses = redAlliance.get() ? POSE_LIST.subList(0, 2) : POSE_LIST.subList(2, 4);
-
     obtainTarget();
-    m_reefPoses = m_algae ? REEF_ALGAE : (redAlliance.get() ? RED_REEF : BLUE_REEF);
   }
 
   @Override
@@ -76,16 +73,21 @@ public class DriveToPointCommand extends Command {
   private void obtainTarget() {
     swerve.setDrivingToPoint(true);
     swerve.setAtPoint(false);
-    if (m_algae) {
-      m_pointControl.setTargetNearest(m_reefPoses);
-      return;
-    }
+
     boolean hasGamePiece = Subsystem.coral.hasCoral();
     m_hadGamePiece = hasGamePiece;
+    List<Pose2d> m_reefPoses = m_algae ? REEF_ALGAE : (redAlliance.get() ? RED_REEF_RIGHT : BLUE_REEF_RIGHT);
+    List<Pose2d> m_coralStationPoses = redAlliance.get() ? POSE_LIST.subList(0, 6) : POSE_LIST.subList(6, 12);
+    localList = hasGamePiece ? m_reefPoses : m_coralStationPoses;
+    m_pointControl.setTargetNearest(localList);
     if (hasGamePiece) {
-      m_pointControl.setTargetNearest(m_reefPoses);
+      localList = m_algae ? REEF_ALGAE : (redAlliance.get() ? RED_REEF : BLUE_REEF);
     } else {
-      m_pointControl.setTargetNearest(m_coralStationPoses);
+      if (localList.indexOf(m_pointControl.getTarget()) < 3) {
+        localList = localList.subList(0, 3);
+      } else {
+        localList = localList.subList(3, 6);
+      }
     }
   }
 
@@ -103,16 +105,21 @@ public class DriveToPointCommand extends Command {
     if (m_bumperWasPressed && (!leftBumper && !rightBumper)) {
       m_bumperWasPressed = false;
     }
-    if (!m_reefPoses.contains(m_pointControl.getTarget()) || m_bumperWasPressed) {
+    // if (!m_reefPoses.contains(m_pointControl.getTarget()) || m_bumperWasPressed)
+    // {
+    // return;
+    // }
+    if (m_bumperWasPressed) { // TODO: TESTING, REMOVE COMMENT OR REPLACE
       return;
     }
     m_bumperWasPressed = leftBumper || rightBumper;
 
-    int id = m_reefPoses.indexOf(m_pointControl.getTarget());
+    int id = localList.indexOf(m_pointControl.getTarget());
     id += leftBumper ? -1 : rightBumper ? 1 : 0;
-    id = id > 11 ? 0 : id < 0 ? 11 : id; // wrap value
+    // id = id > 11 ? 0 : id < 0 ? 11 : id;
+    id = id >= localList.size() ? 0 : id < 0 ? localList.size() - 1 : id;
 
-    m_pointControl.setTarget(m_reefPoses.get(id));
+    m_pointControl.setTarget(localList.get(id));
   }
 
   private void drive() {

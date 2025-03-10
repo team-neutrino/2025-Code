@@ -260,6 +260,7 @@ public final class Constants {
                 public static final double offsetOfArmReefLeft = .35;
                 // right is more negative, left is more positive
                 public static final double offsetOfArmStation = -.42;
+                public static final double sidewaysOffsetStation = .2;
                 public static final double offsetToReef = .515;
                 public static final double offsetToStation = .58;
                 public static final double reefWidth = 0.33;
@@ -269,11 +270,33 @@ public final class Constants {
                 // negative is more right
 
                 // CURRENTLY TESTING WITH THIS LIBRARY THING
-                public static final Pose2d RED_PLAYER_STATION_1 = CalculatePSPoint(layout.getTagPose(1).get());
-                public static final Pose2d RED_PLAYER_STATION_2 = CalculatePSPoint(layout.getTagPose(2).get());
+                public static final Pose2d RED_PLAYER_STATION_1_CENTER = CalculatePSPoint(layout.getTagPose(1).get(),
+                                0);
+                public static final Pose2d RED_PLAYER_STATION_1_LEFT = CalculatePSPoint(layout.getTagPose(1).get(),
+                                offsetToStation);
+                public static final Pose2d RED_PLAYER_STATION_1_RIGHT = CalculatePSPoint(layout.getTagPose(1).get(),
+                                -offsetToStation);
 
-                public static final Pose2d BLUE_PLAYER_STATION_13 = CalculatePSPoint(layout.getTagPose(13).get());
-                public static final Pose2d BLUE_PLAYER_STATION_12 = CalculatePSPoint(layout.getTagPose(12).get());
+                public static final Pose2d RED_PLAYER_STATION_2_CENTER = CalculatePSPoint(layout.getTagPose(2).get(),
+                                0);
+                public static final Pose2d RED_PLAYER_STATION_2_LEFT = CalculatePSPoint(layout.getTagPose(2).get(),
+                                sidewaysOffsetStation);
+                public static final Pose2d RED_PLAYER_STATION_2_RIGHT = CalculatePSPoint(layout.getTagPose(2).get(),
+                                -sidewaysOffsetStation);
+
+                public static final Pose2d BLUE_PLAYER_STATION_13_CENTER = CalculatePSPoint(layout.getTagPose(13).get(),
+                                0);
+                public static final Pose2d BLUE_PLAYER_STATION_13_LEFT = CalculatePSPoint(layout.getTagPose(13).get(),
+                                sidewaysOffsetStation);
+                public static final Pose2d BLUE_PLAYER_STATION_13_RIGHT = CalculatePSPoint(layout.getTagPose(13).get(),
+                                -sidewaysOffsetStation);
+
+                public static final Pose2d BLUE_PLAYER_STATION_12_CENTER = CalculatePSPoint(layout.getTagPose(12).get(),
+                                0);
+                public static final Pose2d BLUE_PLAYER_STATION_12_LEFT = CalculatePSPoint(layout.getTagPose(12).get(),
+                                sidewaysOffsetStation);
+                public static final Pose2d BLUE_PLAYER_STATION_12_RIGHT = CalculatePSPoint(layout.getTagPose(12).get(),
+                                -sidewaysOffsetStation);
 
                 public static final Pose2d RED_REEF_6A = CalculatePoint(layout.getTagPose(6).get(), true);
                 public static final Pose2d RED_REEF_6B = CalculatePoint(layout.getTagPose(6).get(), false);
@@ -303,16 +326,18 @@ public final class Constants {
 
                 // Don't reorder this list
 
-                public static final List<Pose2d> POSE_LIST = List.of(RED_PLAYER_STATION_1, RED_PLAYER_STATION_2,
-                                BLUE_PLAYER_STATION_12, BLUE_PLAYER_STATION_13, RED_REEF_6A, RED_REEF_6B, RED_REEF_7A,
-                                RED_REEF_7B,
-                                RED_REEF_8A,
-                                RED_REEF_8B, RED_REEF_9A, RED_REEF_9B, RED_REEF_10A, RED_REEF_10B, RED_REEF_11A,
-                                RED_REEF_11B,
-                                BLUE_REEF_17A,
-                                BLUE_REEF_17B, BLUE_REEF_18A, BLUE_REEF_18B, BLUE_REEF_19A, BLUE_REEF_19B,
-                                BLUE_REEF_20A, BLUE_REEF_20B,
-                                BLUE_REEF_21A, BLUE_REEF_21B, BLUE_REEF_22A, BLUE_REEF_22B);
+                public static final List<Pose2d> POSE_LIST = List.of(RED_PLAYER_STATION_1_LEFT,
+                                RED_PLAYER_STATION_1_CENTER, RED_PLAYER_STATION_1_RIGHT, RED_PLAYER_STATION_2_LEFT,
+                                RED_PLAYER_STATION_2_CENTER, RED_PLAYER_STATION_2_RIGHT,
+                                BLUE_PLAYER_STATION_12_LEFT, BLUE_PLAYER_STATION_12_CENTER,
+                                BLUE_PLAYER_STATION_12_RIGHT, BLUE_PLAYER_STATION_13_LEFT,
+                                BLUE_PLAYER_STATION_13_CENTER, BLUE_PLAYER_STATION_13_RIGHT, RED_REEF_6A, RED_REEF_6B,
+                                RED_REEF_7A, RED_REEF_7B, RED_REEF_8A, RED_REEF_8B, RED_REEF_9A, RED_REEF_9B,
+                                RED_REEF_10A, RED_REEF_10B, RED_REEF_11A, RED_REEF_11B, BLUE_REEF_17A, BLUE_REEF_17B,
+                                BLUE_REEF_18A, BLUE_REEF_18B, BLUE_REEF_19A, BLUE_REEF_19B, BLUE_REEF_20A,
+                                BLUE_REEF_20B, BLUE_REEF_21A, BLUE_REEF_21B, BLUE_REEF_22A, BLUE_REEF_22B);
+
+                public static final List<Pose2d> PLAYER_STATION = List.of();
 
                 public static final List<Pose2d> RED_REEF = List.of(RED_REEF_6A, RED_REEF_6B, RED_REEF_7A, RED_REEF_7B,
                                 RED_REEF_8A,
