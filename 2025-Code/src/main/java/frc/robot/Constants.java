@@ -72,12 +72,14 @@ public final class Constants {
                 public static final int MOTOR_ID = 2;
                 public static final int FOLLOWER_ID = 3;
                 public static final int CURRENT_LIMIT = 60;
-                public static final double DEFAULT = 0.0;
+                public static final double DEFAULT = 2.0;
                 public static final double BOTTOM_POSITION = 0.0;
                 public static final double STAGE_ONE_UP = 26.0;
                 public static final double CORAL_INTAKE = 34;
-                public static final double REMOVE_ALGAE_L2 = 16.0;
-                public static final double REMOVE_ALGAE_L3 = 27.0;
+                public static final double REMOVE_ALGAE_L2 = 40.0;
+                public static final double REMOVE_ALGAE_L3 = 50.0;
+                public static final double SCORE_ALGAE_BARGE = 54.9;
+                public static final double SCORE_ALGAE_PROCESSOR = 30.0;
                 public static final double L1 = 10.0;
                 public static final double L2 = 16.0;
                 public static final double L3 = 30.0;
@@ -103,7 +105,7 @@ public final class Constants {
         public static class ArmConstants {
                 public static final double STARTING_POSITION = 180;
                 public static final double DEFAULT_POSITION = 160;
-                public static final double DEFAULT_BACK_POSITION = 250;
+                public static final double DEFAULT_BACK_POSITION = 230;
                 public static final double GROUND_ALGAE_POSITION = 95;
                 public static final double CORAL_STATION_POSITION = 323;
                 public static final double L1_UNDERHAND = 335.0;
@@ -111,15 +113,17 @@ public final class Constants {
                 public static final double L2_POSITION = 135.0;
                 public static final double L3_POSITION = 135.0;
                 public static final double L4_POSITION = 133.0;
+                public static final double BARGE_POSITION = 210.0;
+                public static final double PROCESSOR_POSITION = 230.0;
                 public static final double EVACUATE_ANGLE = 15.0;
-                public static final double REEF_L2_DESCORE_POSITION = 100.0;
-                public static final double REEF_L3_DESCORE_POSITION = 100.0;
+                public static final double REEF_DESCORE_POSITION = 37.0;
                 public static final double DRIVING_ANGLE_TOLERANCE = 2.0;
 
                 public static final double HITTING_LOW_HARD_LIMIT = 90;
                 public static final double HITTING_HIGH_HARD_LIMIT = 270;
                 public static final double ALMOST_BACK_LIMIT = 200;
                 public static final double ALMOST_FRONT_LIMIT = 170;
+                public static final double ALGAE_FRONT_SAFE_ANGLE = 90;
 
                 public static final int MOTOR_ID = 10;
 

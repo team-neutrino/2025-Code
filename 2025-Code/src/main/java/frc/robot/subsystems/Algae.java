@@ -82,6 +82,12 @@ public class Algae extends SubsystemBase {
         m_motor.set(m_motorVoltage);
     }
 
+    public Command algaeDefaultCommand() {
+        return run(() -> {
+            m_motorVoltage = 0;
+        });
+    }
+
     /**
      * Gives an instance of the run intake command., sets the intake voltage to the
      * speed provided.

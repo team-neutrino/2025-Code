@@ -25,14 +25,26 @@ public class SuperstructureFactory {
     }
 
     public static Command descoreAlgaeL2() {
-        Command elevatorCom = ElevatorFactory.movetoRemoveAlgaeL2();
+        Command elevatorCom = ElevatorFactory.moveToRemoveAlgaeL2();
         Command armCom = ArmFactory.armToDescoreL2();
         return elevatorCom.alongWith(armCom);
     }
 
     public static Command descoreAlgaeL3() {
-        Command elevatorCom = ElevatorFactory.movetoRemoveAlgaeL3();
+        Command elevatorCom = ElevatorFactory.moveToRemoveAlgaeL3();
         Command armCom = ArmFactory.armToDescoreL3();
+        return elevatorCom.alongWith(armCom);
+    }
+
+    public static Command scoreBargeCommand() {
+        Command elevatorCom = ElevatorFactory.moveToScoreBarge();
+        Command armCom = ArmFactory.armToScoreBarge();
+        return elevatorCom.alongWith(armCom);
+    }
+
+    public static Command scoreProcessorCommand() {
+        Command elevatorCom = ElevatorFactory.moveToScoreProcessor();
+        Command armCom = ArmFactory.armToScoreProcessor();
         return elevatorCom.alongWith(armCom);
     }
 

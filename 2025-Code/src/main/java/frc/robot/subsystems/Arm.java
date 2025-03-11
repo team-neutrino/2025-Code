@@ -155,8 +155,12 @@ public class Arm extends SubsystemBase {
     double safeAngle = targetAngle;
 
     if (Subsystem.elevator.getHeight() < ElevatorConstants.L2 - ElevatorConstants.HEIGHT_TOLERANCE) {
-      if (getAngle() < 180 && getTargetAngle() > DEFAULT_POSITION) {
-        safeAngle = DEFAULT_POSITION;
+      if ((getAngle() < 180 && getTargetAngle() > DEFAULT_POSITION) || getTargetAngle() < 90) {
+        if (Subsystem.algae.debouncedHasAlgae()) {
+          safeAngle = ALGAE_FRONT_SAFE_ANGLE;
+        } else {
+          safeAngle = DEFAULT_POSITION;
+        }
       }
       if (getAngle() > 180 && getTargetAngle() < DEFAULT_BACK_POSITION) {
         safeAngle = DEFAULT_BACK_POSITION;
