@@ -24,14 +24,13 @@ public class DriveToPointCalculator {
                 return new Pose2d(x, y, Rotation2d.fromRadians(reefAngle + Math.PI));
         }
 
-        public static Pose2d CalculatePSPoint(Pose3d tagPosition) {
+        public static Pose2d CalculatePSPoint(Pose3d tagPosition, double sidewaysOffset) {
                 double stationAngle = tagPosition.getRotation().getAngle();
                 double perpendicularReefAngle = stationAngle - Math.toRadians(90);
 
-                double leftRightOffsetX = offsetOfArmStation * Math.cos(perpendicularReefAngle)
-                                + (reefWidth / 2) * Math.cos(perpendicularReefAngle);
-                double leftRightOffsetY = offsetOfArmStation * Math.sin(perpendicularReefAngle)
-                                + (reefWidth / 2) * Math.sin(perpendicularReefAngle);
+                double cos = Math.cos(perpendicularReefAngle), sin = Math.sin(perpendicularReefAngle);
+                double leftRightOffsetX = (offsetOfArmStation * cos) + ((reefWidth / 2) * cos) + (sidewaysOffset * cos);
+                double leftRightOffsetY = (offsetOfArmStation * sin) + ((reefWidth / 2) * sin) + (sidewaysOffset * sin);
 
                 double x = tagPosition.getX() + (offsetToStation * Math.cos(stationAngle)) + leftRightOffsetX;
                 double y = tagPosition.getY() + (offsetToStation * Math.sin(stationAngle)) + leftRightOffsetY;
