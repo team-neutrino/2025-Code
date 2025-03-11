@@ -3,16 +3,37 @@ package frc.robot.command_factories;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.DriveToPoint.Mode;
 import frc.robot.commands.DriveToPointCommand;
 import frc.robot.subsystems.Algae;
+import frc.robot.Constants.*;
+import frc.robot.commands.DriveToPointCommand;
 
 import static frc.robot.util.Subsystem.*;
 
 import java.util.function.BooleanSupplier;
 
 public class SuperstructureFactory {
+    public static Command dynamicCoralIntake() {
+        Command ret = new RunCommand(() -> {
+            Command swerveCom = swerve.getCurrentCommand();
+            DriveToPointCommand casted = swerveCom.getName().equals(DriveToPoint.DRIVE_ASSIST_COMMAND)
+                    ? (DriveToPointCommand) swerveCom
+                    : null;
+            // if we're running driveToPoint and the distance from target is below a certain
+            // threshold, change the arm and elevator position based on that distance
+            if (casted != null && casted.distFromTarget() <= DriveToPoint.DYNAMIC_INTAKE_THRESHOLD) {
+                arm.adjustArm(ArmConstants.CORAL_STATION_POSITION);
+                elevator.setTargetHeight(ElevatorConstants.CORAL_INTAKE + (casted.distFromTarget()));
+            } else {
+                //
+            }
+        }, arm, elevator);
+        return null;
+    }
+
     public static Command intakeCoral() {
         Command elevatorCom = ElevatorFactory.moveToIntake();
         Command armCom = ArmFactory.armToIntake();

@@ -111,7 +111,7 @@ public class Arm extends SubsystemBase {
     return Math.abs(getAngle() - CORAL_STATION_POSITION) <= DRIVING_ANGLE_TOLERANCE;
   }
 
-  private void adjustArm(double targetAngle) {
+  public void adjustArm(double targetAngle) {
     if (nearTargetAngle()) {
       m_pid.setReference(targetAngle, ControlType.kPosition, ClosedLoopSlot.kSlot1, feedForwardCalculation());
     } else if (Subsystem.algae.debouncedHasAlgae()) {
