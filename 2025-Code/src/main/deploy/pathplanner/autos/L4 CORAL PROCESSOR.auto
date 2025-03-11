@@ -19,6 +19,12 @@
                 "data": {
                   "name": "MoveToScoringL4"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "KeepCoralIn"
+                }
               }
             ]
           }

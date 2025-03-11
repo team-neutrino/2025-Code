@@ -19,6 +19,12 @@
                 "data": {
                   "name": "MoveToScoringL4"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "KeepCoralIn"
+                }
               }
             ]
           }
@@ -43,9 +49,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "deadline",
           "data": {
-            "name": "ScoreL4"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ScoreL4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "SwerveDefault"
+                }
+              }
+            ]
           }
         },
         {
@@ -87,9 +106,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "deadline",
           "data": {
-            "name": "Intake"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "SwerveDefault"
+                }
+              }
+            ]
           }
         },
         {
@@ -112,9 +144,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "deadline",
           "data": {
-            "name": "ScoreL4"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ScoreL4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "SwerveDefault"
+                }
+              }
+            ]
           }
         },
         {
@@ -137,9 +182,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "deadline",
           "data": {
-            "name": "Intake"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "SwerveDefault"
+                }
+              }
+            ]
           }
         },
         {
@@ -181,9 +239,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "deadline",
           "data": {
-            "name": "ScoreL4"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ScoreL4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "SwerveDefault"
+                }
+              }
+            ]
           }
         }
       ]

@@ -19,6 +19,12 @@
                 "data": {
                   "name": "MoveToScoringL4"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "KeepCoralIn"
+                }
               }
             ]
           }
@@ -55,7 +61,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "22- Mid Coral (Reed to Ps)"
+                  "pathName": "22- Mid Coral (Reef to Ps)"
                 }
               },
               {

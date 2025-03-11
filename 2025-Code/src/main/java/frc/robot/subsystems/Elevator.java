@@ -104,6 +104,22 @@ public class Elevator extends SubsystemBase {
     m_encoder.setPosition(position);
   }
 
+  public double getBusVoltage() {
+    return m_motor.getBusVoltage();
+  }
+
+  public double getOutputCurrent() {
+    return m_motor.getOutputCurrent();
+  }
+
+  public int getFaultRawBits() {
+    return m_motor.getStickyFaults().rawBits;
+  }
+
+  public boolean getGateDriver() {
+    return m_motor.getStickyFaults().gateDriver;
+  }
+
   public double getVelocity() {
     return m_encoder.getVelocity();
   }

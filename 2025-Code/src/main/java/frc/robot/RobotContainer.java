@@ -16,6 +16,7 @@ import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -24,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 public class RobotContainer {
   // @SuppressWarnings("unused")
   private Subsystem subsystemContainer;
+  private Command m_autonPath;
   private final CommandXboxController m_driverController = new CommandXboxController(
       OperatorConstants.kDriverControllerPort);
   private final CommandXboxController m_buttonsController = new CommandXboxController(
@@ -41,6 +43,9 @@ public class RobotContainer {
     configureBindings();
     configureDefaultCommands();
     configureNamedCommands();
+    DataLogManager.start();
+    m_autonPath = new PathPlannerAuto("3 CORAL PROCESSOR");
+
   }
 
   private void configureBindings() {
@@ -56,6 +61,7 @@ public class RobotContainer {
     Command deAlgae = new DriveToPointCommand(m_driverController, true);
     deAlgae.setName(ALGAE_ALIGN_COMMAND);
     m_driverController.rightTrigger().whileTrue(deAlgae);
+    m_driverController.leftTrigger().whileTrue(swerve.slowDefaultCommand(m_driverController));
 
     // buttons controller
     m_buttonsController.x().whileTrue(SuperstructureFactory.scoreL1(m_buttonsController));
@@ -92,8 +98,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("ScoreL2", SuperstructureFactory.scoreCoralL2AutonCommand());
     NamedCommands.registerCommand("ScoreL1", SuperstructureFactory.scoreCoralL1AutonCommand());
     NamedCommands.registerCommand("Intake", SuperstructureFactory.intakeCoralAutonCommand());
+    NamedCommands.registerCommand("KeepCoralIn", CoralFactory.runSlowIntake());
     NamedCommands.registerCommand("DriveToPoint",
         new DriveToPointCommand(m_driverController, false).until(() -> swerve.isAtPointDebounced()));
+    NamedCommands.registerCommand("SwerveDefault", swerve.getDefaultCommand());
+    NamedCommands.registerCommand("IntakeOnly", CoralFactory.runIntake());
   }
 
   /**
@@ -108,7 +117,7 @@ public class RobotContainer {
       return new InstantCommand();
     }
     try {
-      auto = new PathPlannerAuto("2 CORAL PROCESSOR");
+      auto = m_autonPath;
     } catch (Exception e) {
       auto = new PathPlannerAuto("Nothing");
     }

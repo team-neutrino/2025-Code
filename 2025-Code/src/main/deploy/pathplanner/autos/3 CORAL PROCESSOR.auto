@@ -19,6 +19,12 @@
                 "data": {
                   "name": "MoveToScoringL4"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "KeepCoralIn"
+                }
               }
             ]
           }
@@ -43,9 +49,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "deadline",
           "data": {
-            "name": "ScoreL4"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ScoreL4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "DriveToPoint"
+                }
+              }
+            ]
           }
         },
         {
@@ -55,7 +74,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "22- Pro Coral (Reed to Ps)"
+                  "pathName": "22- Pro Coral (Reef to Ps)"
                 }
               },
               {
@@ -82,14 +101,46 @@
                 "data": {
                   "name": "MoveToIntake"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeOnly"
+                }
               }
             ]
           }
         },
         {
-          "type": "named",
+          "type": "deadline",
           "data": {
-            "name": "Intake"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "DriveToPoint"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "ps to reef"
+                }
+              }
+            ]
           }
         },
         {
@@ -112,9 +163,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "deadline",
           "data": {
-            "name": "ScoreL4"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ScoreL4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "DriveToPoint"
+                }
+              }
+            ]
           }
         },
         {
@@ -132,14 +196,33 @@
                 "data": {
                   "name": "MoveToIntake"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeOnly"
+                }
               }
             ]
           }
         },
         {
-          "type": "named",
+          "type": "deadline",
           "data": {
-            "name": "Intake"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "DriveToPoint"
+                }
+              }
+            ]
           }
         },
         {
@@ -151,12 +234,6 @@
                 "data": {
                   "pathName": "18-Pro Coral (Ps to Reef)"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveToScoringL4"
-                }
               }
             ]
           }
@@ -181,9 +258,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "deadline",
           "data": {
-            "name": "ScoreL4"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ScoreL4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "DriveToPoint"
+                }
+              }
+            ]
           }
         }
       ]

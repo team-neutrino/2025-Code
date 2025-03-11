@@ -43,7 +43,7 @@ public final class Constants {
 
         public static class SwerveConstants {
                 public static final double MAX_SPEED = 5.7;
-                public static final double SLOW_SWERVE_SPEED = 1;
+                public static final double SLOW_SWERVE_SPEED = 3;
                 public static final double MAX_ROTATION_SPEED = 1.5 * Math.PI;
                 public static final double SLOW_ROTATION_SPEED = 0.8 * Math.PI;
                 public static final double DRIVE_ASSIST_KP = 4;
@@ -89,15 +89,15 @@ public final class Constants {
                 public static final double FLOOR_TO_ELEVATOR_TOP = 70.88;
                 public static final double FLOOR_TO_TOP_OF_BOTTOM_TUBE = 11.88;
                 public static final double MAX_VELOCITY = 4000;
-                public static final double MAX_ACCELERATION = 2000;
+                public static final double MAX_ACCELERATION = 6000;
                 public static final double ALLOWED_ERROR = 0.1;
-                public static final double P_VAL = 0.11;
+                public static final double P_VAL = 0.15;
                 public static final double I_VAL = 0.0;
                 public static final double D_VAL = 0.0;
                 public static final double STAGE_1_FF = 0.25;
                 public static final double STAGE_2_FF = 0.30;
                 public static final double HEIGHT_TOLERANCE = 0.6;
-                public static final double SLOW_MOVE_THRESHOLD = CORAL_INTAKE + HEIGHT_TOLERANCE + 1;
+                public static final double SLOW_MOVE_THRESHOLD = 45.0;
         }
 
         public static class ArmConstants {
@@ -163,13 +163,12 @@ public final class Constants {
                 public static final int GRAB_MOTOR_ID = 32;
                 public static final int RATCHET_SERVO_PORT = 0;
 
-                public static final int CLIMB_CURRENT_LIMIT = 80;
+                public static final int CLIMB_CURRENT_LIMIT = 40;
                 public static final int GRAB_CURRENT_LIMIT = 10;
 
                 public static final int START_CLIMB_POSITION = 0;
                 public static final int RAISE_CLIMB_POSITION = 20;
                 public static final int LOWER_CLIMB_POSITION = -20;
-                // needs adjustments/tuning
 
                 public static final int CLIMB_POSITION_TOLERANCE = 3;
                 public static final int GRABBER_POSITION_TOLERANCE = 5;
@@ -179,11 +178,9 @@ public final class Constants {
                 public static final int LOCK_GRABBER_POSITION = 15;
                 public static final int UNLOCK_GRABBER_POSITION = -43;
                 public static final int GRANNY_GRABBER_POSITION = 0;
-                // needs adjustments/tuning
 
-                public static final double RATCHET_LOCK_POSITION = 0.9;
+                public static final double RATCHET_LOCK_POSITION = 0.84;
                 public static final double RATCHET_UNLOCK_POSITION = 1;
-                // needs adjustments/tuning
 
                 public static final double CLIMB_kP = 0.75;
                 public static final double CLIMB_kI = 0;
@@ -194,6 +191,7 @@ public final class Constants {
                 public static final double LOCK_kD = 0;
 
                 public static final double COMMAND_WAIT_TIME = 0.5;
+                public static final double LOWER_CLIMB_TIMEOUT = 2;
         }
 
         public static class LimelightConstants {
@@ -262,12 +260,12 @@ public final class Constants {
                 public static final double offsetOfArmReefLeft = .35;
                 // right is more negative, left is more positive
                 public static final double offsetOfArmStation = -.42;
-                public static final double offsetToReef = .55;
-                public static final double offsetToStation = .605;
+                public static final double offsetToReef = .515;
+                public static final double offsetToStation = .58;
                 public static final double reefWidth = 0.33;
 
                 public static final double offsetOfArmAlgae = 0.33;
-                public static final double offsetToReefAlgae = 0.08;
+                public static final double offsetToReefAlgae = 0.09;
                 // negative is more right
 
                 // CURRENTLY TESTING WITH THIS LIBRARY THING
