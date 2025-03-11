@@ -22,7 +22,7 @@ import java.util.List;
 public class DriveToPointCommand extends Command {
   private DriveToPointController m_pointControl = new DriveToPointController();
   private CommandXboxController m_xboxController;
-  private List<Pose2d> localList;
+  private List<Pose2d> m_localList;
   private boolean m_bumperWasPressed = false;
   private boolean m_hadGamePiece;
   private final boolean m_algae;
@@ -76,15 +76,15 @@ public class DriveToPointCommand extends Command {
     m_hadGamePiece = hasGamePiece;
     List<Pose2d> m_reefPoses = m_algae ? REEF_ALGAE : (redAlliance.get() ? RED_REEF_RIGHT : BLUE_REEF_RIGHT);
     List<Pose2d> m_coralStationPoses = redAlliance.get() ? POSE_LIST.subList(0, 6) : POSE_LIST.subList(6, 12);
-    localList = hasGamePiece ? m_reefPoses : m_coralStationPoses;
-    m_pointControl.setTargetNearest(localList);
+    m_localList = hasGamePiece ? m_reefPoses : m_coralStationPoses;
+    m_pointControl.setTargetNearest(m_localList);
     if (hasGamePiece) {
-      localList = m_algae ? REEF_ALGAE : (redAlliance.get() ? RED_REEF : BLUE_REEF);
+      m_localList = m_algae ? REEF_ALGAE : (redAlliance.get() ? RED_REEF : BLUE_REEF);
     } else {
-      if (localList.indexOf(m_pointControl.getTarget()) < 3) {
-        localList = localList.subList(0, 3);
+      if (m_localList.indexOf(m_pointControl.getTarget()) < 3) {
+        m_localList = m_localList.subList(0, 3);
       } else {
-        localList = localList.subList(3, 6);
+        m_localList = m_localList.subList(3, 6);
       }
     }
   }
@@ -108,11 +108,11 @@ public class DriveToPointCommand extends Command {
     }
     m_bumperWasPressed = leftBumper || rightBumper;
 
-    int id = localList.indexOf(m_pointControl.getTarget());
+    int id = m_localList.indexOf(m_pointControl.getTarget());
     id += leftBumper ? -1 : rightBumper ? 1 : 0;
-    id = id >= localList.size() ? 0 : id < 0 ? localList.size() - 1 : id;
+    id = id >= m_localList.size() ? 0 : id < 0 ? m_localList.size() - 1 : id;
 
-    m_pointControl.setTarget(localList.get(id));
+    m_pointControl.setTarget(m_localList.get(id));
   }
 
   private void drive() {
