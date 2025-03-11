@@ -89,6 +89,18 @@ public class DriveToPointCommand extends Command {
     }
   }
 
+  /**
+   * this only returns a value that makes sense if the target is a coral station
+   * point.
+   * <p>
+   * gives the distance straight from the player station to the robot, subtracting
+   * the distance out that the robot should ideally be at. Gives a negative value
+   * if too close to player station and vice versa.
+   */
+  public double distStraightPlayerStation() {
+    return m_pointControl.getTarget().getX() - swerve.getCurrentPose().getX();
+  }
+
   public void isAtPoint() {
     if (Math.abs(m_pointControl.getTarget().getX() - swerve.getCurrentPose().getX()) < AT_POINT_TOLERANCE
         && (Math.abs(m_pointControl.getTarget().getY() - swerve.getCurrentPose().getY()) < AT_POINT_TOLERANCE)) {

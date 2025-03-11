@@ -106,7 +106,7 @@ public class Arm extends SubsystemBase {
     return getAngle() <= 270 && getAngle() >= 90;
   }
 
-  private void adjustArm(double targetAngle) {
+  public void adjustArm(double targetAngle) {
     if (nearTargetAngle()) {
       m_pid.setReference(targetAngle, ControlType.kPosition, ClosedLoopSlot.kSlot1, feedForwardCalculation());
     } else {

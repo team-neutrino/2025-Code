@@ -253,20 +253,23 @@ public final class Constants {
 
         public static class DriveToPoint {
                 public static final String ALGAE_ALIGN_COMMAND = "VIENNA IS SHORT";
+                public static final String DRIVE_ASSIST_COMMAND = "LOL JK VIENNA IS ACTUALLY... SHORTER THAN I THOUGHT";
                 public static final AprilTagFieldLayout layout = AprilTagFieldLayout
                                 .loadField(AprilTagFields.k2025ReefscapeWelded);
                 // right is more negative, left is more positive
-                public static final double offsetOfArmReef = .3;
-                public static final double offsetOfArmReefLeft = .35;
+                public static final double OFFSET_OF_ARM_REEF = .3;
+                public static final double OFFSET_OF_ARM_REEF_LEFT = .35;
                 // right is more negative, left is more positive
-                public static final double offsetOfArmStation = -.42;
                 public static final double sidewaysOffsetStation = .3;
-                public static final double offsetToReef = .515;
-                public static final double offsetToStation = .58;
-                public static final double reefWidth = 0.33;
+                public static final double OFFSET_OF_ARM_STATION = -.42;
+                public static final double OFFSET_TO_REEF = .515;
+                public static final double OFFSET_TO_STATION = .58;
+                public static final double REEF_WIDTH = 0.33;
 
-                public static final double offsetOfArmAlgae = 0.33;
-                public static final double offsetToReefAlgae = 0.09;
+                public static final double DYNAMIC_INTAKE_THRESHOLD = .5;
+
+                public static final double OFFSET_OF_ARM_ALGAE = 0.33;
+                public static final double OFFSET_TO_REEF_ALGAE = 0.09;
                 // negative is more right
 
                 // CURRENTLY TESTING WITH THIS LIBRARY THING

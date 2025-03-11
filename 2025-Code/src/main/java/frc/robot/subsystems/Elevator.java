@@ -183,6 +183,10 @@ public class Elevator extends SubsystemBase {
         PersistMode.kPersistParameters);
   }
 
+  public void setTargetHeight(double height) {
+    m_targetHeight = height;
+  }
+
   @Override
   public void periodic() {
     adjustElevator(safeHeight(m_targetHeight));
