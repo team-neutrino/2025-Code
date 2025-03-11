@@ -1,4 +1,3 @@
-
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -19,12 +18,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.reduxrobotics.sensors.canandcolor.Canandcolor;
 import com.reduxrobotics.sensors.canandcolor.CanandcolorSettings;
 
-import static frc.robot.Constants.CoralConstants.*;
+import static frc.robot.Constants.AlgaeConstants.*;
 
 /**
- * Class that represents the coral subsystem on the robot.
+ * Class that represents the algae subsystem on the robot.
  */
-public class Coral extends SubsystemBase {
+public class Algae extends SubsystemBase {
 
     private SparkMax m_motor = new SparkMax(GRABBER, MotorType.kBrushless);
     private SparkMaxConfig m_motorConfig = new SparkMaxConfig();
@@ -34,7 +33,7 @@ public class Coral extends SubsystemBase {
     private CanandcolorSettings m_settings = new CanandcolorSettings();
     private Debouncer m_debouncer = new Debouncer(0.1, DebounceType.kFalling);
 
-    public Coral() {
+    public Algae() {
         m_encoder = m_motor.getEncoder();
 
         m_motorConfig.smartCurrentLimit(GRABBER_CURRENT_LIMIT);
@@ -55,17 +54,17 @@ public class Coral extends SubsystemBase {
         return m_colorSensor.getProximity() < distance;
     }
 
-    public boolean hasCoral() {
+    public boolean hasAlgae() {
         return withinProximity(PROXIMITY) && (m_colorSensor.getBlue() > 0.7 &&
                 m_colorSensor.getRed() > 0.7 &&
                 m_colorSensor.getGreen() > 0.7);
     }
 
     /**
-     * debounced the falling edge of hasCoral for use with scoring commands
+     * debounced the falling edge of hasAlgae for use with scoring commands
      */
-    public boolean debouncedHasCoral() {
-        return m_debouncer.calculate(hasCoral());
+    public boolean debouncedHasAlgae() {
+        return m_debouncer.calculate(hasAlgae());
     }
 
     public double getAngularVelocity() {
@@ -80,27 +79,13 @@ public class Coral extends SubsystemBase {
     public void periodic() {
         m_motor.set(m_motorVoltage);
     }
-
-    /**
-     * Gives an instance of the coral default command. Stops intake from running
-     * 
-     * @return The coral default command
-     */
-    public Command coralDefaultCommand() {
-        return run(() -> {
-            if (debouncedHasCoral()) {
-                m_motorVoltage = HOLD_PIECE_VOLTAGE;
-            } else {
-                m_motorVoltage = 0;
-            }
-        });
-    }
+    
 
     /**
      * Gives an instance of the run intake command., sets the intake voltage to the
      * speed provided.
      * 
-     * @param speed speed coral is set to
+     * @param speed speed algae is set to
      * @return The run intake command
      */
     public Command runIntake(double speed) {
