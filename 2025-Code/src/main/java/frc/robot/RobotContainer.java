@@ -16,6 +16,7 @@ import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -42,6 +43,7 @@ public class RobotContainer {
     configureBindings();
     configureDefaultCommands();
     configureNamedCommands();
+    DataLogManager.start();
     m_autonPath = new PathPlannerAuto("3 CORAL PROCESSOR");
 
   }
