@@ -54,10 +54,12 @@ public class Algae extends SubsystemBase {
         return m_colorSensor.getProximity() < distance;
     }
 
+    private double getBlueToRed() {
+        return m_colorSensor.getBlue() / m_colorSensor.getRed();
+    }
+
     public boolean hasAlgae() {
-        return withinProximity(PROXIMITY) && (m_colorSensor.getBlue() > 0.7 &&
-                m_colorSensor.getRed() > 0.7 &&
-                m_colorSensor.getGreen() > 0.7);
+        return withinProximity(0.15) && getBlueToRed() > 1.5;
     }
 
     /**
@@ -79,7 +81,6 @@ public class Algae extends SubsystemBase {
     public void periodic() {
         m_motor.set(m_motorVoltage);
     }
-    
 
     /**
      * Gives an instance of the run intake command., sets the intake voltage to the
