@@ -300,6 +300,7 @@ public final class Constants {
                 public static final double REEF_WIDTH = 0.33;
                 public static final double SAFE_OFFSET_TO_STATION = 1.5;
 
+                public static final double DYNAMIC_INTAKE_THRESHOLD = .5;
                 public static final double OFFSET_ARM_ALGAE = 0.31;
                 public static final double OFFSET_REEF_ALGAE = 0.49;
                 public static final double DYNAMIC_INTAKE_THRESHOLD = .5;

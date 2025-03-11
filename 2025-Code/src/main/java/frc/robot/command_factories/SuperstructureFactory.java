@@ -39,27 +39,19 @@ public class SuperstructureFactory {
     public static Command dynamicCoralIntake() {
         Command ret = new RunCommand(() -> {
             Command swerveCom = swerve.getCurrentCommand();
-            DriveToPointCommand casted = (swerveCom != null
-                    && swerveCom.getName().equals(DriveToPoint.DRIVE_TO_POINT_BASIC))
-                            ? (DriveToPointCommand) swerveCom
-                            : null;
+            DriveToPointCommand casted = swerveCom.getName().equals(DriveToPoint.DRIVE_ASSIST_COMMAND)
+                    ? (DriveToPointCommand) swerveCom
+                    : null;
             // if we're running driveToPoint and the distance from target is below a certain
             // threshold, change the arm and elevator position based on that distance
-            if (casted != null
-                    && Math.abs(DriveToPointController
-                            .distStraightPlayerStation()) <= DriveToPoint.DYNAMIC_INTAKE_THRESHOLD) {
-                arm.setTarget(ArmConstants.CORAL_STATION_POSITION);
-                // right now the P is just the conversion factor for meters to inches,
-                // effectively making every inch we're off from target position one extra inch
-                // in elevator height.
-                elevator.setTargetHeight(ElevatorConstants.CORAL_INTAKE
-                        - (DriveToPointController.distStraightPlayerStation() * ElevatorConstants.DYNAMIC_ADJUST_P));
+            if (casted != null && casted.distFromTarget() <= DriveToPoint.DYNAMIC_INTAKE_THRESHOLD) {
+                arm.adjustArm(ArmConstants.CORAL_STATION_POSITION);
+                elevator.setTargetHeight(ElevatorConstants.CORAL_INTAKE + (casted.distFromTarget()));
             } else {
-                arm.setTarget(ArmConstants.CORAL_STATION_POSITION);
-                elevator.setTargetHeight(ElevatorConstants.CORAL_INTAKE);
+                //
             }
         }, arm, elevator);
-        return ret.alongWith(CoralFactory.runIntake()).until(() -> coral.debouncedHasCoral());
+        return null;
     }
 
     public static Command intakeCoral() {
