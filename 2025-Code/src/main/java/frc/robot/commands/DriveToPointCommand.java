@@ -22,8 +22,6 @@ import java.util.List;
 public class DriveToPointCommand extends Command {
   private DriveToPointController m_pointControl = new DriveToPointController();
   private CommandXboxController m_xboxController;
-  // private List<Pose2d> m_reefPoses;
-  // private List<Pose2d> m_coralStationPoses;
   private List<Pose2d> localList;
   private boolean m_bumperWasPressed = false;
   private boolean m_hadGamePiece;
@@ -105,18 +103,13 @@ public class DriveToPointCommand extends Command {
     if (m_bumperWasPressed && (!leftBumper && !rightBumper)) {
       m_bumperWasPressed = false;
     }
-    // if (!m_reefPoses.contains(m_pointControl.getTarget()) || m_bumperWasPressed)
-    // {
-    // return;
-    // }
-    if (m_bumperWasPressed) { // TODO: TESTING, REMOVE COMMENT OR REPLACE
+    if (m_bumperWasPressed) {
       return;
     }
     m_bumperWasPressed = leftBumper || rightBumper;
 
     int id = localList.indexOf(m_pointControl.getTarget());
     id += leftBumper ? -1 : rightBumper ? 1 : 0;
-    // id = id > 11 ? 0 : id < 0 ? 11 : id;
     id = id >= localList.size() ? 0 : id < 0 ? localList.size() - 1 : id;
 
     m_pointControl.setTarget(localList.get(id));
