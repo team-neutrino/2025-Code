@@ -38,9 +38,8 @@ public class SuperstructureFactory {
                 arm.adjustArm(ArmConstants.CORAL_STATION_POSITION);
                 elevator.setTargetHeight(ElevatorConstants.CORAL_INTAKE);
             }
-            coral.setVoltage(CoralConstants.INTAKE_MOTOR_VOLTAGE);
-        }, arm, elevator, coral);
-        return ret;
+        }, arm, elevator);
+        return ret.alongWith(CoralFactory.runIntake()).until(() -> coral.debouncedHasCoral());
     }
 
     public static Command intakeCoral() {
