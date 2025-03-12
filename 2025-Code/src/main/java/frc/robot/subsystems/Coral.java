@@ -81,10 +81,6 @@ public class Coral extends SubsystemBase {
         m_motor.set(m_motorVoltage);
     }
 
-    public void setVoltage(double volts) {
-        m_motorVoltage = volts;
-    }
-
     /**
      * Gives an instance of the coral default command. Stops intake from running
      * 
