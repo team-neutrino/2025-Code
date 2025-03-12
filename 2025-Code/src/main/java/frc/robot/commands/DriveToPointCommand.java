@@ -93,13 +93,13 @@ public class DriveToPointCommand extends Command {
    * this only returns a value that makes sense if the target is a coral station
    * point, and is intended only for use as such.
    * <p>
-   * gives the distance straight from the player station to the robot, subtracting
-   * the distance out that the robot should ideally be at. Gives a negative value
-   * if too close to player station and vice versa.
+   * gives the radial distance from the desired PS point to the robot, Gives a
+   * negative value if too close to player station and vice versa.
    */
   public double distStraightPlayerStation() {
-    return Math.hypot(swerve.getCurrentPose().getX() - m_pointControl.getTarget().getX(),
-        swerve.getCurrentPose().getY() - m_pointControl.getTarget().getY()) - OFFSET_TO_STATION;
+    double angle = m_pointControl.getRotation().getRadians();
+    return (Math.cos(angle) * (swerve.getCurrentPose().getX() - m_pointControl.getTarget().getX()))
+        + (Math.sin(angle) * (swerve.getCurrentPose().getY() - m_pointControl.getTarget().getY())) - OFFSET_TO_STATION;
   }
 
   public void isAtPoint() {
