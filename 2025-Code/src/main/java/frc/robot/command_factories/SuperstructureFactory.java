@@ -44,14 +44,21 @@ public class SuperstructureFactory {
                     : null;
             // if we're running driveToPoint and the distance from target is below a certain
             // threshold, change the arm and elevator position based on that distance
-            if (casted != null && casted.distFromTarget() <= DriveToPoint.DYNAMIC_INTAKE_THRESHOLD) {
+            if (casted != null
+                    && Math.abs(casted.distStraightPlayerStation()) <= DriveToPoint.DYNAMIC_INTAKE_THRESHOLD) {
                 arm.adjustArm(ArmConstants.CORAL_STATION_POSITION);
-                elevator.setTargetHeight(ElevatorConstants.CORAL_INTAKE + (casted.distFromTarget()));
+                // right now the P is just the conversion factor for meters to inches,
+                // effectively making every inch we're off from target position one extra inch
+                // in elevator height.
+                elevator.setTargetHeight(ElevatorConstants.CORAL_INTAKE
+                        + (casted.distStraightPlayerStation() * ElevatorConstants.DYNAMIC_ADJUST_P));
             } else {
-                //
+                arm.adjustArm(ArmConstants.CORAL_STATION_POSITION);
+                elevator.setTargetHeight(ElevatorConstants.CORAL_INTAKE);
             }
-        }, arm, elevator);
-        return null;
+            coral.setVoltage(CoralConstants.INTAKE_MOTOR_VOLTAGE);
+        }, arm, elevator, coral);
+        return ret;
     }
 
     public static Command intakeCoral() {
