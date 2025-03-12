@@ -71,6 +71,9 @@ public class RobotContainer {
 
     m_buttonsController.rightTrigger().whileTrue(SuperstructureFactory.descoreAlgaeL3());
     m_buttonsController.leftTrigger().whileTrue(SuperstructureFactory.descoreAlgaeL2());
+    m_buttonsController.back().whileTrue(SuperstructureFactory.scoreProcessorCommand(m_buttonsController));
+    m_buttonsController.start().whileTrue(SuperstructureFactory.scoreBargeCommand(m_buttonsController));
+    m_buttonsController.povDown().whileTrue(AlgaeFactory.runOuttake());
 
     m_buttonsController.leftBumper().whileTrue(SuperstructureFactory.intakeCoral());
   }
@@ -85,6 +88,7 @@ public class RobotContainer {
       return;
     }
     swerve.setDefaultCommand(swerve.swerveDefaultCommand(m_driverController));
+    algae.setDefaultCommand(algae.algaeDefaultCommand());
   }
 
   private void configureNamedCommands() {

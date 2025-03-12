@@ -36,14 +36,23 @@ public class ArmFactory {
     }
 
     public static Command armToDescoreL2() {
-        return arm.armRotateCommand(REEF_L2_DESCORE_POSITION);
+        return arm.armRotateCommand(REEF_DESCORE_POSITION);
     }
 
     public static Command armToDescoreL3() {
-        return arm.armRotateCommand(REEF_L3_DESCORE_POSITION);
+        return arm.armRotateCommand(REEF_DESCORE_POSITION);
     }
 
-    public static Command armToScore(double level) {
-        return arm.armRotateCommand(level);
+    public static Command armToScoreBarge() {
+        return arm.armRotateCommand(BARGE_POSITION);
     }
+
+    public static Command armToScoreProcessor() {
+        return arm.armRotateCommand(PROCESSOR_POSITION);
+    }
+
+    public static Command armToAlgaeDefault() {
+        return arm.armRotateCommand(ALGAE_FRONT_SAFE_ANGLE);
+    }
+
 }

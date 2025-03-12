@@ -116,12 +116,8 @@ public class ClimbNT extends Climb {
 
         grabCurrentPub.set(getGrabMotorCurrent(), now);
         grabPositionPub.set(getGrabMotorPosition(), now);
-        grabTargetPositionPub.set(getGrabMotorTargetPosition(), now);
 
         motorOffPub.set(getMotoroff(), now);
-
-        isLockGrabSafePub.set(getIsLockGrabSafe(), now);
-        isLowerClimbSafePub.set(getIsLowerClimbSafe(), now);
 
         if (m_PIDTuner.isDifferentValues(m_previousClimbP, m_previousClimbI, m_previousClimbD)) {
             changePID(m_PIDTuner.getP(), m_PIDTuner.getI(), m_PIDTuner.getD());

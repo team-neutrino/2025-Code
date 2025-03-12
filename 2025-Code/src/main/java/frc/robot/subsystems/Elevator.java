@@ -155,9 +155,10 @@ public class Elevator extends SubsystemBase {
     else if ((((Subsystem.arm.getTargetAngle() > 180 && Subsystem.arm.getAngle() < 180)
         || (Subsystem.arm.getTargetAngle() < 180 && Subsystem.arm.getAngle() > 180))
         || (Subsystem.arm.getAngle() > 160 + ArmConstants.DRIVING_ANGLE_TOLERANCE
-            && Subsystem.arm.getAngle() < 220 - ArmConstants.DRIVING_ANGLE_TOLERANCE))
-        && getTargetHeight() < L2) {
-      safeTarget = L2;
+            && Subsystem.arm.getAngle() < 220 - ArmConstants.DRIVING_ANGLE_TOLERANCE)
+        || (Subsystem.arm.getTargetAngle() > 160 && Subsystem.algae.debouncedHasAlgae()))
+        && getTargetHeight() < L2 + 2) {
+      safeTarget = L2 + 2;
     }
 
     return safeTarget;

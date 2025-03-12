@@ -214,18 +214,7 @@ public class Climb extends SubsystemBase {
     return m_grabEncoder.getPosition();
   }
 
-  public double getGrabMotorTargetPosition() {
-    return m_targetPositionGrab;
-  }
-
-  public boolean getIsLockGrabSafe() {
-    return isLockGrabSafe();
-  }
-
-  public boolean getIsLowerClimbSafe() {
-    return isLowerClimbSafe();
-  }
-
+  
   public void changePID(double p, double i, double d) {
     m_climbMotorConfig.Slot0.kP = p;
     m_climbMotorConfig.Slot0.kI = i;
