@@ -256,10 +256,17 @@ public class Limelight extends SubsystemBase {
       // use external IMU yaw submitted via setRobotOrientation() and configure the
       // LL4 internal IMU's fused yaw to match the submitted yaw value
       LimelightHelpers.SetIMUMode(LL_STATION, 1);
+      // skipping frames while disabled
+      LimelightHelpers.SetThrottle(LL_REEF, 200);
+      LimelightHelpers.SetThrottle(LL_STATION, 200);
+
     } else {
-      LimelightHelpers.SetIMUMode(LL_REEF, 1);
-      // use internal IMU for MT2 localization. External IMU data is ignored entirely.
-      LimelightHelpers.SetIMUMode(LL_STATION, 1);
+      LimelightHelpers.SetIMUMode(LL_REEF, 4);
+      // The internal IMU will utilize the external IMU for continuous heading
+      // correction
+      LimelightHelpers.SetIMUMode(LL_STATION, 4);
+      LimelightHelpers.SetThrottle(LL_REEF, 0);
+      LimelightHelpers.SetThrottle(LL_STATION, 0);
     }
 
     // according to limelight docs, this needs to be called before using
