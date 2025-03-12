@@ -5,7 +5,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import static frc.robot.Constants.ArmConstants.*;
 import static frc.robot.util.Subsystem.arm;
 
+import java.util.function.DoubleSupplier;
+
 public class ArmFactory {
+
+    public static Command moveToGiven(DoubleSupplier dubsLambda) {
+        return arm.armRotateCommandLambda(dubsLambda);
+    }
 
     public static Command moveToL1() {
         return arm.armRotateCommand(L1_POSITION);

@@ -21,6 +21,9 @@ import frc.robot.Constants.ArmConstants;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.Constants.ElevatorConstants.*;
+
+import java.util.function.DoubleSupplier;
+
 import static frc.robot.Constants.CANRateConstants.*;
 
 public class Elevator extends SubsystemBase {
@@ -219,5 +222,9 @@ public class Elevator extends SubsystemBase {
 
   public Command moveElevatorCommand(double height) {
     return run(() -> m_targetHeight = height);
+  }
+
+  public Command moveElevatorCommandLambda(DoubleSupplier height) {
+    return run(() -> m_targetHeight = height.getAsDouble());
   }
 }
