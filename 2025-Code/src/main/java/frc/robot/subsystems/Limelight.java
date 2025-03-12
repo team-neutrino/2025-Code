@@ -259,6 +259,8 @@ public class Limelight extends SubsystemBase {
       // skipping frames while disabled
       LimelightHelpers.SetThrottle(LL_REEF, 200);
       LimelightHelpers.SetThrottle(LL_STATION, 200);
+      LimelightHelpers.SetIMUAssistAlpha(LL_REEF, 0.001);
+      LimelightHelpers.SetIMUAssistAlpha(LL_STATION, 0.001);
 
     } else {
       LimelightHelpers.SetIMUMode(LL_REEF, 4);
