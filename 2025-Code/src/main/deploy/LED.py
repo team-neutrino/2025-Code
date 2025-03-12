@@ -29,6 +29,7 @@ red = (64, 0, 0)
 orange = (84, 18, 0)
 yellow = (64, 64, 0)
 green = (0, 64, 0)
+blue = (0, 0, 64)
 purple = (64, 0, 64)
 black = (0, 0, 0)
 cyan = (0, 64, 64)
@@ -94,6 +95,10 @@ def valueColorChanged(table, key, value, isNew):
         setTargetColor(yellow)
     if value == "green":
         setTargetColor(green)
+    if value == "blue":
+        setTargetColor(blue)
+    if value == "purple":
+        setTargetColor(purple)      
     if value == "black":
         setTargetColor(black)
     if value=="cyan":
@@ -101,9 +106,7 @@ def valueColorChanged(table, key, value, isNew):
     if value =="turquoise":
         setTargetColor(turquoise)
     if value == "pink":
-        setTargetColor(pink)
-    if value == "purple":
-        setTargetColor(purple)                 
+        setTargetColor(pink)           
 
 def valueStateChanged(table, key, value, isNew):
     print("valueStateChanged: key: '%s'; value: %s; isNew: %s" % (key, value, isNew))

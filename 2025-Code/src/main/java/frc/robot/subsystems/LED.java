@@ -38,10 +38,27 @@ public class LED extends SubsystemBase {
       }
       else if (!elevator.atTargetHeight()) {
         setStateAndColor("solid", "purple");
-      } else {
+      } 
+      else if (!arm.atTargetAngle()) {
+        setStateAndColor("solid", "turquoise");
+      }
+      else {
         setStateAndColor("solid", "red");
       }
       return;
+    }
+    else {
+      if(!elevator.atTargetHeight() && !arm.atTargetAngle()) {
+        setStateAndColor("solid", "pink");
+        return;
+      }
+      else if (!elevator.atTargetHeight()) {
+        setStateAndColor("solid", "blue");
+        return;
+      }
+      else if (!arm.atTargetAngle()) {
+        setStateAndColor("solid", "yellow");
+      }
     }
 
     if (swerve.isAtPoint() && elevator.readyToScore() && arm.readyToScore()) {
