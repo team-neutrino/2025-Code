@@ -20,6 +20,8 @@ import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.AbsoluteEncoder;
 import static frc.robot.Constants.ArmConstants.*;
 
+import java.util.function.DoubleSupplier;
+
 /**
  * Class that represents the arm subsystem on the robot.
  */
@@ -232,5 +234,9 @@ public class Arm extends SubsystemBase {
    */
   public Command armRotateCommand(double targetAngle) {
     return run(() -> m_targetAngle = targetAngle);
+  }
+
+  public Command armRotateCommandLambda(DoubleSupplier targetAngle) {
+    return run(() -> m_targetAngle = targetAngle.getAsDouble());
   }
 }

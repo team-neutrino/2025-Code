@@ -5,7 +5,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import static frc.robot.Constants.ElevatorConstants.*;
 import static frc.robot.util.Subsystem.elevator;
 
+import java.util.function.DoubleSupplier;
+
 public class ElevatorFactory {
+
+    public static Command moveToGiven(DoubleSupplier dubsLambda) {
+        return elevator.moveElevatorCommandLambda(dubsLambda);
+    }
 
     public static Command moveL1() {
         return elevator.moveElevatorCommand(L1);
