@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.subsystems.Algae;
 
 import static frc.robot.util.Subsystem.*;
 
@@ -27,25 +28,41 @@ public class SuperstructureFactory {
     public static Command descoreAlgaeL2() {
         Command elevatorCom = ElevatorFactory.moveToRemoveAlgaeL2();
         Command armCom = ArmFactory.armToDescoreL2();
-        return elevatorCom.alongWith(armCom);
+        Command algaeCom = AlgaeFactory.runIntake();
+        return (elevatorCom.alongWith(armCom, algaeCom).until(() -> algae.debouncedHasAlgae()));
     }
 
     public static Command descoreAlgaeL3() {
         Command elevatorCom = ElevatorFactory.moveToRemoveAlgaeL3();
         Command armCom = ArmFactory.armToDescoreL3();
-        return elevatorCom.alongWith(armCom);
+        Command algaeCom = AlgaeFactory.runIntake();
+        return elevatorCom.alongWith(armCom, algaeCom).until(() -> algae.debouncedHasAlgae());
     }
 
-    public static Command scoreBargeCommand() {
+    public static Command scoreBargeCommand(CommandXboxController controller) {
         Command elevatorCom = ElevatorFactory.moveToScoreBarge();
-        Command armCom = ArmFactory.armToScoreBarge();
-        return elevatorCom.alongWith(armCom);
+        Command armScoreCom = ArmFactory.armToScoreBarge();
+        Command algaeDefaultCom = algae.algaeDefaultCommand();
+        Command algaeScoreCom = AlgaeFactory.runOuttake();
+        BooleanSupplier readyToScore = () -> (arm.readyToScore() && elevator.readyToScore()
+                && controller.getHID().getRightBumperButton());
+        BooleanSupplier comEnd = () -> !algae.debouncedHasAlgae();
+
+        return ((elevatorCom.alongWith(armScoreCom, algaeDefaultCom))
+                .until(readyToScore)).andThen(algaeScoreCom.until(comEnd));
     }
 
-    public static Command scoreProcessorCommand() {
+    public static Command scoreProcessorCommand(CommandXboxController controller) {
         Command elevatorCom = ElevatorFactory.moveToScoreProcessor();
-        Command armCom = ArmFactory.armToScoreProcessor();
-        return elevatorCom.alongWith(armCom);
+        Command armScoreCom = ArmFactory.armToScoreProcessor();
+        Command algaeDefaultCom = algae.algaeDefaultCommand();
+        Command algaeScoreCom = AlgaeFactory.runOuttake();
+        BooleanSupplier readyToScore = () -> (arm.readyToScore() && elevator.readyToScore()
+                && controller.getHID().getRightBumperButton());
+        BooleanSupplier comEnd = () -> !algae.debouncedHasAlgae();
+
+        return ((elevatorCom.alongWith(armScoreCom, algaeDefaultCom))
+                .until(readyToScore)).andThen(algaeScoreCom.until(comEnd));
     }
 
     public static Command scoreUnderhand(CommandXboxController controller) {

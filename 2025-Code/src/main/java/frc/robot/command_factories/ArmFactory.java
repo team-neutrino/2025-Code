@@ -51,4 +51,8 @@ public class ArmFactory {
         return arm.armRotateCommand(PROCESSOR_POSITION);
     }
 
+    public static Command armToAlgaeDefault() {
+        return arm.armRotateCommand(ALGAE_FRONT_SAFE_ANGLE);
+    }
+
 }

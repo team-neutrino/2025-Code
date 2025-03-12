@@ -54,12 +54,8 @@ public class Algae extends SubsystemBase {
         return m_colorSensor.getProximity() < distance;
     }
 
-    private double getBlueToRed() {
-        return m_colorSensor.getBlue() / m_colorSensor.getRed();
-    }
-
     public boolean hasAlgae() {
-        return withinProximity(0.15) && getBlueToRed() > 1.5;
+        return withinProximity(0.15);
     }
 
     /**
@@ -84,7 +80,7 @@ public class Algae extends SubsystemBase {
 
     public Command algaeDefaultCommand() {
         return run(() -> {
-            m_motorVoltage = 0;
+            m_motorVoltage = 0.3;
         });
     }
 

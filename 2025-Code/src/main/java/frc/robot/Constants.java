@@ -72,14 +72,14 @@ public final class Constants {
                 public static final int MOTOR_ID = 2;
                 public static final int FOLLOWER_ID = 3;
                 public static final int CURRENT_LIMIT = 60;
-                public static final double DEFAULT = 2.0;
+                public static final double DEFAULT = 5.0;
                 public static final double BOTTOM_POSITION = 0.0;
                 public static final double STAGE_ONE_UP = 26.0;
                 public static final double CORAL_INTAKE = 34;
-                public static final double REMOVE_ALGAE_L2 = 40.0;
+                public static final double REMOVE_ALGAE_L2 = 30.0;
                 public static final double REMOVE_ALGAE_L3 = 50.0;
                 public static final double SCORE_ALGAE_BARGE = 54.9;
-                public static final double SCORE_ALGAE_PROCESSOR = 30.0;
+                public static final double SCORE_ALGAE_PROCESSOR = 25.0;
                 public static final double L1 = 10.0;
                 public static final double L2 = 16.0;
                 public static final double L3 = 30.0;
@@ -113,10 +113,10 @@ public final class Constants {
                 public static final double L2_POSITION = 135.0;
                 public static final double L3_POSITION = 135.0;
                 public static final double L4_POSITION = 133.0;
-                public static final double BARGE_POSITION = 210.0;
-                public static final double PROCESSOR_POSITION = 230.0;
+                public static final double BARGE_POSITION = 180.0;
+                public static final double PROCESSOR_POSITION = 270.0;
                 public static final double EVACUATE_ANGLE = 15.0;
-                public static final double REEF_DESCORE_POSITION = 37.0;
+                public static final double REEF_DESCORE_POSITION = 50.0;
                 public static final double DRIVING_ANGLE_TOLERANCE = 2.0;
 
                 public static final double HITTING_LOW_HARD_LIMIT = 90;
