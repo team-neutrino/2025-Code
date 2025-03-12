@@ -29,8 +29,10 @@ public class DriveToPointCalculator {
                 double perpendicularReefAngle = stationAngle - Math.toRadians(90);
 
                 double cos = Math.cos(perpendicularReefAngle), sin = Math.sin(perpendicularReefAngle);
-                double leftRightOffsetX = (offsetOfArmStation * cos) + ((reefWidth / 2) * cos) + (sidewaysOffset * cos);
-                double leftRightOffsetY = (offsetOfArmStation * sin) + ((reefWidth / 2) * sin) + (sidewaysOffset * sin);
+                double leftRightOffsetX = (OFFSET_OF_ARM_STATION * cos) + ((REEF_WIDTH / 2) * cos)
+                                + (sidewaysOffset * cos);
+                double leftRightOffsetY = (OFFSET_OF_ARM_STATION * sin) + ((REEF_WIDTH / 2) * sin)
+                                + (sidewaysOffset * sin);
 
                 double x = tagPosition.getX() + (OFFSET_TO_STATION * Math.cos(stationAngle)) + leftRightOffsetX;
                 double y = tagPosition.getY() + (OFFSET_TO_STATION * Math.sin(stationAngle)) + leftRightOffsetY;
