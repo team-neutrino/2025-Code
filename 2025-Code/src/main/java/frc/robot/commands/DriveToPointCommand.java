@@ -23,7 +23,6 @@ import static frc.robot.Constants.GlobalConstants.*;
 import static frc.robot.util.Subsystem.swerve;
 import static frc.robot.util.Subsystem.arm;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DriveToPointCommand extends Command {
