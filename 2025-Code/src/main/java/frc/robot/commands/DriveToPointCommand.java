@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.DriveToPoint.Mode;
@@ -19,6 +20,7 @@ import static frc.robot.Constants.SwerveConstants.*;
 import static frc.robot.Constants.GlobalConstants.*;
 import static frc.robot.util.Subsystem.swerve;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DriveToPointCommand extends Command {
@@ -138,14 +140,15 @@ public class DriveToPointCommand extends Command {
 
   /**
    * this only returns a value that makes sense if the target is a coral station
-   * point.
+   * point, and is intended only for use as such.
    * <p>
    * gives the distance straight from the player station to the robot, subtracting
    * the distance out that the robot should ideally be at. Gives a negative value
    * if too close to player station and vice versa.
    */
   public double distStraightPlayerStation() {
-    return m_pointControl.getTarget().getX() - swerve.getCurrentPose().getX();
+    return Math.hypot(swerve.getCurrentPose().getX() - m_pointControl.getTarget().getX(),
+        swerve.getCurrentPose().getY() - m_pointControl.getTarget().getY()) - OFFSET_TO_STATION;
   }
 
   public void isAtPoint() {
