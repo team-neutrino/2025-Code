@@ -17,39 +17,52 @@ import java.util.function.BooleanSupplier;
 
 public class SuperstructureFactory {
 
-    public static Command autonDynamicCoralIntake() {
-        Command ret = new RunCommand(() -> {
-            // if we're running driveToPoint and the distance from target is below a certain
-            // threshold, change the arm and elevator position based on that distance
-            if (Math.abs(DriveToPointController.distStraightPlayerStation()) <= DriveToPoint.DYNAMIC_INTAKE_THRESHOLD) {
-                arm.setTarget(ArmConstants.CORAL_STATION_POSITION);
-                // right now the P is just the conversion factor for meters to inches,
-                // effectively making every inch we're off from target position one extra inch
-                // in elevator height.
-                elevator.setTargetHeight(ElevatorConstants.CORAL_INTAKE
-                        - (DriveToPointController.distStraightPlayerStation() * ElevatorConstants.DYNAMIC_ADJUST_P));
-            } else {
-                arm.setTarget(ArmConstants.CORAL_STATION_POSITION);
-                elevator.setTargetHeight(ElevatorConstants.CORAL_INTAKE);
-            }
-        }, arm, elevator);
-        return ret.alongWith(CoralFactory.runIntake()).until(() -> coral.debouncedHasCoral());
-    }
 
-    public static Command dynamicCoralIntake() {
-        DriveToPointCommand currentSwerveCom = swerve.getCurrentCommand().getName()
-                .equals(DriveToPoint.DRIVE_ASSIST_COMMAND) ? (DriveToPointCommand) swerve.getCurrentCommand() : null;
+    }
+                        : true;
+                                && (Subsystem.limelight.getTvReef1() || Subsystem.limelight.getTvReef2())
+                        ? Subsystem.swerve.isAtPoint()
+                .getCurrentCommand().getName().equals(Constants.DriveToPoint.DRIVE_TO_POINT_BASIC)
+        return Subsystem.swerve
+        }
+            return false;
+        if (Subsystem.swerve.getCurrentCommand() == null) {
+    public static boolean antiDriveTeamCondition() {
+    /**
+     * WILL ONLY WORK FOR BLUE ALLIANCE CURRENTLY
+     * <p>
+     * the "badSolution" parameter is becuase I don't want to repeat the expression,
+     * {@code (DriveToPointCommand) swerve.getCurrentCommand()} every time I need to
+     * do
+     * the math needed to generate the dynamic positions. It is indeed a bad
+     * solution - the commented out code at the start of the method would be a
+     * better solution if it worked but this code would only run once on robot
+     * startup thus meaning that it would always be null and would not magically
+     * change to being the appropriate instance of DriveToPointCommand when the
+     * button is pressed.
+     * <p>
+     * the expression in "armCom" can be changed to be an actual lambda if it turns
+     * out adjusting both the arm and elevator is necessary for accurate dynamic
+     * adjustment.
+     * <p>
+     * The logic for running should run as follows: the command only runs if the
+     * DriveToPoint is also running and we are close enough to the target point for
+     * the generated elevator/arm values to be reasonable. The command has the
+     * typical intake end condition of having a coral.
+     */
+    public static Command dynamicCoralIntake(DriveToPointCommand badSolution) {
+        // DriveToPointCommand currentSwerveCom = swerve.getCurrentCommand().getName()
+        // .equals(DriveToPoint.DRIVE_ASSIST_COMMAND) ? (DriveToPointCommand)
+        // swerve.getCurrentCommand() : null;
 
         Command elevCom = ElevatorFactory
-                .moveToGiven(() -> (ElevatorConstants.CORAL_INTAKE + currentSwerveCom.distStraightPlayerStation()
+                .moveToGiven(() -> (ElevatorConstants.CORAL_INTAKE + badSolution.distStraightPlayerStation()
                         * ElevatorConstants.DYNAMIC_ADJUST_P));
-
-        // this lambda may be adjusted to use a value relative to distance like above
         Command armCom = ArmFactory.moveToGiven(() -> ArmConstants.CORAL_STATION_POSITION);
 
         BooleanSupplier runCondition = () -> swerve.getCurrentCommand().getName()
                 .equals(DriveToPoint.DRIVE_ASSIST_COMMAND)
-                && Math.abs(currentSwerveCom.distStraightPlayerStation()) <= DriveToPoint.DYNAMIC_INTAKE_THRESHOLD;
+                && Math.abs(badSolution.distStraightPlayerStation()) <= DriveToPoint.DYNAMIC_INTAKE_THRESHOLD;
         BooleanSupplier endCondition = () -> coral.debouncedHasCoral();
 
         return elevCom.alongWith(armCom, CoralFactory.runIntake()).onlyWhile(runCondition).until(endCondition);
