@@ -17,7 +17,6 @@ import java.util.function.BooleanSupplier;
 
 public class SuperstructureFactory {
 
-    // WILL ONLY WORK FOR BLUE ALLIANCE CURRENTLY
     public static Command dynamicCoralIntake() {
         Command ret = new RunCommand(() -> {
             Command swerveCom = swerve.getCurrentCommand();
