@@ -91,8 +91,8 @@ public class Algae extends SubsystemBase {
      * @param speed speed algae is set to
      * @return The run intake command
      */
-    public Command runIntake(double speed) {
-        return run(() -> m_voltage = speed);
+    public Command runIntake(double voltage) {
+        return run(() -> m_voltage = voltage);
     }
 
 }
