@@ -71,9 +71,9 @@ def blinkColor(rgb):
     global amount
     global blink
     timePassed = time.time() - previousBlinkTime
-    if timePassed < 1:
+    if timePassed < 0.5:
         setNewColor(rgb)
-    elif timePassed > 1 and timePassed < 2:
+    elif timePassed > 0.5 and timePassed < 1:
         setNewColor(black)
     else:
         amount -= 1
