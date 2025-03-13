@@ -150,7 +150,8 @@ public final class Constants {
                 public static final int CURRENT_LIMIT = 20;
                 public static final double INTAKE_VOLTAGE = 1.0;
                 public static final double HOLD_PIECE_VOLTAGE = 0.1;
-                public static final double SLOW_SCORE_VOLTAGE = 0.3;
+                public static final double HOLD_PIECE_AUTON_VOLTAGE = 0.3;
+                public static final double SLOW_SCORE_VOLTAGE = -0.3;
 
                 public static final int COLOR_SENSOR = 27;
                 public static final double PROXIMITY = 0.05;
