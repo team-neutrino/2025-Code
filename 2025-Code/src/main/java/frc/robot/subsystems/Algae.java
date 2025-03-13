@@ -26,9 +26,9 @@ import static frc.robot.Constants.AlgaeConstants.*;
 public class Algae extends SubsystemBase {
 
     private SparkMax m_motor = new SparkMax(MOTOR_ID, MotorType.kBrushless);
-    private SparkMaxConfig m_motorConfig = new SparkMaxConfig();
+    private SparkMaxConfig m_config = new SparkMaxConfig();
     private RelativeEncoder m_encoder;
-    private double m_motorVoltage;
+    private double m_voltage;
     private Canandcolor m_colorSensor = new Canandcolor(COLOR_SENSOR);
     private CanandcolorSettings m_settings = new CanandcolorSettings();
     private Debouncer m_debouncer = new Debouncer(0.1, DebounceType.kFalling);
@@ -36,14 +36,14 @@ public class Algae extends SubsystemBase {
     public Algae() {
         m_encoder = m_motor.getEncoder();
 
-        m_motorConfig.smartCurrentLimit(CURRENT_LIMIT);
-        m_motorConfig.inverted(false);
-        m_motorConfig.idleMode(IdleMode.kCoast);
+        m_config.smartCurrentLimit(CURRENT_LIMIT);
+        m_config.inverted(false);
+        m_config.idleMode(IdleMode.kCoast);
 
-        m_motorConfig.softLimit.forwardSoftLimitEnabled(false);
-        m_motorConfig.softLimit.reverseSoftLimitEnabled(false);
+        m_config.softLimit.forwardSoftLimitEnabled(false);
+        m_config.softLimit.reverseSoftLimitEnabled(false);
 
-        m_motor.configure(m_motorConfig, SparkBase.ResetMode.kResetSafeParameters,
+        m_motor.configure(m_config, SparkBase.ResetMode.kResetSafeParameters,
                 SparkBase.PersistMode.kPersistParameters);
 
         m_settings.setLampLEDBrightness(1);
@@ -55,7 +55,7 @@ public class Algae extends SubsystemBase {
     }
 
     public boolean hasAlgae() {
-        return withinProximity(0.15);
+        return withinProximity(PROXIMITY);
     }
 
     /**
@@ -70,17 +70,17 @@ public class Algae extends SubsystemBase {
     }
 
     public double getMotorVoltage() {
-        return m_motorVoltage;
+        return m_voltage;
     }
 
     @Override
     public void periodic() {
-        m_motor.set(m_motorVoltage);
+        m_motor.set(m_voltage);
     }
 
     public Command algaeDefaultCommand() {
         return run(() -> {
-            m_motorVoltage = HOLD_PIECE_VOLTAGE;
+            m_voltage = HOLD_PIECE_VOLTAGE;
         });
     }
 
@@ -92,7 +92,7 @@ public class Algae extends SubsystemBase {
      * @return The run intake command
      */
     public Command runIntake(double speed) {
-        return run(() -> m_motorVoltage = speed);
+        return run(() -> m_voltage = speed);
     }
 
 }
