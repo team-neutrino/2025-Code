@@ -6,10 +6,10 @@ import static frc.robot.util.Subsystem.algae;
 
 public class AlgaeFactory {
     public static Command runIntake() {
-        return algae.runIntake(INTAKE_MOTOR_VOLTAGE);
+        return algae.runIntake(INTAKE_VOLTAGE);
     }
 
     public static Command runOuttake() {
-        return algae.runIntake(-INTAKE_MOTOR_VOLTAGE);
+        return algae.runIntake(OUTTAKE_VOLTAGE);
     }
 }

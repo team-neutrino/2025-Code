@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.subsystems.Algae;
 
 import static frc.robot.util.Subsystem.*;
 
@@ -29,14 +28,16 @@ public class SuperstructureFactory {
         Command elevatorCom = ElevatorFactory.moveToRemoveAlgaeL2();
         Command armCom = ArmFactory.armToDescoreL2();
         Command algaeCom = AlgaeFactory.runIntake();
-        return (elevatorCom.alongWith(armCom, algaeCom).until(() -> algae.debouncedHasAlgae()));
+        BooleanSupplier comEnd = () -> algae.debouncedHasAlgae();
+        return elevatorCom.alongWith(armCom, algaeCom).until(comEnd);
     }
 
     public static Command descoreAlgaeL3() {
         Command elevatorCom = ElevatorFactory.moveToRemoveAlgaeL3();
         Command armCom = ArmFactory.armToDescoreL3();
         Command algaeCom = AlgaeFactory.runIntake();
-        return elevatorCom.alongWith(armCom, algaeCom).until(() -> algae.debouncedHasAlgae());
+        BooleanSupplier comEnd = () -> algae.debouncedHasAlgae();
+        return elevatorCom.alongWith(armCom, algaeCom).until(comEnd);
     }
 
     public static Command scoreBargeCommand(CommandXboxController controller) {

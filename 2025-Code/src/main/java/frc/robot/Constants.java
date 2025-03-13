@@ -103,6 +103,8 @@ public final class Constants {
         }
 
         public static class ArmConstants {
+                public static final int MOTOR_ID = 10;
+
                 public static final double STARTING_POSITION = 180;
                 public static final double DEFAULT_POSITION = 160;
                 public static final double DEFAULT_BACK_POSITION = 230;
@@ -117,15 +119,9 @@ public final class Constants {
                 public static final double PROCESSOR_POSITION = 270.0;
                 public static final double EVACUATE_ANGLE = 15.0;
                 public static final double REEF_DESCORE_POSITION = 50.0;
-                public static final double DRIVING_ANGLE_TOLERANCE = 2.0;
-
-                public static final double HITTING_LOW_HARD_LIMIT = 90;
-                public static final double HITTING_HIGH_HARD_LIMIT = 270;
-                public static final double ALMOST_BACK_LIMIT = 200;
-                public static final double ALMOST_FRONT_LIMIT = 170;
                 public static final double ALGAE_FRONT_SAFE_ANGLE = 90;
 
-                public static final int MOTOR_ID = 10;
+                public static final double DRIVING_ANGLE_TOLERANCE = 2.0;
 
                 public static final double ENCODER_ZERO_OFFSET = 0;
                 public static final int CURRENT_LIMIT = 60;
@@ -150,25 +146,26 @@ public final class Constants {
         }
 
         public static class CoralConstants {
-                public static final int GRABBER = 21;
-                public static final int GRABBER_CURRENT_LIMIT = 20;
-                public static final double INTAKE_MOTOR_VOLTAGE = 1.0;
-                public static final double HOLD_PIECE_VOLTAGE = .1;
-                public static final double SLOW_MOTOR_VOLTAGE = 0.3;
+                public static final int MOTOR_ID = 21;
+                public static final int CURRENT_LIMIT = 20;
+                public static final double INTAKE_VOLTAGE = 1.0;
+                public static final double HOLD_PIECE_VOLTAGE = 0.1;
+                public static final double HOLD_PIECE_AUTON_VOLTAGE = 0.3;
+                public static final double SLOW_SCORE_VOLTAGE = -0.3;
 
                 public static final int COLOR_SENSOR = 27;
-
                 public static final double PROXIMITY = 0.05;
         }
 
         public static class AlgaeConstants {
-                public static final int GRABBER = 22;
-                public static final int GRABBER_CURRENT_LIMIT = 20;
-                public static final double INTAKE_MOTOR_VOLTAGE = 1.0;
+                public static final int MOTOR_ID = 22;
+                public static final int CURRENT_LIMIT = 20;
+                public static final double INTAKE_VOLTAGE = 1.0;
+                public static final double OUTTAKE_VOLTAGE = -1.0;
+                public static final double HOLD_PIECE_VOLTAGE = 0.3;
 
                 public static final int COLOR_SENSOR = 28;
-
-                public static final double PROXIMITY = 0.05;
+                public static final double PROXIMITY = 0.15;
         }
 
         public static class ClimbConstants {
