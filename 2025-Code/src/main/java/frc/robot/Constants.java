@@ -103,6 +103,8 @@ public final class Constants {
         }
 
         public static class ArmConstants {
+                public static final int MOTOR_ID = 10;
+
                 public static final double STARTING_POSITION = 180;
                 public static final double DEFAULT_POSITION = 160;
                 public static final double DEFAULT_BACK_POSITION = 230;
@@ -117,15 +119,9 @@ public final class Constants {
                 public static final double PROCESSOR_POSITION = 270.0;
                 public static final double EVACUATE_ANGLE = 15.0;
                 public static final double REEF_DESCORE_POSITION = 50.0;
-                public static final double DRIVING_ANGLE_TOLERANCE = 2.0;
-
-                public static final double HITTING_LOW_HARD_LIMIT = 90;
-                public static final double HITTING_HIGH_HARD_LIMIT = 270;
-                public static final double ALMOST_BACK_LIMIT = 200;
-                public static final double ALMOST_FRONT_LIMIT = 170;
                 public static final double ALGAE_FRONT_SAFE_ANGLE = 90;
 
-                public static final int MOTOR_ID = 10;
+                public static final double DRIVING_ANGLE_TOLERANCE = 2.0;
 
                 public static final double ENCODER_ZERO_OFFSET = 0;
                 public static final int CURRENT_LIMIT = 60;
