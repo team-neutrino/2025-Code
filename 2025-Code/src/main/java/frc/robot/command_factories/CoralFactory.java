@@ -6,18 +6,18 @@ import static frc.robot.util.Subsystem.coral;
 
 public class CoralFactory {
     public static Command runIntake() {
-        return coral.runIntake(INTAKE_MOTOR_VOLTAGE);
+        return coral.runIntake(INTAKE_VOLTAGE);
     }
 
     public static Command runOuttake() {
-        return coral.runIntake(-INTAKE_MOTOR_VOLTAGE);
+        return coral.runIntake(-INTAKE_VOLTAGE);
     }
 
     public static Command runSlowOuttake() {
-        return coral.runIntake(-SLOW_MOTOR_VOLTAGE);
+        return coral.runIntake(-SLOW_SCORE_VOLTAGE);
     }
 
     public static Command runSlowIntake() {
-        return coral.runIntake(SLOW_MOTOR_VOLTAGE);
+        return coral.runIntake(SLOW_SCORE_VOLTAGE);
     }
 }

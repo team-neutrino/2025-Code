@@ -26,7 +26,7 @@ import static frc.robot.Constants.CoralConstants.*;
  */
 public class Coral extends SubsystemBase {
 
-    private SparkMax m_motor = new SparkMax(GRABBER, MotorType.kBrushless);
+    private SparkMax m_motor = new SparkMax(MOTOR_ID, MotorType.kBrushless);
     private SparkMaxConfig m_motorConfig = new SparkMaxConfig();
     private RelativeEncoder m_encoder;
     private double m_motorVoltage;
@@ -37,7 +37,7 @@ public class Coral extends SubsystemBase {
     public Coral() {
         m_encoder = m_motor.getEncoder();
 
-        m_motorConfig.smartCurrentLimit(GRABBER_CURRENT_LIMIT);
+        m_motorConfig.smartCurrentLimit(CURRENT_LIMIT);
         m_motorConfig.inverted(false);
         m_motorConfig.idleMode(IdleMode.kCoast);
 

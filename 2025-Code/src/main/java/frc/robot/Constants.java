@@ -150,24 +150,24 @@ public final class Constants {
         }
 
         public static class CoralConstants {
-                public static final int GRABBER = 21;
-                public static final int GRABBER_CURRENT_LIMIT = 20;
-                public static final double INTAKE_MOTOR_VOLTAGE = 1.0;
-                public static final double HOLD_PIECE_VOLTAGE = .1;
-                public static final double SLOW_MOTOR_VOLTAGE = 0.3;
+                public static final int MOTOR_ID = 21;
+                public static final int CURRENT_LIMIT = 20;
+                public static final double INTAKE_VOLTAGE = 1.0;
+                public static final double HOLD_PIECE_VOLTAGE = 0.1;
+                public static final double SLOW_SCORE_VOLTAGE = 0.3;
 
                 public static final int COLOR_SENSOR = 27;
-
                 public static final double PROXIMITY = 0.05;
         }
 
         public static class AlgaeConstants {
-                public static final int GRABBER = 22;
-                public static final int GRABBER_CURRENT_LIMIT = 20;
-                public static final double INTAKE_MOTOR_VOLTAGE = 1.0;
+                public static final int MOTOR_ID = 22;
+                public static final int CURRENT_LIMIT = 20;
+                public static final double INTAKE_VOLTAGE = 1.0;
+                public static final double OUTTAKE_VOLTAGE = -1.0;
+                public static final double HOLD_PIECE_VOLTAGE = 0.3;
 
                 public static final int COLOR_SENSOR = 28;
-
                 public static final double PROXIMITY = 0.05;
         }
 

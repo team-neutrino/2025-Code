@@ -25,7 +25,7 @@ import static frc.robot.Constants.AlgaeConstants.*;
  */
 public class Algae extends SubsystemBase {
 
-    private SparkMax m_motor = new SparkMax(GRABBER, MotorType.kBrushless);
+    private SparkMax m_motor = new SparkMax(MOTOR_ID, MotorType.kBrushless);
     private SparkMaxConfig m_motorConfig = new SparkMaxConfig();
     private RelativeEncoder m_encoder;
     private double m_motorVoltage;
@@ -36,7 +36,7 @@ public class Algae extends SubsystemBase {
     public Algae() {
         m_encoder = m_motor.getEncoder();
 
-        m_motorConfig.smartCurrentLimit(GRABBER_CURRENT_LIMIT);
+        m_motorConfig.smartCurrentLimit(CURRENT_LIMIT);
         m_motorConfig.inverted(false);
         m_motorConfig.idleMode(IdleMode.kCoast);
 
@@ -80,7 +80,7 @@ public class Algae extends SubsystemBase {
 
     public Command algaeDefaultCommand() {
         return run(() -> {
-            m_motorVoltage = 0.3;
+            m_motorVoltage = HOLD_PIECE_VOLTAGE;
         });
     }
 
