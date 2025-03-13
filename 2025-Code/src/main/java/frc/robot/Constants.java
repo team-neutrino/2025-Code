@@ -212,11 +212,11 @@ public final class Constants {
                 // placeholder values (in meters)
                 public static final double CAMERA_FORWARD_OFFSET = 0.216;
                 public static final double CAMERA_SIDE_OFFSET = 0.121;
-                public static final double CAMERA_HEIGHT_OFFSET = 0.342;
+                public static final double CAMERA_HEIGHT_OFFSET = 0.2404;
                 // placeholder values (in degrees)
                 public static final double CAMERA_ROLL_OFFSET = 0.0;
                 public static final double CAMERA_PITCH_OFFSET = 0.0;
-                public static final double CAMERA_YAW_OFFSET = 0.0;
+                public static final double CAMERA_YAW_OFFSET = 17.5;
                 // placeholder values (in meters)
                 public static final double CAMERA2_FORWARD_OFFSET = -0.216;
                 public static final double CAMERA2_SIDE_OFFSET = 0.121;
