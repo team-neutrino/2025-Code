@@ -80,7 +80,9 @@ public class Algae extends SubsystemBase {
 
     public Command algaeDefaultCommand() {
         return run(() -> {
-            m_voltage = HOLD_PIECE_VOLTAGE;
+            if (hasAlgae()) {
+                m_voltage = HOLD_PIECE_VOLTAGE;
+            }
         });
     }
 
