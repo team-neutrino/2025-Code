@@ -76,7 +76,6 @@ public class RobotContainer {
     m_buttonsController.back().whileTrue(SuperstructureFactory.scoreProcessorCommand(m_buttonsController));
     m_buttonsController.start().whileTrue(SuperstructureFactory.scoreBargeCommand(m_buttonsController));
     m_buttonsController.povDown().whileTrue(AlgaeFactory.runOuttake());
-
     m_buttonsController.leftBumper().whileTrue(SuperstructureFactory.dynamicCoralIntake());
   }
 
