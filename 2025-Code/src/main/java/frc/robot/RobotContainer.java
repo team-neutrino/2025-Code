@@ -69,11 +69,11 @@ public class RobotContainer {
     m_buttonsController.b().whileTrue(SuperstructureFactory.scoreL3(m_buttonsController));
     m_buttonsController.a().whileTrue(SuperstructureFactory.scoreL4(m_buttonsController));
 
-    m_buttonsController.rightTrigger().whileTrue(SuperstructureFactory.descoreAlgaeL3());
-    m_buttonsController.leftTrigger().whileTrue(SuperstructureFactory.descoreAlgaeL2());
-    m_buttonsController.back().whileTrue(SuperstructureFactory.scoreProcessorCommand(m_buttonsController));
-    m_buttonsController.start().whileTrue(SuperstructureFactory.scoreBargeCommand(m_buttonsController));
-    m_buttonsController.povDown().whileTrue(AlgaeFactory.runOuttake());
+    m_buttonsController.povUp().whileTrue(SuperstructureFactory.scoreBargeCommand(m_buttonsController));
+    m_buttonsController.povDown().whileTrue(SuperstructureFactory.scoreProcessorCommand(m_buttonsController));
+
+    m_buttonsController.povLeft().whileTrue(SuperstructureFactory.descoreAlgaeL2());
+    m_buttonsController.povRight().whileTrue(SuperstructureFactory.descoreAlgaeL3());
 
     m_buttonsController.leftBumper().whileTrue(SuperstructureFactory.intakeCoral());
   }
