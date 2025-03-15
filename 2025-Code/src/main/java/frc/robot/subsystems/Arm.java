@@ -110,7 +110,7 @@ public class Arm extends SubsystemBase {
     if (nearTargetAngle()) {
       m_pid.setReference(targetAngle, ControlType.kPosition, ClosedLoopSlot.kSlot1, feedForwardCalculation());
     } else {
-      m_pid.setReference(targetAngle, ControlType.kMAXMotionPositionControl, ClosedLoopSlot.kSlot0,
+      m_pid.setReference(targetAngle, ControlType.kPosition, ClosedLoopSlot.kSlot0,
           feedForwardCalculation());
     }
   }

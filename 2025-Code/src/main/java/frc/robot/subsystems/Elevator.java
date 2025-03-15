@@ -89,7 +89,7 @@ public class Elevator extends SubsystemBase {
   }
 
   private void adjustElevator(double target) {
-    m_pid.setReference(target, ControlType.kMAXMotionPositionControl, ClosedLoopSlot.kSlot0, feedForwardCalculation());
+    m_pid.setReference(target, ControlType.kPosition, ClosedLoopSlot.kSlot0, feedForwardCalculation());
   }
 
   private double feedForwardCalculation() {
