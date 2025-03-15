@@ -90,7 +90,7 @@ public class RobotContainer {
     m_buttonsController.povLeft().whileTrue(SuperstructureFactory.descoreAlgaeL2());
     m_buttonsController.povRight().whileTrue(SuperstructureFactory.descoreAlgaeL3());
 
-    m_buttonsController.leftBumper().whileTrue(SuperstructureFactory.dynamicCoralIntake());
+    m_buttonsController.leftBumper().whileTrue(SuperstructureFactory.dynamicCoralIntake((DriveToPointCommand) driveToPoint));
   }
 
   private void configureDefaultCommands() {
