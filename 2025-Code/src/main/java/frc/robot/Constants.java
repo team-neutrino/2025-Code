@@ -72,7 +72,7 @@ public final class Constants {
                 public static final int MOTOR_ID = 2;
                 public static final int FOLLOWER_ID = 3;
                 public static final int CURRENT_LIMIT = 60;
-                public static final double DEFAULT = 5.0;
+                public static final double DEFAULT = 10.0;
                 public static final double BOTTOM_POSITION = 0.0;
                 public static final double STAGE_ONE_UP = 26.0;
                 public static final double CORAL_INTAKE = 34;
@@ -93,7 +93,7 @@ public final class Constants {
                 public static final double MAX_VELOCITY = 4000;
                 public static final double MAX_ACCELERATION = 6000;
                 public static final double ALLOWED_ERROR = 0.1;
-                public static final double P_VAL = 0.15;
+                public static final double P_VAL = 0.1;
                 public static final double I_VAL = 0.0;
                 public static final double D_VAL = 0.0;
                 public static final double STAGE_1_FF = 0.25;
