@@ -53,7 +53,7 @@ public final class Constants {
                                 -1, -1, -1, -1, -1, -120, 180, 120, 60, 0, -60 };
                 public static final double APRILTAG_ALIGN_LIMIT = 1.5;
                 public static final double AUTO_ALIGN_P = 4;
-                public static final double AUTO_ALIGN_D = .02;
+                public static final double AUTO_ALIGN_D = .005; // 0.02
                 public static final double STALL_TORQUE = 7.09;
                 public static final double STALL_CURRENT = 366;
                 public static final double FREE_CURRENT_AMPS = 2;
@@ -72,7 +72,8 @@ public final class Constants {
                 public static final int MOTOR_ID = 2;
                 public static final int FOLLOWER_ID = 3;
                 public static final int CURRENT_LIMIT = 60;
-                public static final double DEFAULT = 10.0;
+                public static final double DEFAULT_NO_CORAL = 17.0;
+                public static final double DEFAULT_WITH_CORAL = 0;
                 public static final double BOTTOM_POSITION = 0.0;
                 public static final double STAGE_ONE_UP = 26.0;
                 public static final double CORAL_INTAKE = 34;
@@ -109,14 +110,15 @@ public final class Constants {
 
                 public static final double STARTING_POSITION = 180;
                 public static final double DEFAULT_POSITION = 160;
-                public static final double DEFAULT_BACK_POSITION = 230;
+                public static final double DEFAULT_NO_GP = 180;
+                public static final double SAFE_BACK_POS = 230;
                 public static final double GROUND_ALGAE_POSITION = 95;
                 public static final double CORAL_STATION_POSITION = 323;
                 public static final double L1_UNDERHAND = 335.0;
                 public static final double L1_POSITION = 140.0;
                 public static final double L2_POSITION = 135.0;
                 public static final double L3_POSITION = 135.0;
-                public static final double L4_POSITION = 133.0;
+                public static final double L4_POSITION = 140.0;
                 public static final double BARGE_POSITION = 159.0;
                 public static final double PROCESSOR_POSITION = 270.0;
                 public static final double EVACUATE_ANGLE = 15.0;

@@ -141,7 +141,8 @@ public class Elevator extends SubsystemBase {
   }
 
   public boolean readyToScore() {
-    return atTargetHeight() && !(m_targetHeight == DEFAULT || m_targetHeight == CORAL_INTAKE);
+    return atTargetHeight() && !(m_targetHeight == DEFAULT_NO_CORAL || m_targetHeight == CORAL_INTAKE
+        || m_targetHeight == DEFAULT_WITH_CORAL);
   }
 
   private double safeHeight(double targetHeight) {
@@ -156,7 +157,7 @@ public class Elevator extends SubsystemBase {
     else if ((((Subsystem.arm.getTargetAngle() > 180 && Subsystem.arm.getAngle() < 180)
         || (Subsystem.arm.getTargetAngle() < 180 && Subsystem.arm.getAngle() > 180))
         || (Subsystem.arm.getAngle() > ArmConstants.DEFAULT_POSITION + ArmConstants.DRIVING_ANGLE_TOLERANCE
-            && Subsystem.arm.getAngle() < ArmConstants.DEFAULT_BACK_POSITION - ArmConstants.DRIVING_ANGLE_TOLERANCE))
+            && Subsystem.arm.getAngle() < ArmConstants.DEFAULT_NO_GP - ArmConstants.DRIVING_ANGLE_TOLERANCE))
         && getTargetHeight() < safeHeight) {
       safeTarget = safeHeight;
     }
@@ -198,7 +199,13 @@ public class Elevator extends SubsystemBase {
   }
 
   public Command elevatorDefaultCommand() {
-    return run(() -> m_targetHeight = DEFAULT);
+    return run(() -> {
+      if (Subsystem.coral.debouncedHasCoral()) {
+        m_targetHeight = DEFAULT_WITH_CORAL;
+      } else {
+        m_targetHeight = DEFAULT_NO_CORAL;
+      }
+    });
   }
 
   public Command moveElevatorCommand(double height) {
