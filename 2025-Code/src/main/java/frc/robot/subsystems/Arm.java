@@ -64,7 +64,7 @@ public class Arm extends SubsystemBase {
   }
 
   public boolean readyToScore() {
-    return atTargetAngle() && !(m_targetAngle == STARTING_POSITION || m_targetAngle == DEFAULT_POSITION
+    return atTargetAngle() && !(m_targetAngle == DEFAULT_POSITION
         || m_targetAngle == DEFAULT_BACK_POSITION
         || m_targetAngle == CORAL_STATION_POSITION);
   }
@@ -191,6 +191,9 @@ public class Arm extends SubsystemBase {
     return run(() -> {
       if (Subsystem.coral.hasCoral()) {
         m_targetAngle = DEFAULT_POSITION;
+        if (Subsystem.algae.debouncedHasAlgae()) {
+          m_targetAngle = DEFAULT_BACK_POSITION;
+        }
       } else {
         m_targetAngle = DEFAULT_BACK_POSITION;
       }

@@ -43,13 +43,13 @@ public class SuperstructureFactory {
     public static Command scoreBargeCommand(CommandXboxController controller) {
         Command elevatorCom = ElevatorFactory.moveToScoreBarge();
         Command armScoreCom = ArmFactory.armToScoreBarge();
-        Command algaeDefaultCom = algae.algaeDefaultCommand();
+        // Command algaeDefaultCom = algae.algaeDefaultCommand();
         Command algaeScoreCom = AlgaeFactory.runOuttake();
         BooleanSupplier readyToScore = () -> (arm.readyToScore() && elevator.readyToScore()
                 && controller.getHID().getRightBumperButton());
         BooleanSupplier comEnd = () -> !algae.debouncedHasAlgae();
 
-        return ((elevatorCom.alongWith(armScoreCom, algaeDefaultCom))
+        return ((elevatorCom.alongWith(armScoreCom))
                 .until(readyToScore)).andThen(algaeScoreCom.until(comEnd));
     }
 
