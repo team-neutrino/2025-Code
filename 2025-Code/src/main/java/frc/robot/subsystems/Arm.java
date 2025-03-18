@@ -198,6 +198,7 @@ public class Arm extends SubsystemBase {
         m_targetAngle = DEFAULT_NO_GP;
       }
     });
+
   }
 
   /**
