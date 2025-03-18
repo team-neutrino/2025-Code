@@ -387,5 +387,4 @@ public final class Constants {
                                 CalculateAlgaePoint(layout.getTagPose(21).get()),
                                 CalculateAlgaePoint(layout.getTagPose(22).get()));
         }
-
 }
