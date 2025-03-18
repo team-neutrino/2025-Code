@@ -53,7 +53,7 @@ public final class Constants {
                                 -1, -1, -1, -1, -1, -120, 180, 120, 60, 0, -60 };
                 public static final double APRILTAG_ALIGN_LIMIT = 1.5;
                 public static final double AUTO_ALIGN_P = 4;
-                public static final double AUTO_ALIGN_D = .005; // 0.02
+                public static final double AUTO_ALIGN_D = 0.02;
                 public static final double STALL_TORQUE = 7.09;
                 public static final double STALL_CURRENT = 366;
                 public static final double FREE_CURRENT_AMPS = 2;
@@ -83,12 +83,12 @@ public final class Constants {
                 public static final double SCORE_ALGAE_PROCESSOR = 25.0;
                 public static final double L1 = 11.0;
                 public static final double L2 = 16.0;
-                public static final double L3 = 30.0;
+                public static final double L3 = 31.0;
                 public static final double L4 = 54.9;
                 public static final double ARM_WILL_NOT_HIT_BASE_HEIGHT = 20.0;
                 public static final double STAGE_1_LENGTH = 29;
                 public static final double STAGE_2_LENGTH = 26;
-                public static final double GEAR_RATIO = 50 / 7; // 7.41:1
+                public static final double GEAR_RATIO = 50 / 7;
                 public static final double FLOOR_TO_ELEVATOR_TOP = 70.88;
                 public static final double FLOOR_TO_TOP_OF_BOTTOM_TUBE = 11.88;
                 public static final double MAX_VELOCITY = 4000;
@@ -115,9 +115,9 @@ public final class Constants {
                 public static final double GROUND_ALGAE_POSITION = 95;
                 public static final double CORAL_STATION_POSITION = 323;
                 public static final double L1_UNDERHAND = 335.0;
-                public static final double L1_POSITION = 140.0;
-                public static final double L2_POSITION = 135.0;
-                public static final double L3_POSITION = 135.0;
+                public static final double L1_POSITION = 120.0;
+                public static final double L2_POSITION = 140.0;
+                public static final double L3_POSITION = 140.0;
                 public static final double L4_POSITION = 140.0;
                 public static final double BARGE_POSITION = 159.0;
                 public static final double PROCESSOR_POSITION = 270.0;
@@ -210,19 +210,20 @@ public final class Constants {
         }
 
         public static class LimelightConstants {
-                // placeholder values (in meters)
+                // REEF CAMERA OFFSETS
                 public static final double CAMERA_FORWARD_OFFSET = 0.216;
                 public static final double CAMERA_SIDE_OFFSET = 0.121;
                 public static final double CAMERA_HEIGHT_OFFSET = 0.2404;
-                // placeholder values (in degrees)
+
                 public static final double CAMERA_ROLL_OFFSET = 0.0;
                 public static final double CAMERA_PITCH_OFFSET = 0.0;
                 public static final double CAMERA_YAW_OFFSET = -17.5;
-                // placeholder values (in meters)
+
                 public static final double CAMERA2_FORWARD_OFFSET = -0.216;
                 public static final double CAMERA2_SIDE_OFFSET = 0.121;
                 public static final double CAMERA2_HEIGHT_OFFSET = 0.84990178;
-                // placeholder values (in degrees)
+
+                // CORAL STATION CAMERA OFFSETS
                 public static final double CAMERA2_ROLL_OFFSET = 0.0;
                 public static final double CAMERA2_PITCH_OFFSET = 30.0;
                 public static final double CAMERA2_YAW_OFFSET = 180.0;
