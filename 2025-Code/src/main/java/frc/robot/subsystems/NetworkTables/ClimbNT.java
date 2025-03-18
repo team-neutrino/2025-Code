@@ -21,12 +21,12 @@ public class ClimbNT extends Climb {
     DoubleTopic followerCurrent = nt.getDoubleTopic("/climb/follower_climb_velocity");
     BooleanTopic motorOff = nt.getBooleanTopic("/climb/motor_off");
 
-    DoubleTopic grabCurrent = nt.getDoubleTopic("/climb/grab_current");
-    DoubleTopic grabPosition = nt.getDoubleTopic("/climb/grab_position");
-    DoubleTopic grabTargetPosition = nt.getDoubleTopic("/climb/grab_target_position");
+    // DoubleTopic grabCurrent = nt.getDoubleTopic("/climb/grab_current");
+    // DoubleTopic grabPosition = nt.getDoubleTopic("/climb/grab_position");
+    // DoubleTopic grabTargetPosition = nt.getDoubleTopic("/climb/grab_target_position");
 
-    BooleanTopic isRaiseClimbSafe = nt.getBooleanTopic("/climb/is_raise_climb_safe");
-    BooleanTopic isLockGrabSafe = nt.getBooleanTopic("/climb/is_lock_grab_safe");
+    // BooleanTopic isRaiseClimbSafe = nt.getBooleanTopic("/climb/is_raise_climb_safe");
+    // BooleanTopic isLockGrabSafe = nt.getBooleanTopic("/climb/is_lock_grab_safe");
     BooleanTopic isLowerClimbSafe = nt.getBooleanTopic("/climb/is_lower_climb_safe");
 
     final DoublePublisher actualClimbPositionPub;
@@ -36,12 +36,12 @@ public class ClimbNT extends Climb {
     final DoublePublisher followerCurrentPub;
     final BooleanPublisher motorOffPub;
 
-    final DoublePublisher grabCurrentPub;
-    final DoublePublisher grabPositionPub;
-    final DoublePublisher grabTargetPositionPub;
+    // final DoublePublisher grabCurrentPub;
+    // final DoublePublisher grabPositionPub;
+    // final DoublePublisher grabTargetPositionPub;
 
-    final BooleanPublisher isRaiseClimbSafePub;
-    final BooleanPublisher isLockGrabSafePub;
+    // final BooleanPublisher isRaiseClimbSafePub;
+    // final BooleanPublisher isLockGrabSafePub;
     final BooleanPublisher isLowerClimbSafePub;
 
     private PIDTuner m_PIDTuner;
@@ -49,10 +49,10 @@ public class ClimbNT extends Climb {
     private double m_previousClimbI = CLIMB_kI;
     private double m_previousClimbD = CLIMB_kD;
 
-    private PIDTuner m_lockPIDTuner;
-    private double m_previousLockP = LOCK_kP;
-    private double m_previousLockI = LOCK_kI;
-    private double m_previousLockD = LOCK_kD;
+    // private PIDTuner m_lockPIDTuner;
+    // private double m_previousLockP = LOCK_kP;
+    // private double m_previousLockI = LOCK_kI;
+    // private double m_previousLockD = LOCK_kD;
 
     public ClimbNT() {
         actualClimbPositionPub = actualClimbPosition.publish();
@@ -73,20 +73,20 @@ public class ClimbNT extends Climb {
         motorOffPub = motorOff.publish();
         motorOffPub.setDefault(false);
 
-        grabCurrentPub = grabCurrent.publish();
-        grabCurrentPub.setDefault(0);
+        // grabCurrentPub = grabCurrent.publish();
+        // grabCurrentPub.setDefault(0);
 
-        grabPositionPub = grabPosition.publish();
-        grabPositionPub.setDefault(0);
+        // grabPositionPub = grabPosition.publish();
+        // grabPositionPub.setDefault(0);
 
-        grabTargetPositionPub = grabTargetPosition.publish();
-        grabTargetPositionPub.setDefault(0);
+        // grabTargetPositionPub = grabTargetPosition.publish();
+        // grabTargetPositionPub.setDefault(0);
 
-        isRaiseClimbSafePub = isRaiseClimbSafe.publish();
-        isRaiseClimbSafePub.setDefault(false);
+        // isRaiseClimbSafePub = isRaiseClimbSafe.publish();
+        // isRaiseClimbSafePub.setDefault(false);
 
-        isLockGrabSafePub = isLockGrabSafe.publish();
-        isLockGrabSafePub.setDefault(false);
+        // isLockGrabSafePub = isLockGrabSafe.publish();
+        // isLockGrabSafePub.setDefault(false);
 
         isLowerClimbSafePub = isLowerClimbSafe.publish();
         isLowerClimbSafePub.setDefault(false);
@@ -96,10 +96,10 @@ public class ClimbNT extends Climb {
         m_PIDTuner.setI(m_previousClimbI);
         m_PIDTuner.setD(m_previousClimbD);
 
-        m_lockPIDTuner = new PIDTuner("climb/{tuning}lockPID");
-        m_lockPIDTuner.setP(m_previousLockP);
-        m_lockPIDTuner.setI(m_previousLockI);
-        m_lockPIDTuner.setD(m_previousLockD);
+        // m_lockPIDTuner = new PIDTuner("climb/{tuning}lockPID");
+        // m_lockPIDTuner.setP(m_previousLockP);
+        // m_lockPIDTuner.setI(m_previousLockI);
+        // m_lockPIDTuner.setD(m_previousLockD);
     }
 
     @Override
@@ -126,11 +126,11 @@ public class ClimbNT extends Climb {
             m_previousClimbD = m_PIDTuner.getD();
         }
 
-        if (m_lockPIDTuner.isDifferentValues(m_previousLockP, m_previousLockI, m_previousLockD)) {
-            changePID(m_lockPIDTuner.getP(), m_lockPIDTuner.getI(), m_lockPIDTuner.getD());
-            m_previousLockP = m_lockPIDTuner.getP();
-            m_previousLockI = m_lockPIDTuner.getI();
-            m_previousLockD = m_lockPIDTuner.getD();
-        }
+        // if (m_lockPIDTuner.isDifferentValues(m_previousLockP, m_previousLockI, m_previousLockD)) {
+        //     changePID(m_lockPIDTuner.getP(), m_lockPIDTuner.getI(), m_lockPIDTuner.getD());
+        //     m_previousLockP = m_lockPIDTuner.getP();
+        //     m_previousLockI = m_lockPIDTuner.getI();
+        //     m_previousLockD = m_lockPIDTuner.getD();
+        // }
     }
 }
