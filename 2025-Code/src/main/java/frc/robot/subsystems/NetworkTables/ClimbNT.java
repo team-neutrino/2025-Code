@@ -114,8 +114,8 @@ public class ClimbNT extends Climb {
         climbCurrentPub.set(getClimbMotorCurrent(), now);
         followerCurrentPub.set(getClimbFollowerCurrent(), now);
 
-        grabCurrentPub.set(getGrabMotorCurrent(), now);
-        grabPositionPub.set(getGrabMotorPosition(), now);
+        // grabCurrentPub.set(getGrabMotorCurrent(), now);
+        // grabPositionPub.set(getGrabMotorPosition(), now);
 
         motorOffPub.set(getMotoroff(), now);
 

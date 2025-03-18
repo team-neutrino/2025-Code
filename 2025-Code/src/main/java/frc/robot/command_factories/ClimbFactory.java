@@ -18,8 +18,4 @@ public class ClimbFactory {
                 climb.lowerClimbCommand().withTimeout(LOWER_CLIMB_TIMEOUT),
                 climb.hasClimbCommand());
     }
-
-    public static Command lockGrabber() {
-        return climb.lockGrabberCommand();
-    }
 }
