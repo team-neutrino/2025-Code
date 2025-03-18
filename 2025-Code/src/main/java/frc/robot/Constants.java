@@ -80,7 +80,7 @@ public final class Constants {
                 public static final double REMOVE_ALGAE_L3 = 50.0;
                 public static final double SCORE_ALGAE_BARGE = 54.9;
                 public static final double SCORE_ALGAE_PROCESSOR = 25.0;
-                public static final double L1 = 10.0;
+                public static final double L1 = 11.0;
                 public static final double L2 = 16.0;
                 public static final double L3 = 30.0;
                 public static final double L4 = 54.9;
@@ -100,6 +100,8 @@ public final class Constants {
                 public static final double STAGE_2_FF = 0.30;
                 public static final double HEIGHT_TOLERANCE = 0.6;
                 public static final double SLOW_MOVE_THRESHOLD = 45.0;
+                public static final double SAFE_HEIGHT_ALGAE = 30;
+                public static final double SAFE_HEIGHT_NO_ALGAE = 16;
         }
 
         public static class ArmConstants {

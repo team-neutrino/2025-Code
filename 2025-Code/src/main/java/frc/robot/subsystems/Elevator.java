@@ -146,19 +146,19 @@ public class Elevator extends SubsystemBase {
 
   private double safeHeight(double targetHeight) {
     double safeTarget = targetHeight;
+    double safeHeight = Subsystem.algae.hasAlgae() ? SAFE_HEIGHT_ALGAE : SAFE_HEIGHT_NO_ALGAE;
 
     if ((Subsystem.arm.getAngle() < 90 || Subsystem.arm.getAngle() > 270 || Subsystem.arm.getTargetAngle() < 90
-        || Subsystem.arm.getTargetAngle() > 270) && (getTargetHeight() < L2)) {
-      safeTarget = L2;
+        || Subsystem.arm.getTargetAngle() > 270) && (getTargetHeight() < safeHeight)) {
+      safeTarget = safeHeight;
     }
 
     else if ((((Subsystem.arm.getTargetAngle() > 180 && Subsystem.arm.getAngle() < 180)
         || (Subsystem.arm.getTargetAngle() < 180 && Subsystem.arm.getAngle() > 180))
         || (Subsystem.arm.getAngle() > ArmConstants.DEFAULT_POSITION + ArmConstants.DRIVING_ANGLE_TOLERANCE
-            && Subsystem.arm.getAngle() < ArmConstants.DEFAULT_BACK_POSITION - ArmConstants.DRIVING_ANGLE_TOLERANCE)
-        || (Subsystem.arm.getTargetAngle() > ArmConstants.DEFAULT_POSITION && Subsystem.algae.debouncedHasAlgae()))
-        && getTargetHeight() < L2 + 2) {
-      safeTarget = L2 + 2;
+            && Subsystem.arm.getAngle() < ArmConstants.DEFAULT_BACK_POSITION - ArmConstants.DRIVING_ANGLE_TOLERANCE))
+        && getTargetHeight() < safeHeight) {
+      safeTarget = safeHeight;
     }
 
     return safeTarget;

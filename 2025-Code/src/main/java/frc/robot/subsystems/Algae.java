@@ -82,6 +82,8 @@ public class Algae extends SubsystemBase {
         return run(() -> {
             if (hasAlgae()) {
                 m_voltage = HOLD_PIECE_VOLTAGE;
+            } else {
+                m_voltage = 0;
             }
         });
     }
