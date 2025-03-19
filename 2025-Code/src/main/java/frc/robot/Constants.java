@@ -115,9 +115,9 @@ public final class Constants {
                 public static final double GROUND_ALGAE_POSITION = 95;
                 public static final double CORAL_STATION_POSITION = 323;
                 public static final double L1_UNDERHAND = 335.0;
-                public static final double L1_POSITION = 120.0;
-                public static final double L2_POSITION = 140.0;
-                public static final double L3_POSITION = 140.0;
+                public static final double L1_POSITION = 130.0;
+                public static final double L2_POSITION = 141.0;
+                public static final double L3_POSITION = 141.0;
                 public static final double L4_POSITION = 140.0;
                 public static final double BARGE_POSITION = 159.0;
                 public static final double PROCESSOR_POSITION = 270.0;
@@ -277,12 +277,12 @@ public final class Constants {
                 // right is more negative, left is more positive
                 public static final double offsetOfArmStation = -.42;
                 public static final double sidewaysOffsetStation = .3;
-                public static final double offsetToReef = .515;
+                public static final double offsetToReef = .52;
                 public static final double offsetToStation = .58;
                 public static final double reefWidth = 0.33;
 
                 public static final double offsetOfArmAlgae = 0.33;
-                public static final double offsetToReefAlgae = 0.09;
+                public static final double offsetToReefAlgae = 0.7;
                 // negative is more right
 
                 // CURRENTLY TESTING WITH THIS LIBRARY THING

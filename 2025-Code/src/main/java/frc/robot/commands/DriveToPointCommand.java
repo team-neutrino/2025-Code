@@ -47,9 +47,6 @@ public class DriveToPointCommand extends Command {
 
   @Override
   public void execute() {
-    if (m_xboxController.getHID().getRightTriggerAxis() > 0.1) {
-      m_algae = true;
-    }
     if (!m_algae) {
       checkBumpers();
     }
@@ -58,6 +55,7 @@ public class DriveToPointCommand extends Command {
     if (swerve.isAtPoint() && (Subsystem.coral.hasCoral() != m_hadGamePiece)) {
       obtainTarget();
     }
+    System.out.println("algae:" + m_algae);
   }
 
   @Override
@@ -79,17 +77,8 @@ public class DriveToPointCommand extends Command {
     m_hadGamePiece = hasGamePiece;
     List<Pose2d> m_reefPoses = m_algae ? REEF_ALGAE : (redAlliance.get() ? RED_REEF_RIGHT : BLUE_REEF_RIGHT);
     List<Pose2d> m_coralStationPoses = redAlliance.get() ? POSE_LIST.subList(0, 6) : POSE_LIST.subList(6, 12);
-    m_localList = hasGamePiece ? m_reefPoses : m_coralStationPoses;
+    m_localList = (hasGamePiece || m_algae) ? m_reefPoses : m_coralStationPoses;
     m_pointControl.setTargetNearest(m_localList);
-    if (hasGamePiece || m_algae) {
-      m_localList = m_algae ? REEF_ALGAE : (redAlliance.get() ? RED_REEF : BLUE_REEF);
-    } else {
-      if (m_localList.indexOf(m_pointControl.getTarget()) < 3) {
-        m_localList = m_localList.subList(0, 3);
-      } else {
-        m_localList = m_localList.subList(3, 6);
-      }
-    }
   }
 
   public void isAtPoint() {
