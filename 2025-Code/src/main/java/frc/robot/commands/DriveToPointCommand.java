@@ -79,6 +79,15 @@ public class DriveToPointCommand extends Command {
     List<Pose2d> m_coralStationPoses = redAlliance.get() ? POSE_LIST.subList(0, 6) : POSE_LIST.subList(6, 12);
     m_localList = (hasGamePiece || m_algae) ? m_reefPoses : m_coralStationPoses;
     m_pointControl.setTargetNearest(m_localList);
+    if (hasGamePiece || m_algae) {
+      m_localList = m_algae ? REEF_ALGAE : (redAlliance.get() ? RED_REEF : BLUE_REEF);
+    } else {
+      if (m_localList.indexOf(m_pointControl.getTarget()) < 3) {
+        m_localList = m_localList.subList(0, 3);
+      } else {
+        m_localList = m_localList.subList(3, 6);
+      }
+    }
   }
 
   public void isAtPoint() {
