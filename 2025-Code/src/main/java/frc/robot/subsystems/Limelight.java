@@ -257,9 +257,9 @@ public class Limelight extends SubsystemBase {
       // LL4 internal IMU's fused yaw to match the submitted yaw value
       LimelightHelpers.SetIMUMode(LL_STATION, 1);
     } else {
-      LimelightHelpers.SetIMUMode(LL_REEF, 2);
+      LimelightHelpers.SetIMUMode(LL_REEF, 1);
       // use internal IMU for MT2 localization. External IMU data is ignored entirely.
-      LimelightHelpers.SetIMUMode(LL_STATION, 2);
+      LimelightHelpers.SetIMUMode(LL_STATION, 1);
     }
 
     // according to limelight docs, this needs to be called before using

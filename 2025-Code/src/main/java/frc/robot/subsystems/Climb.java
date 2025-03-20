@@ -142,11 +142,10 @@ public class Climb extends SubsystemBase {
 
   public Command lowerClimbCommand() {
     return run(() -> {
-      m_targetPositionGrab = LOCK_GRABBER_POSITION;
       m_targetPositionRatchet = RATCHET_UNLOCK_POSITION;
       m_climbMotorOff = false;
       m_targetPositionClimb = LOWER_CLIMB_POSITION;
-    }).onlyIf(() -> isLowerClimbSafe()).until(() -> isLowerPosition());
+    }).until(() -> isLowerPosition());
   }
 
   public Command hasClimbCommand() {
@@ -214,7 +213,6 @@ public class Climb extends SubsystemBase {
     return m_grabEncoder.getPosition();
   }
 
-  
   public void changePID(double p, double i, double d) {
     m_climbMotorConfig.Slot0.kP = p;
     m_climbMotorConfig.Slot0.kI = i;
