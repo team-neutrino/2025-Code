@@ -194,7 +194,7 @@ public final class Constants {
                 public static final int UNLOCK_GRABBER_POSITION = -43;
                 public static final int GRANNY_GRABBER_POSITION = 0;
 
-                public static final double RATCHET_LOCK_POSITION = 0.84;
+                public static final double RATCHET_LOCK_POSITION = 0.7;
                 public static final double RATCHET_UNLOCK_POSITION = 1;
 
                 public static final double CLIMB_kP = 0.75;
