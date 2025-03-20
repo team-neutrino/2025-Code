@@ -136,7 +136,7 @@ public final class Constants {
 
                 public static final double GAIN_THRESHOLD = 6;
 
-                public static final double kp = 0.03;
+                public static final double kp = 0.025;
                 public static final double ki = 0;
                 public static final double kd = 0;
                 public static final double kp1 = 0.05;
@@ -182,8 +182,8 @@ public final class Constants {
                 public static final int GRAB_CURRENT_LIMIT = 10;
 
                 public static final int START_CLIMB_POSITION = 0;
-                public static final int RAISE_CLIMB_POSITION = 20;
-                public static final int LOWER_CLIMB_POSITION = -20;
+                public static final int RAISE_CLIMB_POSITION = 40;
+                public static final int LOWER_CLIMB_POSITION = -40;
 
                 public static final int CLIMB_POSITION_TOLERANCE = 3;
                 public static final int GRABBER_POSITION_TOLERANCE = 5;
