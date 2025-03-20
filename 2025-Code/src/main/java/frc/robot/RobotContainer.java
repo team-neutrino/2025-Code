@@ -53,7 +53,6 @@ public class RobotContainer {
     // driver controller
     // ONLY RUN CLIMB IN ORDER AS LISTED BELOW vvv
     m_driverController.y().onTrue(ClimbFactory.raiseClimb());
-    m_driverController.x().onTrue(ClimbFactory.lockGrabber());
     m_driverController.a().onTrue(ClimbFactory.lowerClimb());
 
     m_driverController.back().whileTrue(swerve.resetYawCommand());
