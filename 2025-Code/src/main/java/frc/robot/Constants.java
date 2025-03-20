@@ -179,20 +179,13 @@ public final class Constants {
                 public static final int RATCHET_SERVO_PORT = 0;
 
                 public static final int CLIMB_CURRENT_LIMIT = 40;
-                // public static final int GRAB_CURRENT_LIMIT = 10;
 
                 public static final int START_CLIMB_POSITION = 0;
                 public static final int RAISE_CLIMB_POSITION = 40;
                 public static final int LOWER_CLIMB_POSITION = -40;
 
                 public static final int CLIMB_POSITION_TOLERANCE = 3;
-                // public static final int GRABBER_POSITION_TOLERANCE = 5;
-                // public static final int GRABBER_LOCK_POSITION_TOLERANCE = 15;
                 public static final double RATCHET_POSITION_TOLERANCE = 0.1;
-
-                // public static final int LOCK_GRABBER_POSITION = 15;
-                // public static final int UNLOCK_GRABBER_POSITION = -43;
-                // public static final int GRANNY_GRABBER_POSITION = 0;
 
                 public static final double RATCHET_LOCK_POSITION = 0.7;
                 public static final double RATCHET_UNLOCK_POSITION = 1;
@@ -200,11 +193,7 @@ public final class Constants {
                 public static final double CLIMB_kP = 0.75;
                 public static final double CLIMB_kI = 0;
                 public static final double CLIMB_kD = 0;
-
-                // public static final double LOCK_kP = 0.75;
-                // public static final double LOCK_kI = 0;
-                // public static final double LOCK_kD = 0;
-
+                
                 public static final double COMMAND_WAIT_TIME = 0.5;
                 public static final double LOWER_CLIMB_TIMEOUT = 2;
         }
