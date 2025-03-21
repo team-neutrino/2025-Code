@@ -196,6 +196,7 @@ public final class Constants {
 
                 public static final double COMMAND_WAIT_TIME = 2;
                 public static final double LOWER_CLIMB_TIMEOUT = 2.5;
+                public static final double LOCK_RATCHET_WAIT_TIME = 0.5;
         }
 
         public static class LimelightConstants {
