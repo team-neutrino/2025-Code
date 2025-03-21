@@ -15,11 +15,7 @@ public class ClimbFactory {
 
     public static Command lowerClimb() {
         return new SequentialCommandGroup(
-                climb.lowerClimbCommand().withTimeout(LOWER_CLIMB_TIMEOUT),
+                climb.lowerClimbCommand().withTimeout(LOWER_CLIMB_TIMEOUT), climb.holdClimbLockRatchet().withTimeout(LOCK_RATCHET_WAIT_TIME),
                 climb.hasClimbCommand());
-    }
-
-    public static Command lockGrabber() {
-        return climb.lockGrabberCommand();
     }
 }
