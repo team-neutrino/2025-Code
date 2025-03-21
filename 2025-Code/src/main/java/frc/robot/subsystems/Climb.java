@@ -94,7 +94,15 @@ public class Climb extends SubsystemBase {
       m_targetPositionRatchet = RATCHET_UNLOCK_POSITION;
       m_climbMotorOff = false;
       m_targetPositionClimb = LOWER_CLIMB_POSITION;
-    }); //).until(() -> isLowerPosition()
+    });
+  }
+
+  public Command holdClimbLockRatchet() {
+    return run(() -> {
+      m_climbMotorOff = false;
+      m_targetPositionClimb = LOWER_CLIMB_POSITION;
+      m_targetPositionRatchet = RATCHET_LOCK_POSITION;
+    });
   }
 
   public Command hasClimbCommand() {
