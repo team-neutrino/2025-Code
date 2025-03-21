@@ -64,7 +64,7 @@ public final class Constants {
                 public static final double DRIVE_GEAR_RATIO = 5.6;
                 public static final double REEF_OFFSET = Units.inchesToMeters(12.94) / 2;
                 public static final double isAlignedError = 0;
-                public static final double DRIVE_TO_POINT_P = 3;
+                public static final double DRIVE_TO_POINT_P = 3.4; //3
                 public static final double AT_POINT_TOLERANCE = 0.05;
         }
 
@@ -76,7 +76,7 @@ public final class Constants {
                 public static final double DEFAULT_WITH_CORAL = 0;
                 public static final double BOTTOM_POSITION = 0.0;
                 public static final double STAGE_ONE_UP = 26.0;
-                public static final double CORAL_INTAKE = 34;
+                public static final double CORAL_INTAKE = 33; // 34
                 public static final double REMOVE_ALGAE_L2 = 30.0;
                 public static final double REMOVE_ALGAE_L3 = 50.0;
                 public static final double SCORE_ALGAE_BARGE = 54.9;
@@ -110,7 +110,7 @@ public final class Constants {
 
                 public static final double STARTING_POSITION = 180;
                 public static final double DEFAULT_POSITION = 160;
-                public static final double DEFAULT_NO_GP = 180;
+                public static final double DEFAULT_NO_GP = 170;
                 public static final double SAFE_BACK_POS = 230;
                 public static final double GROUND_ALGAE_POSITION = 95;
                 public static final double CORAL_STATION_POSITION = 323;

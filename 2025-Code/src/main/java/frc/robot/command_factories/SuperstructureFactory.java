@@ -14,7 +14,7 @@ public class SuperstructureFactory {
         Command elevatorCom = ElevatorFactory.moveToIntake();
         Command armCom = ArmFactory.armToIntake();
         Command coralCom = CoralFactory.runIntake();
-        return elevatorCom.alongWith(armCom, coralCom).until(() -> coral.debouncedHasCoral());
+        return elevatorCom.alongWith(armCom, coralCom).until(() -> coral.hasCoral());
     }
 
     public static Command outtake() {
@@ -203,10 +203,5 @@ public class SuperstructureFactory {
 
     public static Command moveToIntake() {
         return new ParallelCommandGroup(ElevatorFactory.moveToIntake(), ArmFactory.armToIntake());
-    }
-
-    public static Command intakeCoralAutonCommand() {
-        return new ParallelCommandGroup(ElevatorFactory.moveToIntake(), ArmFactory.armToIntake(),
-                CoralFactory.runIntake()).until(() -> coral.debouncedHasCoral());
     }
 }

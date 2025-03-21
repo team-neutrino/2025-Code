@@ -102,10 +102,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("ScoreL3", SuperstructureFactory.scoreCoralL3AutonCommand());
     NamedCommands.registerCommand("ScoreL2", SuperstructureFactory.scoreCoralL2AutonCommand());
     NamedCommands.registerCommand("ScoreL1", SuperstructureFactory.scoreCoralL1AutonCommand());
-    NamedCommands.registerCommand("Intake", SuperstructureFactory.intakeCoralAutonCommand());
+    NamedCommands.registerCommand("Intake", SuperstructureFactory.intakeCoral());
     NamedCommands.registerCommand("KeepCoralIn", CoralFactory.runSlowIntake());
     NamedCommands.registerCommand("DriveToPoint",
         new DriveToPointCommand(m_driverController, false).until(() -> swerve.isAtPointDebounced()));
+    NamedCommands.registerCommand("DriveToPointForever", new DriveToPointCommand(m_driverController, false));
     NamedCommands.registerCommand("SwerveDefault", swerve.getDefaultCommand());
     NamedCommands.registerCommand("IntakeOnly", CoralFactory.runIntake());
   }

@@ -17,12 +17,6 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToScoringL4"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
                   "name": "KeepCoralIn"
                 }
               }
@@ -40,9 +34,22 @@
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "MoveToScoringL4"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.3
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "MoveToScoringL4"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -61,7 +68,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPoint"
+                  "name": "DriveToPointForever"
                 }
               }
             ]
@@ -124,7 +131,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPoint"
+                  "name": "DriveToPointForever"
                 }
               }
             ]
@@ -175,7 +182,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPoint"
+                  "name": "DriveToPointForever"
                 }
               }
             ]
@@ -219,7 +226,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPoint"
+                  "name": "DriveToPointForever"
                 }
               }
             ]
@@ -270,7 +277,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPoint"
+                  "name": "DriveToPointForever"
                 }
               }
             ]
