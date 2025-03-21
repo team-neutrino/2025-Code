@@ -193,8 +193,8 @@ public final class Constants {
                 public static final double CLIMB_kP = 0.75;
                 public static final double CLIMB_kI = 0;
                 public static final double CLIMB_kD = 0;
-                
-                public static final double COMMAND_WAIT_TIME = 0.5;
+
+                public static final double COMMAND_WAIT_TIME = 2; //0.5
                 public static final double LOWER_CLIMB_TIMEOUT = 2;
         }
 

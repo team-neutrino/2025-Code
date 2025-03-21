@@ -94,7 +94,7 @@ public class Climb extends SubsystemBase {
       m_targetPositionRatchet = RATCHET_UNLOCK_POSITION;
       m_climbMotorOff = false;
       m_targetPositionClimb = LOWER_CLIMB_POSITION;
-    }).until(() -> isLowerPosition());
+    }); //).until(() -> isLowerPosition()
   }
 
   public Command hasClimbCommand() {
