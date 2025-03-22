@@ -74,7 +74,7 @@ public class DriveToPointCommand extends Command {
 
     boolean hasGamePiece = Subsystem.coral.hasCoral();
     m_hadGamePiece = hasGamePiece;
-    List<Pose2d> m_reefPoses = m_algae ? REEF_ALGAE : (redAlliance.get() ? RED_REEF_RIGHT : BLUE_REEF_RIGHT);
+    List<Pose2d> m_reefPoses = m_algae ? REEF_ALGAE : (redAlliance.get() ? RED_REEF : BLUE_REEF);
     List<Pose2d> m_coralStationPoses = redAlliance.get() ? POSE_LIST.subList(0, 6) : POSE_LIST.subList(6, 12);
     m_localList = (hasGamePiece || m_algae) ? m_reefPoses : m_coralStationPoses;
     m_pointControl.setTargetNearest(m_localList);
