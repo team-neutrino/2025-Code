@@ -146,6 +146,10 @@ public final class Constants {
                 public static final double kp1 = 0.05;
                 public static final double ki1 = 0;
                 public static final double kd1 = 0;
+                public static final double kp2 = 0.01;
+                public static final double ki2 = 0;
+                public static final double kd2 = 0;
+
                 public static final double ArmIZone = 2;
 
                 public static final double FFCONSTANT = 0.04;
@@ -170,7 +174,7 @@ public final class Constants {
                 public static final int CURRENT_LIMIT = 20;
                 public static final double INTAKE_VOLTAGE = 1.0;
                 public static final double OUTTAKE_VOLTAGE = -1.0;
-                public static final double HOLD_PIECE_VOLTAGE = 0.3;
+                public static final double HOLD_PIECE_VOLTAGE = 0.7;
 
                 public static final int COLOR_SENSOR = 28;
                 public static final double PROXIMITY = 0.15;
