@@ -64,7 +64,8 @@ public final class Constants {
                 public static final double DRIVE_GEAR_RATIO = 5.6;
                 public static final double REEF_OFFSET = Units.inchesToMeters(12.94) / 2;
                 public static final double isAlignedError = 0;
-                public static final double DRIVE_TO_POINT_P = 3; 
+                public static final double DRIVE_TO_POINT_P = 3;
+                public static final double DRIVE_TO_POINT_INTAKE_P = 5;
                 public static final double AT_POINT_TOLERANCE = 0.05;
         }
 
@@ -271,8 +272,8 @@ public final class Constants {
                 public static final double offsetToStation = .58;
                 public static final double reefWidth = 0.33;
 
-                public static final double offsetOfArmAlgae = 0.33;
-                public static final double offsetToReefAlgae = 0.7;
+                public static final double offsetOfArmAlgae = 0.31;
+                public static final double offsetToReefAlgae = 0.53;
                 // negative is more right
 
                 // CURRENTLY TESTING WITH THIS LIBRARY THING

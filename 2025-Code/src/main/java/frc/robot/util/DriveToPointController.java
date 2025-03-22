@@ -28,13 +28,21 @@ public class DriveToPointController {
     }
 
     public double getXVelocity() {
-        return (applyDeadband((m_target.getX() - Subsystem.swerve.getCurrentPose().getX()), 0.00000001, 70.0)
-                * DRIVE_TO_POINT_P);
+        double xVelocity = Subsystem.arm.isAtIntake()
+                ? (applyDeadband((m_target.getX() - Subsystem.swerve.getCurrentPose().getX()), 0.00000001, 70.0)
+                        * DRIVE_TO_POINT_INTAKE_P)
+                : (applyDeadband((m_target.getX() - Subsystem.swerve.getCurrentPose().getX()), 0.00000001, 70.0)
+                        * DRIVE_TO_POINT_P);
+        return xVelocity;
     }
 
     public double getYVelocity() {
-        return (applyDeadband((m_target.getY() - Subsystem.swerve.getCurrentPose().getY()), 0.000000001, 70.0)
-                * DRIVE_TO_POINT_P);
+        double yVelocity = Subsystem.arm.isAtIntake()
+                ? (applyDeadband((m_target.getY() - Subsystem.swerve.getCurrentPose().getY()), 0.000000001, 70.0)
+                        * DRIVE_TO_POINT_INTAKE_P)
+                : (applyDeadband((m_target.getY() - Subsystem.swerve.getCurrentPose().getY()), 0.000000001, 70.0)
+                        * DRIVE_TO_POINT_P);
+        return yVelocity;
     }
 
     public Rotation2d getRotation() {
