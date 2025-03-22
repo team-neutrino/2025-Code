@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Optional;
 
@@ -166,7 +167,7 @@ public final class Constants {
                 public static final double SLOW_SCORE_VOLTAGE = -0.3;
 
                 public static final int COLOR_SENSOR = 27;
-                public static final double PROXIMITY = 0.05;
+                public static final double PROXIMITY = 0.055; // .05
         }
 
         public static class AlgaeConstants {
@@ -276,7 +277,7 @@ public final class Constants {
                 public static final double offsetOfArmStation = -.42;
                 public static final double sidewaysOffsetStation = .3;
                 public static final double offsetToReef = .52;
-                public static final double offsetToStation = .58;
+                public static final double offsetToStation = .60; // 58
                 public static final double reefWidth = 0.33;
 
                 public static final double offsetOfArmAlgae = 0.31;
@@ -362,6 +363,10 @@ public final class Constants {
                                 RED_REEF_9B,
                                 RED_REEF_10B, RED_REEF_11B);
 
+                public static final List<Pose2d> RED_REEF_LEFT = List.of(RED_REEF_6A, RED_REEF_7A, RED_REEF_8A,
+                                RED_REEF_9A,
+                                RED_REEF_10A, RED_REEF_11A);
+
                 public static final List<Pose2d> BLUE_REEF = List.of(BLUE_REEF_22B, BLUE_REEF_22A, BLUE_REEF_21B,
                                 BLUE_REEF_21A,
                                 BLUE_REEF_20B, BLUE_REEF_20A, BLUE_REEF_19B, BLUE_REEF_19A, BLUE_REEF_18B,
@@ -370,6 +375,13 @@ public final class Constants {
 
                 public static final List<Pose2d> BLUE_REEF_RIGHT = List.of(BLUE_REEF_22A,
                                 BLUE_REEF_21A, BLUE_REEF_20A, BLUE_REEF_19A, BLUE_REEF_18A, BLUE_REEF_17A);
+
+                public static final List<Pose2d> BLUE_REEF_LEFT = List.of(BLUE_REEF_22B,
+                                BLUE_REEF_21B, BLUE_REEF_20B, BLUE_REEF_19B, BLUE_REEF_18B, BLUE_REEF_17B);
+
+                public static enum Side {
+                        LEFT, RIGHT, NEAREST;
+                }
 
                 public static final List<Pose2d> REEF_ALGAE = List.of(
                                 CalculateAlgaePoint(layout.getTagPose(6).get()),

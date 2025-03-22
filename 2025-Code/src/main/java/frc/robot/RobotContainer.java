@@ -44,7 +44,7 @@ public class RobotContainer {
     configureDefaultCommands();
     configureNamedCommands();
     DataLogManager.start();
-    m_autonPath = new PathPlannerAuto("3 CORAL TOP WITH LEFT");
+    m_autonPath = new PathPlannerAuto("3 CORAL PROCESSOR WITH LEFT");
 
   }
 
@@ -55,9 +55,9 @@ public class RobotContainer {
     m_driverController.a().onTrue(ClimbFactory.lowerClimb());
 
     m_driverController.back().whileTrue(swerve.resetYawCommand());
-    m_driverController.b().whileTrue(new DriveToPointCommand(m_driverController, false));
+    m_driverController.b().whileTrue(new DriveToPointCommand(m_driverController, false, Side.NEAREST));
 
-    Command deAlgae = new DriveToPointCommand(m_driverController, true);
+    Command deAlgae = new DriveToPointCommand(m_driverController, true, Side.NEAREST);
     deAlgae.setName(ALGAE_ALIGN_COMMAND);
     m_driverController.rightTrigger().whileTrue(deAlgae);
     m_driverController.leftTrigger().whileTrue(swerve.slowDefaultCommand(m_driverController));
@@ -105,8 +105,13 @@ public class RobotContainer {
     NamedCommands.registerCommand("Intake", SuperstructureFactory.intakeCoral());
     NamedCommands.registerCommand("KeepCoralIn", CoralFactory.runSlowIntake());
     NamedCommands.registerCommand("DriveToPoint",
-        new DriveToPointCommand(m_driverController, false).until(() -> swerve.isAtPointDebounced()));
-    NamedCommands.registerCommand("DriveToPointForever", new DriveToPointCommand(m_driverController, false));
+        new DriveToPointCommand(m_driverController, false, Side.NEAREST).until(() -> swerve.isAtPointDebounced()));
+    NamedCommands.registerCommand("DriveToPointLeft",
+        new DriveToPointCommand(m_driverController, false, Side.LEFT).until(() -> swerve.isAtPointDebounced()));
+    NamedCommands.registerCommand("DriveToPointRight",
+        new DriveToPointCommand(m_driverController, false, Side.RIGHT).until(() -> swerve.isAtPointDebounced()));
+    NamedCommands.registerCommand("DriveToPointForever",
+        new DriveToPointCommand(m_driverController, false, Side.NEAREST));
     NamedCommands.registerCommand("SwerveDefault", swerve.getDefaultCommand());
     NamedCommands.registerCommand("IntakeOnly", CoralFactory.runIntake());
   }

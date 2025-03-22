@@ -11,7 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "pro to right"
+                  "pathName": "processor to reef"
                 }
               },
               {
@@ -30,7 +30,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPoint"
+                  "name": "DriveToPointLeft"
                 }
               },
               {
@@ -144,7 +144,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "ps to right reef"
+                  "pathName": "playerstation to reef"
                 }
               }
             ]
@@ -157,7 +157,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPoint"
+                  "name": "DriveToPointRight"
                 }
               },
               {
@@ -239,7 +239,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "ps to reef left"
+                  "pathName": "ps to reef"
                 }
               }
             ]
@@ -252,7 +252,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPoint"
+                  "name": "DriveToPointLeft"
                 }
               },
               {
