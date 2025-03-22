@@ -29,7 +29,7 @@ public class SuperstructureFactory {
         Command armCom = ArmFactory.armToDescoreL2();
         Command algaeCom = AlgaeFactory.runIntake();
         BooleanSupplier comEnd = () -> algae.debouncedHasAlgae();
-        return elevatorCom.alongWith(armCom, algaeCom).until(comEnd);
+        return elevatorCom.alongWith(armCom, algaeCom);
     }
 
     public static Command descoreAlgaeL3() {

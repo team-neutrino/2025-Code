@@ -81,7 +81,7 @@ public final class Constants {
                 public static final double REMOVE_ALGAE_L2 = 30.0;
                 public static final double REMOVE_ALGAE_L3 = 50.0;
                 public static final double SCORE_ALGAE_BARGE = 54.9;
-                public static final double SCORE_ALGAE_PROCESSOR = 25.0;
+                public static final double SCORE_ALGAE_PROCESSOR = 18.0;
                 public static final double L1 = 11.0;
                 public static final double L2 = 16.0;
                 public static final double L3 = 31.0;
@@ -97,7 +97,8 @@ public final class Constants {
                 public static final double ALLOWED_ERROR = 0.1;
                 public static final double P_VAL = 0.1;
                 public static final double I_VAL = 0.0;
-                public static final double D_VAL = 0.0;
+                public static final double D_VAL = 1.0;
+                public static final double P_VAL_ALGAE = 0.05;
                 public static final double STAGE_1_FF = 0.25;
                 public static final double STAGE_2_FF = 0.30;
                 public static final double HEIGHT_TOLERANCE = 0.6;
@@ -167,7 +168,7 @@ public final class Constants {
                 public static final int CURRENT_LIMIT = 20;
                 public static final double INTAKE_VOLTAGE = 1.0;
                 public static final double OUTTAKE_VOLTAGE = -1.0;
-                public static final double HOLD_PIECE_VOLTAGE = 0.3;
+                public static final double HOLD_PIECE_VOLTAGE = 0.7;
 
                 public static final int COLOR_SENSOR = 28;
                 public static final double PROXIMITY = 0.15;
