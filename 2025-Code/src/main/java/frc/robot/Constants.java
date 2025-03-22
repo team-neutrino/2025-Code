@@ -78,7 +78,7 @@ public final class Constants {
                 public static final double DEFAULT_WITH_CORAL = 0;
                 public static final double BOTTOM_POSITION = 0.0;
                 public static final double STAGE_ONE_UP = 26.0;
-                public static final double CORAL_INTAKE = 33; // 34
+                public static final double CORAL_INTAKE = 34;
                 public static final double REMOVE_ALGAE_L2 = 30.0;
                 public static final double REMOVE_ALGAE_L3 = 50.0;
                 public static final double SCORE_ALGAE_BARGE = 54.9;
