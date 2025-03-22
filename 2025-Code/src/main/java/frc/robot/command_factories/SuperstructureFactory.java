@@ -28,7 +28,6 @@ public class SuperstructureFactory {
         Command elevatorCom = ElevatorFactory.moveToRemoveAlgaeL2();
         Command armCom = ArmFactory.armToDescoreL2();
         Command algaeCom = AlgaeFactory.runIntake();
-        BooleanSupplier comEnd = () -> algae.debouncedHasAlgae();
         return elevatorCom.alongWith(armCom, algaeCom);
     }
 
@@ -36,8 +35,7 @@ public class SuperstructureFactory {
         Command elevatorCom = ElevatorFactory.moveToRemoveAlgaeL3();
         Command armCom = ArmFactory.armToDescoreL3();
         Command algaeCom = AlgaeFactory.runIntake();
-        BooleanSupplier comEnd = () -> algae.debouncedHasAlgae();
-        return elevatorCom.alongWith(armCom, algaeCom).until(comEnd);
+        return elevatorCom.alongWith(armCom, algaeCom);
     }
 
     public static Command scoreBargeCommand(CommandXboxController controller) {

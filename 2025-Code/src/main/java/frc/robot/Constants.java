@@ -99,6 +99,8 @@ public final class Constants {
                 public static final double I_VAL = 0.0;
                 public static final double D_VAL = 1.0;
                 public static final double P_VAL_ALGAE = 0.05;
+                public static final double I_VAL_ALGAE = 0.0;
+                public static final double D_VAL_ALGAE = 0.0;
                 public static final double STAGE_1_FF = 0.25;
                 public static final double STAGE_2_FF = 0.30;
                 public static final double HEIGHT_TOLERANCE = 0.6;

@@ -46,7 +46,7 @@ public class Elevator extends SubsystemBase {
     m_config.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
         .pid(P_VAL, I_VAL, D_VAL, ClosedLoopSlot.kSlot0)
-        .pid(P_VAL_ALGAE, I_VAL, D_VAL, ClosedLoopSlot.kSlot1);
+        .pid(P_VAL_ALGAE, I_VAL_ALGAE, D_VAL_ALGAE, ClosedLoopSlot.kSlot1);
     m_config.closedLoop.maxMotion
         .maxVelocity(MAX_VELOCITY)
         .maxAcceleration(MAX_ACCELERATION)
@@ -91,7 +91,7 @@ public class Elevator extends SubsystemBase {
 
   private void adjustElevator(double target) {
     if (Subsystem.algae.debouncedHasAlgae()) {
-      m_pid.setReference(target, ControlType.kMAXMotionPositionControl, ClosedLoopSlot.kSlot1,
+      m_pid.setReference(target, ControlType.kPosition, ClosedLoopSlot.kSlot1,
           feedForwardCalculation());
     } else {
       m_pid.setReference(target, ControlType.kPosition, ClosedLoopSlot.kSlot0, feedForwardCalculation());
@@ -156,7 +156,7 @@ public class Elevator extends SubsystemBase {
     double safeHeight = Subsystem.algae.hasAlgae() ? SAFE_HEIGHT_ALGAE : SAFE_HEIGHT_NO_ALGAE;
 
     if ((Subsystem.arm.getAngle() < 90 || Subsystem.arm.getAngle() > 280 || Subsystem.arm.getTargetAngle() < 90
-        || Subsystem.arm.getTargetAngle() > 271) && (getTargetHeight() < safeHeight)) {
+        || Subsystem.arm.getTargetAngle() > 280) && (getTargetHeight() < safeHeight)) {
       safeTarget = safeHeight;
     }
 
@@ -205,11 +205,8 @@ public class Elevator extends SubsystemBase {
 
   public Command elevatorDefaultCommand() {
     return run(() -> {
-      if (Subsystem.coral.debouncedHasCoral()) {
+      if (Subsystem.coral.debouncedHasCoral() && !Subsystem.algae.debouncedHasAlgae()) {
         m_targetHeight = DEFAULT_WITH_CORAL;
-        if (Subsystem.algae.debouncedHasAlgae()) {
-          m_targetHeight = DEFAULT_NO_CORAL;
-        }
       } else {
         m_targetHeight = DEFAULT_NO_CORAL;
       }
