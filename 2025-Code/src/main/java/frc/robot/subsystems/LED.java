@@ -35,13 +35,13 @@ public class LED extends SubsystemBase {
     }
 
     if (m_coral.debouncedHasCoral()) {
-      m_state_pub.set("solid");
+      m_state_pub.set("blinktwice");
       m_color_pub.set("white");
       return;
     }
 
     // default to orange
     m_color_pub.set("orange");
-    m_state_pub.set("blink");
+    m_state_pub.set("solid");
   }
 }
