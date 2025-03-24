@@ -4,8 +4,11 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -25,6 +28,8 @@ public class Limelight extends SubsystemBase {
   private double[] targetPose2 = new double[6];
   private double m_lastFrame1 = -2;
   private double m_lastFrame2 = -2;
+
+  private final Matrix<N3, N1> STD_DEVS = VecBuilder.fill(0.7, 0.7, 9999999);
 
   /** Creates a new ExampleSubsystem. */
   public Limelight() {
@@ -206,8 +211,7 @@ public class Limelight extends SubsystemBase {
     if (com != null) {
       deAlgaefying = com.getName().equals(ALGAE_ALIGN_COMMAND);
     }
-
-    m_swerve.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
+    m_swerve.setVisionMeasurementStdDevs(STD_DEVS);
 
     // if aligning to an algae position, force odometry updates from reef.
     if (deAlgaefying || Subsystem.coral.hasCoral()) {
