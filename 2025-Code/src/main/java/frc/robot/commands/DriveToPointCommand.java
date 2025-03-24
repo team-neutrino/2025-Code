@@ -80,16 +80,20 @@ public class DriveToPointCommand extends Command {
         : (m_side == Side.LEFT ? (redAlliance.get() ? RED_REEF_LEFT : BLUE_REEF_LEFT)
             : (m_side == Side.RIGHT ? (redAlliance.get() ? RED_REEF_RIGHT : BLUE_REEF_RIGHT)
                 : (redAlliance.get() ? RED_REEF : BLUE_REEF)));
-    List<Pose2d> m_coralStationPoses = redAlliance.get() ? POSE_LIST.subList(0, 6) : POSE_LIST.subList(6, 12);
+    List<Pose2d> m_coralStationPoses = redAlliance.get()
+        ? List.of(RED_PLAYER_STATION_1_CENTER, RED_PLAYER_STATION_2_CENTER)
+        : List.of(BLUE_PLAYER_STATION_12_CENTER, BLUE_PLAYER_STATION_13_CENTER);
     m_localList = (hasGamePiece || m_algae) ? m_reefPoses : m_coralStationPoses;
     m_pointControl.setTargetNearest(m_localList);
     if (hasGamePiece || m_algae) {
       m_localList = m_algae ? REEF_ALGAE : (redAlliance.get() ? RED_REEF : BLUE_REEF);
     } else {
-      if (m_localList.indexOf(m_pointControl.getTarget()) < 3) {
-        m_localList = m_localList.subList(0, 3);
+      if (redAlliance.get()) {
+        m_localList = m_pointControl.getTarget() == RED_PLAYER_STATION_1_CENTER ? POSE_LIST.subList(0, 3)
+            : POSE_LIST.subList(3, 6);
       } else {
-        m_localList = m_localList.subList(3, 6);
+        m_localList = m_pointControl.getTarget() == BLUE_PLAYER_STATION_12_CENTER ? POSE_LIST.subList(6, 9)
+            : POSE_LIST.subList(9, 12);
       }
     }
   }
