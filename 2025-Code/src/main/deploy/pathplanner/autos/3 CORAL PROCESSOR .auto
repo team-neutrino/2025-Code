@@ -100,6 +100,12 @@
               {
                 "type": "named",
                 "data": {
+                  "name": "IntakeOnly"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
                   "name": "DriveToPoint"
                 }
               },
@@ -107,12 +113,6 @@
                 "type": "named",
                 "data": {
                   "name": "MoveToIntake"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "IntakeOnly"
                 }
               }
             ]
@@ -144,7 +144,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "ps to reef"
+                  "pathName": "17-Pro Coral Right (Ps to Reef) "
                 }
               }
             ]
@@ -157,7 +157,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPoint"
+                  "name": "DriveToPointRight"
                 }
               },
               {
@@ -193,6 +193,31 @@
           "data": {
             "commands": [
               {
+                "type": "path",
+                "data": {
+                  "pathName": "17-Pro Coral Right (Reef to Ps)"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeOnly"
+                }
+              },
+              {
                 "type": "named",
                 "data": {
                   "name": "DriveToPoint"
@@ -202,12 +227,6 @@
                 "type": "named",
                 "data": {
                   "name": "MoveToIntake"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "IntakeOnly"
                 }
               }
             ]
@@ -239,7 +258,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "18-Pro Coral (Ps to Reef)"
+                  "pathName": "17-Pro Coral Left (Ps to Reef) "
                 }
               }
             ]
@@ -252,7 +271,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPoint"
+                  "name": "DriveToPointLeft"
                 }
               },
               {

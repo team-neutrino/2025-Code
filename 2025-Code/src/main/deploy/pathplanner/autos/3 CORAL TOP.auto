@@ -17,12 +17,6 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToScoringL4"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
                   "name": "KeepCoralIn"
                 }
               }
@@ -40,9 +34,22 @@
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "MoveToScoringL4"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.3
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "MoveToScoringL4"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -61,7 +68,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "SwerveDefault"
+                  "name": "DriveToPointForever"
                 }
               }
             ]
@@ -93,79 +100,9 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPoint"
+                  "name": "IntakeOnly"
                 }
               },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveToIntake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "SwerveDefault"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "DriveToPoint"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveToScoringL4"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "ScoreL4"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "SwerveDefault"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
               {
                 "type": "named",
                 "data": {
@@ -194,7 +131,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "SwerveDefault"
+                  "name": "DriveToPointForever"
                 }
               }
             ]
@@ -207,13 +144,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "top ps to reef left"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveToScoringL4"
+                  "pathName": "19-Top Coral Left (Ps to Reef)"
                 }
               }
             ]
@@ -251,7 +182,121 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "SwerveDefault"
+                  "name": "DriveToPointForever"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "19-Top Coral Left (Reef to Ps)"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeOnly"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "DriveToPoint"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "DriveToPointForever"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "19-Top Coral Right (Ps to Reef)"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "DriveToPoint"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToScoringL4"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ScoreL4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "DriveToPointForever"
                 }
               }
             ]
