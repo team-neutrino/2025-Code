@@ -44,7 +44,9 @@ public class DriveToPointCommand extends Command {
       System.out.println("NO ALLIANCE VALUE YET");
       return;
     }
+    m_hadGamePiece = Subsystem.coral.hasCoral();
     obtainTarget();
+    setLocalList();
   }
 
   @Override
@@ -55,7 +57,7 @@ public class DriveToPointCommand extends Command {
     drive();
     isAtPoint();
     if (swerve.isAtPoint() && (Subsystem.coral.hasCoral() != m_hadGamePiece)) {
-      obtainTarget();
+      initialize(); // reinitialize if the state of our game piece changes
     }
   }
 
@@ -74,27 +76,52 @@ public class DriveToPointCommand extends Command {
     swerve.setDrivingToPoint(true);
     swerve.setAtPoint(false);
 
-    boolean hasGamePiece = Subsystem.coral.hasCoral();
-    m_hadGamePiece = hasGamePiece;
-    List<Pose2d> m_reefPoses = m_algae ? REEF_ALGAE
-        : (m_side == Side.LEFT ? (redAlliance.get() ? RED_REEF_LEFT : BLUE_REEF_LEFT)
-            : (m_side == Side.RIGHT ? (redAlliance.get() ? RED_REEF_RIGHT : BLUE_REEF_RIGHT)
-                : (redAlliance.get() ? RED_REEF : BLUE_REEF)));
-    List<Pose2d> m_coralStationPoses = redAlliance.get()
-        ? List.of(RED_PLAYER_STATION_1_CENTER, RED_PLAYER_STATION_2_CENTER)
-        : List.of(BLUE_PLAYER_STATION_12_CENTER, BLUE_PLAYER_STATION_13_CENTER);
-    m_localList = (hasGamePiece || m_algae) ? m_reefPoses : m_coralStationPoses;
-    m_pointControl.setTargetNearest(m_localList);
-    if (hasGamePiece || m_algae) {
-      m_localList = m_algae ? REEF_ALGAE : (redAlliance.get() ? RED_REEF : BLUE_REEF);
-    } else {
-      if (redAlliance.get()) {
-        m_localList = m_pointControl.getTarget() == RED_PLAYER_STATION_1_CENTER ? POSE_LIST.subList(0, 3)
-            : POSE_LIST.subList(3, 6);
-      } else {
-        m_localList = m_pointControl.getTarget() == BLUE_PLAYER_STATION_12_CENTER ? POSE_LIST.subList(6, 9)
-            : POSE_LIST.subList(9, 12);
+    if (m_algae) {
+      m_pointControl.setTargetNearest(REEF_ALGAE);
+      return;
+    } else if (Subsystem.coral.hasCoral()) {
+      switch (m_side) {
+        case LEFT:
+          m_pointControl.setTargetNearest(redAlliance.get() ? RED_REEF_LEFT : BLUE_REEF_LEFT);
+          return;
+        case NEAREST:
+          m_pointControl.setTargetNearest(redAlliance.get() ? RED_REEF : BLUE_REEF);
+          return;
+        case RIGHT:
+          m_pointControl.setTargetNearest(redAlliance.get() ? RED_REEF_RIGHT : BLUE_REEF_RIGHT);
+          return;
+        default:
+          System.out.println("undefined behavior in obtainTarget; m_side is null or an improper value");
+          break;
       }
+    }
+
+    m_pointControl
+        .setTargetNearest(redAlliance.get() ? List.of(RED_PLAYER_STATION_1_CENTER, RED_PLAYER_STATION_2_CENTER)
+            : List.of(BLUE_PLAYER_STATION_12_CENTER, BLUE_PLAYER_STATION_13_CENTER));
+  }
+
+  /**
+   * this method should only be called following a call to obtainTarget
+   * <p>
+   * does all logic based on set target point
+   */
+  private void setLocalList() {
+    Pose2d target = m_pointControl.getTarget();
+    if (REEF_ALGAE.contains(target)) {
+      m_localList = REEF_ALGAE;
+      return;
+    }
+    if (RED_REEF.contains(target) || BLUE_REEF.contains(target)) {
+      m_localList = RED_REEF.contains(target) ? RED_REEF : BLUE_REEF;
+      return;
+    }
+    // at this point it's for sure a player station point
+    if (redAlliance.get()) {
+      m_localList = target == RED_PLAYER_STATION_1_CENTER ? POSE_LIST.subList(0, 3) : POSE_LIST.subList(3, 6);
+    } else {
+      m_localList = target == BLUE_PLAYER_STATION_12_CENTER ? POSE_LIST.subList(6, 9)
+          : POSE_LIST.subList(9, 12);
     }
   }
 

@@ -352,7 +352,14 @@ public final class Constants {
                                 BLUE_REEF_18A, BLUE_REEF_18B, BLUE_REEF_19A, BLUE_REEF_19B, BLUE_REEF_20A,
                                 BLUE_REEF_20B, BLUE_REEF_21A, BLUE_REEF_21B, BLUE_REEF_22A, BLUE_REEF_22B);
 
-                public static final List<Pose2d> PLAYER_STATION = List.of();
+                public static final List<Pose2d> RED_PLAYER_STATION = List.of(RED_PLAYER_STATION_1_LEFT,
+                                RED_PLAYER_STATION_1_CENTER, RED_PLAYER_STATION_1_RIGHT, RED_PLAYER_STATION_2_LEFT,
+                                RED_PLAYER_STATION_2_CENTER, RED_PLAYER_STATION_2_RIGHT);
+
+                public static final List<Pose2d> BLUE_PLAYER_STATION = List.of(BLUE_PLAYER_STATION_12_LEFT,
+                                BLUE_PLAYER_STATION_12_CENTER, BLUE_PLAYER_STATION_12_RIGHT,
+                                BLUE_PLAYER_STATION_13_LEFT, BLUE_PLAYER_STATION_13_CENTER,
+                                BLUE_PLAYER_STATION_13_RIGHT);
 
                 public static final List<Pose2d> RED_REEF = List.of(RED_REEF_6A, RED_REEF_6B, RED_REEF_7A, RED_REEF_7B,
                                 RED_REEF_8A,
