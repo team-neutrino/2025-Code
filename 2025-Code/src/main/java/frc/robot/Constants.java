@@ -167,7 +167,7 @@ public final class Constants {
                 public static final double SLOW_SCORE_VOLTAGE = -0.3;
 
                 public static final int COLOR_SENSOR = 27;
-                public static final double PROXIMITY = 0.055; // .05
+                public static final double PROXIMITY = 0.055;
         }
 
         public static class AlgaeConstants {
