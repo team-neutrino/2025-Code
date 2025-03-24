@@ -14,7 +14,7 @@ public class SuperstructureFactory {
         Command elevatorCom = ElevatorFactory.moveToIntake();
         Command armCom = ArmFactory.armToIntake();
         Command coralCom = CoralFactory.runIntake();
-        return elevatorCom.alongWith(armCom, coralCom).until(() -> coral.debouncedHasCoral());
+        return elevatorCom.alongWith(armCom, coralCom).until(() -> coral.hasCoral());
     }
 
     public static Command outtake() {
@@ -28,16 +28,14 @@ public class SuperstructureFactory {
         Command elevatorCom = ElevatorFactory.moveToRemoveAlgaeL2();
         Command armCom = ArmFactory.armToDescoreL2();
         Command algaeCom = AlgaeFactory.runIntake();
-        BooleanSupplier comEnd = () -> algae.debouncedHasAlgae();
-        return elevatorCom.alongWith(armCom, algaeCom).until(comEnd);
+        return elevatorCom.alongWith(armCom, algaeCom);
     }
 
     public static Command descoreAlgaeL3() {
         Command elevatorCom = ElevatorFactory.moveToRemoveAlgaeL3();
         Command armCom = ArmFactory.armToDescoreL3();
         Command algaeCom = AlgaeFactory.runIntake();
-        BooleanSupplier comEnd = () -> algae.debouncedHasAlgae();
-        return elevatorCom.alongWith(armCom, algaeCom).until(comEnd);
+        return elevatorCom.alongWith(armCom, algaeCom);
     }
 
     public static Command scoreBargeCommand(CommandXboxController controller) {
@@ -203,10 +201,5 @@ public class SuperstructureFactory {
 
     public static Command moveToIntake() {
         return new ParallelCommandGroup(ElevatorFactory.moveToIntake(), ArmFactory.armToIntake());
-    }
-
-    public static Command intakeCoralAutonCommand() {
-        return new ParallelCommandGroup(ElevatorFactory.moveToIntake(), ArmFactory.armToIntake(),
-                CoralFactory.runIntake()).until(() -> coral.debouncedHasCoral());
     }
 }

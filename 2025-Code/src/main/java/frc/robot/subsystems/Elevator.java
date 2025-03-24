@@ -45,7 +45,8 @@ public class Elevator extends SubsystemBase {
         .velocityConversionFactor(1);
     m_config.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-        .pid(P_VAL, I_VAL, D_VAL);
+        .pid(P_VAL, I_VAL, D_VAL, ClosedLoopSlot.kSlot0)
+        .pid(P_VAL_ALGAE, I_VAL_ALGAE, D_VAL_ALGAE, ClosedLoopSlot.kSlot1);
     m_config.closedLoop.maxMotion
         .maxVelocity(MAX_VELOCITY)
         .maxAcceleration(MAX_ACCELERATION)
@@ -89,7 +90,12 @@ public class Elevator extends SubsystemBase {
   }
 
   private void adjustElevator(double target) {
-    m_pid.setReference(target, ControlType.kPosition, ClosedLoopSlot.kSlot0, feedForwardCalculation());
+    if (Subsystem.algae.debouncedHasAlgae()) {
+      m_pid.setReference(target, ControlType.kPosition, ClosedLoopSlot.kSlot1,
+          feedForwardCalculation());
+    } else {
+      m_pid.setReference(target, ControlType.kPosition, ClosedLoopSlot.kSlot0, feedForwardCalculation());
+    }
   }
 
   private double feedForwardCalculation() {
@@ -149,8 +155,8 @@ public class Elevator extends SubsystemBase {
     double safeTarget = targetHeight;
     double safeHeight = Subsystem.algae.hasAlgae() ? SAFE_HEIGHT_ALGAE : SAFE_HEIGHT_NO_ALGAE;
 
-    if ((Subsystem.arm.getAngle() < 90 || Subsystem.arm.getAngle() > 270 || Subsystem.arm.getTargetAngle() < 90
-        || Subsystem.arm.getTargetAngle() > 270) && (getTargetHeight() < safeHeight)) {
+    if ((Subsystem.arm.getAngle() < 90 || Subsystem.arm.getAngle() > 280 || Subsystem.arm.getTargetAngle() < 90
+        || Subsystem.arm.getTargetAngle() > 280) && (getTargetHeight() < safeHeight)) {
       safeTarget = safeHeight;
     }
 
@@ -161,7 +167,6 @@ public class Elevator extends SubsystemBase {
         && getTargetHeight() < safeHeight) {
       safeTarget = safeHeight;
     }
-
     return safeTarget;
   }
 
@@ -200,7 +205,7 @@ public class Elevator extends SubsystemBase {
 
   public Command elevatorDefaultCommand() {
     return run(() -> {
-      if (Subsystem.coral.debouncedHasCoral()) {
+      if (Subsystem.coral.debouncedHasCoral() && !Subsystem.algae.debouncedHasAlgae()) {
         m_targetHeight = DEFAULT_WITH_CORAL;
       } else {
         m_targetHeight = DEFAULT_NO_CORAL;

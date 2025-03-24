@@ -8,7 +8,7 @@ import static frc.robot.util.Subsystem.coral;
 
 public class CoralFactory {
     public static Command runIntake() {
-        return coral.runIntake(INTAKE_VOLTAGE);
+        return coral.runIntake(INTAKE_VOLTAGE).until(() -> coral.hasCoral());
     }
 
     public static Command runOuttake() {

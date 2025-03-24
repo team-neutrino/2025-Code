@@ -89,7 +89,8 @@ public class Arm extends SubsystemBase {
     m_motorConfig.closedLoop
         .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
         .pid(kp, ki, kd, ClosedLoopSlot.kSlot0)
-        .pid(kp1, ki1, kd1, ClosedLoopSlot.kSlot1);
+        .pid(kp1, ki1, kd1, ClosedLoopSlot.kSlot1)
+        .pid(kp2, ki2, kd2, ClosedLoopSlot.kSlot2);
     m_pid = m_motor.getClosedLoopController();
 
     m_motorConfig.closedLoop.maxMotion
@@ -106,9 +107,15 @@ public class Arm extends SubsystemBase {
     return getAngle() <= 270 && getAngle() >= 90;
   }
 
+  public boolean isAtIntake() {
+    return Math.abs(getAngle() - CORAL_STATION_POSITION) <= DRIVING_ANGLE_TOLERANCE;
+  }
+
   private void adjustArm(double targetAngle) {
     if (nearTargetAngle()) {
       m_pid.setReference(targetAngle, ControlType.kPosition, ClosedLoopSlot.kSlot1, feedForwardCalculation());
+    } else if (Subsystem.algae.debouncedHasAlgae()) {
+      m_pid.setReference(targetAngle, ControlType.kPosition, ClosedLoopSlot.kSlot2, feedForwardCalculation());
     } else {
       m_pid.setReference(targetAngle, ControlType.kPosition, ClosedLoopSlot.kSlot0,
           feedForwardCalculation());

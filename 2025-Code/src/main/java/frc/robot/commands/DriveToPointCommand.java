@@ -26,9 +26,11 @@ public class DriveToPointCommand extends Command {
   private boolean m_bumperWasPressed = false;
   private boolean m_hadGamePiece;
   private boolean m_algae;
+  private Side m_side;
 
-  public DriveToPointCommand(CommandXboxController xboxController, boolean algae) {
+  public DriveToPointCommand(CommandXboxController xboxController, boolean algae, Side side) {
     m_algae = algae;
+    m_side = side;
     m_xboxController = xboxController;
     addRequirements(swerve);
   }
@@ -74,7 +76,10 @@ public class DriveToPointCommand extends Command {
 
     boolean hasGamePiece = Subsystem.coral.hasCoral();
     m_hadGamePiece = hasGamePiece;
-    List<Pose2d> m_reefPoses = m_algae ? REEF_ALGAE : (redAlliance.get() ? RED_REEF_RIGHT : BLUE_REEF_RIGHT);
+    List<Pose2d> m_reefPoses = m_algae ? REEF_ALGAE
+        : (m_side == Side.LEFT ? (redAlliance.get() ? RED_REEF_LEFT : BLUE_REEF_LEFT)
+            : (m_side == Side.RIGHT ? (redAlliance.get() ? RED_REEF_RIGHT : BLUE_REEF_RIGHT)
+                : (redAlliance.get() ? RED_REEF : BLUE_REEF)));
     List<Pose2d> m_coralStationPoses = redAlliance.get() ? POSE_LIST.subList(0, 6) : POSE_LIST.subList(6, 12);
     m_localList = (hasGamePiece || m_algae) ? m_reefPoses : m_coralStationPoses;
     m_pointControl.setTargetNearest(m_localList);

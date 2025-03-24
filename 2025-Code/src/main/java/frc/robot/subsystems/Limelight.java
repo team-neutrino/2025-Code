@@ -9,7 +9,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.LimelightHelpers;
 import frc.robot.util.Subsystem;
 
@@ -54,6 +53,11 @@ public class Limelight extends SubsystemBase {
         CAMERA2_PITCH_OFFSET, // Pitch (degrees)
         CAMERA2_YAW_OFFSET // Yaw (degrees)
     );
+
+    LimelightHelpers.SetIMUMode(LL_REEF, 1);
+    // use external IMU yaw submitted via setRobotOrientation() and configure the
+    // LL4 internal IMU's fused yaw to match the submitted yaw value
+    LimelightHelpers.SetIMUMode(LL_STATION, 1);
   }
 
   // **get valid target from camera 1*/
@@ -173,35 +177,27 @@ public class Limelight extends SubsystemBase {
   }
 
   private void updateOdometryReef() {
-    LimelightHelpers.PoseEstimate limePoseEst1 = LimelightHelpers
+    LimelightHelpers.PoseEstimate limePoseEstReef = LimelightHelpers
         .getBotPoseEstimate_wpiBlue_MegaTag2(LL_REEF);
     double frame1 = getFrame(LL_REEF);
-    if (limePoseEst1 != null && limePoseEst1.tagCount != 0
+    if (limePoseEstReef != null && limePoseEstReef.tagCount != 0
         && m_swerve.getState().Speeds.omegaRadiansPerSecond < 4 * Math.PI
         && frame1 > m_lastFrame1) {
-      m_swerve.addVisionMeasurement(limePoseEst1.pose, limePoseEst1.timestampSeconds);
+      m_swerve.addVisionMeasurement(limePoseEstReef.pose, limePoseEstReef.timestampSeconds);
     }
     m_lastFrame1 = frame1;
   }
 
   private void updateOdometryStation() {
-    LimelightHelpers.PoseEstimate limePoseEst2 = LimelightHelpers
+    LimelightHelpers.PoseEstimate limePoseEstStation = LimelightHelpers
         .getBotPoseEstimate_wpiBlue_MegaTag2(LL_STATION);
     double frame2 = getFrame(LL_STATION);
-    if (limePoseEst2 != null && limePoseEst2.tagCount != 0
+    if (limePoseEstStation != null && limePoseEstStation.tagCount != 0
         && m_swerve.getState().Speeds.omegaRadiansPerSecond < 4 * Math.PI
         && frame2 > m_lastFrame2) {
-      m_swerve.addVisionMeasurement(limePoseEst2.pose, limePoseEst2.timestampSeconds);
+      m_swerve.addVisionMeasurement(limePoseEstStation.pose, limePoseEstStation.timestampSeconds);
     }
     m_lastFrame2 = frame2;
-  }
-
-  private boolean hasReefTag() {
-    return LimelightHelpers.getRawFiducials(LL_REEF).length > 0;
-  }
-
-  private boolean hasPlayerStationTag() {
-    return LimelightHelpers.getRawFiducials(LL_STATION).length > 0;
   }
 
   private void updateOdometry() {
@@ -211,27 +207,14 @@ public class Limelight extends SubsystemBase {
       deAlgaefying = com.getName().equals(ALGAE_ALIGN_COMMAND);
     }
 
-    boolean hasReefTag = hasReefTag();
-    boolean hasPlayerStationTag = hasPlayerStationTag();
-
     m_swerve.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
 
     // if aligning to an algae position, force odometry updates from reef.
-    if (deAlgaefying) {
+    if (deAlgaefying || Subsystem.coral.hasCoral()) {
       updateOdometryReef();
-    } else {
-      if (Subsystem.coral.hasCoral() && !hasReefTag) {
-        return;
-      } else if (!Subsystem.coral.hasCoral() && !hasPlayerStationTag) {
-        return;
-      }
-      if (hasReefTag && (Subsystem.coral.hasCoral() || !hasPlayerStationTag)) {
-        updateOdometryReef();
-      } else if (hasPlayerStationTag) {
-        updateOdometryStation();
-      }
+      return;
     }
-
+    updateOdometryStation();
   }
 
   private double getFrame(String limelight) {
@@ -250,23 +233,13 @@ public class Limelight extends SubsystemBase {
       return;
     }
 
-    if (!DriverStation.isEnabled()) {
-      // mode 0: use external yaw for MT2 localization only, ignore internal yaw
-      LimelightHelpers.SetIMUMode(LL_REEF, 1);
-      // use external IMU yaw submitted via setRobotOrientation() and configure the
-      // LL4 internal IMU's fused yaw to match the submitted yaw value
-      LimelightHelpers.SetIMUMode(LL_STATION, 1);
-    } else {
-      LimelightHelpers.SetIMUMode(LL_REEF, 1);
-      // use internal IMU for MT2 localization. External IMU data is ignored entirely.
-      LimelightHelpers.SetIMUMode(LL_STATION, 1);
-    }
-
     // according to limelight docs, this needs to be called before using
     // .getBotPoseEstimate_wpiBlue_MegaTag2
-    LimelightHelpers.SetRobotOrientation(LL_REEF, Subsystem.swerve.getYawDegrees(), 0,
+    LimelightHelpers.SetRobotOrientation(LL_REEF,
+        Subsystem.swerve.getYawDegrees(), 0,
         0, 0, 0, 0);
-    LimelightHelpers.SetRobotOrientation(LL_STATION, Subsystem.swerve.getYawDegrees(), 0,
+    LimelightHelpers.SetRobotOrientation(LL_STATION,
+        Subsystem.swerve.getYawDegrees(), 0,
         0, 0, 0, 0);
     updateOdometry();
   }
