@@ -16,6 +16,7 @@ public class LED extends SubsystemBase {
   private StringTopic m_color_topic = m_nt.getStringTopic("/LED/color");
   private StringTopic m_state_topic = m_nt.getStringTopic("/LED/state");
   private Coral m_coral = Subsystem.coral;
+  private Algae m_algae = Subsystem.algae;
 
   private final StringPublisher m_color_pub;
   private final StringPublisher m_state_pub;
@@ -37,6 +38,12 @@ public class LED extends SubsystemBase {
     if (m_coral.debouncedHasCoral()) {
       m_state_pub.set("blinktwice");
       m_color_pub.set("white");
+      return;
+    }
+
+    if (m_algae.debouncedHasAlgae()) {
+      m_state_pub.set("blinktwice");
+      m_color_pub.set("turquoise");
       return;
     }
 
