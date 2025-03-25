@@ -32,6 +32,7 @@ public class Algae extends SubsystemBase {
     private Canandcolor m_colorSensor = new Canandcolor(COLOR_SENSOR);
     private CanandcolorSettings m_settings = new CanandcolorSettings();
     private Debouncer m_debouncer = new Debouncer(0.1, DebounceType.kFalling);
+    private boolean m_debounced;
 
     public Algae() {
         m_encoder = m_motor.getEncoder();
@@ -62,7 +63,7 @@ public class Algae extends SubsystemBase {
      * debounced the falling edge of hasAlgae for use with scoring commands
      */
     public boolean debouncedHasAlgae() {
-        return m_debouncer.calculate(hasAlgae());
+        return m_debounced;
     }
 
     public double getAngularVelocity() {
@@ -76,6 +77,8 @@ public class Algae extends SubsystemBase {
     @Override
     public void periodic() {
         m_motor.set(m_voltage);
+        m_debouncer.calculate(hasAlgae());
+
     }
 
     public Command algaeDefaultCommand() {
