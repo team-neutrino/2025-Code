@@ -11,7 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Pro to T17"
+                  "pathName": "Top to T20"
                 }
               },
               {
@@ -78,6 +78,12 @@
           "type": "deadline",
           "data": {
             "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "T20 to Station"
+                }
+              },
               {
                 "type": "named",
                 "data": {
