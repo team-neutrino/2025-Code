@@ -386,8 +386,8 @@ public final class Constants {
                 public static final List<Pose2d> BLUE_REEF_LEFT = List.of(BLUE_REEF_22B,
                                 BLUE_REEF_21B, BLUE_REEF_20B, BLUE_REEF_19B, BLUE_REEF_18B, BLUE_REEF_17B);
 
-                public static enum Side {
-                        LEFT, RIGHT, NEAREST;
+                public static enum Mode {
+                        LEFT, RIGHT, NEAREST, ALGAE;
                 }
 
                 public static final List<Pose2d> REEF_ALGAE = List.of(

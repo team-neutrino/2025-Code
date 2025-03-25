@@ -55,9 +55,9 @@ public class RobotContainer {
     m_driverController.a().onTrue(ClimbFactory.lowerClimb());
 
     m_driverController.back().whileTrue(swerve.resetYawCommand());
-    m_driverController.b().whileTrue(new DriveToPointCommand(m_driverController, false, Side.NEAREST));
+    m_driverController.b().whileTrue(new DriveToPointCommand(m_driverController, Mode.NEAREST));
 
-    Command deAlgae = new DriveToPointCommand(m_driverController, true, Side.NEAREST);
+    Command deAlgae = new DriveToPointCommand(m_driverController, Mode.ALGAE);
     deAlgae.setName(ALGAE_ALIGN_COMMAND);
     m_driverController.rightTrigger().whileTrue(deAlgae);
     m_driverController.leftTrigger().whileTrue(swerve.slowDefaultCommand(m_driverController));
@@ -114,13 +114,13 @@ public class RobotContainer {
     NamedCommands.registerCommand("ScoreBarge", SuperstructureFactory.scoreBargeCommand(m_buttonsController));
     NamedCommands.registerCommand("KeepCoralIn", CoralFactory.runSlowIntake());
     NamedCommands.registerCommand("DriveToPoint",
-        new DriveToPointCommand(m_driverController, false, Side.NEAREST).until(() -> swerve.isAtPointDebounced()));
+        new DriveToPointCommand(m_driverController, Mode.NEAREST).until(() -> swerve.isAtPointDebounced()));
     NamedCommands.registerCommand("DriveToPointLeft",
-        new DriveToPointCommand(m_driverController, false, Side.LEFT).until(() -> swerve.isAtPointDebounced()));
+        new DriveToPointCommand(m_driverController, Mode.LEFT).until(() -> swerve.isAtPointDebounced()));
     NamedCommands.registerCommand("DriveToPointRight",
-        new DriveToPointCommand(m_driverController, false, Side.RIGHT).until(() -> swerve.isAtPointDebounced()));
+        new DriveToPointCommand(m_driverController, Mode.RIGHT).until(() -> swerve.isAtPointDebounced()));
     NamedCommands.registerCommand("DriveToPointForever",
-        new DriveToPointCommand(m_driverController, false, Side.NEAREST));
+        new DriveToPointCommand(m_driverController, Mode.NEAREST));
     NamedCommands.registerCommand("SwerveDefault", swerve.getDefaultCommand());
     NamedCommands.registerCommand("IntakeOnly", CoralFactory.runIntake());
   }

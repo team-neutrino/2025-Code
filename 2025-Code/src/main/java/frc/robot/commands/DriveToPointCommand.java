@@ -7,7 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Constants.DriveToPoint.Side;
+import frc.robot.Constants.DriveToPoint.Mode;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.subsystems.Swerve.SwerveRequestStash;
 import frc.robot.util.DriveToPointController;
@@ -26,12 +26,10 @@ public class DriveToPointCommand extends Command {
   private List<Pose2d> m_localList;
   private boolean m_bumperWasPressed = false;
   private boolean m_hadGamePiece;
-  private boolean m_algae;
-  private Side m_side;
+  private Mode m_mode;
 
-  public DriveToPointCommand(CommandXboxController xboxController, boolean algae, Side side) {
-    m_algae = algae;
-    m_side = side;
+  public DriveToPointCommand(CommandXboxController xboxController, Mode mode) {
+    m_mode = mode;
     m_xboxController = xboxController;
     addRequirements(swerve);
   }
@@ -52,7 +50,7 @@ public class DriveToPointCommand extends Command {
 
   @Override
   public void execute() {
-    if (!m_algae) {
+    if (m_mode != Mode.ALGAE) {
       checkBumpers();
     }
     drive();
@@ -77,13 +75,13 @@ public class DriveToPointCommand extends Command {
     swerve.setDrivingToPoint(true);
     swerve.setAtPoint(false);
 
-    if (m_algae) {
+    if (m_mode == Mode.ALGAE) {
       m_pointControl.setTargetNearest(REEF_ALGAE);
       return;
     }
 
     if (Subsystem.coral.debouncedHasCoral()) {
-      switch (m_side) {
+      switch (m_mode) {
         case LEFT:
           m_pointControl.setTargetNearest(redAlliance.get() ? RED_REEF_LEFT : BLUE_REEF_LEFT);
           return;
@@ -94,7 +92,7 @@ public class DriveToPointCommand extends Command {
           m_pointControl.setTargetNearest(redAlliance.get() ? RED_REEF_RIGHT : BLUE_REEF_RIGHT);
           return;
         default:
-          System.out.println("undefined behavior in obtainTarget; m_side is null or an improper value");
+          System.out.println("undefined behavior in obtainTarget; m_mode is null or an improper value");
           break;
       }
     }
