@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Constants.DriveToPoint.Side;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.subsystems.Swerve.SwerveRequestStash;
 import frc.robot.util.DriveToPointController;
@@ -44,7 +45,7 @@ public class DriveToPointCommand extends Command {
       System.out.println("NO ALLIANCE VALUE YET");
       return;
     }
-    m_hadGamePiece = Subsystem.coral.hasCoral();
+    m_hadGamePiece = Subsystem.coral.debouncedHasCoral();
     obtainTarget();
     setLocalList();
   }
@@ -56,7 +57,7 @@ public class DriveToPointCommand extends Command {
     }
     drive();
     isAtPoint();
-    if (swerve.isAtPoint() && (Subsystem.coral.hasCoral() != m_hadGamePiece)) {
+    if (swerve.isAtPoint() && (Subsystem.coral.debouncedHasCoral() != m_hadGamePiece)) {
       initialize(); // reinitialize if the state of our game piece changes
     }
   }
@@ -79,7 +80,9 @@ public class DriveToPointCommand extends Command {
     if (m_algae) {
       m_pointControl.setTargetNearest(REEF_ALGAE);
       return;
-    } else if (Subsystem.coral.hasCoral()) {
+    }
+
+    if (Subsystem.coral.debouncedHasCoral()) {
       switch (m_side) {
         case LEFT:
           m_pointControl.setTargetNearest(redAlliance.get() ? RED_REEF_LEFT : BLUE_REEF_LEFT);
@@ -112,8 +115,12 @@ public class DriveToPointCommand extends Command {
       m_localList = REEF_ALGAE;
       return;
     }
-    if (RED_REEF.contains(target) || BLUE_REEF.contains(target)) {
-      m_localList = RED_REEF.contains(target) ? RED_REEF : BLUE_REEF;
+    if (RED_REEF.contains(target)) {
+      m_localList = RED_REEF;
+      return;
+    }
+    if (BLUE_REEF.contains(target)) {
+      m_localList = BLUE_REEF;
       return;
     }
     // at this point it's for sure a player station point
