@@ -15,6 +15,7 @@ import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
@@ -98,6 +99,8 @@ public class Swerve extends CommandSwerveDrivetrain {
     }
     m_hasBeenConstructed = true;
     registerTelemetry(m_telemetry::telemeterize);
+
+    setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
   }
 
   /**
