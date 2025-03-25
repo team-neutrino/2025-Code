@@ -33,6 +33,7 @@ public class Coral extends SubsystemBase {
     private Canandcolor m_colorSensor = new Canandcolor(COLOR_SENSOR);
     private CanandcolorSettings m_settings = new CanandcolorSettings();
     private Debouncer m_debouncer = new Debouncer(0.1, DebounceType.kFalling);
+    private boolean m_debounced;
 
     public Coral() {
         m_encoder = m_motor.getEncoder();
@@ -65,7 +66,7 @@ public class Coral extends SubsystemBase {
      * debounced the falling edge of hasCoral for use with scoring commands
      */
     public boolean debouncedHasCoral() {
-        return m_debouncer.calculate(hasCoral());
+        return m_debounced;
     }
 
     public double getAngularVelocity() {
@@ -79,6 +80,7 @@ public class Coral extends SubsystemBase {
     @Override
     public void periodic() {
         m_motor.set(m_motorVoltage);
+        m_debouncer.calculate(hasCoral());
     }
 
     /**
