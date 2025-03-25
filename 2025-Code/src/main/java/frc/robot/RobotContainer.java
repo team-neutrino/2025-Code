@@ -102,7 +102,16 @@ public class RobotContainer {
     NamedCommands.registerCommand("ScoreL3", SuperstructureFactory.scoreCoralL3AutonCommand());
     NamedCommands.registerCommand("ScoreL2", SuperstructureFactory.scoreCoralL2AutonCommand());
     NamedCommands.registerCommand("ScoreL1", SuperstructureFactory.scoreCoralL1AutonCommand());
+    NamedCommands.registerCommand("ScoreL4Teleop", SuperstructureFactory.scoreL4(m_buttonsController));
+    NamedCommands.registerCommand("ScoreL3Teleop", SuperstructureFactory.scoreL3(m_buttonsController));
+    NamedCommands.registerCommand("ScoreL2Teleop", SuperstructureFactory.scoreL2(m_buttonsController));
+    NamedCommands.registerCommand("ScoreL1Teleop", SuperstructureFactory.scoreL1(m_buttonsController));
     NamedCommands.registerCommand("Intake", SuperstructureFactory.intakeCoral());
+    NamedCommands.registerCommand("Outtake", SuperstructureFactory.outtake());
+    NamedCommands.registerCommand("DescoreAlgaeL3", SuperstructureFactory.descoreAlgaeL3());
+    NamedCommands.registerCommand("DescoreAlgaeL2", SuperstructureFactory.descoreAlgaeL2());
+    NamedCommands.registerCommand("ScoreProcessor", SuperstructureFactory.scoreProcessorCommand(m_buttonsController));
+    NamedCommands.registerCommand("ScoreBarge", SuperstructureFactory.scoreBargeCommand(m_buttonsController));
     NamedCommands.registerCommand("KeepCoralIn", CoralFactory.runSlowIntake());
     NamedCommands.registerCommand("DriveToPoint",
         new DriveToPointCommand(m_driverController, false, Side.NEAREST).until(() -> swerve.isAtPointDebounced()));
