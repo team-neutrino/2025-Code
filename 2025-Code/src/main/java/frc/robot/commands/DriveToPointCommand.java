@@ -146,7 +146,7 @@ public class DriveToPointCommand extends Command {
   public double distStraightPlayerStation() {
     double angle = m_pointControl.getRotation().getRadians();
     return (Math.cos(angle) * (swerve.getCurrentPose().getX() - m_pointControl.getTarget().getX()))
-        + (Math.sin(angle) * (swerve.getCurrentPose().getY() - m_pointControl.getTarget().getY())) - OFFSET_TO_STATION;
+        + (Math.sin(angle) * (swerve.getCurrentPose().getY() - m_pointControl.getTarget().getY())) - offsetToStation;
   }
 
   public void isAtPoint() {

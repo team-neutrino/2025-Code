@@ -289,6 +289,7 @@ public final class Constants {
                 // right is more negative, left is more positive
                 public static final double OFFSET_OF_ARM_REEF = .3;
                 public static final double OFFSET_OF_ARM_REEF_LEFT = .33;
+                public static final double offsetOfArmStation = -.42;
                 // right is more negative, left is more positive
                 public static final double sidewaysOffsetStation = .3;
                 public static final double offsetToReef = .52;
@@ -305,30 +306,30 @@ public final class Constants {
                 public static final Pose2d RED_PLAYER_STATION_1_CENTER = CalculatePSPoint(layout.getTagPose(1).get(),
                                 0);
                 public static final Pose2d RED_PLAYER_STATION_1_LEFT = CalculatePSPoint(layout.getTagPose(1).get(),
-                                -SIDEWAYS_OFFSET_STATION);
+                                -sidewaysOffsetStation);
                 public static final Pose2d RED_PLAYER_STATION_1_RIGHT = CalculatePSPoint(layout.getTagPose(1).get(),
-                                SIDEWAYS_OFFSET_STATION);
+                                sidewaysOffsetStation);
 
                 public static final Pose2d RED_PLAYER_STATION_2_CENTER = CalculatePSPoint(layout.getTagPose(2).get(),
                                 0);
                 public static final Pose2d RED_PLAYER_STATION_2_LEFT = CalculatePSPoint(layout.getTagPose(2).get(),
-                                -SIDEWAYS_OFFSET_STATION);
+                                -sidewaysOffsetStation);
                 public static final Pose2d RED_PLAYER_STATION_2_RIGHT = CalculatePSPoint(layout.getTagPose(2).get(),
-                                SIDEWAYS_OFFSET_STATION);
+                                sidewaysOffsetStation);
 
                 public static final Pose2d BLUE_PLAYER_STATION_13_CENTER = CalculatePSPoint(layout.getTagPose(13).get(),
                                 0);
                 public static final Pose2d BLUE_PLAYER_STATION_13_LEFT = CalculatePSPoint(layout.getTagPose(13).get(),
-                                -SIDEWAYS_OFFSET_STATION);
+                                -sidewaysOffsetStation);
                 public static final Pose2d BLUE_PLAYER_STATION_13_RIGHT = CalculatePSPoint(layout.getTagPose(13).get(),
-                                SIDEWAYS_OFFSET_STATION);
+                                sidewaysOffsetStation);
 
                 public static final Pose2d BLUE_PLAYER_STATION_12_CENTER = CalculatePSPoint(layout.getTagPose(12).get(),
                                 0);
                 public static final Pose2d BLUE_PLAYER_STATION_12_LEFT = CalculatePSPoint(layout.getTagPose(12).get(),
-                                -SIDEWAYS_OFFSET_STATION);
+                                -sidewaysOffsetStation);
                 public static final Pose2d BLUE_PLAYER_STATION_12_RIGHT = CalculatePSPoint(layout.getTagPose(12).get(),
-                                SIDEWAYS_OFFSET_STATION);
+                                sidewaysOffsetStation);
 
                 public static final Pose2d RED_REEF_6A = CalculatePoint(layout.getTagPose(6).get(), true);
                 public static final Pose2d RED_REEF_6B = CalculatePoint(layout.getTagPose(6).get(), false);

@@ -27,14 +27,14 @@ public class SuperstructureFactory {
             // threshold, change the arm and elevator position based on that distance
             if (casted != null
                     && Math.abs(casted.distStraightPlayerStation()) <= DriveToPoint.DYNAMIC_INTAKE_THRESHOLD) {
-                arm.adjustArm(ArmConstants.CORAL_STATION_POSITION);
+                arm.setTarget(ArmConstants.CORAL_STATION_POSITION);
                 // right now the P is just the conversion factor for meters to inches,
                 // effectively making every inch we're off from target position one extra inch
                 // in elevator height.
                 elevator.setTargetHeight(ElevatorConstants.CORAL_INTAKE
                         + (casted.distStraightPlayerStation() * ElevatorConstants.DYNAMIC_ADJUST_P));
             } else {
-                arm.adjustArm(ArmConstants.CORAL_STATION_POSITION);
+                arm.setTarget(ArmConstants.CORAL_STATION_POSITION);
                 elevator.setTargetHeight(ElevatorConstants.CORAL_INTAKE);
             }
         }, arm, elevator);
