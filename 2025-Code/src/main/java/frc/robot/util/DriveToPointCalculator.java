@@ -17,10 +17,10 @@ public class DriveToPointCalculator {
                                 + (REEF_WIDTH / 2) * Math.cos(perpendicularReefAngle + (isA ? 0 : Math.PI));
                 double leftRightOffsetY = OFFSET_ARM_REEF
                                 * Math.sin(perpendicularReefAngle)
-                                + (REEF_WIDTH / 2) * Math.sin(perpendicularReefAngle + (isA ? 0 : Math.PI));
+                                + (reefWidth / 2) * Math.sin(perpendicularReefAngle + (isA ? 0 : Math.PI));
 
-                double x = tagPosition.getX() + OFFSET_TO_REEF * Math.cos(reefAngle) + leftRightOffsetX;
-                double y = tagPosition.getY() + OFFSET_TO_REEF * Math.sin(reefAngle) + leftRightOffsetY;
+                double x = tagPosition.getX() + offsetToReef * Math.cos(reefAngle) + leftRightOffsetX;
+                double y = tagPosition.getY() + offsetToReef * Math.sin(reefAngle) + leftRightOffsetY;
 
                 return new Pose2d(x, y, Rotation2d.fromRadians(reefAngle + Math.PI));
         }
@@ -35,8 +35,8 @@ public class DriveToPointCalculator {
                 double leftRightOffsetY = (OFFSET_ARM_STATION * sin) + ((REEF_WIDTH / 2) * sin)
                                 + (sidewaysOffset * sin);
 
-                double x = tagPosition.getX() + (OFFSET_TO_STATION * Math.cos(stationAngle)) + leftRightOffsetX;
-                double y = tagPosition.getY() + (OFFSET_TO_STATION * Math.sin(stationAngle)) + leftRightOffsetY;
+                double x = tagPosition.getX() + (offsetToStation * Math.cos(stationAngle)) + leftRightOffsetX;
+                double y = tagPosition.getY() + (offsetToStation * Math.sin(stationAngle)) + leftRightOffsetY;
 
                 return new Pose2d(x, y, Rotation2d.fromRadians(stationAngle));
         }

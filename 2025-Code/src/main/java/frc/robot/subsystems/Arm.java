@@ -113,11 +113,11 @@ public class Arm extends SubsystemBase {
     return getAngle() <= 270 && getAngle() >= 90;
   }
 
-  public void adjustArm(double targetAngle) {
   public boolean isAtIntake() {
     return Math.abs(getAngle() - CORAL_STATION_POSITION) <= INTAKE_ANGLE_TOLERANCE;
   }
 
+  public void adjustArm(double targetAngle) {
     if (nearTargetAngle()) {
       m_pid.setReference(targetAngle, ControlType.kPosition, ClosedLoopSlot.kSlot1, feedForwardCalculation());
     } else if (Subsystem.algae.debouncedHasAlgae()) {
