@@ -22,8 +22,10 @@ public class Limelight extends SubsystemBase {
   private double[] pose = new double[11];
   private double[] targetPose = new double[6];
   private double[] targetPose2 = new double[6];
-  private double m_lastFrame1 = -2;
-  private double m_lastFrame2 = -2;
+  private double m_lastFrameReef = -2;
+  private double m_lastFrameStation = -2;
+  private boolean m_has_reef_tag;
+  private boolean m_has_station_tag;
 
   /** Creates a new ExampleSubsystem. */
   public Limelight() {
@@ -61,12 +63,12 @@ public class Limelight extends SubsystemBase {
 
   // **get valid target from camera 1*/
   public boolean getTvReef() {
-    return LimelightHelpers.getTV(LL_REEF);
+    return m_has_reef_tag;
   }
 
   // **get valid target from camera 2*/
   public boolean getTvStation() {
-    return LimelightHelpers.getTV(LL_STATION);
+    return m_has_station_tag;
   }
 
   /**
@@ -121,7 +123,7 @@ public class Limelight extends SubsystemBase {
   }
 
   public double[] getTargetPoseStation() {
-    if (getTvReef()) {
+    if (getTvStation()) {
       targetPose2 = LimelightHelpers.getTargetPose_RobotSpace(LL_STATION);
     }
     return targetPose2;
@@ -178,25 +180,25 @@ public class Limelight extends SubsystemBase {
   private void updateOdometryReef() {
     LimelightHelpers.PoseEstimate limePoseEstReef = LimelightHelpers
         .getBotPoseEstimate_wpiBlue_MegaTag2(LL_REEF);
-    double frame1 = getFrame(LL_REEF);
+    double frame = getFrame(LL_REEF);
     if (limePoseEstReef != null && limePoseEstReef.tagCount != 0
         && m_swerve.getState().Speeds.omegaRadiansPerSecond < 4 * Math.PI
-        && frame1 > m_lastFrame1) {
+        && frame > m_lastFrameReef) {
       m_swerve.addVisionMeasurement(limePoseEstReef.pose, limePoseEstReef.timestampSeconds);
     }
-    m_lastFrame1 = frame1;
+    m_lastFrameReef = frame;
   }
 
   private void updateOdometryStation() {
     LimelightHelpers.PoseEstimate limePoseEstStation = LimelightHelpers
         .getBotPoseEstimate_wpiBlue_MegaTag2(LL_STATION);
-    double frame2 = getFrame(LL_STATION);
+    double frame = getFrame(LL_STATION);
     if (limePoseEstStation != null && limePoseEstStation.tagCount != 0
         && m_swerve.getState().Speeds.omegaRadiansPerSecond < 4 * Math.PI
-        && frame2 > m_lastFrame2) {
+        && frame > m_lastFrameStation) {
       m_swerve.addVisionMeasurement(limePoseEstStation.pose, limePoseEstStation.timestampSeconds);
     }
-    m_lastFrame2 = frame2;
+    m_lastFrameStation = frame;
   }
 
   private void updateOdometry() {
@@ -207,11 +209,13 @@ public class Limelight extends SubsystemBase {
     }
 
     // if aligning to an algae position, force odometry updates from reef.
-    if (deAlgaefying || Subsystem.coral.hasCoral()) {
+    if (getTvReef() && (deAlgaefying || Subsystem.coral.hasCoral())) {
       updateOdometryReef();
       return;
     }
-    updateOdometryStation();
+    if (getTvStation()) {
+      updateOdometryStation();
+    }
   }
 
   private double getFrame(String limelight) {
@@ -226,6 +230,8 @@ public class Limelight extends SubsystemBase {
 
   @Override
   public void periodic() {
+    m_has_reef_tag = LimelightHelpers.getTV(LL_REEF);
+    m_has_station_tag = LimelightHelpers.getTV(LL_STATION);
     if (m_swerve == null) {
       return;
     }
