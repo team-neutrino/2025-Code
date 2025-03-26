@@ -11,13 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "21- Mid Coral"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveToScoringL4"
+                  "pathName": "Mid to T21"
                 }
               },
               {
@@ -36,13 +30,26 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPoint"
+                  "name": "DriveToPointLeft"
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "MoveToScoringL4"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.3
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "MoveToScoringL4"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -61,7 +68,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "SwerveDefault"
+                  "name": "DriveToPointForever"
                 }
               }
             ]
@@ -74,7 +81,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "21- Mid Coral (Reef to Ps)"
+                  "pathName": "Mid-T21 to Station"
                 }
               },
               {
@@ -90,6 +97,12 @@
           "type": "deadline",
           "data": {
             "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeOnly"
+                }
+              },
               {
                 "type": "named",
                 "data": {
@@ -118,7 +131,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "SwerveDefault"
+                  "name": "DriveToPointForever"
                 }
               }
             ]
@@ -131,13 +144,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "22-Mid Coral (Ps to Reef)"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveToScoringL4"
+                  "pathName": "Mid-Station to T17"
                 }
               }
             ]
@@ -150,7 +157,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPoint"
+                  "name": "DriveToPointRight"
                 }
               },
               {
@@ -175,7 +182,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "SwerveDefault"
+                  "name": "DriveToPointForever"
                 }
               }
             ]
@@ -185,25 +192,12 @@
           "type": "deadline",
           "data": {
             "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "22- Mid Coral (Reef to Ps)"
-                }
-              },
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToIntake"
+                  "name": "IntakeOnly"
                 }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
+              },
               {
                 "type": "named",
                 "data": {
@@ -232,7 +226,20 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "SwerveDefault"
+                  "name": "DriveToPointForever"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Mid-Station to T17"
                 }
               }
             ]
@@ -245,7 +252,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPoint"
+                  "name": "DriveToPointLeft"
                 }
               },
               {
@@ -270,7 +277,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "SwerveDefault"
+                  "name": "DriveToPointForever"
                 }
               }
             ]
