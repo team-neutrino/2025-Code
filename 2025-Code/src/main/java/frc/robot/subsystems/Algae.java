@@ -77,8 +77,7 @@ public class Algae extends SubsystemBase {
     @Override
     public void periodic() {
         m_motor.set(m_voltage);
-        m_debouncer.calculate(hasAlgae());
-
+        m_debounced = m_debouncer.calculate(hasAlgae());
     }
 
     public Command algaeDefaultCommand() {
