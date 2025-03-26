@@ -100,7 +100,7 @@
               {
                 "type": "named",
                 "data": {
-                  "pathName": "T22 to Station"
+                  "name": "IntakeOnly"
                 }
               },
               {

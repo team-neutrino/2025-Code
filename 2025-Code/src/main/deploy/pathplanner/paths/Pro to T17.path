@@ -8,20 +8,34 @@
       },
       "prevControl": null,
       "nextControl": {
+<<<<<<<< HEAD:2025-Code/src/main/deploy/pathplanner/paths/Pro to T22.path
         "x": 6.940227272727273,
         "y": 0.9387926136363626
+========
+        "x": 5.500901137978669,
+        "y": 1.130410645282023
+>>>>>>>> caa24808 (Left and right reef point autons):2025-Code/src/main/deploy/pathplanner/paths/Pro to T17.path
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
+<<<<<<<< HEAD:2025-Code/src/main/deploy/pathplanner/paths/Pro to T22.path
         "x": 5.771730769230769,
         "y": 1.7441666666666675
       },
       "prevControl": {
         "x": 6.143349621689786,
         "y": 1.2167076502732244
+========
+        "x": 3.31,
+        "y": 2.05
+      },
+      "prevControl": {
+        "x": 2.091719715718069,
+        "y": 1.0127955124808135
+>>>>>>>> caa24808 (Left and right reef point autons):2025-Code/src/main/deploy/pathplanner/paths/Pro to T17.path
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +56,7 @@
   },
   "goalEndState": {
     "velocity": 4.0,
-    "rotation": 122.0
+    "rotation": 59.99999999999999
   },
   "reversed": false,
   "folder": "Processor ",

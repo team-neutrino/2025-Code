@@ -11,7 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Processor to T22"
+                  "pathName": "Pro to T22"
                 }
               },
               {
@@ -81,7 +81,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "T22 to Station"
+                  "pathName": "Pro-T22 to Station"
                 }
               },
               {
@@ -144,7 +144,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Station to T23"
+                  "pathName": "Pro-Station to T17"
                 }
               }
             ]
@@ -239,7 +239,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Station to T23"
+                  "pathName": "Pro-Station to T17"
                 }
               }
             ]
