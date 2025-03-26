@@ -57,9 +57,7 @@ public class Coral extends SubsystemBase {
     }
 
     public boolean hasCoral() {
-        return withinProximity(PROXIMITY) && (m_colorSensor.getBlue() > 0.7 &&
-                m_colorSensor.getRed() > 0.7 &&
-                m_colorSensor.getGreen() > 0.7);
+        return withinProximity(PROXIMITY);
     }
 
     /**
@@ -80,7 +78,7 @@ public class Coral extends SubsystemBase {
     @Override
     public void periodic() {
         m_motor.set(m_motorVoltage);
-        m_debouncer.calculate(hasCoral());
+        m_debounced = m_debouncer.calculate(hasCoral());
     }
 
     /**
