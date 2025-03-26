@@ -60,6 +60,9 @@ public class RobotContainer {
     align.setName(Constants.DriveToPoint.DRIVE_TO_POINT_BASIC);
     m_driverController.b().whileTrue(align);
 
+    DriveToPointCommand driveToPoint = new DriveToPointCommand(m_driverController, Mode.NEAREST);
+    m_driverController.b().whileTrue(driveToPoint);
+
     Command deAlgae = new DriveToPointCommand(m_driverController, Mode.ALGAE);
     deAlgae.setName(ALGAE_ALIGN_COMMAND);
     m_driverController.rightTrigger().whileTrue(deAlgae);
