@@ -15,6 +15,7 @@ import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
+import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ArmConstants;
@@ -23,6 +24,7 @@ import frc.robot.util.Subsystem;
 import static frc.robot.Constants.ElevatorConstants.*;
 import static frc.robot.Constants.CANRateConstants.*;
 
+@Logged
 public class Elevator extends SubsystemBase {
   private SparkFlex m_motor = new SparkFlex(MOTOR_ID, MotorType.kBrushless);
   private SparkFlex m_follower = new SparkFlex(FOLLOWER_ID, MotorType.kBrushless);
