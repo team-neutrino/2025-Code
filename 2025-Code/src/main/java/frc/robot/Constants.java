@@ -283,7 +283,7 @@ public final class Constants {
 
         public static class DriveToPoint {
                 public static final String ALGAE_ALIGN_COMMAND = "VIENNA IS SHORT";
-                public static final String DRIVE_ASSIST_COMMAND = "LOL JK VIENNA IS ACTUALLY... SHORTER THAN I THOUGHT";
+                public static final String DRIVE_ASSIST_COMMAND = ":NATHAN_BREAD:";
                 public static final AprilTagFieldLayout layout = AprilTagFieldLayout
                                 .loadField(AprilTagFields.k2025ReefscapeWelded);
                 // right is more negative, left is more positive

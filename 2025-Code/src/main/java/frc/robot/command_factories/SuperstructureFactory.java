@@ -20,9 +20,10 @@ public class SuperstructureFactory {
     public static Command dynamicCoralIntake() {
         Command ret = new RunCommand(() -> {
             Command swerveCom = swerve.getCurrentCommand();
-            DriveToPointCommand casted = swerveCom.getName().equals(DriveToPoint.DRIVE_ASSIST_COMMAND)
-                    ? (DriveToPointCommand) swerveCom
-                    : null;
+            DriveToPointCommand casted = (swerveCom != null
+                    && swerveCom.getName().equals(DriveToPoint.DRIVE_ASSIST_COMMAND))
+                            ? (DriveToPointCommand) swerveCom
+                            : null;
             // if we're running driveToPoint and the distance from target is below a certain
             // threshold, change the arm and elevator position based on that distance
             if (casted != null
