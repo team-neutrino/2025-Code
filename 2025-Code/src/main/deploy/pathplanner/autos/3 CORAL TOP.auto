@@ -201,7 +201,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPoint"
+                  "name": "DriveToPointForever"
                 }
               },
               {

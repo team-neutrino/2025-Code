@@ -1,6 +1,7 @@
 package frc.robot.util;
 
 import frc.robot.subsystems.*;
+import frc.robot.subsystems.NetworkTables.*;
 
 public class Subsystem {
     public Subsystem(boolean is_valkyrie) {
@@ -9,11 +10,11 @@ public class Subsystem {
     }
 
     public static final Coral coral = new Coral();
-    public static final Elevator elevator = new Elevator();
+    public static final Elevator elevator = new ElevatorNT();
     public static final Climb climb = new Climb();
     public static Swerve swerve = null;
     public static Limelight limelight = null;
-    public static final Arm arm = new Arm();
+    public static final Arm arm = new ArmNT();
     public static final Algae algae = new Algae();
     public static final LED LED = new LED();
 }

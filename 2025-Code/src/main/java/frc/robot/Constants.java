@@ -86,7 +86,7 @@ public final class Constants {
                 public static final double L1 = 12.0;
                 public static final double L2 = 17.0;
                 public static final double L3 = 32.0;
-                public static final double L4 = 55.5;
+                public static final double L4 = 55.0;
                 public static final double ARM_WILL_NOT_HIT_BASE_HEIGHT = 20.0;
                 public static final double STAGE_1_LENGTH = 29;
                 public static final double STAGE_2_LENGTH = 26;
@@ -96,18 +96,18 @@ public final class Constants {
                 public static final double MAX_VELOCITY = 4000;
                 public static final double MAX_ACCELERATION = 6000;
                 public static final double ALLOWED_ERROR = 0.1;
-                public static final double P_VAL = 0.1;
+                public static final double P_VAL = 0.15; // .1
                 public static final double I_VAL = 0.0;
                 public static final double D_VAL = 1.0;
                 public static final double P_VAL_ALGAE = 0.05;
                 public static final double I_VAL_ALGAE = 0.0;
                 public static final double D_VAL_ALGAE = 0.0;
-                public static final double STAGE_1_FF = 0.25;
+                public static final double STAGE_1_FF = 0.20; // .25
                 public static final double STAGE_2_FF = 0.30;
                 public static final double HEIGHT_TOLERANCE = 0.6;
                 public static final double SLOW_MOVE_THRESHOLD = 45.0;
                 public static final double SAFE_HEIGHT_ALGAE = 30;
-                public static final double SAFE_HEIGHT_NO_ALGAE = 16;
+                public static final double SAFE_HEIGHT_NO_ALGAE = 17;
         }
 
         public static class ArmConstants {
@@ -277,7 +277,7 @@ public final class Constants {
                 public static final double offsetOfArmStation = -.42;
                 public static final double sidewaysOffsetStation = .3;
                 public static final double offsetToReef = .52;
-                public static final double offsetToStation = .60;
+                public static final double offsetToStation = .59; // .6
                 public static final double reefWidth = 0.33;
 
                 public static final double offsetOfArmAlgae = 0.31;
