@@ -277,7 +277,7 @@ public final class Constants {
                 public static final double offsetOfArmStation = -.42;
                 public static final double sidewaysOffsetStation = .3;
                 public static final double offsetToReef = .52;
-                public static final double offsetToStation = .59; // .6
+                public static final double offsetToStation = .585; // .6
                 public static final double reefWidth = 0.33;
 
                 public static final double offsetOfArmAlgae = 0.31;
