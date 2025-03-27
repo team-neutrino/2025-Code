@@ -60,7 +60,7 @@ public class SuperstructureFactory {
                         * ElevatorConstants.DYNAMIC_ADJUST_P));
         Command armCom = ArmFactory.moveToGiven(() -> ArmConstants.CORAL_STATION_POSITION);
 
-        BooleanSupplier runCondition = () -> swerve.getCurrentCommand().getName()
+        BooleanSupplier runCondition = () -> swerve.getCurrentCommand() != null && swerve.getCurrentCommand().getName()
                 .equals(DriveToPoint.DRIVE_ASSIST_COMMAND)
                 && Math.abs(badSolution.distStraightPlayerStation()) <= DriveToPoint.DYNAMIC_INTAKE_THRESHOLD;
         BooleanSupplier endCondition = () -> coral.debouncedHasCoral();
