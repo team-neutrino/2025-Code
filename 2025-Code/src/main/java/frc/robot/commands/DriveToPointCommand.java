@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -163,6 +164,10 @@ public class DriveToPointCommand extends Command {
       velx = xsign * Math.min(Math.abs(velx), SLOW_SWERVE_SPEED);
       vely = ysign * Math.min(Math.abs(vely), SLOW_SWERVE_SPEED);
     }
+
+    velx = MathUtil.clamp(velx, -MAX_DRIVETOPOINT_SPEED, MAX_DRIVETOPOINT_SPEED);
+    vely = MathUtil.clamp(vely, -MAX_DRIVETOPOINT_SPEED, MAX_DRIVETOPOINT_SPEED);
+
     SwerveRequestStash.driveWithVelocity
         .withVelocityX(velx)
         .withVelocityY(vely)
