@@ -58,8 +58,6 @@ public class DriveToPointCommand extends Command {
     if (swerve.isAtPoint() && (Subsystem.coral.debouncedHasCoral() != m_hadGamePiece)) {
       initialize(); // reinitialize if the state of our game piece changes
     }
-    System.out.println(swerve.getCurrentPose().getX() - m_pointControl.getTarget().getX() + ", "
-        + (swerve.getCurrentPose().getY() - m_pointControl.getTarget().getY()));
   }
 
   @Override
