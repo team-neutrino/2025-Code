@@ -84,7 +84,7 @@ public final class Constants {
                 public static final double SCORE_ALGAE_BARGE = 54.9;
                 public static final double SCORE_ALGAE_PROCESSOR = 17.0;
                 public static final double L1 = 12.0;
-                public static final double L2 = 17.0;
+                public static final double L2 = 17.5; //17
                 public static final double L3 = 32.0;
                 public static final double L4 = 55.5;
                 public static final double ARM_WILL_NOT_HIT_BASE_HEIGHT = 20.0;
