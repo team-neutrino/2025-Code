@@ -22,7 +22,8 @@ public class Limelight extends SubsystemBase {
   private double[] pose = new double[11];
   private double[] targetPose = new double[6];
   private double[] targetPose2 = new double[6];
-  private double m_lastFrameReef = -2;
+  private double m_lastFrameReef1 = -2;
+  private double m_lastFrameReef2 = -2;
   private double m_lastFrameStation = -2;
   private boolean m_has_reef_tag;
   private boolean m_has_station_tag;
@@ -33,8 +34,8 @@ public class Limelight extends SubsystemBase {
     m_limelightHelpers = new LimelightHelpers();
     // fake pipeline number
     // LimelightHelpers.setPipelineIndex(LIMELIGHT_1, 1);
-    LimelightHelpers.setLEDMode_ForceOff(LL_REEF);
-    LimelightHelpers.setCameraPose_RobotSpace(LL_REEF,
+    LimelightHelpers.setLEDMode_ForceOff(LL_REEF1);
+    LimelightHelpers.setCameraPose_RobotSpace(LL_REEF1,
         CAMERA_FORWARD_OFFSET, // Forward offset (meters)
         CAMERA_SIDE_OFFSET, // Side offset (meters) left is positive
         CAMERA_HEIGHT_OFFSET, // Height offset (meters)
@@ -42,11 +43,21 @@ public class Limelight extends SubsystemBase {
         CAMERA_PITCH_OFFSET, // Pitch (degrees)
         CAMERA_YAW_OFFSET // Yaw (degrees)
     );
-    LimelightHelpers.SetFiducialDownscalingOverride(LL_REEF, 3);
+    LimelightHelpers.SetFiducialDownscalingOverride(LL_REEF1, 3);
 
     // change name later
     LimelightHelpers.setLEDMode_ForceOff(LL_STATION);
     LimelightHelpers.setCameraPose_RobotSpace(LL_STATION,
+        CAMERA_STATION_FORWARD_OFFSET, // Forward offset (meters)
+        CAMERA_STATION_SIDE_OFFSET, // Side offset (meters) left is positive
+        CAMERA_STATION_HEIGHT_OFFSET, // Height offset (meters)
+        CAMERA_STATION_ROLL_OFFSET, // Roll (degrees)
+        CAMERA_STATION_PITCH_OFFSET, // Pitch (degrees)
+        CAMERA_STATION_YAW_OFFSET // Yaw (degrees)
+    );
+
+    LimelightHelpers.setLEDMode_ForceOff(LL_REEF2);
+    LimelightHelpers.setCameraPose_RobotSpace(LL_REEF2,
         CAMERA2_FORWARD_OFFSET, // Forward offset (meters)
         CAMERA2_SIDE_OFFSET, // Side offset (meters) left is positive
         CAMERA2_HEIGHT_OFFSET, // Height offset (meters)
@@ -55,7 +66,7 @@ public class Limelight extends SubsystemBase {
         CAMERA2_YAW_OFFSET // Yaw (degrees)
     );
 
-    LimelightHelpers.SetIMUMode(LL_REEF, 1);
+    LimelightHelpers.SetIMUMode(LL_REEF1, 1);
     // use external IMU yaw submitted via setRobotOrientation() and configure the
     // LL4 internal IMU's fused yaw to match the submitted yaw value
     LimelightHelpers.SetIMUMode(LL_STATION, 1);
@@ -76,7 +87,7 @@ public class Limelight extends SubsystemBase {
    * degrees / LL2: -29.8 to 29.8 degrees)
    */
   public double getTxReef() {
-    return LimelightHelpers.getTX(LL_REEF);
+    return LimelightHelpers.getTX(LL_REEF1);
   }
 
   /**
@@ -93,7 +104,7 @@ public class Limelight extends SubsystemBase {
    * degrees / LL2: -24.85 to 24.85 degrees)
    */
   public double getTyReef() {
-    return LimelightHelpers.getTY(LL_REEF);
+    return LimelightHelpers.getTY(LL_REEF1);
   }
 
   /**
@@ -107,7 +118,7 @@ public class Limelight extends SubsystemBase {
 
   /** get ID of the primary in-view AprilTag */
   public int getIDReef() {
-    return (int) LimelightHelpers.getFiducialID(LL_REEF);
+    return (int) LimelightHelpers.getFiducialID(LL_REEF1);
   }
 
   /** get ID of the primary in-view AprilTag from the Second Camera */
@@ -117,7 +128,7 @@ public class Limelight extends SubsystemBase {
 
   public double[] getTargetPoseReef() {
     if (getTvReef()) {
-      targetPose = LimelightHelpers.getTargetPose_RobotSpace(LL_REEF);
+      targetPose = LimelightHelpers.getTargetPose_RobotSpace(LL_REEF1);
     }
     return targetPose;
   }
@@ -152,7 +163,7 @@ public class Limelight extends SubsystemBase {
   public double[] getBotPose() {
     // depending on how we do want to do our vision we could have regular getBotPose
     if (getTvReef()) {
-      pose = LimelightHelpers.getBotPose_wpiBlue(LL_REEF);
+      pose = LimelightHelpers.getBotPose_wpiBlue(LL_REEF1);
     } else if (getTvStation()) {
       pose = LimelightHelpers.getBotPose_wpiBlue(LL_STATION);
     }
@@ -170,23 +181,35 @@ public class Limelight extends SubsystemBase {
   }
 
   public void setPriorityIDReef(int id) {
-    LimelightHelpers.setPriorityTagID(LL_REEF, id);
+    LimelightHelpers.setPriorityTagID(LL_REEF1, id);
   }
 
   public void setPriorityIDStation(int id) {
     LimelightHelpers.setPriorityTagID(LL_STATION, id);
   }
 
-  private void updateOdometryReef() {
+  private void updateOdometryReef1() {
     LimelightHelpers.PoseEstimate limePoseEstReef = LimelightHelpers
-        .getBotPoseEstimate_wpiBlue_MegaTag2(LL_REEF);
-    double frame = getFrame(LL_REEF);
+        .getBotPoseEstimate_wpiBlue_MegaTag2(LL_REEF1);
+    double frame = getFrame(LL_REEF1);
     if (limePoseEstReef != null && limePoseEstReef.tagCount != 0
         && m_swerve.getState().Speeds.omegaRadiansPerSecond < 4 * Math.PI
-        && frame > m_lastFrameReef) {
+        && frame > m_lastFrameReef1) {
       m_swerve.addVisionMeasurement(limePoseEstReef.pose, limePoseEstReef.timestampSeconds);
     }
-    m_lastFrameReef = frame;
+    m_lastFrameReef1 = frame;
+  }
+
+  private void updateOdometryReef2() {
+    LimelightHelpers.PoseEstimate limePoseEstReef = LimelightHelpers
+        .getBotPoseEstimate_wpiBlue_MegaTag2(LL_REEF2);
+    double frame = getFrame(LL_REEF2);
+    if (limePoseEstReef != null && limePoseEstReef.tagCount != 0
+        && m_swerve.getState().Speeds.omegaRadiansPerSecond < 4 * Math.PI
+        && frame > m_lastFrameReef2) {
+      m_swerve.addVisionMeasurement(limePoseEstReef.pose, limePoseEstReef.timestampSeconds);
+    }
+    m_lastFrameReef2 = frame;
   }
 
   private void updateOdometryStation() {
@@ -210,7 +233,10 @@ public class Limelight extends SubsystemBase {
 
     // if aligning to an algae position, force odometry updates from reef.
     if (getTvReef() && (deAlgaefying || Subsystem.coral.hasCoral())) {
-      updateOdometryReef();
+      updateOdometryReef1();
+      return;
+    } else if (LimelightHelpers.getTV(LL_REEF2) && (deAlgaefying || Subsystem.coral.hasCoral())) {
+      updateOdometryReef2();
       return;
     }
     if (getTvStation()) {
@@ -230,7 +256,7 @@ public class Limelight extends SubsystemBase {
 
   @Override
   public void periodic() {
-    m_has_reef_tag = LimelightHelpers.getTV(LL_REEF);
+    m_has_reef_tag = LimelightHelpers.getTV(LL_REEF1);
     m_has_station_tag = LimelightHelpers.getTV(LL_STATION);
     if (m_swerve == null) {
       return;
@@ -238,10 +264,13 @@ public class Limelight extends SubsystemBase {
 
     // according to limelight docs, this needs to be called before using
     // .getBotPoseEstimate_wpiBlue_MegaTag2
-    LimelightHelpers.SetRobotOrientation(LL_REEF,
+    LimelightHelpers.SetRobotOrientation(LL_REEF1,
         Subsystem.swerve.getYawDegrees(), 0,
         0, 0, 0, 0);
     LimelightHelpers.SetRobotOrientation(LL_STATION,
+        Subsystem.swerve.getYawDegrees(), 0,
+        0, 0, 0, 0);
+    LimelightHelpers.SetRobotOrientation(LL_REEF2,
         Subsystem.swerve.getYawDegrees(), 0,
         0, 0, 0, 0);
     updateOdometry();

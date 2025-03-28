@@ -218,17 +218,28 @@ public final class Constants {
                 public static final double CAMERA_PITCH_OFFSET = 0.0;
                 public static final double CAMERA_YAW_OFFSET = -17.5;
 
-                public static final double CAMERA2_FORWARD_OFFSET = -0.216;
-                public static final double CAMERA2_SIDE_OFFSET = 0.121;
-                public static final double CAMERA2_HEIGHT_OFFSET = 0.84990178;
+                // REEF CAMERA 2 OFFSETS
+                public static final double CAMERA2_FORWARD_OFFSET = -1;
+                public static final double CAMERA2_SIDE_OFFSET = -1;
+                public static final double CAMERA2_HEIGHT_OFFSET = -1;
+
+                public static final double CAMERA2_ROLL_OFFSET = 0.0;
+                public static final double CAMERA2_PITCH_OFFSET = 0.0;
+                public static final double CAMERA2_YAW_OFFSET = 0.0;
 
                 // CORAL STATION CAMERA OFFSETS
-                public static final double CAMERA2_ROLL_OFFSET = 0.0;
-                public static final double CAMERA2_PITCH_OFFSET = 30.0;
-                public static final double CAMERA2_YAW_OFFSET = 180.0;
+                public static final double CAMERA_STATION_FORWARD_OFFSET = -0.216;
+                public static final double CAMERA_STATION_SIDE_OFFSET = 0.121;
+                public static final double CAMERA_STATION_HEIGHT_OFFSET = 0.84990178;
 
-                public static final String LL_REEF = "limelight-limeade";
+                public static final double CAMERA_STATION_ROLL_OFFSET = 0.0;
+                public static final double CAMERA_STATION_PITCH_OFFSET = 30.0;
+                public static final double CAMERA_STATION_YAW_OFFSET = 180.0;
+
+                // LL NAMES
+                public static final String LL_REEF1 = "limelight-limeade";
                 public static final String LL_STATION = "limelight-limebee";
+                public static final String LL_REEF2 = "limelight-limesea";
         }
 
         public static class LEDConstants {
