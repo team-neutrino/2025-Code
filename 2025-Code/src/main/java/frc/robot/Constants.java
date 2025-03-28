@@ -86,7 +86,7 @@ public final class Constants {
                 public static final double L1 = 12.0;
                 public static final double L2 = 17.0;
                 public static final double L3 = 32.0;
-                public static final double L4 = 55.4;
+                public static final double L4 = 55.5;
                 public static final double ARM_WILL_NOT_HIT_BASE_HEIGHT = 20.0;
                 public static final double STAGE_1_LENGTH = 29;
                 public static final double STAGE_2_LENGTH = 26;
