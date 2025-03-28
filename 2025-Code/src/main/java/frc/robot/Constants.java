@@ -66,7 +66,7 @@ public final class Constants {
                 public static final double REEF_OFFSET = Units.inchesToMeters(12.94) / 2;
                 public static final double isAlignedError = 0;
                 public static final double DRIVE_TO_POINT_P = 3;
-                public static final double DRIVE_TO_POINT_INTAKE_P = 5;
+                public static final double DRIVE_TO_POINT_INTAKE_P = 4;
                 public static final double AT_POINT_TOLERANCE = 0.0125;
         }
 
@@ -219,11 +219,11 @@ public final class Constants {
                 public static final double CAMERA_YAW_OFFSET = -17.5;
 
                 // REEF CAMERA 2 OFFSETS
-                public static final double CAMERA2_FORWARD_OFFSET = -1;
-                public static final double CAMERA2_SIDE_OFFSET = -1;
-                public static final double CAMERA2_HEIGHT_OFFSET = -1;
+                public static final double CAMERA2_FORWARD_OFFSET = 0.216;
+                public static final double CAMERA2_SIDE_OFFSET = -0.2667;
+                public static final double CAMERA2_HEIGHT_OFFSET = 0.18325;
 
-                public static final double CAMERA2_ROLL_OFFSET = 0.0;
+                public static final double CAMERA2_ROLL_OFFSET = 180.0;
                 public static final double CAMERA2_PITCH_OFFSET = 0.0;
                 public static final double CAMERA2_YAW_OFFSET = 0.0;
 
