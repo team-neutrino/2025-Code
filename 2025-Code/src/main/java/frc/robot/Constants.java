@@ -67,7 +67,7 @@ public final class Constants {
                 public static final double isAlignedError = 0;
                 public static final double DRIVE_TO_POINT_P = 3;
                 public static final double DRIVE_TO_POINT_INTAKE_P = 5;
-                public static final double AT_POINT_TOLERANCE = 0.05;
+                public static final double AT_POINT_TOLERANCE = 0.0125;
         }
 
         public static class ElevatorConstants {
@@ -84,7 +84,7 @@ public final class Constants {
                 public static final double SCORE_ALGAE_BARGE = 54.9;
                 public static final double SCORE_ALGAE_PROCESSOR = 17.0;
                 public static final double L1 = 12.0;
-                public static final double L2 = 17.5; //17
+                public static final double L2 = 17.5; // 17
                 public static final double L3 = 32.0;
                 public static final double L4 = 55.5;
                 public static final double ARM_WILL_NOT_HIT_BASE_HEIGHT = 20.0;
@@ -277,7 +277,7 @@ public final class Constants {
                 public static final double offsetOfArmStation = -.42;
                 public static final double sidewaysOffsetStation = .3;
                 public static final double offsetToReef = .52;
-                public static final double offsetToStation = .575; // .6
+                public static final double offsetToStation = .56; // .6
                 public static final double reefWidth = 0.33;
 
                 public static final double offsetOfArmAlgae = 0.31;
