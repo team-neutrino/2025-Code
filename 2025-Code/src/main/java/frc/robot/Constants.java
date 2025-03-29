@@ -66,7 +66,7 @@ public final class Constants {
                 public static final double isAlignedError = 0;
                 public static final double DRIVE_TO_POINT_P = 3;
                 public static final double DRIVE_TO_POINT_INTAKE_P = 4;
-                public static final double DRIVE_TO_POINT_SLOW_P = 1.5; // 2
+                public static final double DRIVE_TO_POINT_SLOW_P = 1.5;
                 public static final double MAX_DRIVETOPOINT_SPEED = 4;
                 public static final double AT_POINT_TOLERANCE = 0.025;
         }
@@ -79,14 +79,14 @@ public final class Constants {
                 public static final double DEFAULT_WITH_CORAL = 0;
                 public static final double BOTTOM_POSITION = 0.0;
                 public static final double STAGE_ONE_UP = 26.0;
-                public static final double CORAL_INTAKE = 33.5; // 34
+                public static final double CORAL_INTAKE = 33.5;
                 public static final double REMOVE_ALGAE_L2 = 30.0;
                 public static final double REMOVE_ALGAE_L3 = 50.0;
                 public static final double SCORE_ALGAE_BARGE = 54.9;
                 public static final double SCORE_ALGAE_PROCESSOR = 17.0;
                 public static final double L1 = 12.0;
-                public static final double L2 = 17.5; // 17
-                public static final double L3 = 32.5; // 32
+                public static final double L2 = 17.5;
+                public static final double L3 = 32.5;
                 public static final double L4 = 55.5;
                 public static final double ARM_WILL_NOT_HIT_BASE_HEIGHT = 20.0;
                 public static final double STAGE_1_LENGTH = 29;
@@ -97,13 +97,13 @@ public final class Constants {
                 public static final double MAX_VELOCITY = 4000;
                 public static final double MAX_ACCELERATION = 6000;
                 public static final double ALLOWED_ERROR = 0.1;
-                public static final double P_VAL = 0.15; // .1
+                public static final double P_VAL = 0.15;
                 public static final double I_VAL = 0.0;
                 public static final double D_VAL = 1.0;
                 public static final double P_VAL_ALGAE = 0.05;
                 public static final double I_VAL_ALGAE = 0.0;
                 public static final double D_VAL_ALGAE = 0.0;
-                public static final double STAGE_1_FF = 0.20; // .25
+                public static final double STAGE_1_FF = 0.20;
                 public static final double STAGE_2_FF = 0.30;
                 public static final double HEIGHT_TOLERANCE = 0.6;
                 public static final double SLOW_MOVE_THRESHOLD = 45.0;
