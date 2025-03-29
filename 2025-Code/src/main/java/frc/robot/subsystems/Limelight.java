@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
@@ -235,7 +236,8 @@ public class Limelight extends SubsystemBase {
     if (getTvReef() && (deAlgaefying || Subsystem.coral.hasCoral())) {
       updateOdometryReef1();
       return;
-    } else if (LimelightHelpers.getTV(LL_REEF2) && (deAlgaefying || Subsystem.coral.hasCoral())) {
+    } else if (LimelightHelpers.getTV(LL_REEF2) && (deAlgaefying || Subsystem.coral.hasCoral())
+        && !DriverStation.isAutonomousEnabled()) {
       updateOdometryReef2();
       return;
     }
