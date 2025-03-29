@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Optional;
 
@@ -220,8 +219,8 @@ public final class Constants {
                 public static final double CAMERA_YAW_OFFSET = -17.5;
 
                 // REEF CAMERA 2 OFFSETS
-                public static final double CAMERA2_FORWARD_OFFSET = 0.216;
-                public static final double CAMERA2_SIDE_OFFSET = -0.2667;
+                public static final double CAMERA2_FORWARD_OFFSET = 0.215;
+                public static final double CAMERA2_SIDE_OFFSET = -0.26;
                 public static final double CAMERA2_HEIGHT_OFFSET = 0.18325;
 
                 public static final double CAMERA2_ROLL_OFFSET = 180.0;
