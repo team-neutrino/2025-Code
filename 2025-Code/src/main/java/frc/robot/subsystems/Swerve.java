@@ -264,7 +264,7 @@ public class Swerve extends CommandSwerveDrivetrain {
   public boolean isStable() {
     double pitch = getPigeon2().getPitch().getValueAsDouble();
     double roll = getPigeon2().getRoll().getValueAsDouble();
-    return m_tippyDebouncer.calculate(pitch < 1.0 && roll < 1.0);
+    return m_tippyDebouncer.calculate(Math.abs(pitch) < 3.0 && Math.abs(roll) < 3.0);
   }
 
   public boolean isAtPointStable() {
