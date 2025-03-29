@@ -66,7 +66,7 @@ public final class Constants {
                 public static final double isAlignedError = 0;
                 public static final double DRIVE_TO_POINT_P = 3;
                 public static final double DRIVE_TO_POINT_INTAKE_P = 4;
-                public static final double DRIVE_TO_POINT_SLOW_P = 1; //2
+                public static final double DRIVE_TO_POINT_SLOW_P = 1; // 2
                 public static final double MAX_DRIVETOPOINT_SPEED = 4;
                 public static final double AT_POINT_TOLERANCE = 0.025;
         }
@@ -86,7 +86,7 @@ public final class Constants {
                 public static final double SCORE_ALGAE_PROCESSOR = 17.0;
                 public static final double L1 = 12.0;
                 public static final double L2 = 17.5; // 17
-                public static final double L3 = 32.0;
+                public static final double L3 = 32.5; // 32
                 public static final double L4 = 55.5;
                 public static final double ARM_WILL_NOT_HIT_BASE_HEIGHT = 20.0;
                 public static final double STAGE_1_LENGTH = 29;
