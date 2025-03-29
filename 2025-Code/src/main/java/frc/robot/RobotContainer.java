@@ -114,11 +114,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("ScoreBarge", SuperstructureFactory.scoreBargeCommand(m_buttonsController));
     NamedCommands.registerCommand("KeepCoralIn", CoralFactory.runSlowIntake());
     NamedCommands.registerCommand("DriveToPoint",
-        new DriveToPointCommand(m_driverController, Mode.NEAREST).until(() -> swerve.isAtPointDebounced()));
+        new DriveToPointCommand(m_driverController, Mode.NEAREST).until(() -> swerve.isAtPointStable()));
     NamedCommands.registerCommand("DriveToPointLeft",
-        new DriveToPointCommand(m_driverController, Mode.LEFT).until(() -> swerve.isAtPointDebounced()));
+        new DriveToPointCommand(m_driverController, Mode.LEFT).until(() -> swerve.isAtPointStable()));
     NamedCommands.registerCommand("DriveToPointRight",
-        new DriveToPointCommand(m_driverController, Mode.RIGHT).until(() -> swerve.isAtPointDebounced()));
+        new DriveToPointCommand(m_driverController, Mode.RIGHT).until(() -> swerve.isAtPointStable()));
     NamedCommands.registerCommand("DriveToPointForever",
         new DriveToPointCommand(m_driverController, Mode.NEAREST));
     NamedCommands.registerCommand("SwerveDefault", swerve.getDefaultCommand());
