@@ -28,16 +28,25 @@ public class DriveToPointController {
     }
 
     public double getXVelocity() {
-        // TODO: testing change, rename to just drive_to_point_p if it works
-        double driveToPointP = DRIVE_TO_POINT_INTAKE_P;
+        double driveToPointP = getXDistance() > 1 && getYDistance() > 1 ? DRIVE_TO_POINT_SLOW_P
+                : DRIVE_TO_POINT_INTAKE_P;
         return applyDeadband((m_target.getX() - Subsystem.swerve.getCurrentPose().getX()), 0.00000001, 70.0)
                 * driveToPointP;
     }
 
     public double getYVelocity() {
-        double driveToPointP = DRIVE_TO_POINT_INTAKE_P;
+        double driveToPointP = getXDistance() > 1 && getYDistance() > 1 ? DRIVE_TO_POINT_SLOW_P
+                : DRIVE_TO_POINT_INTAKE_P;
         return applyDeadband((m_target.getY() - Subsystem.swerve.getCurrentPose().getY()), 0.00000001, 70.0)
                 * driveToPointP;
+    }
+
+    private double getXDistance() {
+        return Math.abs(m_target.getX() - Subsystem.swerve.getCurrentPose().getX());
+    }
+
+    private double getYDistance() {
+        return Math.abs(m_target.getY() - Subsystem.swerve.getCurrentPose().getY());
     }
 
     public Rotation2d getRotation() {
