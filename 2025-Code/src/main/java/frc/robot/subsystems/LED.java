@@ -6,6 +6,9 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.StringTopic;
+
+import static frc.robot.util.Subsystem.limelight;
+
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
 import frc.robot.util.Subsystem;
@@ -28,6 +31,12 @@ public class LED extends SubsystemBase {
 
   @Override
   public void periodic() {
+
+    if (Subsystem.swerve.isDrivingToPoint() && !limelight.getTvReef()) {
+      m_color_pub.set("pink");
+      m_state_pub.set("solid");
+      return;
+    }
 
     if (Subsystem.swerve.isAtPoint()) {
       m_color_pub.set("green");

@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,8 +65,10 @@ public final class Constants {
                 public static final double REEF_OFFSET = Units.inchesToMeters(12.94) / 2;
                 public static final double isAlignedError = 0;
                 public static final double DRIVE_TO_POINT_P = 3;
-                public static final double DRIVE_TO_POINT_INTAKE_P = 5;
-                public static final double AT_POINT_TOLERANCE = 0.05;
+                public static final double DRIVE_TO_POINT_INTAKE_P = 4;
+                public static final double DRIVE_TO_POINT_SLOW_P = 1.5;
+                public static final double MAX_DRIVETOPOINT_SPEED = 4;
+                public static final double AT_POINT_TOLERANCE = 0.025;
         }
 
         public static class ElevatorConstants {
@@ -78,14 +79,14 @@ public final class Constants {
                 public static final double DEFAULT_WITH_CORAL = 0;
                 public static final double BOTTOM_POSITION = 0.0;
                 public static final double STAGE_ONE_UP = 26.0;
-                public static final double CORAL_INTAKE = 34;
+                public static final double CORAL_INTAKE = 33.5;
                 public static final double REMOVE_ALGAE_L2 = 30.0;
                 public static final double REMOVE_ALGAE_L3 = 50.0;
                 public static final double SCORE_ALGAE_BARGE = 54.9;
                 public static final double SCORE_ALGAE_PROCESSOR = 17.0;
                 public static final double L1 = 12.0;
-                public static final double L2 = 17.0;
-                public static final double L3 = 32.0;
+                public static final double L2 = 17.5;
+                public static final double L3 = 32.5;
                 public static final double L4 = 55.5;
                 public static final double ARM_WILL_NOT_HIT_BASE_HEIGHT = 20.0;
                 public static final double STAGE_1_LENGTH = 29;
@@ -96,18 +97,18 @@ public final class Constants {
                 public static final double MAX_VELOCITY = 4000;
                 public static final double MAX_ACCELERATION = 6000;
                 public static final double ALLOWED_ERROR = 0.1;
-                public static final double P_VAL = 0.1;
+                public static final double P_VAL = 0.15;
                 public static final double I_VAL = 0.0;
                 public static final double D_VAL = 1.0;
                 public static final double P_VAL_ALGAE = 0.05;
                 public static final double I_VAL_ALGAE = 0.0;
                 public static final double D_VAL_ALGAE = 0.0;
-                public static final double STAGE_1_FF = 0.25;
+                public static final double STAGE_1_FF = 0.20;
                 public static final double STAGE_2_FF = 0.30;
                 public static final double HEIGHT_TOLERANCE = 0.6;
                 public static final double SLOW_MOVE_THRESHOLD = 45.0;
                 public static final double SAFE_HEIGHT_ALGAE = 30;
-                public static final double SAFE_HEIGHT_NO_ALGAE = 16;
+                public static final double SAFE_HEIGHT_NO_ALGAE = 17;
         }
 
         public static class ArmConstants {
@@ -218,17 +219,28 @@ public final class Constants {
                 public static final double CAMERA_PITCH_OFFSET = 0.0;
                 public static final double CAMERA_YAW_OFFSET = -17.5;
 
-                public static final double CAMERA2_FORWARD_OFFSET = -0.216;
-                public static final double CAMERA2_SIDE_OFFSET = 0.121;
-                public static final double CAMERA2_HEIGHT_OFFSET = 0.84990178;
+                // REEF CAMERA 2 OFFSETS
+                public static final double CAMERA2_FORWARD_OFFSET = 0.215;
+                public static final double CAMERA2_SIDE_OFFSET = -0.26;
+                public static final double CAMERA2_HEIGHT_OFFSET = 0.18325;
+
+                public static final double CAMERA2_ROLL_OFFSET = 180.0;
+                public static final double CAMERA2_PITCH_OFFSET = 0.0;
+                public static final double CAMERA2_YAW_OFFSET = 0.0;
 
                 // CORAL STATION CAMERA OFFSETS
-                public static final double CAMERA2_ROLL_OFFSET = 0.0;
-                public static final double CAMERA2_PITCH_OFFSET = 30.0;
-                public static final double CAMERA2_YAW_OFFSET = 180.0;
+                public static final double CAMERA_STATION_FORWARD_OFFSET = -0.216;
+                public static final double CAMERA_STATION_SIDE_OFFSET = 0.121;
+                public static final double CAMERA_STATION_HEIGHT_OFFSET = 0.84990178;
 
-                public static final String LL_REEF = "limelight-limeade";
+                public static final double CAMERA_STATION_ROLL_OFFSET = 0.0;
+                public static final double CAMERA_STATION_PITCH_OFFSET = 30.0;
+                public static final double CAMERA_STATION_YAW_OFFSET = 180.0;
+
+                // LL NAMES
+                public static final String LL_REEF1 = "limelight-limeade";
                 public static final String LL_STATION = "limelight-limebee";
+                public static final String LL_REEF2 = "limelight-limesea";
         }
 
         public static class LEDConstants {
@@ -277,7 +289,7 @@ public final class Constants {
                 public static final double offsetOfArmStation = -.42;
                 public static final double sidewaysOffsetStation = .3;
                 public static final double offsetToReef = .52;
-                public static final double offsetToStation = .60;
+                public static final double offsetToStation = .56; // .6
                 public static final double reefWidth = 0.33;
 
                 public static final double offsetOfArmAlgae = 0.31;

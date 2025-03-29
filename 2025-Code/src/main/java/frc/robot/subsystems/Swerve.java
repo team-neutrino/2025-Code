@@ -59,9 +59,10 @@ public class Swerve extends CommandSwerveDrivetrain {
 
   private boolean m_drivingToPoint = false;
   private boolean m_atPoint = false;
-  private Debouncer m_debouncer = new Debouncer(0.3, DebounceType.kRising);
+  private Debouncer m_driveToPointDebouncer = new Debouncer(0.3, DebounceType.kRising);
+  private Debouncer m_tippyDebouncer = new Debouncer(0.3, DebounceType.kBoth);
 
-  private Telemetry m_telemetry = new Telemetry(MAX_SPEED);
+  // private Telemetry m_telemetry = new Telemetry(MAX_SPEED);
 
   /**
    * Constructs the drivetrain using the values found in {@link TunerConstants}.
@@ -98,7 +99,7 @@ public class Swerve extends CommandSwerveDrivetrain {
       configurePathPlanner();
     }
     m_hasBeenConstructed = true;
-    registerTelemetry(m_telemetry::telemeterize);
+    // registerTelemetry(m_telemetry::telemeterize);
 
     setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
   }
@@ -253,11 +254,21 @@ public class Swerve extends CommandSwerveDrivetrain {
   }
 
   public boolean isAtPointDebounced() {
-    return m_debouncer.calculate(m_atPoint);
+    return m_driveToPointDebouncer.calculate(m_atPoint);
   }
 
   public void setAtPoint(boolean value) {
     m_atPoint = value;
+  }
+
+  public boolean isStable() {
+    double pitch = getPigeon2().getPitch().getValueAsDouble();
+    double roll = getPigeon2().getRoll().getValueAsDouble();
+    return m_tippyDebouncer.calculate(Math.abs(pitch) < 1.0 && Math.abs(roll) < 1.0);
+  }
+
+  public boolean isAtPointStable() {
+    return isAtPointDebounced() && isStable();
   }
 
   public Command swerveDefaultCommand(CommandXboxController controller) {
