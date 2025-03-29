@@ -60,7 +60,7 @@ public class Swerve extends CommandSwerveDrivetrain {
   private boolean m_drivingToPoint = false;
   private boolean m_atPoint = false;
   private Debouncer m_driveToPointDebouncer = new Debouncer(0.3, DebounceType.kRising);
-  private Debouncer m_tippyDebouncer = new Debouncer(0.06, DebounceType.kBoth);
+  private Debouncer m_tippyDebouncer = new Debouncer(0.3, DebounceType.kBoth);
 
   private Telemetry m_telemetry = new Telemetry(MAX_SPEED);
 
@@ -99,7 +99,7 @@ public class Swerve extends CommandSwerveDrivetrain {
       configurePathPlanner();
     }
     m_hasBeenConstructed = true;
-    registerTelemetry(m_telemetry::telemeterize);
+    // registerTelemetry(m_telemetry::telemeterize);
 
     setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
   }
@@ -264,7 +264,7 @@ public class Swerve extends CommandSwerveDrivetrain {
   public boolean isStable() {
     double pitch = getPigeon2().getPitch().getValueAsDouble();
     double roll = getPigeon2().getRoll().getValueAsDouble();
-    return m_tippyDebouncer.calculate(Math.abs(pitch) < 3.0 && Math.abs(roll) < 3.0);
+    return m_tippyDebouncer.calculate(Math.abs(pitch) < 1.0 && Math.abs(roll) < 1.0);
   }
 
   public boolean isAtPointStable() {
