@@ -36,7 +36,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToScoringL4"
+                  "name": "SPICYMoveToScoringL4"
                 }
               }
             ]
@@ -133,6 +133,12 @@
                 "data": {
                   "pathName": "Mid-Station to T17"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "SPICYDefaultArmElevator"
+                }
               }
             ]
           }
@@ -150,7 +156,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToScoringL4"
+                  "name": "SPICYMoveToScoringL4"
                 }
               }
             ]
@@ -228,6 +234,12 @@
                 "data": {
                   "pathName": "Mid-Station to T17"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "SPICYDefaultArmElevator"
+                }
               }
             ]
           }
@@ -245,7 +257,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToScoringL4"
+                  "name": "SPICYMoveToScoringL4"
                 }
               }
             ]

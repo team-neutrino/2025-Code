@@ -143,6 +143,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("ElevatorDefault", ElevatorFactory.zeroElevator());
     NamedCommands.registerCommand("ArmDefault", arm.armDefaultCommand());
     NamedCommands.registerCommand("IntakeOnly", CoralFactory.runIntake());
+    NamedCommands.registerCommand("SPICYDefaultArmElevator",
+        arm.armDefaultCommand().alongWith(elevator.elevatorDefaultCommand()));
   }
 
   /**
