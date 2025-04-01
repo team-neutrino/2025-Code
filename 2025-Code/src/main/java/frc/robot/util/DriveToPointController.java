@@ -5,6 +5,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructPublisher;
+import frc.robot.commands.DriveToPointCommand;
 
 import static edu.wpi.first.math.MathUtil.*;
 import static frc.robot.Constants.SwerveConstants.*;
@@ -45,6 +46,15 @@ public class DriveToPointController {
 
     private double getYDistance() {
         return Math.abs(m_target.getY() - Subsystem.swerve.getCurrentPose().getY());
+    }
+
+    public static double getManhattanDistance() {
+        if (Subsystem.swerve.getCurrentCommand() instanceof DriveToPointCommand) {
+            return Math.abs(m_target.getX() - Subsystem.swerve.getCurrentPose().getX())
+                    + Math.abs(m_target.getY() - Subsystem.swerve.getCurrentPose().getY());
+        } else {
+            return Integer.MAX_VALUE;
+        }
     }
 
     public Rotation2d getRotation() {
