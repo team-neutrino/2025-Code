@@ -117,8 +117,8 @@ public class SuperstructureFactory {
                 && controller.getHID().getRightBumperButton());
         BooleanSupplier comEnd = () -> !coral.debouncedHasCoral();
 
-        return ((elevatorCom.alongWith(armScoreCom, coralDefaultCom))
-                .until(readyToScore)).andThen(coralScoreCom.until(comEnd));
+        return ((elevatorCom.alongWith(coralDefaultCom))
+                .until(readyToScore)).andThen(armScoreCom).andThen(coralScoreCom.until(comEnd));
     }
 
     public static Command scoreL2(CommandXboxController controller) {
@@ -130,8 +130,8 @@ public class SuperstructureFactory {
                 && controller.getHID().getRightBumperButton());
         BooleanSupplier comEnd = () -> !coral.debouncedHasCoral();
 
-        return ((elevatorCom.alongWith(armScoreCom, coralDefaultCom))
-                .until(readyToScore)).andThen(coralScoreCom.until(comEnd));
+        return ((elevatorCom.alongWith(coralDefaultCom))
+                .until(readyToScore)).andThen(armScoreCom).andThen(coralScoreCom.until(comEnd));
     }
 
     public static Command scoreL3(CommandXboxController controller) {
@@ -143,8 +143,8 @@ public class SuperstructureFactory {
                 && controller.getHID().getRightBumperButton());
         BooleanSupplier comEnd = () -> !coral.debouncedHasCoral();
 
-        return ((elevatorCom.alongWith(armScoreCom, coralDefaultCom))
-                .until(readyToScore)).andThen(
+        return ((elevatorCom.alongWith(coralDefaultCom))
+                .until(readyToScore)).andThen(armScoreCom).andThen(
                         coralScoreCom.until(comEnd));
     }
 
@@ -158,8 +158,8 @@ public class SuperstructureFactory {
                 && controller.getHID().getRightBumperButton());
         BooleanSupplier comEnd = () -> !coral.debouncedHasCoral();
 
-        return ((elevatorCom.alongWith(armScoreCom, coralDefaultCom))
-                .until(readyToScore)).andThen(
+        return ((elevatorCom.alongWith(coralDefaultCom))
+                .until(readyToScore)).andThen(armScoreCom).andThen(
                         (armEvacCom.alongWith(coralScoreCom)).until(comEnd));
     }
 
