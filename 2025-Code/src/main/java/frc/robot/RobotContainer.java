@@ -129,6 +129,8 @@ public class RobotContainer {
         new DriveToPointCommand(m_driverController, Mode.NEAREST));
     NamedCommands.registerCommand("SwerveDefault", swerve.getDefaultCommand());
     NamedCommands.registerCommand("IntakeOnly", CoralFactory.runIntake());
+    NamedCommands.registerCommand("SPICYDefaultArmElevator",
+        arm.armDefaultCommand().alongWith(elevator.elevatorDefaultCommand()));
   }
 
   /**
