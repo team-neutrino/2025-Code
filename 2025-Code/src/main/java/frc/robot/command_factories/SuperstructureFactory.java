@@ -94,7 +94,7 @@ public class SuperstructureFactory {
         Command armScoreCom = ArmFactory.moveToL2();
         Command coralDefaultCom = coral.coralDefaultCommand();
         Command coralScoreCom = CoralFactory.runOuttake();
-        BooleanSupplier readyToScore = () -> (arm.readyToScore() && elevator.readyToScore()
+        BooleanSupplier readyToScore = (() -> arm.readyToScore() && elevator.readyToScore()
                 && controller.getHID().getRightBumperButton());
         BooleanSupplier comEnd = () -> !coral.debouncedHasCoral();
 
