@@ -81,6 +81,11 @@ public class DriveToPointCommand extends Command {
       return;
     }
 
+    if (m_mode == Mode.NET) {
+      m_pointControl.setTarget(redAlliance.get() ? RED_BARGE_5 : BLUE_BARGE_14);
+      return;
+    }
+
     if (Subsystem.coral.debouncedHasCoral()) {
       switch (m_mode) {
         case LEFT:

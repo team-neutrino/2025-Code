@@ -294,6 +294,7 @@ public final class Constants {
 
                 public static final double offsetOfArmAlgae = 0.31;
                 public static final double offsetToReefAlgae = 0.53;
+                public static final double offsetToBarge = 1.0; // placeholder
                 // negative is more right
 
                 // CURRENTLY TESTING WITH THIS LIBRARY THING
@@ -351,6 +352,11 @@ public final class Constants {
                 public static final Pose2d BLUE_REEF_22A = CalculatePoint(layout.getTagPose(22).get(), false);
                 public static final Pose2d BLUE_REEF_22B = CalculatePoint(layout.getTagPose(22).get(), true);
 
+                public static final Pose2d BLUE_BARGE_4 = CalculateBargePoint(layout.getTagPose(4).get());
+                public static final Pose2d BLUE_BARGE_14 = CalculateBargePoint(layout.getTagPose(14).get());
+                public static final Pose2d RED_BARGE_5 = CalculateBargePoint(layout.getTagPose(5).get());
+                public static final Pose2d RED_BARGE_15 = CalculateBargePoint(layout.getTagPose(15).get());
+
                 // Don't reorder this list
 
                 public static final List<Pose2d> POSE_LIST = List.of(RED_PLAYER_STATION_1_LEFT,
@@ -399,7 +405,7 @@ public final class Constants {
                                 BLUE_REEF_21B, BLUE_REEF_20B, BLUE_REEF_19B, BLUE_REEF_18B, BLUE_REEF_17B);
 
                 public static enum Mode {
-                        LEFT, RIGHT, NEAREST, ALGAE;
+                        LEFT, RIGHT, NEAREST, ALGAE, NET;
                 }
 
                 public static final List<Pose2d> REEF_ALGAE = List.of(
