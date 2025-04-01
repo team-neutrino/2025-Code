@@ -103,9 +103,9 @@ public class RobotContainer {
   }
 
   private void configureNamedCommands() {
-    NamedCommands.registerCommand("MoveToScoringL4", SuperstructureFactory.moveToScoreL4Command());
-    NamedCommands.registerCommand("MoveToScoringL3", SuperstructureFactory.moveToScoreL3Command());
-    NamedCommands.registerCommand("MoveToScoringL2", SuperstructureFactory.moveToScoreL2Command());
+    NamedCommands.registerCommand("SPICYMoveToScoringL4", SuperstructureFactory.spicyMoveToScoreL4Command());
+    NamedCommands.registerCommand("SPICYMoveToScoringL3", SuperstructureFactory.spicyMoveToScoreL3Command());
+    NamedCommands.registerCommand("SPICYMoveToScoringL2", SuperstructureFactory.spicyMoveToScoreL2Command());
     NamedCommands.registerCommand("MoveToScoringL1", SuperstructureFactory.moveToScoreL1Command());
     NamedCommands.registerCommand("MoveToIntake", SuperstructureFactory.moveToIntake());
     NamedCommands.registerCommand("ScoreL4", SuperstructureFactory.scoreCoralL4AutonCommand());

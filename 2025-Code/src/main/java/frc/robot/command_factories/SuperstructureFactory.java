@@ -252,12 +252,27 @@ public class SuperstructureFactory {
         return new ParallelCommandGroup(ElevatorFactory.moveL4(), ArmFactory.moveToL4());
     }
 
+    public static Command spicyMoveToScoreL4Command() {
+        return new ParallelCommandGroup(ElevatorFactory.moveL4(), ArmFactory.moveToL4())
+                .onlyWhile(() -> DriveToPointController.getManhattanDistance() < .2);
+    }
+
     public static Command moveToScoreL3Command() {
         return new ParallelCommandGroup(ElevatorFactory.moveL3(), ArmFactory.moveToL3());
     }
 
+    public static Command spicyMoveToScoreL3Command() {
+        return new ParallelCommandGroup(ElevatorFactory.moveL3(), ArmFactory.moveToL3())
+                .onlyWhile(() -> DriveToPointController.getManhattanDistance() < .2);
+    }
+
     public static Command moveToScoreL2Command() {
         return new ParallelCommandGroup(ElevatorFactory.moveL2(), ArmFactory.moveToL2());
+    }
+
+    public static Command spicyMoveToScoreL2Command() {
+        return new ParallelCommandGroup(ElevatorFactory.moveL2(), ArmFactory.moveToL2())
+                .onlyWhile(() -> DriveToPointController.getManhattanDistance() < .2);
     }
 
     public static Command moveToScoreL1Command() {
