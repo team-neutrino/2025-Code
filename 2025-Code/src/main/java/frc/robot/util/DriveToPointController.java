@@ -39,11 +39,11 @@ public class DriveToPointController {
                 * driveToPointP;
     }
 
-    private double getXDistance() {
+    public double getXDistance() {
         return Math.abs(m_target.getX() - Subsystem.swerve.getCurrentPose().getX());
     }
 
-    private double getYDistance() {
+    public double getYDistance() {
         return Math.abs(m_target.getY() - Subsystem.swerve.getCurrentPose().getY());
     }
 
