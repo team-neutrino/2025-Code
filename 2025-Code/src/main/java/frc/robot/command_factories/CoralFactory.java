@@ -1,7 +1,6 @@
 package frc.robot.command_factories;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
 import frc.robot.commands.DriveToPointCommand;
 import frc.robot.util.Subsystem;
 
@@ -17,7 +16,9 @@ public class CoralFactory {
     }
 
     public static Command runOuttake() {
-        return coral.runIntake(OUTTAKE_VOLTAGE);
+        BooleanSupplier antiDriveTeamCondition = () -> Subsystem.swerve
+                .getCurrentCommand() instanceof DriveToPointCommand ? Subsystem.swerve.isAtPoint() : true;
+        return coral.runIntake(OUTTAKE_VOLTAGE).onlyWhile(antiDriveTeamCondition);
     }
 
     public static Command runSlowOuttake() {
