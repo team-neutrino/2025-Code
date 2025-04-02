@@ -225,6 +225,12 @@
               {
                 "type": "named",
                 "data": {
+                  "name": "SPICYDefaultArmElevator"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
                   "name": "SPICYMoveToScoringL4"
                 }
               }
