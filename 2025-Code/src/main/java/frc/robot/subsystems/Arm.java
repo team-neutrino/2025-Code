@@ -81,6 +81,8 @@ public class Arm extends SubsystemBase {
     m_motorConfig.absoluteEncoder
         .positionConversionFactor(360)
         .velocityConversionFactor(1);
+  
+    m_motorConfig.inverted(true);
 
     m_motorConfig.signals.absoluteEncoderPositionPeriodMs(5);
 
