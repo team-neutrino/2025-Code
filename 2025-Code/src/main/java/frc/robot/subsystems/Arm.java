@@ -112,6 +112,8 @@ public class Arm extends SubsystemBase {
   }
 
   private void adjustArm(double targetAngle) {
+    m_targetAngle = 151;
+    targetAngle = 151;
     if (nearTargetAngle()) {
       m_pid.setReference(targetAngle, ControlType.kPosition, ClosedLoopSlot.kSlot1, feedForwardCalculation());
     } else if (Subsystem.algae.debouncedHasAlgae()) {
