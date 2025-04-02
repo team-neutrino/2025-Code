@@ -55,7 +55,7 @@ public class Arm extends SubsystemBase {
     return m_encoder.getVelocity();
   }
 
-  private boolean atTargetAngle() {
+  public boolean atTargetAngle() {
     return Math.abs(getAngle() - m_targetAngle) <= ALLOWED_ERROR;
   }
 

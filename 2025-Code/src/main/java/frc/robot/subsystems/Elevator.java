@@ -142,7 +142,7 @@ public class Elevator extends SubsystemBase {
     return m_lowLimit.isPressed();
   }
 
-  private boolean atTargetHeight() {
+  public boolean atTargetHeight() {
     return Math.abs(getHeight() - m_targetHeight) <= HEIGHT_TOLERANCE;
   }
 

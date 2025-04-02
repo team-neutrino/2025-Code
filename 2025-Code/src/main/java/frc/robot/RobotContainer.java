@@ -9,6 +9,7 @@ import frc.robot.Constants.OperatorConstants;
 import static frc.robot.Constants.DriveToPoint.*;
 import frc.robot.command_factories.*;
 import frc.robot.commands.DriveToPointCommand;
+import frc.robot.util.DriveToPointController;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.util.Subsystem.*;
@@ -130,7 +131,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("SwerveDefault", swerve.getDefaultCommand());
     NamedCommands.registerCommand("IntakeOnly", CoralFactory.runIntake());
     NamedCommands.registerCommand("SPICYDefaultArmElevator",
-        arm.armDefaultCommand().alongWith(elevator.elevatorDefaultCommand()));
+        arm.armDefaultCommand().alongWith(elevator.elevatorDefaultCommand())
+            .until(() -> arm.atTargetAngle() && elevator.atTargetHeight()));
   }
 
   /**
