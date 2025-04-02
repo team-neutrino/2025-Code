@@ -17,11 +17,7 @@ public class CoralFactory {
     }
 
     public static Command runOuttake() {
-        BooleanSupplier antiDriveTeamCondition = () -> Subsystem.swerve
-                .getCurrentCommand().getName().equals(Constants.DriveToPoint.DRIVE_TO_POINT_STRING)
-                        ? Subsystem.swerve.isAtPoint() && Subsystem.limelight.getTvReef()
-                        : true;
-        return coral.runIntake(OUTTAKE_VOLTAGE).onlyWhile(antiDriveTeamCondition);
+        return coral.runIntake(OUTTAKE_VOLTAGE);
     }
 
     public static Command runSlowOuttake() {
