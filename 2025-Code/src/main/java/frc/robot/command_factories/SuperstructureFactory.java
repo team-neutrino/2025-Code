@@ -4,12 +4,25 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Constants;
+import frc.robot.util.Subsystem;
 
 import static frc.robot.util.Subsystem.*;
 
 import java.util.function.BooleanSupplier;
 
 public class SuperstructureFactory {
+
+    public static boolean antiDriveTeamCondition() {
+        if (Subsystem.swerve.getCurrentCommand() == null) {
+            return false;
+        }
+        return Subsystem.swerve
+                .getCurrentCommand().getName().equals(Constants.DriveToPoint.DRIVE_TO_POINT_STRING)
+                        ? Subsystem.swerve.isAtPoint() && Subsystem.limelight.getTvReef()
+                        : true;
+    }
+
     public static Command intakeCoral() {
         Command elevatorCom = ElevatorFactory.moveToIntake();
         Command armCom = ArmFactory.armToIntake();
@@ -95,7 +108,7 @@ public class SuperstructureFactory {
         Command coralDefaultCom = coral.coralDefaultCommand();
         Command coralScoreCom = CoralFactory.runOuttake();
         BooleanSupplier readyToScore = (() -> arm.readyToScore() && elevator.readyToScore()
-                && controller.getHID().getRightBumperButton());
+                && controller.getHID().getRightBumperButton() && antiDriveTeamCondition());
         BooleanSupplier comEnd = () -> !coral.debouncedHasCoral();
 
         return ((elevatorCom.alongWith(armScoreCom, coralDefaultCom))
@@ -108,7 +121,7 @@ public class SuperstructureFactory {
         Command coralDefaultCom = coral.coralDefaultCommand();
         Command coralScoreCom = CoralFactory.runOuttake();
         BooleanSupplier readyToScore = () -> (arm.readyToScore() && elevator.readyToScore()
-                && controller.getHID().getRightBumperButton());
+                && controller.getHID().getRightBumperButton() && antiDriveTeamCondition());
         BooleanSupplier comEnd = () -> !coral.debouncedHasCoral();
 
         return ((elevatorCom.alongWith(armScoreCom, coralDefaultCom))
@@ -123,7 +136,7 @@ public class SuperstructureFactory {
         Command coralScoreCom = CoralFactory.runOuttake();
         Command armEvacCom = ArmFactory.evacuateScoreL4();
         BooleanSupplier readyToScore = () -> (arm.readyToScore() && elevator.readyToScore()
-                && controller.getHID().getRightBumperButton());
+                && controller.getHID().getRightBumperButton() && antiDriveTeamCondition());
         BooleanSupplier comEnd = () -> !coral.debouncedHasCoral();
 
         return ((elevatorCom.alongWith(armScoreCom, coralDefaultCom))
