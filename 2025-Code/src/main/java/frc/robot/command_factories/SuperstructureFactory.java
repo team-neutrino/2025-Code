@@ -11,12 +11,25 @@ import frc.robot.commands.DriveToPointCommand;
 import frc.robot.subsystems.Algae;
 import frc.robot.Constants.*;
 import frc.robot.commands.DriveToPointCommand;
+import frc.robot.Constants;
+import frc.robot.util.Subsystem;
 
 import static frc.robot.util.Subsystem.*;
 
 import java.util.function.BooleanSupplier;
 
 public class SuperstructureFactory {
+
+    public static boolean antiDriveTeamCondition() {
+        if (Subsystem.swerve.getCurrentCommand() == null) {
+            return false;
+        }
+        return Subsystem.swerve
+                .getCurrentCommand().getName().equals(Constants.DriveToPoint.DRIVE_TO_POINT_STRING)
+                        ? Subsystem.swerve.isAtPoint() && Subsystem.limelight.getTvReef()
+                        : true;
+    }
+
 
     public static Command dynamicCoralIntake() {
         Command ret = new RunCommand(() -> {
@@ -127,8 +140,8 @@ public class SuperstructureFactory {
         Command armScoreCom = ArmFactory.moveToL2();
         Command coralDefaultCom = coral.coralDefaultCommand();
         Command coralScoreCom = CoralFactory.runOuttake();
-        BooleanSupplier readyToScore = () -> (elevator.readyToScore() && arm.readyToScore()
-                && controller.getHID().getRightBumperButton());
+        BooleanSupplier readyToScore = (() -> arm.readyToScore() && elevator.readyToScore()
+                && controller.getHID().getRightBumperButton() && antiDriveTeamCondition());
         BooleanSupplier comEnd = () -> !coral.debouncedHasCoral();
 
         return ((elevatorCom.alongWith(coralDefaultCom))
@@ -142,7 +155,7 @@ public class SuperstructureFactory {
         Command coralDefaultCom = coral.coralDefaultCommand();
         Command coralScoreCom = CoralFactory.runOuttake();
         BooleanSupplier readyToScore = () -> (arm.readyToScore() && elevator.readyToScore()
-                && controller.getHID().getRightBumperButton());
+                && controller.getHID().getRightBumperButton() && antiDriveTeamCondition());
         BooleanSupplier comEnd = () -> !coral.debouncedHasCoral();
 
         return ((elevatorCom.alongWith(coralDefaultCom))
@@ -158,8 +171,8 @@ public class SuperstructureFactory {
         Command armEvacCom = ArmFactory.evacuateScoreL4();
         Command evacWait = new WaitCommand(0.2);
         BooleanSupplier readyToScore = () -> (arm.readyToScore() && elevator.readyToScore()
-                && controller.getHID().getRightBumperButton());
-        BooleanSupplier comEnd = () -> (!coral.debouncedHasCoral() && arm.isEvacuated());
+                && controller.getHID().getRightBumperButton() && antiDriveTeamCondition());
+        BooleanSupplier comEnd = () -> !coral.debouncedHasCoral();
 
         return ((elevatorCom.alongWith(coralDefaultCom))
                 .until(() -> elevator.readyToScore())).andThen(armScoreCom).until(readyToScore)
