@@ -48,10 +48,10 @@ public class DriveToPointController {
         return Math.abs(m_target.getY() - Subsystem.swerve.getCurrentPose().getY());
     }
 
-    public static double getManhattanDistance() {
+    public static double getTotalDistance() {
         if (Subsystem.swerve.getCurrentCommand() instanceof DriveToPointCommand) {
-            return Math.abs(m_target.getX() - Subsystem.swerve.getCurrentPose().getX())
-                    + Math.abs(m_target.getY() - Subsystem.swerve.getCurrentPose().getY());
+            return Math.hypot(Math.abs(m_target.getX() - Subsystem.swerve.getCurrentPose().getX()),
+                    Math.abs(m_target.getY() - Subsystem.swerve.getCurrentPose().getY()));
         } else {
             return Integer.MAX_VALUE;
         }

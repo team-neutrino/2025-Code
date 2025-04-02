@@ -241,7 +241,7 @@ public class SuperstructureFactory {
 
     public static Command spicyMoveToScoreL4Command() {
         return new ParallelCommandGroup(ElevatorFactory.moveL4(), ArmFactory.moveToL4())
-                .onlyWhile(() -> DriveToPointController.getManhattanDistance() < .2);
+                .onlyWhile(() -> DriveToPointController.getTotalDistance() < .2);
     }
 
     public static Command moveToScoreL3Command() {
@@ -250,7 +250,7 @@ public class SuperstructureFactory {
 
     public static Command spicyMoveToScoreL3Command() {
         return new ParallelCommandGroup(ElevatorFactory.moveL3(), ArmFactory.moveToL3())
-                .onlyWhile(() -> DriveToPointController.getManhattanDistance() < .2);
+                .onlyWhile(() -> DriveToPointController.getTotalDistance() < .2);
     }
 
     public static Command moveToScoreL2Command() {
@@ -259,7 +259,7 @@ public class SuperstructureFactory {
 
     public static Command spicyMoveToScoreL2Command() {
         return new ParallelCommandGroup(ElevatorFactory.moveL2(), ArmFactory.moveToL2())
-                .onlyWhile(() -> DriveToPointController.getManhattanDistance() < .2);
+                .onlyWhile(() -> DriveToPointController.getTotalDistance() < .2);
     }
 
     public static Command moveToScoreL1Command() {

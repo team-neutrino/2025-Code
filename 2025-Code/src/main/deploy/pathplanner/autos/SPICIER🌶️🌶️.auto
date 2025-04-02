@@ -135,15 +135,22 @@
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "SPICYDefaultArmElevator"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "SPICYMoveToScoringL4"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "SPICYDefaultArmElevator"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "SPICYMoveToScoringL4"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -223,15 +230,22 @@
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "SPICYDefaultArmElevator"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "SPICYMoveToScoringL4"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "SPICYDefaultArmElevator"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "SPICYMoveToScoringL4"
+                      }
+                    }
+                  ]
                 }
               }
             ]
