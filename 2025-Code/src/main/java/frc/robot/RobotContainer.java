@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.Constants.DriveToPoint.Mode;
 import frc.robot.Constants.OperatorConstants;
 import static frc.robot.Constants.DriveToPoint.*;
 import frc.robot.command_factories.*;
@@ -55,7 +56,10 @@ public class RobotContainer {
     m_driverController.a().onTrue(ClimbFactory.lowerClimb());
 
     m_driverController.back().whileTrue(swerve.resetYawCommand());
-    m_driverController.b().whileTrue(new DriveToPointCommand(m_driverController, Mode.NEAREST));
+
+    DriveToPointCommand reefsker = new DriveToPointCommand(m_driverController, Mode.NEAREST);
+    reefsker.setName(DRIVE_TO_POINT_STRING);
+    m_driverController.b().whileTrue(reefsker);
 
     Command deAlgae = new DriveToPointCommand(m_driverController, Mode.ALGAE);
     deAlgae.setName(ALGAE_ALIGN_COMMAND);
