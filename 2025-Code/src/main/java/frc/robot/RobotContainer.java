@@ -62,6 +62,9 @@ public class RobotContainer {
     m_driverController.rightTrigger().whileTrue(deAlgae);
     m_driverController.leftTrigger().whileTrue(swerve.slowDefaultCommand(m_driverController));
 
+    // temp
+    m_driverController.x().whileTrue(new DriveToPointCommand(m_driverController, Mode.NET));
+
     // buttons controller
     m_buttonsController.x().whileTrue(SuperstructureFactory.scoreL1(m_buttonsController));
     m_buttonsController.y().whileTrue(SuperstructureFactory.scoreL2(m_buttonsController));

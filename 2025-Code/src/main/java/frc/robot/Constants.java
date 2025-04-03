@@ -357,6 +357,9 @@ public final class Constants {
                 public static final Pose2d RED_BARGE_5 = CalculateBargePoint(layout.getTagPose(5).get());
                 public static final Pose2d RED_BARGE_15 = CalculateBargePoint(layout.getTagPose(15).get());
 
+                public static final List<Pose2d> BLUE_BARGE = List.of(BLUE_BARGE_14);
+                public static final List<Pose2d> RED_BARGE = List.of(RED_BARGE_5);
+
                 // Don't reorder this list
 
                 public static final List<Pose2d> POSE_LIST = List.of(RED_PLAYER_STATION_1_LEFT,

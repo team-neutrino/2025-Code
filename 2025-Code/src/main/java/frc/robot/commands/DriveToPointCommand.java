@@ -51,7 +51,7 @@ public class DriveToPointCommand extends Command {
 
   @Override
   public void execute() {
-    if (m_mode != Mode.ALGAE) {
+    if (m_mode != Mode.ALGAE && m_mode != Mode.NET) {
       checkBumpers();
     }
     drive();
@@ -103,6 +103,7 @@ public class DriveToPointCommand extends Command {
       }
     }
 
+    System.out.println("intake");
     m_pointControl
         .setTargetNearest(redAlliance.get() ? List.of(RED_PLAYER_STATION_1_CENTER, RED_PLAYER_STATION_2_CENTER)
             : List.of(BLUE_PLAYER_STATION_12_CENTER, BLUE_PLAYER_STATION_13_CENTER));
