@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.Constants.DriveToPoint.Mode;
 import frc.robot.Constants.OperatorConstants;
 import static frc.robot.Constants.DriveToPoint.*;
 import frc.robot.command_factories.*;
@@ -55,7 +56,9 @@ public class RobotContainer {
     m_driverController.a().onTrue(ClimbFactory.lowerClimb());
 
     m_driverController.back().whileTrue(swerve.resetYawCommand());
-    m_driverController.b().whileTrue(new DriveToPointCommand(m_driverController, Mode.NEAREST));
+    Command align = new DriveToPointCommand(m_driverController, Mode.NEAREST);
+    align.setName(Constants.DriveToPoint.DRIVE_TO_POINT_BASIC);
+    m_driverController.b().whileTrue(align);
 
     Command deAlgae = new DriveToPointCommand(m_driverController, Mode.ALGAE);
     deAlgae.setName(ALGAE_ALIGN_COMMAND);
@@ -79,7 +82,7 @@ public class RobotContainer {
     m_buttonsController.povLeft().whileTrue(SuperstructureFactory.descoreAlgaeL2());
     m_buttonsController.povRight().whileTrue(SuperstructureFactory.descoreAlgaeL3());
 
-    m_buttonsController.leftBumper().whileTrue(SuperstructureFactory.intakeCoral());
+    m_buttonsController.leftBumper().whileTrue(SuperstructureFactory.dynamicCoralIntake());
   }
 
   private void configureDefaultCommands() {

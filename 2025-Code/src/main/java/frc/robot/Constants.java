@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.util.Enumeration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -107,6 +109,7 @@ public final class Constants {
                 public static final double STAGE_2_FF = 0.30;
                 public static final double HEIGHT_TOLERANCE = 0.6;
                 public static final double SLOW_MOVE_THRESHOLD = 45.0;
+                public static final double DYNAMIC_ADJUST_P = 39.3701;
                 public static final double SAFE_HEIGHT_ALGAE = 30;
                 public static final double SAFE_HEIGHT_NO_ALGAE = 17;
         }
@@ -280,13 +283,14 @@ public final class Constants {
 
         public static class DriveToPoint {
                 public static final String ALGAE_ALIGN_COMMAND = "VIENNA IS SHORT";
+                public static final String DRIVE_TO_POINT_BASIC = ":NATHAN_BREAD:";
                 public static final AprilTagFieldLayout layout = AprilTagFieldLayout
                                 .loadField(AprilTagFields.k2025ReefscapeWelded);
                 // right is more negative, left is more positive
-                public static final double offsetOfArmReef = .3;
-                public static final double offsetOfArmReefLeft = .33;
-                // right is more negative, left is more positive
+                public static final double OFFSET_OF_ARM_REEF = .3;
+                public static final double OFFSET_OF_ARM_REEF_LEFT = .33;
                 public static final double offsetOfArmStation = -.42;
+                // right is more negative, left is more positive
                 public static final double sidewaysOffsetStation = .3;
                 public static final double offsetToReef = .52;
                 public static final double offsetToStation = .56;
@@ -294,6 +298,7 @@ public final class Constants {
 
                 public static final double offsetOfArmAlgae = 0.31;
                 public static final double offsetToReefAlgae = 0.53;
+                public static final double DYNAMIC_INTAKE_THRESHOLD = .5;
                 public static final double offsetToBarge = -1.0;
                 // negative is more right
 
@@ -301,9 +306,9 @@ public final class Constants {
                 public static final Pose2d RED_PLAYER_STATION_1_CENTER = CalculatePSPoint(layout.getTagPose(1).get(),
                                 0);
                 public static final Pose2d RED_PLAYER_STATION_1_LEFT = CalculatePSPoint(layout.getTagPose(1).get(),
-                                -offsetToStation);
+                                -sidewaysOffsetStation);
                 public static final Pose2d RED_PLAYER_STATION_1_RIGHT = CalculatePSPoint(layout.getTagPose(1).get(),
-                                offsetToStation);
+                                sidewaysOffsetStation);
 
                 public static final Pose2d RED_PLAYER_STATION_2_CENTER = CalculatePSPoint(layout.getTagPose(2).get(),
                                 0);

@@ -122,6 +122,10 @@ public class Arm extends SubsystemBase {
     }
   }
 
+  public void setTarget(double target) {
+    m_targetAngle = target;
+  }
+
   /**
    * Determines the necessary volts needed for the Feedforward. Used to pass into
    * closed loop controller
