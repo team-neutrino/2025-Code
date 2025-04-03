@@ -260,6 +260,12 @@ public class Limelight extends SubsystemBase {
   public void periodic() {
     m_has_reef_tag = LimelightHelpers.getTV(LL_REEF1);
     m_has_station_tag = LimelightHelpers.getTV(LL_STATION);
+
+    final int throttle = DriverStation.isDisabled() ? 169 : 0;
+    LimelightHelpers.SetThrottle(LL_REEF1, throttle);
+    LimelightHelpers.SetThrottle(LL_REEF2, throttle);
+    LimelightHelpers.SetThrottle(LL_STATION, throttle);
+
     if (m_swerve == null) {
       return;
     }
