@@ -28,6 +28,8 @@ public class Limelight extends SubsystemBase {
   private double m_lastFrameStation = -2;
   private boolean m_has_reef_tag;
   private boolean m_has_station_tag;
+  private boolean m_enabled = false;
+  private long m_slow_count = 0;
 
   /** Creates a new ExampleSubsystem. */
   public Limelight() {
@@ -250,6 +252,19 @@ public class Limelight extends SubsystemBase {
     return NetworkTableInstance.getDefault().getTable(limelight).getEntry("hb").getDouble(-1);
   }
 
+  private void ManageLimelightTemperature() {
+    m_slow_count++;
+    if (m_enabled && (m_slow_count % 50) != 0) {
+      return;
+    }
+    // update at 1Hz or when disabled
+    m_enabled = DriverStation.isEnabled();
+    final int throttle = m_enabled ? 0 : 169;
+    LimelightHelpers.SetThrottle(LL_REEF1, throttle);
+    LimelightHelpers.SetThrottle(LL_REEF2, throttle);
+    LimelightHelpers.SetThrottle(LL_STATION, throttle);
+  }
+
   public Command limelightDefaultCommand() {
     return run(() -> {
 
@@ -258,8 +273,10 @@ public class Limelight extends SubsystemBase {
 
   @Override
   public void periodic() {
+    ManageLimelightTemperature();
     m_has_reef_tag = LimelightHelpers.getTV(LL_REEF1);
     m_has_station_tag = LimelightHelpers.getTV(LL_STATION);
+
     if (m_swerve == null) {
       return;
     }
