@@ -284,83 +284,83 @@ public final class Constants {
         public static class DriveToPoint {
                 public static final String ALGAE_ALIGN_COMMAND = "VIENNA IS SHORT";
                 public static final String DRIVE_TO_POINT_BASIC = ":NATHAN_BREAD:";
-                public static final AprilTagFieldLayout layout = AprilTagFieldLayout
+                public static final AprilTagFieldLayout LAYOUT = AprilTagFieldLayout
                                 .loadField(AprilTagFields.k2025ReefscapeWelded);
                 // right is more negative, left is more positive
-                public static final double OFFSET_OF_ARM_REEF = .3;
-                public static final double OFFSET_OF_ARM_REEF_LEFT = .33;
-                public static final double offsetOfArmStation = -.42;
+                public static final double OFFSET_ARM_REEF = .3;
+                public static final double OFFSET_ARM_REEF_LEFT = .33;
+                public static final double OFFSET_ARM_STATION = -.42;
+                public static final double SIDEWAYS_OFFSET_STATION = .3;
                 // right is more negative, left is more positive
-                public static final double sidewaysOffsetStation = .3;
-                public static final double offsetToReef = .52;
-                public static final double offsetToStation = .56;
-                public static final double reefWidth = 0.33;
+                public static final double OFFSET_TO_REEF = .52;
+                public static final double OFFSET_TO_STATION = .56;
+                public static final double REEF_WIDTH = 0.33;
 
-                public static final double offsetOfArmAlgae = 0.31;
-                public static final double offsetToReefAlgae = 0.53;
+                public static final double OFFSET_ARM_ALGAE = 0.31;
+                public static final double OFFSET_REEF_ALGAE = 0.53;
                 public static final double DYNAMIC_INTAKE_THRESHOLD = .5;
-                public static final double offsetToBarge = -1.0;
+                public static final double OFFSET_TO_BARGE = -1.0;
                 // negative is more right
 
                 // CURRENTLY TESTING WITH THIS LIBRARY THING
-                public static final Pose2d RED_PLAYER_STATION_1_CENTER = CalculatePSPoint(layout.getTagPose(1).get(),
+                public static final Pose2d RED_PLAYER_STATION_1_CENTER = CalculatePSPoint(LAYOUT.getTagPose(1).get(),
                                 0);
-                public static final Pose2d RED_PLAYER_STATION_1_LEFT = CalculatePSPoint(layout.getTagPose(1).get(),
-                                -sidewaysOffsetStation);
-                public static final Pose2d RED_PLAYER_STATION_1_RIGHT = CalculatePSPoint(layout.getTagPose(1).get(),
-                                sidewaysOffsetStation);
+                public static final Pose2d RED_PLAYER_STATION_1_LEFT = CalculatePSPoint(LAYOUT.getTagPose(1).get(),
+                                -SIDEWAYS_OFFSET_STATION);
+                public static final Pose2d RED_PLAYER_STATION_1_RIGHT = CalculatePSPoint(LAYOUT.getTagPose(1).get(),
+                                SIDEWAYS_OFFSET_STATION);
 
-                public static final Pose2d RED_PLAYER_STATION_2_CENTER = CalculatePSPoint(layout.getTagPose(2).get(),
+                public static final Pose2d RED_PLAYER_STATION_2_CENTER = CalculatePSPoint(LAYOUT.getTagPose(2).get(),
                                 0);
-                public static final Pose2d RED_PLAYER_STATION_2_LEFT = CalculatePSPoint(layout.getTagPose(2).get(),
-                                -sidewaysOffsetStation);
-                public static final Pose2d RED_PLAYER_STATION_2_RIGHT = CalculatePSPoint(layout.getTagPose(2).get(),
-                                sidewaysOffsetStation);
+                public static final Pose2d RED_PLAYER_STATION_2_LEFT = CalculatePSPoint(LAYOUT.getTagPose(2).get(),
+                                -SIDEWAYS_OFFSET_STATION);
+                public static final Pose2d RED_PLAYER_STATION_2_RIGHT = CalculatePSPoint(LAYOUT.getTagPose(2).get(),
+                                SIDEWAYS_OFFSET_STATION);
 
-                public static final Pose2d BLUE_PLAYER_STATION_13_CENTER = CalculatePSPoint(layout.getTagPose(13).get(),
+                public static final Pose2d BLUE_PLAYER_STATION_13_CENTER = CalculatePSPoint(LAYOUT.getTagPose(13).get(),
                                 0);
-                public static final Pose2d BLUE_PLAYER_STATION_13_LEFT = CalculatePSPoint(layout.getTagPose(13).get(),
-                                -sidewaysOffsetStation);
-                public static final Pose2d BLUE_PLAYER_STATION_13_RIGHT = CalculatePSPoint(layout.getTagPose(13).get(),
-                                sidewaysOffsetStation);
+                public static final Pose2d BLUE_PLAYER_STATION_13_LEFT = CalculatePSPoint(LAYOUT.getTagPose(13).get(),
+                                -SIDEWAYS_OFFSET_STATION);
+                public static final Pose2d BLUE_PLAYER_STATION_13_RIGHT = CalculatePSPoint(LAYOUT.getTagPose(13).get(),
+                                SIDEWAYS_OFFSET_STATION);
 
-                public static final Pose2d BLUE_PLAYER_STATION_12_CENTER = CalculatePSPoint(layout.getTagPose(12).get(),
+                public static final Pose2d BLUE_PLAYER_STATION_12_CENTER = CalculatePSPoint(LAYOUT.getTagPose(12).get(),
                                 0);
-                public static final Pose2d BLUE_PLAYER_STATION_12_LEFT = CalculatePSPoint(layout.getTagPose(12).get(),
-                                -sidewaysOffsetStation);
-                public static final Pose2d BLUE_PLAYER_STATION_12_RIGHT = CalculatePSPoint(layout.getTagPose(12).get(),
-                                sidewaysOffsetStation);
+                public static final Pose2d BLUE_PLAYER_STATION_12_LEFT = CalculatePSPoint(LAYOUT.getTagPose(12).get(),
+                                -SIDEWAYS_OFFSET_STATION);
+                public static final Pose2d BLUE_PLAYER_STATION_12_RIGHT = CalculatePSPoint(LAYOUT.getTagPose(12).get(),
+                                SIDEWAYS_OFFSET_STATION);
 
-                public static final Pose2d RED_REEF_6A = CalculatePoint(layout.getTagPose(6).get(), true);
-                public static final Pose2d RED_REEF_6B = CalculatePoint(layout.getTagPose(6).get(), false);
-                public static final Pose2d RED_REEF_7A = CalculatePoint(layout.getTagPose(7).get(), true);
-                public static final Pose2d RED_REEF_7B = CalculatePoint(layout.getTagPose(7).get(), false);
-                public static final Pose2d RED_REEF_8A = CalculatePoint(layout.getTagPose(8).get(), true);
-                public static final Pose2d RED_REEF_8B = CalculatePoint(layout.getTagPose(8).get(), false);
-                public static final Pose2d RED_REEF_9A = CalculatePoint(layout.getTagPose(9).get(), true);
-                public static final Pose2d RED_REEF_9B = CalculatePoint(layout.getTagPose(9).get(), false);
-                public static final Pose2d RED_REEF_10A = CalculatePoint(layout.getTagPose(10).get(), true);
-                public static final Pose2d RED_REEF_10B = CalculatePoint(layout.getTagPose(10).get(), false);
-                public static final Pose2d RED_REEF_11A = CalculatePoint(layout.getTagPose(11).get(), true);
-                public static final Pose2d RED_REEF_11B = CalculatePoint(layout.getTagPose(11).get(), false);
+                public static final Pose2d RED_REEF_6A = CalculatePoint(LAYOUT.getTagPose(6).get(), true);
+                public static final Pose2d RED_REEF_6B = CalculatePoint(LAYOUT.getTagPose(6).get(), false);
+                public static final Pose2d RED_REEF_7A = CalculatePoint(LAYOUT.getTagPose(7).get(), true);
+                public static final Pose2d RED_REEF_7B = CalculatePoint(LAYOUT.getTagPose(7).get(), false);
+                public static final Pose2d RED_REEF_8A = CalculatePoint(LAYOUT.getTagPose(8).get(), true);
+                public static final Pose2d RED_REEF_8B = CalculatePoint(LAYOUT.getTagPose(8).get(), false);
+                public static final Pose2d RED_REEF_9A = CalculatePoint(LAYOUT.getTagPose(9).get(), true);
+                public static final Pose2d RED_REEF_9B = CalculatePoint(LAYOUT.getTagPose(9).get(), false);
+                public static final Pose2d RED_REEF_10A = CalculatePoint(LAYOUT.getTagPose(10).get(), true);
+                public static final Pose2d RED_REEF_10B = CalculatePoint(LAYOUT.getTagPose(10).get(), false);
+                public static final Pose2d RED_REEF_11A = CalculatePoint(LAYOUT.getTagPose(11).get(), true);
+                public static final Pose2d RED_REEF_11B = CalculatePoint(LAYOUT.getTagPose(11).get(), false);
 
-                public static final Pose2d BLUE_REEF_17A = CalculatePoint(layout.getTagPose(17).get(), false);
-                public static final Pose2d BLUE_REEF_17B = CalculatePoint(layout.getTagPose(17).get(), true);
-                public static final Pose2d BLUE_REEF_18A = CalculatePoint(layout.getTagPose(18).get(), false);
-                public static final Pose2d BLUE_REEF_18B = CalculatePoint(layout.getTagPose(18).get(), true);
-                public static final Pose2d BLUE_REEF_19A = CalculatePoint(layout.getTagPose(19).get(), false);
-                public static final Pose2d BLUE_REEF_19B = CalculatePoint(layout.getTagPose(19).get(), true);
-                public static final Pose2d BLUE_REEF_20A = CalculatePoint(layout.getTagPose(20).get(), false);
-                public static final Pose2d BLUE_REEF_20B = CalculatePoint(layout.getTagPose(20).get(), true);
-                public static final Pose2d BLUE_REEF_21A = CalculatePoint(layout.getTagPose(21).get(), false);
-                public static final Pose2d BLUE_REEF_21B = CalculatePoint(layout.getTagPose(21).get(), true);
-                public static final Pose2d BLUE_REEF_22A = CalculatePoint(layout.getTagPose(22).get(), false);
-                public static final Pose2d BLUE_REEF_22B = CalculatePoint(layout.getTagPose(22).get(), true);
+                public static final Pose2d BLUE_REEF_17A = CalculatePoint(LAYOUT.getTagPose(17).get(), false);
+                public static final Pose2d BLUE_REEF_17B = CalculatePoint(LAYOUT.getTagPose(17).get(), true);
+                public static final Pose2d BLUE_REEF_18A = CalculatePoint(LAYOUT.getTagPose(18).get(), false);
+                public static final Pose2d BLUE_REEF_18B = CalculatePoint(LAYOUT.getTagPose(18).get(), true);
+                public static final Pose2d BLUE_REEF_19A = CalculatePoint(LAYOUT.getTagPose(19).get(), false);
+                public static final Pose2d BLUE_REEF_19B = CalculatePoint(LAYOUT.getTagPose(19).get(), true);
+                public static final Pose2d BLUE_REEF_20A = CalculatePoint(LAYOUT.getTagPose(20).get(), false);
+                public static final Pose2d BLUE_REEF_20B = CalculatePoint(LAYOUT.getTagPose(20).get(), true);
+                public static final Pose2d BLUE_REEF_21A = CalculatePoint(LAYOUT.getTagPose(21).get(), false);
+                public static final Pose2d BLUE_REEF_21B = CalculatePoint(LAYOUT.getTagPose(21).get(), true);
+                public static final Pose2d BLUE_REEF_22A = CalculatePoint(LAYOUT.getTagPose(22).get(), false);
+                public static final Pose2d BLUE_REEF_22B = CalculatePoint(LAYOUT.getTagPose(22).get(), true);
 
-                public static final Pose2d BLUE_BARGE_4 = CalculateBargePoint(layout.getTagPose(4).get());
-                public static final Pose2d BLUE_BARGE_14 = CalculateBargePoint(layout.getTagPose(14).get());
-                public static final Pose2d RED_BARGE_5 = CalculateBargePoint(layout.getTagPose(5).get());
-                public static final Pose2d RED_BARGE_15 = CalculateBargePoint(layout.getTagPose(15).get());
+                public static final Pose2d BLUE_BARGE_4 = CalculateBargePoint(LAYOUT.getTagPose(4).get());
+                public static final Pose2d BLUE_BARGE_14 = CalculateBargePoint(LAYOUT.getTagPose(14).get());
+                public static final Pose2d RED_BARGE_5 = CalculateBargePoint(LAYOUT.getTagPose(5).get());
+                public static final Pose2d RED_BARGE_15 = CalculateBargePoint(LAYOUT.getTagPose(15).get());
 
                 // Don't reorder this list
 
@@ -414,17 +414,17 @@ public final class Constants {
                 }
 
                 public static final List<Pose2d> REEF_ALGAE = List.of(
-                                CalculateAlgaePoint(layout.getTagPose(6).get()),
-                                CalculateAlgaePoint(layout.getTagPose(7).get()),
-                                CalculateAlgaePoint(layout.getTagPose(8).get()),
-                                CalculateAlgaePoint(layout.getTagPose(9).get()),
-                                CalculateAlgaePoint(layout.getTagPose(10).get()),
-                                CalculateAlgaePoint(layout.getTagPose(11).get()),
-                                CalculateAlgaePoint(layout.getTagPose(17).get()),
-                                CalculateAlgaePoint(layout.getTagPose(18).get()),
-                                CalculateAlgaePoint(layout.getTagPose(19).get()),
-                                CalculateAlgaePoint(layout.getTagPose(20).get()),
-                                CalculateAlgaePoint(layout.getTagPose(21).get()),
-                                CalculateAlgaePoint(layout.getTagPose(22).get()));
+                                CalculateAlgaePoint(LAYOUT.getTagPose(6).get()),
+                                CalculateAlgaePoint(LAYOUT.getTagPose(7).get()),
+                                CalculateAlgaePoint(LAYOUT.getTagPose(8).get()),
+                                CalculateAlgaePoint(LAYOUT.getTagPose(9).get()),
+                                CalculateAlgaePoint(LAYOUT.getTagPose(10).get()),
+                                CalculateAlgaePoint(LAYOUT.getTagPose(11).get()),
+                                CalculateAlgaePoint(LAYOUT.getTagPose(17).get()),
+                                CalculateAlgaePoint(LAYOUT.getTagPose(18).get()),
+                                CalculateAlgaePoint(LAYOUT.getTagPose(19).get()),
+                                CalculateAlgaePoint(LAYOUT.getTagPose(20).get()),
+                                CalculateAlgaePoint(LAYOUT.getTagPose(21).get()),
+                                CalculateAlgaePoint(LAYOUT.getTagPose(22).get()));
         }
 }
