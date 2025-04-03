@@ -312,39 +312,39 @@ public final class Constants {
                 public static final Pose2d RED_PLAYER_STATION_1_RIGHT = CalculatePSPoint(LAYOUT.getTagPose(1).get(),
                                 SIDEWAYS_OFFSET_STATION);
 
-                public static final Pose2d RED_PLAYER_STATION_2_CENTER = CalculatePSPoint(layout.getTagPose(2).get(),
+                public static final Pose2d RED_PLAYER_STATION_2_CENTER = CalculatePSPoint(LAYOUT.getTagPose(2).get(),
                                 0);
                 public static final Pose2d RED_PLAYER_STATION_2_LEFT = CalculatePSPoint(LAYOUT.getTagPose(2).get(),
                                 -SIDEWAYS_OFFSET_STATION);
                 public static final Pose2d RED_PLAYER_STATION_2_RIGHT = CalculatePSPoint(LAYOUT.getTagPose(2).get(),
                                 SIDEWAYS_OFFSET_STATION);
 
-                public static final Pose2d BLUE_PLAYER_STATION_13_CENTER = CalculatePSPoint(layout.getTagPose(13).get(),
+                public static final Pose2d BLUE_PLAYER_STATION_13_CENTER = CalculatePSPoint(LAYOUT.getTagPose(13).get(),
                                 0);
                 public static final Pose2d BLUE_PLAYER_STATION_13_LEFT = CalculatePSPoint(LAYOUT.getTagPose(13).get(),
                                 -SIDEWAYS_OFFSET_STATION);
                 public static final Pose2d BLUE_PLAYER_STATION_13_RIGHT = CalculatePSPoint(LAYOUT.getTagPose(13).get(),
                                 SIDEWAYS_OFFSET_STATION);
 
-                public static final Pose2d BLUE_PLAYER_STATION_12_CENTER = CalculatePSPoint(layout.getTagPose(12).get(),
+                public static final Pose2d BLUE_PLAYER_STATION_12_CENTER = CalculatePSPoint(LAYOUT.getTagPose(12).get(),
                                 0);
                 public static final Pose2d BLUE_PLAYER_STATION_12_LEFT = CalculatePSPoint(LAYOUT.getTagPose(12).get(),
                                 -SIDEWAYS_OFFSET_STATION);
                 public static final Pose2d BLUE_PLAYER_STATION_12_RIGHT = CalculatePSPoint(LAYOUT.getTagPose(12).get(),
                                 SIDEWAYS_OFFSET_STATION);
 
-                public static final Pose2d RED_REEF_6A = CalculatePoint(layout.getTagPose(6).get(), true);
-                public static final Pose2d RED_REEF_6B = CalculatePoint(layout.getTagPose(6).get(), false);
-                public static final Pose2d RED_REEF_7A = CalculatePoint(layout.getTagPose(7).get(), true);
-                public static final Pose2d RED_REEF_7B = CalculatePoint(layout.getTagPose(7).get(), false);
-                public static final Pose2d RED_REEF_8A = CalculatePoint(layout.getTagPose(8).get(), true);
-                public static final Pose2d RED_REEF_8B = CalculatePoint(layout.getTagPose(8).get(), false);
-                public static final Pose2d RED_REEF_9A = CalculatePoint(layout.getTagPose(9).get(), true);
-                public static final Pose2d RED_REEF_9B = CalculatePoint(layout.getTagPose(9).get(), false);
-                public static final Pose2d RED_REEF_10A = CalculatePoint(layout.getTagPose(10).get(), true);
-                public static final Pose2d RED_REEF_10B = CalculatePoint(layout.getTagPose(10).get(), false);
-                public static final Pose2d RED_REEF_11A = CalculatePoint(layout.getTagPose(11).get(), true);
-                public static final Pose2d RED_REEF_11B = CalculatePoint(layout.getTagPose(11).get(), false);
+                public static final Pose2d RED_REEF_6A = CalculatePoint(LAYOUT.getTagPose(6).get(), true);
+                public static final Pose2d RED_REEF_6B = CalculatePoint(LAYOUT.getTagPose(6).get(), false);
+                public static final Pose2d RED_REEF_7A = CalculatePoint(LAYOUT.getTagPose(7).get(), true);
+                public static final Pose2d RED_REEF_7B = CalculatePoint(LAYOUT.getTagPose(7).get(), false);
+                public static final Pose2d RED_REEF_8A = CalculatePoint(LAYOUT.getTagPose(8).get(), true);
+                public static final Pose2d RED_REEF_8B = CalculatePoint(LAYOUT.getTagPose(8).get(), false);
+                public static final Pose2d RED_REEF_9A = CalculatePoint(LAYOUT.getTagPose(9).get(), true);
+                public static final Pose2d RED_REEF_9B = CalculatePoint(LAYOUT.getTagPose(9).get(), false);
+                public static final Pose2d RED_REEF_10A = CalculatePoint(LAYOUT.getTagPose(10).get(), true);
+                public static final Pose2d RED_REEF_10B = CalculatePoint(LAYOUT.getTagPose(10).get(), false);
+                public static final Pose2d RED_REEF_11A = CalculatePoint(LAYOUT.getTagPose(11).get(), true);
+                public static final Pose2d RED_REEF_11B = CalculatePoint(LAYOUT.getTagPose(11).get(), false);
 
                 public static final Pose2d BLUE_REEF_17A = CalculatePoint(LAYOUT.getTagPose(17).get(), false);
                 public static final Pose2d BLUE_REEF_17B = CalculatePoint(LAYOUT.getTagPose(17).get(), true);
