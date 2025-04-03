@@ -55,7 +55,9 @@ public class RobotContainer {
     m_driverController.a().onTrue(ClimbFactory.lowerClimb());
 
     m_driverController.back().whileTrue(swerve.resetYawCommand());
-    m_driverController.b().whileTrue(new DriveToPointCommand(m_driverController, Mode.NEAREST));
+    Command align = new DriveToPointCommand(m_driverController, Mode.NEAREST);
+    align.setName(Constants.DriveToPoint.DRIVE_ASSIST_COMMAND);
+    m_driverController.b().whileTrue(align);
 
     Command deAlgae = new DriveToPointCommand(m_driverController, Mode.ALGAE);
     deAlgae.setName(ALGAE_ALIGN_COMMAND);

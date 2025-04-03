@@ -33,7 +33,7 @@ public class SuperstructureFactory {
                 // effectively making every inch we're off from target position one extra inch
                 // in elevator height.
                 elevator.setTargetHeight(ElevatorConstants.CORAL_INTAKE
-                        + (casted.distStraightPlayerStation() * ElevatorConstants.DYNAMIC_ADJUST_P));
+                        - (casted.distStraightPlayerStation() * ElevatorConstants.DYNAMIC_ADJUST_P));
             } else {
                 arm.setTarget(ArmConstants.CORAL_STATION_POSITION);
                 elevator.setTargetHeight(ElevatorConstants.CORAL_INTAKE);
