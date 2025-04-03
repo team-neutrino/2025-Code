@@ -56,8 +56,8 @@ public class SuperstructureFactory {
         // swerve.getCurrentCommand() : null;
 
         Command elevCom = ElevatorFactory
-                .moveToGiven(() -> (ElevatorConstants.CORAL_INTAKE + badSolution.distStraightPlayerStation()
-                        * ElevatorConstants.DYNAMIC_ADJUST_P));
+                .moveToGiven(() -> (ElevatorConstants.CORAL_INTAKE - (badSolution.distStraightPlayerStation()
+                        * ElevatorConstants.DYNAMIC_ADJUST_P)));
         Command armCom = ArmFactory.moveToGiven(() -> ArmConstants.CORAL_STATION_POSITION);
 
         BooleanSupplier runCondition = () -> swerve.getCurrentCommand() != null && swerve.getCurrentCommand().getName()
