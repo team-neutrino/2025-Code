@@ -21,7 +21,7 @@ public class SuperstructureFactory {
         Command ret = new RunCommand(() -> {
             Command swerveCom = swerve.getCurrentCommand();
             DriveToPointCommand casted = (swerveCom != null
-                    && swerveCom.getName().equals(DriveToPoint.DRIVE_ASSIST_COMMAND))
+                    && swerveCom.getName().equals(DriveToPoint.DRIVE_TO_POINT_BASIC))
                             ? (DriveToPointCommand) swerveCom
                             : null;
             // if we're running driveToPoint and the distance from target is below a certain
