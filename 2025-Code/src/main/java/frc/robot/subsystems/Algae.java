@@ -47,8 +47,9 @@ public class Algae extends SubsystemBase {
         m_motor.configure(m_config, SparkBase.ResetMode.kResetSafeParameters,
                 SparkBase.PersistMode.kPersistParameters);
 
-        m_settings.setLampLEDBrightness(1);
+        m_settings.setLampLEDBrightness(0.01);
         m_colorSensor.setSettings(m_settings);
+        m_colorSensor.setPartyMode(1);
     }
 
     private boolean withinProximity(double distance) {

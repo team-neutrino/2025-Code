@@ -48,7 +48,7 @@ public class Coral extends SubsystemBase {
         m_motor.configure(m_motorConfig, SparkBase.ResetMode.kResetSafeParameters,
                 SparkBase.PersistMode.kPersistParameters);
 
-        m_settings.setLampLEDBrightness(1);
+        m_settings.setLampLEDBrightness(0.01);
         m_colorSensor.setSettings(m_settings);
     }
 
