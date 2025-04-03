@@ -179,8 +179,8 @@ public class Limelight extends SubsystemBase {
     // based on camera not robot
   }
 
-  public void setPointOfInterest(double x, double y) {
-    LimelightHelpers.setFiducial3DOffset("limelight", x, y, 0);
+  public void setPointOfInterest(String limelightName, double x, double y) {
+    LimelightHelpers.setFiducial3DOffset(limelightName, x, y, 0);
   }
 
   public void setPriorityIDReef(int id) {

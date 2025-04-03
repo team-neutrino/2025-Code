@@ -12,12 +12,13 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
-import static frc.robot.Constants.SwerveConstants.*;
-
 import frc.robot.Constants;
 import frc.robot.Constants.AprilTagConstants.*;
 import frc.robot.subsystems.Swerve.SwerveRequestStash;
+
 import static frc.robot.util.Subsystem.*;
+import static frc.robot.Constants.SwerveConstants.*;
+import static frc.robot.Constants.LimelightConstants.*;
 
 public class DriveAssistCom extends Command {
   private FieldCentricFacingAngle req = SwerveRequestStash.driveAssist;
@@ -45,7 +46,7 @@ public class DriveAssistCom extends Command {
     }
     int pov = m_controller.getHID().getPOV();
     m_POIoffset = pov == 270 ? -REEF_OFFSET : pov == 90 ? REEF_OFFSET : m_POIoffset;
-    limelight.setPointOfInterest(0, m_POIoffset);
+    limelight.setPointOfInterest(LL_REEF1, 0, m_POIoffset);
 
     updateError();
     swerve.setIsAligned(isAligned());
@@ -122,7 +123,8 @@ public class DriveAssistCom extends Command {
   @Override
   public void end(boolean interrupted) {
     m_POIoffset = 0;
-    limelight.setPointOfInterest(0, m_POIoffset);
+    limelight.setPointOfInterest(LL_REEF1, 0, m_POIoffset);
+    limelight.setPointOfInterest(LL_STATION, 0, m_POIoffset);
     swerve.setIsAligned(false);
   }
 

@@ -51,7 +51,7 @@ public class DriveToPointCommand extends Command {
 
   @Override
   public void execute() {
-    if (m_mode != Mode.ALGAE) {
+    if (m_mode != Mode.ALGAE && m_mode != Mode.NET) {
       checkBumpers();
     }
     drive();
@@ -78,6 +78,11 @@ public class DriveToPointCommand extends Command {
 
     if (m_mode == Mode.ALGAE) {
       m_pointControl.setTargetNearest(REEF_ALGAE);
+      return;
+    }
+
+    if (m_mode == Mode.NET) {
+      m_pointControl.setTarget(redAlliance.get() ? RED_BARGE_5 : BLUE_BARGE_14);
       return;
     }
 
