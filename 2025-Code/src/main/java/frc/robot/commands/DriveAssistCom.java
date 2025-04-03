@@ -46,7 +46,7 @@ public class DriveAssistCom extends Command {
     }
     int pov = m_controller.getHID().getPOV();
     m_POIoffset = pov == 270 ? -REEF_OFFSET : pov == 90 ? REEF_OFFSET : m_POIoffset;
-    limelight.setPointOfInterest(0, m_POIoffset);
+    limelight.setPointOfInterest(LL_REEF1, 0, m_POIoffset);
 
     updateError();
     swerve.setIsAligned(isAligned());

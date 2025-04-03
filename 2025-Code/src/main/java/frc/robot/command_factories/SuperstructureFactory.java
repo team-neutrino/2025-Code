@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Constants.DriveToPoint.Mode;
+import frc.robot.commands.DriveToPointCommand;
+import frc.robot.subsystems.Algae;
 
 import static frc.robot.util.Subsystem.*;
 
@@ -181,6 +184,22 @@ public class SuperstructureFactory {
         return ((elevatorCom.alongWith(armScoreCom, coralDefaultCom))
                 .until(readyToScore)).andThen(
                         (armEvacCom.alongWith(coralScoreCom)).until(comEnd));
+    }
+
+    public static Command scoreNetAutomated(CommandXboxController controller) {
+        Command drive = new DriveToPointCommand(controller, Mode.NET);
+        Command elevatorCom = ElevatorFactory.moveToScoreBarge();
+        Command elevatorDefaultCom = elevator.elevatorDefaultCommand();
+        Command armCom = ArmFactory.armToScoreBarge();
+        Command algaeDefault = algae.algaeDefaultCommand();
+        Command algaeScoreCom = AlgaeFactory.runOuttake();
+        BooleanSupplier isAtPoint = () -> swerve.isAtPointDebounced();
+        BooleanSupplier readyToScore = () -> (elevator.readyToScore() && arm.readyToScore()
+                && swerve.isAtPointDebounced());
+        BooleanSupplier comEnd = () -> !algae.debouncedHasAlgae();
+
+        return ((drive.alongWith(elevatorDefaultCom.until(isAtPoint).andThen(elevatorCom), armCom,
+                algaeDefault.until(readyToScore).andThen(algaeScoreCom))).until(comEnd));
     }
 
     public static Command moveToScoreL4Command() {
