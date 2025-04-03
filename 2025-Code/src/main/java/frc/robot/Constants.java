@@ -294,7 +294,7 @@ public final class Constants {
 
                 public static final double offsetOfArmAlgae = 0.31;
                 public static final double offsetToReefAlgae = 0.53;
-                public static final double offsetToBarge = 1.0; // placeholder
+                public static final double offsetToBarge = -1.0; // placeholder
                 // negative is more right
 
                 // CURRENTLY TESTING WITH THIS LIBRARY THING

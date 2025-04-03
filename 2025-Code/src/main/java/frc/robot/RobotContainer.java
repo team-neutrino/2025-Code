@@ -63,7 +63,7 @@ public class RobotContainer {
     m_driverController.leftTrigger().whileTrue(swerve.slowDefaultCommand(m_driverController));
 
     // temp
-    m_driverController.x().whileTrue(new DriveToPointCommand(m_driverController, Mode.NET));
+    m_driverController.x().whileTrue(SuperstructureFactory.scoreNetAutomated(m_buttonsController));
 
     // buttons controller
     m_buttonsController.x().whileTrue(SuperstructureFactory.scoreL1(m_buttonsController));
