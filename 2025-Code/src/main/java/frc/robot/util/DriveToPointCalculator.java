@@ -40,6 +40,20 @@ public class DriveToPointCalculator {
                 return new Pose2d(x, y, Rotation2d.fromRadians(stationAngle));
         }
 
+        public static Pose2d CalculatePSSafePoint(Pose3d tagPosition, double sidewaysOffset) {
+                double stationAngle = tagPosition.getRotation().getAngle();
+                double perpendicularReefAngle = stationAngle - Math.toRadians(90);
+
+                double cos = Math.cos(perpendicularReefAngle), sin = Math.sin(perpendicularReefAngle);
+                double leftRightOffsetX = (offsetOfArmStation * cos) + ((reefWidth / 2) * cos) + (sidewaysOffset * cos);
+                double leftRightOffsetY = (offsetOfArmStation * sin) + ((reefWidth / 2) * sin) + (sidewaysOffset * sin);
+
+                double x = tagPosition.getX() + (safeOffsetToStation * Math.cos(stationAngle)) + leftRightOffsetX;
+                double y = tagPosition.getY() + (safeOffsetToStation * Math.sin(stationAngle)) + leftRightOffsetY;
+
+                return new Pose2d(x, y, Rotation2d.fromRadians(stationAngle));
+        }
+
         public static Pose2d CalculateAlgaePoint(Pose3d tagPosition) {
                 double reefAngle = tagPosition.getRotation().getAngle();
                 double perpendicularReefAngle = reefAngle - Math.toRadians(90);
