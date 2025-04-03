@@ -18,6 +18,7 @@ import static frc.robot.Constants.DriveToPoint.*;
 import static frc.robot.Constants.SwerveConstants.*;
 import static frc.robot.Constants.GlobalConstants.*;
 import static frc.robot.util.Subsystem.swerve;
+import static frc.robot.util.Subsystem.arm;
 
 import java.util.List;
 
@@ -103,9 +104,17 @@ public class DriveToPointCommand extends Command {
       }
     }
 
+    if (arm.isAtIntake()) {
     m_pointControl
         .setTargetNearest(redAlliance.get() ? List.of(RED_PLAYER_STATION_1_CENTER, RED_PLAYER_STATION_2_CENTER)
             : List.of(BLUE_PLAYER_STATION_12_CENTER, BLUE_PLAYER_STATION_13_CENTER));
+            return;
+    }
+
+    m_pointControl
+        .setTargetNearest(redAlliance.get() ? List.of(RED_PLAYER_STATION_1_CENTER_SAFE, RED_PLAYER_STATION_2_CENTER_SAFE)
+            : List.of(BLUE_PLAYER_STATION_12_CENTER_SAFE, BLUE_PLAYER_STATION_13_CENTER_SAFE));
+
   }
 
   /**
