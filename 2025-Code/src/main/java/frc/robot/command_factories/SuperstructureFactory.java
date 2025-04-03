@@ -61,7 +61,7 @@ public class SuperstructureFactory {
         Command armCom = ArmFactory.moveToGiven(() -> ArmConstants.CORAL_STATION_POSITION);
 
         BooleanSupplier runCondition = () -> swerve.getCurrentCommand() != null && swerve.getCurrentCommand().getName()
-                .equals(DriveToPoint.DRIVE_ASSIST_COMMAND)
+                .equals(DriveToPoint.DRIVE_TO_POINT_BASIC)
                 && Math.abs(badSolution.distStraightPlayerStation()) <= DriveToPoint.DYNAMIC_INTAKE_THRESHOLD;
         BooleanSupplier endCondition = () -> coral.debouncedHasCoral();
 
@@ -245,7 +245,7 @@ public class SuperstructureFactory {
     }
 
     public static Command scoreNetAutomated(CommandXboxController controller) {
-        Command drive = new DriveToPointCommand(controller, Mode.NET);
+        Command drive = new DriveToPointCommand(controller, DriveToPoint.Mode.NET);
         Command elevatorCom = ElevatorFactory.moveToScoreBarge();
         Command elevatorDefaultCom = elevator.elevatorDefaultCommand();
         Command armCom = ArmFactory.armToScoreBarge();
