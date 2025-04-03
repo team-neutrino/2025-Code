@@ -239,8 +239,8 @@ public final class Constants {
 
                 // LL NAMES
                 public static final String LL_REEF1 = "limelight-limeade";
-                public static final String LL_STATION = "limelight-limebee";
-                public static final String LL_REEF2 = "limelight-limesea";
+                public static final String LL_REEF2 = "limelight-limebee";
+                public static final String LL_STATION = "limelight-limesea";
         }
 
         public static class LEDConstants {
