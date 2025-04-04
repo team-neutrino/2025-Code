@@ -238,8 +238,7 @@ public class Limelight extends SubsystemBase {
     if (getTvReef() && (deAlgaefying || Subsystem.coral.hasCoral())) {
       updateOdometryReef1();
       return;
-    } else if (LimelightHelpers.getTV(LL_REEF2) && (deAlgaefying || Subsystem.coral.hasCoral())
-        && !DriverStation.isAutonomousEnabled()) {
+    } else if (LimelightHelpers.getTV(LL_REEF2) && (deAlgaefying || Subsystem.coral.hasCoral())) {
       updateOdometryReef2();
       return;
     }
