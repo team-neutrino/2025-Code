@@ -62,7 +62,7 @@ public class Swerve extends CommandSwerveDrivetrain {
   private Debouncer m_driveToPointDebouncer = new Debouncer(0.3, DebounceType.kRising);
   private Debouncer m_tippyDebouncer = new Debouncer(0.3, DebounceType.kBoth);
 
-  private Telemetry m_telemetry = new Telemetry(MAX_SPEED);
+  // private Telemetry m_telemetry = new Telemetry(MAX_SPEED);
 
   /**
    * Constructs the drivetrain using the values found in {@link TunerConstants}.
@@ -99,7 +99,7 @@ public class Swerve extends CommandSwerveDrivetrain {
       configurePathPlanner();
     }
     m_hasBeenConstructed = true;
-    registerTelemetry(m_telemetry::telemeterize);
+    // registerTelemetry(m_telemetry::telemeterize);
 
     setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
   }
