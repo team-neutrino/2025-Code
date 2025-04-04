@@ -37,6 +37,7 @@ import static frc.robot.Constants.SwerveConstants.*;
 import java.io.IOException;
 import org.json.simple.parser.ParseException;
 import frc.robot.Constants.ElevatorConstants;
+import frc.robot.Constants.GlobalConstants;
 import frc.robot.util.DriveToPointController;
 import frc.robot.util.Subsystem;
 import frc.robot.util.GeneratedSwerveCode.*;
@@ -163,11 +164,7 @@ public class Swerve extends CommandSwerveDrivetrain {
               rotationConstants),
           robotConfig,
           () -> {
-            var alliance = DriverStation.getAlliance();
-            if (alliance.isPresent()) {
-              return alliance.get() == DriverStation.Alliance.Red;
-            }
-            return false;
+            return GlobalConstants.redAlliance.isPresent() && GlobalConstants.redAlliance.get();
           },
           this);
     } catch (IOException | ParseException e) {
@@ -203,11 +200,7 @@ public class Swerve extends CommandSwerveDrivetrain {
             new Translation2d(ValkyrieTunerConstants.BackLeft.LocationX, ValkyrieTunerConstants.BackLeft.LocationY),
             new Translation2d(ValkyrieTunerConstants.BackRight.LocationX, ValkyrieTunerConstants.BackRight.LocationY)),
         () -> {
-          var alliance = DriverStation.getAlliance();
-          if (alliance.isPresent()) {
-            return alliance.get() == DriverStation.Alliance.Red;
-          }
-          return false;
+          return GlobalConstants.redAlliance.isPresent() && GlobalConstants.redAlliance.get();
         },
         this);
   }
