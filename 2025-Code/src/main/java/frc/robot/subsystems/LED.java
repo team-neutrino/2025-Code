@@ -32,7 +32,7 @@ public class LED extends SubsystemBase {
   @Override
   public void periodic() {
 
-    if (Subsystem.swerve.isDrivingToPoint() && !limelight.getTvReef()) {
+    if (Subsystem.swerve.isDrivingToPoint() && !limelight.getTvReef1()) {
       m_color_pub.set("pink");
       m_state_pub.set("solid");
       return;
