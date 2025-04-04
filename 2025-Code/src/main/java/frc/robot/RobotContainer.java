@@ -61,7 +61,7 @@ public class RobotContainer {
     m_driverController.b().whileTrue(align);
 
     DriveToPointCommand reefsker = new DriveToPointCommand(m_driverController, Mode.NEAREST);
-    reefsker.setName(DRIVE_TO_POINT_STRING);
+    reefsker.setName(DRIVE_TO_POINT_BASIC);
     m_driverController.b().whileTrue(reefsker);
 
     Command deAlgae = new DriveToPointCommand(m_driverController, Mode.ALGAE);

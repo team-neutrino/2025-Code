@@ -25,11 +25,10 @@ public class SuperstructureFactory {
             return false;
         }
         return Subsystem.swerve
-                .getCurrentCommand().getName().equals(Constants.DriveToPoint.DRIVE_TO_POINT_STRING)
+                .getCurrentCommand().getName().equals(Constants.DriveToPoint.DRIVE_TO_POINT_BASIC)
                         ? Subsystem.swerve.isAtPoint() && Subsystem.limelight.getTvReef()
                         : true;
     }
-
 
     public static Command dynamicCoralIntake() {
         Command ret = new RunCommand(() -> {
