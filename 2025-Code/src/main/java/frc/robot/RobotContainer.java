@@ -46,7 +46,7 @@ public class RobotContainer {
     configureDefaultCommands();
     configureNamedCommands();
     DataLogManager.start();
-    m_autonPath = new PathPlannerAuto("3 CORAL PROCESSOR");
+    m_autonPath = new PathPlannerAuto("SPICIER");
 
   }
 

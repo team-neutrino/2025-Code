@@ -11,7 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Mid to T21"
+                  "pathName": "Top to T20"
                 }
               },
               {
@@ -30,7 +30,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPointLeft"
+                  "name": "DriveToPoint"
                 }
               },
               {
@@ -62,22 +62,9 @@
           }
         },
         {
-          "type": "deadline",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Mid-T21 to Station"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveToIntake"
-                }
-              }
-            ]
+            "pathName": "Top-T20 to Station"
           }
         },
         {
@@ -129,15 +116,91 @@
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "Mid-Station to T17"
+                  "name": "DriveToPointLeft"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "SPICYDefaultArmElevator"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "SPICYMoveToScoringL4"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ScoreL4"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "SPICYDefaultArmElevator"
+                  "name": "DriveToPointForever"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeOnly"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "DriveToPointForever"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveToIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "DriveToPointForever"
                 }
               }
             ]
@@ -154,110 +217,22 @@
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "SPICYMoveToScoringL4"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "ScoreL4"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "DriveToPointForever"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "IntakeOnly"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "DriveToPointForever"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveToIntake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "DriveToPointForever"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Mid-Station to T17"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "SPICYDefaultArmElevator"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "DriveToPointLeft"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "SPICYMoveToScoringL4"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "SPICYDefaultArmElevator"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "SPICYMoveToScoringL4"
+                      }
+                    }
+                  ]
                 }
               }
             ]
