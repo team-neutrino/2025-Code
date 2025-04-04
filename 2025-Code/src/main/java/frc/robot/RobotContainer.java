@@ -149,7 +149,7 @@ public class RobotContainer {
     try {
       auto = m_autonPath;
     } catch (Exception e) {
-      auto = new PathPlannerAuto("Nothing");
+      auto = new PathPlannerAuto("SPICIER (PROCESSOR)");
     }
 
     return auto;
