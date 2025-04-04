@@ -42,22 +42,11 @@ public class Limelight extends SubsystemBase {
         CAMERA_FORWARD_OFFSET, // Forward offset (meters)
         CAMERA_SIDE_OFFSET, // Side offset (meters) left is positive
         CAMERA_HEIGHT_OFFSET, // Height offset (meters)
-        CAMERA_ROLL_OFFSET, // Roll (degrees)
+        CAMERA_ROLL_OFFSET, // Roll (degrfees)
         CAMERA_PITCH_OFFSET, // Pitch (degrees)
         CAMERA_YAW_OFFSET // Yaw (degrees)
     );
     LimelightHelpers.SetFiducialDownscalingOverride(LL_REEF1, 3);
-
-    // change name later
-    LimelightHelpers.setLEDMode_ForceOff(LL_STATION);
-    LimelightHelpers.setCameraPose_RobotSpace(LL_STATION,
-        CAMERA_STATION_FORWARD_OFFSET, // Forward offset (meters)
-        CAMERA_STATION_SIDE_OFFSET, // Side offset (meters) left is positive
-        CAMERA_STATION_HEIGHT_OFFSET, // Height offset (meters)
-        CAMERA_STATION_ROLL_OFFSET, // Roll (degrees)
-        CAMERA_STATION_PITCH_OFFSET, // Pitch (degrees)
-        CAMERA_STATION_YAW_OFFSET // Yaw (degrees)
-    );
 
     LimelightHelpers.setLEDMode_ForceOff(LL_REEF2);
     LimelightHelpers.setCameraPose_RobotSpace(LL_REEF2,
@@ -68,127 +57,33 @@ public class Limelight extends SubsystemBase {
         CAMERA2_PITCH_OFFSET, // Pitch (degrees)
         CAMERA2_YAW_OFFSET // Yaw (degrees)
     );
+    LimelightHelpers.SetFiducialDownscalingOverride(LL_REEF2, 3);
+
+    LimelightHelpers.setLEDMode_ForceOff(LL_STATION);
+    LimelightHelpers.setCameraPose_RobotSpace(LL_STATION,
+        CAMERA_STATION_FORWARD_OFFSET, // Forward offset (meters)
+        CAMERA_STATION_SIDE_OFFSET, // Side offset (meters) left is positive
+        CAMERA_STATION_HEIGHT_OFFSET, // Height offset (meters)
+        CAMERA_STATION_ROLL_OFFSET, // Roll (degrees)
+        CAMERA_STATION_PITCH_OFFSET, // Pitch (degrees)
+        CAMERA_STATION_YAW_OFFSET // Yaw (degrees)
+    );
 
     LimelightHelpers.SetIMUMode(LL_REEF1, 1);
+    LimelightHelpers.SetIMUMode(LL_REEF2, 1);
     // use external IMU yaw submitted via setRobotOrientation() and configure the
     // LL4 internal IMU's fused yaw to match the submitted yaw value
     LimelightHelpers.SetIMUMode(LL_STATION, 1);
   }
 
   // **get valid target from camera 1*/
-  public boolean getTvReef() {
+  public boolean getTvReef1() {
     return m_has_reef_tag;
   }
 
   // **get valid target from camera 2*/
   public boolean getTvStation() {
     return m_has_station_tag;
-  }
-
-  /**
-   * get Horizontal Offset From Crosshair To Target (LL1: -27 degrees to 27
-   * degrees / LL2: -29.8 to 29.8 degrees)
-   */
-  public double getTxReef() {
-    return LimelightHelpers.getTX(LL_REEF1);
-  }
-
-  /**
-   * get Horizontal Offset From Second Camera Crosshair To Target (LL1: -27
-   * degrees to 27
-   * degrees / LL2: -29.8 to 29.8 degrees)
-   */
-  public double getTxStation() {
-    return LimelightHelpers.getTX(LL_STATION);
-  }
-
-  /**
-   * get Vertical Offset From Crosshair To Target (LL1: -20.5 degrees to 20.5
-   * degrees / LL2: -24.85 to 24.85 degrees)
-   */
-  public double getTyReef() {
-    return LimelightHelpers.getTY(LL_REEF1);
-  }
-
-  /**
-   * get Vertical Offset From Second Camera Crosshair To Target (LL1: -20.5
-   * degrees to 20.5
-   * degrees / LL2: -24.85 to 24.85 degrees)
-   */
-  public double getTyStation() {
-    return LimelightHelpers.getTY(LL_STATION);
-  }
-
-  /** get ID of the primary in-view AprilTag */
-  public int getIDReef() {
-    return (int) LimelightHelpers.getFiducialID(LL_REEF1);
-  }
-
-  /** get ID of the primary in-view AprilTag from the Second Camera */
-  public int getIDStation() {
-    return (int) LimelightHelpers.getFiducialID(LL_STATION);
-  }
-
-  public double[] getTargetPoseReef() {
-    if (getTvReef()) {
-      targetPose = LimelightHelpers.getTargetPose_RobotSpace(LL_REEF1);
-    }
-    return targetPose;
-  }
-
-  public double[] getTargetPoseStation() {
-    if (getTvStation()) {
-      targetPose2 = LimelightHelpers.getTargetPose_RobotSpace(LL_STATION);
-    }
-    return targetPose2;
-  }
-
-  public double getTargetYawReef() {
-    getTargetPoseReef();
-    return targetPose[5];
-  }
-
-  public double getTargetYawStation() {
-    getTargetPoseStation();
-    return targetPose2[5];
-  }
-
-  public Rotation2d getTargetYawRotation2dReef() {
-    getTargetPoseReef();
-    return Rotation2d.fromDegrees(targetPose[5]);
-  }
-
-  public Rotation2d getTargetYawRotation2dStation() {
-    getTargetPoseStation();
-    return Rotation2d.fromDegrees(targetPose2[5]);
-  }
-
-  public double[] getBotPose() {
-    // depending on how we do want to do our vision we could have regular getBotPose
-    if (getTvReef()) {
-      pose = LimelightHelpers.getBotPose_wpiBlue(LL_REEF1);
-    } else if (getTvStation()) {
-      pose = LimelightHelpers.getBotPose_wpiBlue(LL_STATION);
-    }
-    return pose;
-    // currently defaults to 0 if there's no pose
-  }
-
-  public double getDistanceFromPrimaryTarget() {
-    return getBotPose()[9];
-    // based on camera not robot
-  }
-
-  public void setPointOfInterest(String limelightName, double x, double y) {
-    LimelightHelpers.setFiducial3DOffset(limelightName, x, y, 0);
-  }
-
-  public void setPriorityIDReef(int id) {
-    LimelightHelpers.setPriorityTagID(LL_REEF1, id);
-  }
-
-  public void setPriorityIDStation(int id) {
-    LimelightHelpers.setPriorityTagID(LL_STATION, id);
   }
 
   private void updateOdometryReef1() {
@@ -235,7 +130,7 @@ public class Limelight extends SubsystemBase {
     }
 
     // if aligning to an algae position, force odometry updates from reef.
-    if (getTvReef() && (deAlgaefying || Subsystem.coral.hasCoral())) {
+    if (getTvReef1() && (deAlgaefying || Subsystem.coral.hasCoral())) {
       updateOdometryReef1();
       return;
     } else if (LimelightHelpers.getTV(LL_REEF2) && (deAlgaefying || Subsystem.coral.hasCoral())) {
@@ -280,16 +175,17 @@ public class Limelight extends SubsystemBase {
       return;
     }
 
+    final var yaw_degrees = Subsystem.swerve.getYawDegrees();
     // according to limelight docs, this needs to be called before using
     // .getBotPoseEstimate_wpiBlue_MegaTag2
     LimelightHelpers.SetRobotOrientation(LL_REEF1,
-        Subsystem.swerve.getYawDegrees(), 0,
-        0, 0, 0, 0);
-    LimelightHelpers.SetRobotOrientation(LL_STATION,
-        Subsystem.swerve.getYawDegrees(), 0,
+        yaw_degrees, 0,
         0, 0, 0, 0);
     LimelightHelpers.SetRobotOrientation(LL_REEF2,
-        Subsystem.swerve.getYawDegrees(), 0,
+        yaw_degrees, 0,
+        0, 0, 0, 0);
+    LimelightHelpers.SetRobotOrientation(LL_STATION,
+        yaw_degrees, 0,
         0, 0, 0, 0);
     updateOdometry();
   }
