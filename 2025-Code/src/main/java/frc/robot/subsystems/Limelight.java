@@ -235,7 +235,7 @@ public class Limelight extends SubsystemBase {
     }
 
     // if aligning to an algae position, force odometry updates from reef.
-    if (getTvReef() && (deAlgaefying || Subsystem.coral.hasCoral())) {
+    if (!Subsystem.swerve.aligningToLeftReef() && getTvReef() && (deAlgaefying || Subsystem.coral.hasCoral())) {
       updateOdometryReef1();
       return;
     } else if (LimelightHelpers.getTV(LL_REEF2) && (deAlgaefying || Subsystem.coral.hasCoral())) {

@@ -35,8 +35,13 @@ import static edu.wpi.first.units.Units.Pounds;
 import static frc.robot.Constants.SwerveConstants.*;
 
 import java.io.IOException;
+import java.util.Optional;
+
 import org.json.simple.parser.ParseException;
+
+import frc.robot.Constants.DriveToPoint;
 import frc.robot.Constants.ElevatorConstants;
+import frc.robot.commands.DriveToPointCommand;
 import frc.robot.util.DriveToPointController;
 import frc.robot.util.Subsystem;
 import frc.robot.util.GeneratedSwerveCode.*;
@@ -215,6 +220,14 @@ public class Swerve extends CommandSwerveDrivetrain {
   public void resetSwerveYaw() {
     resetRotation(new Rotation2d(0));
     getPigeon2().reset();
+  }
+
+  public boolean aligningToLeftReef() {
+    if (getCurrentCommand() == null || !(getCurrentCommand() instanceof DriveToPointCommand)) {
+      return false;
+    }
+    return DriveToPoint.RED_REEF_LEFT.contains(new DriveToPointController().getTarget())
+        || DriveToPoint.BLUE_REEF_LEFT.contains(new DriveToPointController().getTarget());
   }
 
   /**
