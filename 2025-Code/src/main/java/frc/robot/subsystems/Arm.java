@@ -186,6 +186,9 @@ public class Arm extends SubsystemBase {
     if (getTargetAngle() > 270) {
       safeAngle = SAFE_BACK_POS;
     }
+    if (Math.abs(getAngle() - CORAL_STATION_POSITION) <= DRIVING_ANGLE_TOLERANCE && withindistanceofintake) {
+      safeAngle = CORAL_STATION_POSITION;
+    }
 
     return safeAngle;
 
