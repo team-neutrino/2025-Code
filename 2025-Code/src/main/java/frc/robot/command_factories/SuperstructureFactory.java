@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.DriveToPoint.Mode;
@@ -238,7 +239,7 @@ public class SuperstructureFactory {
     }
 
     public static Command spicyMoveToScoreL4Command() {
-        return new ParallelCommandGroup(ElevatorFactory.moveL4(), ArmFactory.moveToL4())
+        return new SequentialCommandGroup(ElevatorFactory.moveL4(), ArmFactory.moveToL4())
                 .onlyIf(() -> DriveToPointController.getTotalDistance() < .2);
     }
 
@@ -247,7 +248,7 @@ public class SuperstructureFactory {
     }
 
     public static Command spicyMoveToScoreL3Command() {
-        return new ParallelCommandGroup(ElevatorFactory.moveL3(), ArmFactory.moveToL3())
+        return new SequentialCommandGroup(ElevatorFactory.moveL3(), ArmFactory.moveToL3())
                 .onlyIf(() -> DriveToPointController.getTotalDistance() < .2);
     }
 
@@ -256,7 +257,7 @@ public class SuperstructureFactory {
     }
 
     public static Command spicyMoveToScoreL2Command() {
-        return new ParallelCommandGroup(ElevatorFactory.moveL2(), ArmFactory.moveToL2())
+        return new SequentialCommandGroup(ElevatorFactory.moveL2(), ArmFactory.moveToL2())
                 .onlyIf(() -> DriveToPointController.getTotalDistance() < .2);
     }
 
