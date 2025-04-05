@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.DriveToPoint.Mode;
 import frc.robot.commands.DriveToPointCommand;
@@ -155,13 +156,14 @@ public class SuperstructureFactory {
         Command coralDefaultCom = coral.coralDefaultCommand();
         Command coralScoreCom = CoralFactory.runOuttake();
         Command armEvacCom = ArmFactory.evacuateScoreL4();
+        Command evacWait = new WaitCommand(0.2);
         BooleanSupplier readyToScore = () -> (arm.readyToScore() && elevator.readyToScore()
                 && controller.getHID().getRightBumperButton());
-        BooleanSupplier comEnd = () -> !coral.debouncedHasCoral();
+        BooleanSupplier comEnd = () -> (!coral.debouncedHasCoral() && arm.isEvacuated());
 
         return ((elevatorCom.alongWith(coralDefaultCom))
                 .until(() -> elevator.readyToScore())).andThen(armScoreCom).until(readyToScore)
-                .andThen(armEvacCom.alongWith(coralScoreCom).until(comEnd));
+                .andThen((coralScoreCom.alongWith(evacWait.andThen(armEvacCom))).until(comEnd));
     }
 
     // AUTON COMMANDS
