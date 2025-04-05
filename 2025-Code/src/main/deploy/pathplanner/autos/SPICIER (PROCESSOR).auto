@@ -66,25 +66,6 @@
           "data": {
             "commands": [
               {
-                "type": "path",
-                "data": {
-                  "pathName": "Pro-T22 to Station"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveToIntake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
                 "type": "named",
                 "data": {
                   "name": "IntakeOnly"
@@ -135,22 +116,9 @@
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "SPICYDefaultArmElevator"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "SPICYMoveToScoringL4"
-                      }
-                    }
-                  ]
+                  "name": "SPICYMoveToScoringL4"
                 }
               }
             ]
@@ -230,22 +198,9 @@
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "SPICYDefaultArmElevator"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "SPICYMoveToScoringL4"
-                      }
-                    }
-                  ]
+                  "name": "SPICYMoveToScoringL4"
                 }
               }
             ]
@@ -268,6 +223,12 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": []
           }
         }
       ]
