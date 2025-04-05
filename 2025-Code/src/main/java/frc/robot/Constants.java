@@ -71,7 +71,7 @@ public final class Constants {
                 public static final double DRIVE_TO_POINT_INTAKE_P = 4;
                 public static final double DRIVE_TO_POINT_SLOW_P = 1.5;
                 public static final double MAX_DRIVETOPOINT_SPEED = 4;
-                public static final double AT_POINT_TOLERANCE = 0.005;
+                public static final double AT_POINT_TOLERANCE = 0.02;
         }
 
         public static class ElevatorConstants {
