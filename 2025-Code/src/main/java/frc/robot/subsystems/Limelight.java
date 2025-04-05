@@ -86,6 +86,10 @@ public class Limelight extends SubsystemBase {
     return m_has_reef2_tag;
   }
 
+  public boolean getTvReef2() {
+    return LimelightHelpers.getTV(LL_REEF2);
+  }
+
   // **get valid target from camera 2*/
   public boolean getTvStation() {
     return m_has_station_tag;

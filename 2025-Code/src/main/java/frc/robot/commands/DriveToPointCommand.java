@@ -59,8 +59,6 @@ public class DriveToPointCommand extends Command {
     if (swerve.isAtPoint() && (Subsystem.coral.debouncedHasCoral() != m_hadGamePiece)) {
       initialize(); // reinitialize if the state of our game piece changes
     }
-    System.out
-        .println("distance to target: " + Math.hypot(m_pointControl.getXDistance(), m_pointControl.getYDistance()));
   }
 
   @Override
@@ -152,8 +150,7 @@ public class DriveToPointCommand extends Command {
   }
 
   public void isAtPoint() {
-    if (Math.abs(m_pointControl.getTarget().getX() - swerve.getCurrentPose().getX()) < AT_POINT_TOLERANCE
-        && (Math.abs(m_pointControl.getTarget().getY() - swerve.getCurrentPose().getY()) < AT_POINT_TOLERANCE)) {
+    if (Math.abs(m_pointControl.getStraightLineDist()) < AT_POINT_TOLERANCE) {
       swerve.setDrivingToPoint(false);
       swerve.setAtPoint(true);
     }

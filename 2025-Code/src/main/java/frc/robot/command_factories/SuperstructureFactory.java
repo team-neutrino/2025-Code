@@ -26,7 +26,8 @@ public class SuperstructureFactory {
         }
         return Subsystem.swerve
                 .getCurrentCommand().getName().equals(Constants.DriveToPoint.DRIVE_TO_POINT_BASIC)
-                        ? Subsystem.swerve.isAtPoint() && Subsystem.limelight.getTvReef()
+                        ? Subsystem.swerve.isAtPoint()
+                                && (Subsystem.limelight.getTvReef1() || Subsystem.limelight.getTvReef2())
                         : true;
     }
 
