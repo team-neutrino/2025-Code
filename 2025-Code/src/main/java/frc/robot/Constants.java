@@ -130,7 +130,7 @@ public final class Constants {
                 public static final double L4_POSITION = 143.0;
                 public static final double BARGE_POSITION = 180.0;
                 public static final double PROCESSOR_POSITION = 270.0;
-                public static final double EVACUATE_ANGLE = 20.0; // 15
+                public static final double EVACUATE_ANGLE = 20.0;
                 public static final double REEF_DESCORE_POSITION = 55.0;
                 public static final double ALGAE_FRONT_SAFE_ANGLE = 90;
 
