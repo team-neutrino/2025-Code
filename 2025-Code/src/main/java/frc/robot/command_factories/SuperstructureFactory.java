@@ -210,11 +210,11 @@ public class SuperstructureFactory {
         Command coralDefaultCom = coral.coralDefaultCommand();
         Command coralScoreCom = CoralFactory.runOuttake();
         Command armEvacCom = ArmFactory.evacuateScoreL4();
-        BooleanSupplier readyToScore = () -> (arm.readyToScore() && elevator.readyToScore());
+        BooleanSupplier readyToScore = () -> (elevator.readyToScore());
         BooleanSupplier comEnd = () -> !coral.debouncedHasCoral();
 
-        return ((elevatorCom.alongWith(armScoreCom, coralDefaultCom))
-                .until(readyToScore)).andThen(
+        return ((elevatorCom.alongWith(coralDefaultCom))
+                .until(readyToScore)).andThen(armScoreCom).until(() -> arm.readyToScore()).andThen(
                         (armEvacCom.alongWith(coralScoreCom)).until(comEnd));
     }
 
@@ -239,8 +239,8 @@ public class SuperstructureFactory {
     }
 
     public static Command spicyMoveToScoreL4Command() {
-        return new SequentialCommandGroup(ElevatorFactory.moveL4(), ArmFactory.moveToL4())
-                .onlyIf(() -> DriveToPointController.getTotalDistance() < .2);
+        return ElevatorFactory.moveL4().andThen(ArmFactory.moveToL4())
+                .onlyIf(() -> DriveToPointController.getTotalDistance() < .3);
     }
 
     public static Command moveToScoreL3Command() {
@@ -249,7 +249,7 @@ public class SuperstructureFactory {
 
     public static Command spicyMoveToScoreL3Command() {
         return new SequentialCommandGroup(ElevatorFactory.moveL3(), ArmFactory.moveToL3())
-                .onlyIf(() -> DriveToPointController.getTotalDistance() < .2);
+                .onlyIf(() -> DriveToPointController.getTotalDistance() < .3);
     }
 
     public static Command moveToScoreL2Command() {
@@ -258,7 +258,7 @@ public class SuperstructureFactory {
 
     public static Command spicyMoveToScoreL2Command() {
         return new SequentialCommandGroup(ElevatorFactory.moveL2(), ArmFactory.moveToL2())
-                .onlyIf(() -> DriveToPointController.getTotalDistance() < .2);
+                .onlyIf(() -> DriveToPointController.getTotalDistance() < .3);
     }
 
     public static Command moveToScoreL1Command() {
