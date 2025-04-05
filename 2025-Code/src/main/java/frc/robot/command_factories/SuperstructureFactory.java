@@ -210,12 +210,14 @@ public class SuperstructureFactory {
         Command coralDefaultCom = coral.coralDefaultCommand();
         Command coralScoreCom = CoralFactory.runOuttake();
         Command armEvacCom = ArmFactory.evacuateScoreL4();
-        BooleanSupplier readyToScore = () -> (elevator.readyToScore());
-        BooleanSupplier comEnd = () -> !coral.debouncedHasCoral();
+        Command evacWait = new WaitCommand(0.2);
+        BooleanSupplier comEnd = () -> (!coral.debouncedHasCoral() && arm.isEvacuated());
+        BooleanSupplier readyToScore = () -> (elevator.readyToScore() && arm.readyToScore());
 
         return ((elevatorCom.alongWith(coralDefaultCom))
-                .until(readyToScore)).andThen(armScoreCom).until(() -> arm.readyToScore()).andThen(
-                        (armEvacCom.alongWith(coralScoreCom)).until(comEnd));
+                .until(() -> elevator.readyToScore())).andThen(armScoreCom).until(readyToScore)
+                .andThen((coralScoreCom.alongWith(evacWait.andThen(armEvacCom))).until(comEnd));
+
     }
 
     public static Command scoreNetAutomated(CommandXboxController controller) {
