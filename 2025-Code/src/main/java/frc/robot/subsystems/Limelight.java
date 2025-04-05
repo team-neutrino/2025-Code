@@ -26,7 +26,8 @@ public class Limelight extends SubsystemBase {
   private double m_lastFrameReef1 = -2;
   private double m_lastFrameReef2 = -2;
   private double m_lastFrameStation = -2;
-  private boolean m_has_reef_tag;
+  private boolean m_has_reef1_tag;
+  private boolean m_has_reef2_tag;
   private boolean m_has_station_tag;
   private boolean m_enabled = false;
   private long m_slow_count = 0;
@@ -77,7 +78,12 @@ public class Limelight extends SubsystemBase {
 
   // **get valid target from camera 1*/
   public boolean getTvReef1() {
-    return m_has_reef_tag;
+    return m_has_reef1_tag;
+  }
+
+  // **get valid target from camera 2*/
+  public boolean getTvReef2() {
+    return m_has_reef2_tag;
   }
 
   // **get valid target from camera 2*/
@@ -132,7 +138,7 @@ public class Limelight extends SubsystemBase {
     if (getTvReef1() && (deAlgaefying || Subsystem.coral.hasCoral())) {
       updateOdometryReef1();
       return;
-    } else if (LimelightHelpers.getTV(LL_REEF2) && (deAlgaefying || Subsystem.coral.hasCoral())) {
+    } else if (getTvReef2() && (deAlgaefying || Subsystem.coral.hasCoral())) {
       updateOdometryReef2();
       return;
     }
@@ -167,7 +173,8 @@ public class Limelight extends SubsystemBase {
   @Override
   public void periodic() {
     ManageLimelightTemperature();
-    m_has_reef_tag = LimelightHelpers.getTV(LL_REEF1);
+    m_has_reef1_tag = LimelightHelpers.getTV(LL_REEF1);
+    m_has_reef2_tag = LimelightHelpers.getTV(LL_REEF2);
     m_has_station_tag = LimelightHelpers.getTV(LL_STATION);
 
     if (m_swerve == null) {
