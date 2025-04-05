@@ -87,7 +87,7 @@ public final class Constants {
                 public static final double SCORE_ALGAE_BARGE = 54.9;
                 public static final double SCORE_ALGAE_PROCESSOR = 17.0;
                 public static final double L1 = 12.0;
-                public static final double L2 = 17.5;
+                public static final double L2 = 17.0;
                 public static final double L3 = 32.5;
                 public static final double L4 = 55.5;
                 public static final double ARM_WILL_NOT_HIT_BASE_HEIGHT = 20.0;
@@ -130,7 +130,7 @@ public final class Constants {
                 public static final double L4_POSITION = 143.0;
                 public static final double BARGE_POSITION = 180.0;
                 public static final double PROCESSOR_POSITION = 270.0;
-                public static final double EVACUATE_ANGLE = 15.0;
+                public static final double EVACUATE_ANGLE = 20.0;
                 public static final double REEF_DESCORE_POSITION = 55.0;
                 public static final double ALGAE_FRONT_SAFE_ANGLE = 90;
 
@@ -292,7 +292,7 @@ public final class Constants {
                 public static final double OFFSET_ARM_STATION = -.42;
                 public static final double SIDEWAYS_OFFSET_STATION = .3;
                 // right is more negative, left is more positive
-                public static final double OFFSET_TO_REEF = .52;
+                public static final double OFFSET_TO_REEF = .525;
                 public static final double OFFSET_TO_STATION = .56;
                 public static final double REEF_WIDTH = 0.33;
 

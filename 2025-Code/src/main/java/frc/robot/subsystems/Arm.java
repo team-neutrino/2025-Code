@@ -63,6 +63,10 @@ public class Arm extends SubsystemBase {
     return Math.abs(getAngle() - m_targetAngle) <= GAIN_THRESHOLD;
   }
 
+  public boolean isEvacuated() {
+    return Math.abs(getAngle() - (L4_POSITION + EVACUATE_ANGLE)) <= DRIVING_ANGLE_TOLERANCE;
+  }
+
   public boolean readyToScore() {
     return atTargetAngle() && !(m_targetAngle == DEFAULT_POSITION
         || m_targetAngle == DEFAULT_NO_GP

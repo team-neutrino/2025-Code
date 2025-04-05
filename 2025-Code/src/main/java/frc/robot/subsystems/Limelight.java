@@ -73,7 +73,6 @@ public class Limelight extends SubsystemBase {
     LimelightHelpers.SetIMUMode(LL_REEF2, 1);
     // use external IMU yaw submitted via setRobotOrientation() and configure the
     // LL4 internal IMU's fused yaw to match the submitted yaw value
-    LimelightHelpers.SetIMUMode(LL_STATION, 1);
   }
 
   // **get valid target from camera 1*/
