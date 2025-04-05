@@ -32,10 +32,13 @@ import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.KilogramSquareMeters;
 import static edu.wpi.first.units.Units.Pounds;
+import static frc.robot.Constants.GlobalConstants.redAlliance;
 import static frc.robot.Constants.SwerveConstants.*;
 
 import java.io.IOException;
 import org.json.simple.parser.ParseException;
+
+import frc.robot.Constants;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.GlobalConstants;
 import frc.robot.util.DriveToPointController;
@@ -225,6 +228,13 @@ public class Swerve extends CommandSwerveDrivetrain {
 
   public boolean getIsAlinged() {
     return isAligned;
+  }
+
+  public boolean isNearIntake() {
+    Pose2d target = getCurrentPose().nearest(
+        redAlliance.get() ? Constants.DriveToPoint.RED_PLAYER_STATION : Constants.DriveToPoint.BLUE_PLAYER_STATION);
+    return (Math.abs(target.getX() - getCurrentPose().getX()) < AT_INTAKE_TOLERANCE)
+        && (Math.abs(target.getY() - getCurrentPose().getY()) < AT_INTAKE_TOLERANCE);
   }
 
   /**
