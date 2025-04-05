@@ -54,8 +54,8 @@ public final class Constants {
                                 60,
                                 -1, -1, -1, -1, -1, -120, 180, 120, 60, 0, -60 };
                 public static final double APRILTAG_ALIGN_LIMIT = 1.5;
-                public static final double AUTO_ALIGN_P = 4;
-                public static final double AUTO_ALIGN_D = 0.02;
+                public static final double AUTO_ALIGN_P = 2;
+                public static final double AUTO_ALIGN_D = 0;
                 public static final double STALL_TORQUE = 7.09;
                 public static final double STALL_CURRENT = 366;
                 public static final double FREE_CURRENT_AMPS = 2;
@@ -66,11 +66,12 @@ public final class Constants {
                 public static final double DRIVE_GEAR_RATIO = 5.6;
                 public static final double REEF_OFFSET = Units.inchesToMeters(12.94) / 2;
                 public static final double isAlignedError = 0;
-                public static final double DRIVE_TO_POINT_P = 3;
+                public static final double DRIVE_TO_POINT_P = 4;
+                public static final double DRIVE_TO_POINT_D = .1;
                 public static final double DRIVE_TO_POINT_INTAKE_P = 4;
                 public static final double DRIVE_TO_POINT_SLOW_P = 1.5;
                 public static final double MAX_DRIVETOPOINT_SPEED = 4;
-                public static final double AT_POINT_TOLERANCE = 0.025;
+                public static final double AT_POINT_TOLERANCE = 0.02;
         }
 
         public static class ElevatorConstants {
