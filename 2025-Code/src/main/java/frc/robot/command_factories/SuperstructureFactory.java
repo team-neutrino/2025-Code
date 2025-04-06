@@ -16,18 +16,17 @@ import static frc.robot.util.Subsystem.*;
 import java.util.function.BooleanSupplier;
 
 public class SuperstructureFactory {
-
-
-    }
-                        : true;
-                                && (Subsystem.limelight.getTvReef1() || Subsystem.limelight.getTvReef2())
-                        ? Subsystem.swerve.isAtPoint()
-                .getCurrentCommand().getName().equals(Constants.DriveToPoint.DRIVE_TO_POINT_BASIC)
-        return Subsystem.swerve
-        }
-            return false;
-        if (Subsystem.swerve.getCurrentCommand() == null) {
     public static boolean antiDriveTeamCondition() {
+        if (Subsystem.swerve.getCurrentCommand() == null) {
+            return false;
+        }
+        return Subsystem.swerve
+                .getCurrentCommand().getName().equals(Constants.DriveToPoint.DRIVE_TO_POINT_BASIC)
+                        ? Subsystem.swerve.isAtPoint()
+                                && (Subsystem.limelight.getTvReef1() || Subsystem.limelight.getTvReef2())
+                        : true;
+    }
+
     /**
      * WILL ONLY WORK FOR BLUE ALLIANCE CURRENTLY
      * <p>
