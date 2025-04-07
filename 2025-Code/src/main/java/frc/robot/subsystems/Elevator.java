@@ -155,6 +155,10 @@ public class Elevator extends SubsystemBase {
     double safeTarget = targetHeight;
     double safeHeight = Subsystem.algae.hasAlgae() ? SAFE_HEIGHT_ALGAE : SAFE_HEIGHT_NO_ALGAE;
 
+    if (Subsystem.arm.getAngle() > 270) {
+      return CORAL_INTAKE;
+    }
+
     if ((Subsystem.arm.getAngle() < 90 || Subsystem.arm.getAngle() > 280 || Subsystem.arm.getTargetAngle() < 90
         || Subsystem.arm.getTargetAngle() > 280) && (getTargetHeight() < safeHeight)) {
       safeTarget = safeHeight;

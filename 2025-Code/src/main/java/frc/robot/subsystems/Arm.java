@@ -168,8 +168,8 @@ public class Arm extends SubsystemBase {
 
   private double safeAngle(double targetAngle) {
     double safeAngle = targetAngle;
-
-    if ((Subsystem.elevator.getHeight() > (ElevatorConstants.L2 - ElevatorConstants.HEIGHT_TOLERANCE))) {
+    if ((Subsystem.elevator.getHeight() > (ElevatorConstants.L2 - ElevatorConstants.HEIGHT_TOLERANCE))
+        && !Subsystem.swerve.isNearIntake()) {
       return safeAngle;
     }
 
@@ -186,7 +186,7 @@ public class Arm extends SubsystemBase {
     if (getTargetAngle() > 270) {
       safeAngle = SAFE_BACK_POS;
     }
-    if (Math.abs(getAngle() - CORAL_STATION_POSITION) <= DRIVING_ANGLE_TOLERANCE && Subsystem.swerve.isNearIntake()) {
+    if (Math.abs(getAngle() - CORAL_STATION_POSITION) <= 20 && Subsystem.swerve.isNearIntake()) {
       safeAngle = CORAL_STATION_POSITION;
     }
 
