@@ -296,9 +296,9 @@ public final class Constants {
                 // right is more negative, left is more positive
                 public static final double OFFSET_TO_REEF = .525;
                 public static final double OFFSET_TO_STATION = .56;
-                public static final double SAFE_OFFSET_TO_STATION = 1.5;
+                public static final double SIDEWAYS_SAFE_OFFSET_TO_STATION = 0.3;
                 public static final double REEF_WIDTH = 0.33;
-                public static final double safeOffsetToStation = 1.5;
+                public static final double SAFE_OFFSET_TO_STATION = 0.8;
 
                 public static final double OFFSET_ARM_ALGAE = 0.31;
                 public static final double OFFSET_REEF_ALGAE = 0.53;
@@ -314,7 +314,8 @@ public final class Constants {
                 public static final Pose2d RED_PLAYER_STATION_1_RIGHT = CalculatePSPoint(LAYOUT.getTagPose(1).get(),
                                 SIDEWAYS_OFFSET_STATION);
 
-                public static final Pose2d RED_PLAYER_STATION_1_CENTER_SAFE = CalculatePSSafePoint(LAYOUT.getTagPose(1).get(),
+                public static final Pose2d RED_PLAYER_STATION_1_CENTER_SAFE = CalculatePSSafePoint(
+                                LAYOUT.getTagPose(1).get(),
                                 0);
 
                 public static final Pose2d RED_PLAYER_STATION_2_CENTER = CalculatePSPoint(LAYOUT.getTagPose(2).get(),
@@ -324,7 +325,8 @@ public final class Constants {
                 public static final Pose2d RED_PLAYER_STATION_2_RIGHT = CalculatePSPoint(LAYOUT.getTagPose(2).get(),
                                 SIDEWAYS_OFFSET_STATION);
 
-                public static final Pose2d RED_PLAYER_STATION_2_CENTER_SAFE = CalculatePSSafePoint(LAYOUT.getTagPose(2).get(),
+                public static final Pose2d RED_PLAYER_STATION_2_CENTER_SAFE = CalculatePSSafePoint(
+                                LAYOUT.getTagPose(2).get(),
                                 0);
 
                 public static final Pose2d BLUE_PLAYER_STATION_13_CENTER = CalculatePSPoint(LAYOUT.getTagPose(13).get(),
@@ -334,7 +336,8 @@ public final class Constants {
                 public static final Pose2d BLUE_PLAYER_STATION_13_RIGHT = CalculatePSPoint(LAYOUT.getTagPose(13).get(),
                                 SIDEWAYS_OFFSET_STATION);
 
-                public static final Pose2d BLUE_PLAYER_STATION_13_CENTER_SAFE = CalculatePSSafePoint(LAYOUT.getTagPose(13).get(),
+                public static final Pose2d BLUE_PLAYER_STATION_13_CENTER_SAFE = CalculatePSSafePoint(
+                                LAYOUT.getTagPose(13).get(),
                                 0);
 
                 public static final Pose2d BLUE_PLAYER_STATION_12_CENTER = CalculatePSPoint(LAYOUT.getTagPose(12).get(),
@@ -344,7 +347,8 @@ public final class Constants {
                 public static final Pose2d BLUE_PLAYER_STATION_12_RIGHT = CalculatePSPoint(LAYOUT.getTagPose(12).get(),
                                 SIDEWAYS_OFFSET_STATION);
 
-                public static final Pose2d BLUE_PLAYER_STATION_12_CENTER_SAFE = CalculatePSSafePoint(LAYOUT.getTagPose(12).get(),
+                public static final Pose2d BLUE_PLAYER_STATION_12_CENTER_SAFE = CalculatePSSafePoint(
+                                LAYOUT.getTagPose(12).get(),
                                 0);
 
                 public static final Pose2d RED_REEF_6A = CalculatePoint(LAYOUT.getTagPose(6).get(), true);
@@ -395,14 +399,13 @@ public final class Constants {
                                 RED_PLAYER_STATION_1_CENTER, RED_PLAYER_STATION_1_RIGHT, RED_PLAYER_STATION_2_LEFT,
                                 RED_PLAYER_STATION_2_CENTER, RED_PLAYER_STATION_2_RIGHT);
 
-
                 public static final List<Pose2d> BLUE_PLAYER_STATION = List.of(BLUE_PLAYER_STATION_12_LEFT,
                                 BLUE_PLAYER_STATION_12_CENTER, BLUE_PLAYER_STATION_12_RIGHT,
                                 BLUE_PLAYER_STATION_13_LEFT, BLUE_PLAYER_STATION_13_CENTER,
                                 BLUE_PLAYER_STATION_13_RIGHT);
 
-                public static final List<Pose2d> PLAYER_STATION_SAFE = List.of(BLUE_PLAYER_STATION_12_CENTER_SAFE, 
-                                BLUE_PLAYER_STATION_13_CENTER_SAFE, RED_PLAYER_STATION_1_CENTER_SAFE, 
+                public static final List<Pose2d> PLAYER_STATION_SAFE = List.of(BLUE_PLAYER_STATION_12_CENTER_SAFE,
+                                BLUE_PLAYER_STATION_13_CENTER_SAFE, RED_PLAYER_STATION_1_CENTER_SAFE,
                                 RED_PLAYER_STATION_2_CENTER_SAFE);
 
                 public static final List<Pose2d> RED_REEF = List.of(RED_REEF_6A, RED_REEF_6B, RED_REEF_7A, RED_REEF_7B,

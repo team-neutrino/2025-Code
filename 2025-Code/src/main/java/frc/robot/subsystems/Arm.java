@@ -169,7 +169,7 @@ public class Arm extends SubsystemBase {
   private double safeAngle(double targetAngle) {
     double safeAngle = targetAngle;
 
-    if (Subsystem.elevator.getHeight() > (ElevatorConstants.L2 - ElevatorConstants.HEIGHT_TOLERANCE)) {
+    if ((Subsystem.elevator.getHeight() > (ElevatorConstants.L2 - ElevatorConstants.HEIGHT_TOLERANCE))) {
       return safeAngle;
     }
 
