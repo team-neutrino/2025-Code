@@ -309,6 +309,7 @@ public class Swerve extends CommandSwerveDrivetrain {
   @Override
   public void periodic() {
     super.periodic();
+    System.out.println(isNearIntake());
   }
 
   /**
