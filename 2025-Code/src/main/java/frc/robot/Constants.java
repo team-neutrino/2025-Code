@@ -85,7 +85,7 @@ public final class Constants {
                 public static final double STAGE_ONE_UP = 26.0;
                 public static final double CORAL_INTAKE = 33.5;
                 public static final double REMOVE_ALGAE_L2 = 30.0;
-                public static final double REMOVE_ALGAE_L3 = 50.0;
+                public static final double REMOVE_ALGAE_L3 = 46.0;
                 public static final double SCORE_ALGAE_BARGE = 54.9;
                 public static final double SCORE_ALGAE_PROCESSOR = 17.0;
                 public static final double L1 = 12.0;
@@ -179,9 +179,9 @@ public final class Constants {
         public static class AlgaeConstants {
                 public static final int MOTOR_ID = 22;
                 public static final int CURRENT_LIMIT = 20;
-                public static final double INTAKE_VOLTAGE = 1.0;
-                public static final double OUTTAKE_VOLTAGE = -1.0;
-                public static final double HOLD_PIECE_VOLTAGE = 0.3;
+                public static final double INTAKE_VOLTAGE = -1.0;
+                public static final double OUTTAKE_VOLTAGE = 1.0;
+                public static final double HOLD_PIECE_VOLTAGE = -0.3;
 
                 public static final int COLOR_SENSOR = 28;
                 public static final double PROXIMITY = 0.15;
