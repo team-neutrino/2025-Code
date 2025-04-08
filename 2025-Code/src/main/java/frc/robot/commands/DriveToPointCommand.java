@@ -18,6 +18,7 @@ import static frc.robot.Constants.DriveToPoint.*;
 import static frc.robot.Constants.SwerveConstants.*;
 import static frc.robot.Constants.GlobalConstants.*;
 import static frc.robot.util.Subsystem.swerve;
+import static frc.robot.util.Subsystem.arm;
 
 import java.util.List;
 
@@ -51,12 +52,14 @@ public class DriveToPointCommand extends Command {
 
   @Override
   public void execute() {
-    if (m_mode != Mode.ALGAE && m_mode != Mode.NET) {
+    boolean isSafePoint = PLAYER_STATION_SAFE.contains(m_pointControl.getTarget());
+    
+    if (!isSafePoint && (m_mode != Mode.ALGAE && m_mode != Mode.NET)) {
       checkBumpers();
     }
     drive();
     isAtPoint();
-    if (swerve.isAtPoint() && (Subsystem.coral.debouncedHasCoral() != m_hadGamePiece)) {
+    if ((swerve.isAtPoint() && (Subsystem.coral.debouncedHasCoral() != m_hadGamePiece)) || (arm.isAtIntake() && isSafePoint)) {
       initialize(); // reinitialize if the state of our game piece changes
     }
   }
@@ -103,9 +106,16 @@ public class DriveToPointCommand extends Command {
       }
     }
 
+    if (arm.isAtIntake()) {
     m_pointControl
-        .setTargetNearest(redAlliance.get() ? List.of(RED_PLAYER_STATION_1_CENTER, RED_PLAYER_STATION_2_CENTER)
-            : List.of(BLUE_PLAYER_STATION_12_CENTER, BLUE_PLAYER_STATION_13_CENTER));
+        .setTargetNearest(redAlliance.get() ? RED_PLAYER_STATION
+            : BLUE_PLAYER_STATION);
+            return;
+    }
+
+    m_pointControl
+        .setTargetNearest(PLAYER_STATION_SAFE);
+
   }
 
   /**
