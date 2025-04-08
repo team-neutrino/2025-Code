@@ -53,13 +53,14 @@ public class DriveToPointCommand extends Command {
   @Override
   public void execute() {
     boolean isSafePoint = PLAYER_STATION_SAFE.contains(m_pointControl.getTarget());
-    
+
     if (!isSafePoint && (m_mode != Mode.ALGAE && m_mode != Mode.NET)) {
       checkBumpers();
     }
     drive();
     isAtPoint();
-    if ((swerve.isAtPoint() && (Subsystem.coral.debouncedHasCoral() != m_hadGamePiece)) || (arm.isAtIntake() && isSafePoint)) {
+    if ((swerve.isAtPoint() && (Subsystem.coral.debouncedHasCoral() != m_hadGamePiece))
+        || (arm.isAtIntake() && isSafePoint)) {
       initialize(); // reinitialize if the state of our game piece changes
     }
   }
@@ -107,10 +108,10 @@ public class DriveToPointCommand extends Command {
     }
 
     if (arm.isAtIntake()) {
-    m_pointControl
-        .setTargetNearest(redAlliance.get() ? RED_PLAYER_STATION
-            : BLUE_PLAYER_STATION);
-            return;
+      m_pointControl
+          .setTargetNearest(redAlliance.get() ? List.of(RED_PLAYER_STATION_1_CENTER, RED_PLAYER_STATION_2_CENTER)
+              : List.of(BLUE_PLAYER_STATION_12_CENTER, BLUE_PLAYER_STATION_13_CENTER));
+      return;
     }
 
     m_pointControl
