@@ -86,7 +86,7 @@ public class DriveToPointCommand extends Command {
     }
 
     if (m_mode == Mode.NET) {
-      m_pointControl.setTarget(redAlliance.get() ? RED_BARGE_5 : BLUE_BARGE_14);
+      m_pointControl.setTarget(redAlliance.get() ? RED_BARGE_5_CENTER : BLUE_BARGE_14_CENTER);
       return;
     }
 
@@ -137,6 +137,12 @@ public class DriveToPointCommand extends Command {
     if (BLUE_REEF.contains(target)) {
       m_localList = BLUE_REEF;
       return;
+    }
+    if (RED_BARGE.contains(target)) {
+      m_localList = RED_BARGE;
+    }
+    if (BLUE_BARGE.contains(target)) {
+      m_localList = BLUE_BARGE;
     }
     // at this point it's for sure a player station point
     if (redAlliance.get()) {

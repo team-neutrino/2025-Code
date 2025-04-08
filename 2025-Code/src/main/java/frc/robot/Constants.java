@@ -303,6 +303,7 @@ public final class Constants {
                 public static final double OFFSET_REEF_ALGAE = 0.53;
                 public static final double DYNAMIC_INTAKE_THRESHOLD = .5;
                 public static final double OFFSET_TO_BARGE = -0.5;
+                public static final double LEFT_RIGHT_OFFSET_TO_BARGE = 0.4;
                 // negative is more right
 
                 // CURRENTLY TESTING WITH THIS LIBRARY THING
@@ -376,10 +377,27 @@ public final class Constants {
                 public static final Pose2d BLUE_REEF_22A = CalculatePoint(LAYOUT.getTagPose(22).get(), false);
                 public static final Pose2d BLUE_REEF_22B = CalculatePoint(LAYOUT.getTagPose(22).get(), true);
 
-                public static final Pose2d BLUE_BARGE_4 = CalculateBargePoint(LAYOUT.getTagPose(4).get());
-                public static final Pose2d BLUE_BARGE_14 = CalculateBargePoint(LAYOUT.getTagPose(14).get());
-                public static final Pose2d RED_BARGE_5 = CalculateBargePoint(LAYOUT.getTagPose(5).get());
-                public static final Pose2d RED_BARGE_15 = CalculateBargePoint(LAYOUT.getTagPose(15).get());
+                public static final Pose2d BLUE_BARGE_14_FAR_LEFT = CalculateBargePoint(LAYOUT.getTagPose(14).get(),
+                                -2 * LEFT_RIGHT_OFFSET_TO_BARGE);
+                public static final Pose2d BLUE_BARGE_14_LEFT = CalculateBargePoint(LAYOUT.getTagPose(14).get(),
+                                -LEFT_RIGHT_OFFSET_TO_BARGE);
+                public static final Pose2d BLUE_BARGE_14_CENTER = CalculateBargePoint(LAYOUT.getTagPose(14).get(), 0);
+                public static final Pose2d BLUE_BARGE_14_RIGHT = CalculateBargePoint(LAYOUT.getTagPose(14).get(),
+                                LEFT_RIGHT_OFFSET_TO_BARGE);
+                public static final Pose2d BLUE_BARGE_14_FAR_RIGHT = CalculateBargePoint(LAYOUT.getTagPose(14).get(),
+                                2 * LEFT_RIGHT_OFFSET_TO_BARGE);
+
+                public static final Pose2d RED_BARGE_5_FAR_LEFT = CalculateBargePoint(LAYOUT.getTagPose(5).get(),
+                                -2 * LEFT_RIGHT_OFFSET_TO_BARGE);
+                public static final Pose2d RED_BARGE_5_LEFT = CalculateBargePoint(LAYOUT.getTagPose(5).get(),
+                                -LEFT_RIGHT_OFFSET_TO_BARGE);
+                public static final Pose2d RED_BARGE_5_CENTER = CalculateBargePoint(LAYOUT.getTagPose(5).get(), 0);
+                public static final Pose2d RED_BARGE_5_RIGHT = CalculateBargePoint(LAYOUT.getTagPose(5).get(),
+                                LEFT_RIGHT_OFFSET_TO_BARGE);
+                public static final Pose2d RED_BARGE_5_FAR_RIGHT = CalculateBargePoint(LAYOUT.getTagPose(5).get(),
+                                2 * LEFT_RIGHT_OFFSET_TO_BARGE);
+                public static final List<Pose2d> BLUE_BARGE = List.of();
+                public static final List<Pose2d> RED_BARGE = List.of();
 
                 // Don't reorder this list
 
