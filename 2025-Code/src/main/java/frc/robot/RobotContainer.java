@@ -131,6 +131,10 @@ public class RobotContainer {
         new DriveToPointCommand(m_driverController, Mode.RIGHT).until(() -> swerve.isAtPointStable()));
     NamedCommands.registerCommand("DriveToPointForever",
         new DriveToPointCommand(m_driverController, Mode.NEAREST));
+    NamedCommands.registerCommand("DriveToPointAlgae",
+        new DriveToPointCommand(m_driverController, Mode.ALGAE).until(() -> swerve.isAtPointStable()));
+    NamedCommands.registerCommand("DriveToPointNet",
+        new DriveToPointCommand(m_driverController, Mode.NET));
     NamedCommands.registerCommand("SwerveDefault", swerve.getDefaultCommand());
     NamedCommands.registerCommand("IntakeOnly", CoralFactory.runIntake());
   }
