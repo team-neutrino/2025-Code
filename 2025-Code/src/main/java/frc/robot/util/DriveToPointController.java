@@ -7,6 +7,8 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructPublisher;
 
+import static frc.robot.Constants.SwerveConstants.*;
+
 import java.util.List;
 
 public class DriveToPointController {
