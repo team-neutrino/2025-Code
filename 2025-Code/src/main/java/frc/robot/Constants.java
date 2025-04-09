@@ -300,7 +300,7 @@ public final class Constants {
                 public static final double OFFSET_ARM_ALGAE = 0.31;
                 public static final double OFFSET_REEF_ALGAE = 0.53;
                 public static final double DYNAMIC_INTAKE_THRESHOLD = .5;
-                public static final double OFFSET_TO_BARGE = -0.5;
+                public static final double OFFSET_TO_BARGE = -0.4;
                 public static final double LEFT_RIGHT_OFFSET_TO_BARGE = 0.4;
                 // negative is more right
 
@@ -394,8 +394,10 @@ public final class Constants {
                                 LEFT_RIGHT_OFFSET_TO_BARGE);
                 public static final Pose2d RED_BARGE_5_FAR_RIGHT = CalculateBargePoint(LAYOUT.getTagPose(5).get(),
                                 2 * LEFT_RIGHT_OFFSET_TO_BARGE);
-                public static final List<Pose2d> BLUE_BARGE = List.of();
-                public static final List<Pose2d> RED_BARGE = List.of();
+                public static final List<Pose2d> BLUE_BARGE = List.of(BLUE_BARGE_14_FAR_LEFT, BLUE_BARGE_14_LEFT,
+                                BLUE_BARGE_14_CENTER, BLUE_BARGE_14_RIGHT, BLUE_BARGE_14_FAR_RIGHT);
+                public static final List<Pose2d> RED_BARGE = List.of(RED_BARGE_5_FAR_LEFT, RED_BARGE_5_LEFT,
+                                RED_BARGE_5_CENTER, RED_BARGE_5_RIGHT, RED_BARGE_5_FAR_RIGHT);
 
                 // Don't reorder this list
 
