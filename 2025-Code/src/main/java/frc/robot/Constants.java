@@ -88,7 +88,7 @@ public final class Constants {
                 public static final double REMOVE_ALGAE_L3 = 46.0;
                 public static final double SCORE_ALGAE_BARGE = 54.9;
                 public static final double SCORE_ALGAE_PROCESSOR = 17.0;
-                public static final double L1 = 12.0;
+                public static final double L1 = 20.0;
                 public static final double L2 = 17.0;
                 public static final double L3 = 32.5;
                 public static final double L4 = 55.5;
@@ -126,7 +126,7 @@ public final class Constants {
                 public static final double GROUND_ALGAE_POSITION = 95;
                 public static final double CORAL_STATION_POSITION = 323;
                 public static final double L1_UNDERHAND = 335.0;
-                public static final double L1_POSITION = 131.0;
+                public static final double L1_POSITION = 85.0;
                 public static final double L2_POSITION = 142.0;
                 public static final double L3_POSITION = 142.0;
                 public static final double L4_POSITION = 143.0;
