@@ -322,10 +322,6 @@ public class Swerve extends CommandSwerveDrivetrain {
         .withForwardPerspective(ForwardPerspectiveValue.OperatorPerspective);
     public static final SwerveRequest.FieldCentric driveWithoutDeadband = new SwerveRequest.FieldCentric()
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
-    public static final SwerveRequest.FieldCentricFacingAngle driveAssist = new FieldCentricFacingAngle()
-        .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
-        .withDeadband(MAX_SPEED * 0.05)
-        .withRotationalDeadband(MAX_ROTATION_SPEED * .06);
     public static final SwerveRequest.RobotCentric autonDrive = new SwerveRequest.RobotCentric()
         .withDriveRequestType(DriveRequestType.Velocity);
     public static final SwerveRequest.FieldCentricFacingAngle driveWithVelocity = new SwerveRequest.FieldCentricFacingAngle()
@@ -334,7 +330,6 @@ public class Swerve extends CommandSwerveDrivetrain {
   }
 
   public void configureRequestPID() {
-    SwerveRequestStash.driveAssist.HeadingController.setPID(AUTO_ALIGN_P, 0, AUTO_ALIGN_D);
     SwerveRequestStash.driveWithVelocity.HeadingController.setPID(DRIVE_ASSIST_KP, 0, AUTO_ALIGN_D);
   }
 }
