@@ -196,9 +196,8 @@ public final class Constants {
 
                 public static final int CLIMB_CURRENT_LIMIT = 40;
 
-                public static final int START_CLIMB_POSITION = 0;
+                public static final int LOWER_CLIMB_POSITION = 0;
                 public static final int RAISE_CLIMB_POSITION = 40;
-                public static final int LOWER_CLIMB_POSITION = -40;
 
                 public static final int CLIMB_POSITION_TOLERANCE = 3;
                 public static final double RATCHET_POSITION_TOLERANCE = 0.1;
@@ -210,8 +209,8 @@ public final class Constants {
                 public static final double CLIMB_kI = 0;
                 public static final double CLIMB_kD = 0;
 
-                public static final double COMMAND_WAIT_TIME = 2;
-                public static final double LOWER_CLIMB_TIMEOUT = 2.5;
+                public static final double PREPARE_CLIMB_WAIT_TIME = 2;
+                public static final double LOWER_CLIMB_TIMEOUT = 1.5;
                 public static final double LOCK_RATCHET_WAIT_TIME = 0.5;
         }
 
