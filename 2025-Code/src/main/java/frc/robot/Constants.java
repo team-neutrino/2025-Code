@@ -209,7 +209,7 @@ public final class Constants {
                 public static final double CLIMB_kI = 0;
                 public static final double CLIMB_kD = 0;
 
-                public static final double PREPARE_CLIMB_WAIT_TIME = 2;
+                public static final double PREPARE_CLIMB_WAIT_TIME = 1;
                 public static final double LOWER_CLIMB_TIMEOUT = 1.5;
                 public static final double LOCK_RATCHET_WAIT_TIME = 0.5;
         }
