@@ -7,10 +7,6 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructPublisher;
 
-import static edu.wpi.first.math.MathUtil.*;
-import static frc.robot.Constants.SwerveConstants.*;
-import static frc.robot.util.Subsystem.swerve;
-
 import java.util.List;
 
 public class DriveToPointController {
@@ -32,19 +28,17 @@ public class DriveToPointController {
     }
 
     public double getXVelocity() {
-        double driveToPointP = DRIVE_TO_POINT_P;
+        if (Subsystem.swerve.isAtPoint()) {
+            return 0;
+        }
         return m_controlskerX.calculate(Subsystem.swerve.getCurrentPose().getX() - m_target.getX());
-        // return applyDeadband((m_target.getX() -
-        // Subsystem.swerve.getCurrentPose().getX()), 0.00000001, 70.0)
-        // * driveToPointP;
     }
 
     public double getYVelocity() {
-        double driveToPointP = DRIVE_TO_POINT_P;
+        if (Subsystem.swerve.isAtPoint()) {
+            return 0;
+        }
         return m_controlskerY.calculate(Subsystem.swerve.getCurrentPose().getY() - m_target.getY());
-        // return applyDeadband((m_target.getY() -
-        // Subsystem.swerve.getCurrentPose().getY()), 0.00000001, 70.0)
-        // * driveToPointP;
     }
 
     public double getXDistance() {
