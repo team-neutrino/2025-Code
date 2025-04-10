@@ -164,6 +164,9 @@ public class DriveToPointCommand extends Command {
     if (Math.abs(m_pointControl.getStraightLineDist()) < AT_POINT_TOLERANCE) {
       swerve.setDrivingToPoint(false);
       swerve.setAtPoint(true);
+    } else {
+      swerve.setDrivingToPoint(true);
+      swerve.setAtPoint(false);
     }
   }
 
