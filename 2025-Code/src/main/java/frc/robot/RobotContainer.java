@@ -45,7 +45,7 @@ public class RobotContainer {
     configureDefaultCommands();
     configureNamedCommands();
     DataLogManager.start();
-    m_autonPath = new PathPlannerAuto("L4 CORAL TOP");
+    m_autonPath = new PathPlannerAuto("1 CORAL + 1 ALGAE");
 
   }
 
@@ -118,10 +118,14 @@ public class RobotContainer {
     NamedCommands.registerCommand("ScoreL1Teleop", SuperstructureFactory.scoreL1(m_buttonsController));
     NamedCommands.registerCommand("Intake", SuperstructureFactory.intakeCoral());
     NamedCommands.registerCommand("Outtake", SuperstructureFactory.outtake());
-    NamedCommands.registerCommand("MoveToDescoreAlgaeL2", SuperstructureFactory.moveToDescoreAlgaeL2());
-    NamedCommands.registerCommand("MoveToDescoreAlgaeL3", SuperstructureFactory.moveToDescoreAlgaeL3());
-    NamedCommands.registerCommand("DescoreAlgaeL3", SuperstructureFactory.descoreAlgaeL3());
-    NamedCommands.registerCommand("DescoreAlgaeL2", SuperstructureFactory.descoreAlgaeL2());
+    NamedCommands.registerCommand("MoveToDescoreAlgaeL2",
+        SuperstructureFactory.moveToDescoreAlgaeL2());
+    NamedCommands.registerCommand("MoveToDescoreAlgaeL3",
+        SuperstructureFactory.moveToDescoreAlgaeL3());
+    NamedCommands.registerCommand("DescoreAlgaeL3",
+        SuperstructureFactory.descoreAlgaeL3().until(() -> Subsystem.algae.debouncedHasAlgae()));
+    NamedCommands.registerCommand("DescoreAlgaeL2",
+        SuperstructureFactory.descoreAlgaeL2().until(() -> Subsystem.algae.debouncedHasAlgae()));
     NamedCommands.registerCommand("ScoreProcessor", SuperstructureFactory.scoreProcessorCommand(m_buttonsController));
     NamedCommands.registerCommand("ScoreNet", SuperstructureFactory.scoreNetAutomated(m_buttonsController));
     NamedCommands.registerCommand("KeepCoralIn", CoralFactory.runSlowIntake());
@@ -134,7 +138,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("DriveToPointForever",
         new DriveToPointCommand(m_driverController, Mode.NEAREST));
     NamedCommands.registerCommand("DriveToPointAlgae",
-        new DriveToPointCommand(m_driverController, Mode.ALGAE).until(() -> swerve.isAtPointStable()));
+        new DriveToPointCommand(m_driverController, Mode.ALGAE));
     NamedCommands.registerCommand("SwerveDefault", swerve.getDefaultCommand());
     NamedCommands.registerCommand("IntakeOnly", CoralFactory.runIntake());
   }

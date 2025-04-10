@@ -64,6 +64,6 @@ public class DriveToPointController {
     }
 
     public void setTargetNearest(List<Pose2d> list) {
-        m_target = getClosestPoint(list);
+        setTarget(getClosestPoint(list));
     }
 }
