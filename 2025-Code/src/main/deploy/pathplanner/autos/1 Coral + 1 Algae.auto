@@ -79,9 +79,28 @@
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "deadline",
                 "data": {
-                  "pathName": "Algae Backup"
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Algae Backup"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ElevatorDefault"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ArmDefault"
+                      }
+                    }
+                  ]
                 }
               },
               {

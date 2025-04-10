@@ -140,7 +140,7 @@ public class Limelight extends SubsystemBase {
     Command com = Subsystem.swerve.getCurrentCommand();
     boolean deAlgaefying = false;
     if (com != null) {
-      deAlgaefying = com.getName().equals(ALGAE_ALIGN_COMMAND);
+      deAlgaefying = com.getName().equals(ALGAE_ALIGN_COMMAND) || com.getName().equals("DriveToPointAlgae");
     }
 
     // if aligning to an algae position, force odometry updates from reef.
