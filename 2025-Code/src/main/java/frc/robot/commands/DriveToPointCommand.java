@@ -189,15 +189,16 @@ public class DriveToPointCommand extends Command {
   }
 
   private Rotation2d magicAngle() {
-    System.out.println(Subsystem.swerve.getYawDegrees() + ", "
-        + MathUtil.inputModulus(m_pointControl.getRotation().getDegrees(), -180, 180) + ", " + swerve.isAtPoint());
-    if (!m_hasUpdated && Subsystem.limelight.getTvReef1() && atHeading() && swerve.isAtPoint()
-        && Math.abs(Subsystem.limelight.getTargetYawFromReef1()) > 1.5) {
+    System.out.println(swerve.isAtPoint());
+    boolean rightSide = RED_REEF_RIGHT.contains(m_pointControl.getTarget())
+        || BLUE_REEF_RIGHT.contains(m_pointControl.getTarget());
+    if (!m_hasUpdated && (rightSide ? Subsystem.limelight.getTvReef1() : Subsystem.limelight.getTvReef2())
+        && atHeading() && swerve.isAtPoint() && Math.abs(rightSide ? Subsystem.limelight.getTargetYawFromReef1()
+            : Subsystem.limelight.getTargetYawFromReef2()) > 1.5) {
       m_hasUpdated = true;
-      System.out.println("RUNNING");
       swerve.setAtPoint(false);
       Subsystem.swerve.getPigeon2().setYaw(
-          Subsystem.swerve.getPigeon2().getYaw().getValueAsDouble() + Subsystem.limelight.getTargetYawFromReef1());
+          Subsystem.swerve.getPigeon2().getYaw().getValueAsDouble() + Subsystem.limelight.getTargetYawFromReef2());
     }
     return m_pointControl.getRotation();
   }
