@@ -45,7 +45,7 @@ public class RobotContainer {
     configureDefaultCommands();
     configureNamedCommands();
     DataLogManager.start();
-    m_autonPath = new PathPlannerAuto("3 CORAL PROCESSOR");
+    m_autonPath = new PathPlannerAuto("L4 CORAL TOP");
 
   }
 
@@ -118,10 +118,12 @@ public class RobotContainer {
     NamedCommands.registerCommand("ScoreL1Teleop", SuperstructureFactory.scoreL1(m_buttonsController));
     NamedCommands.registerCommand("Intake", SuperstructureFactory.intakeCoral());
     NamedCommands.registerCommand("Outtake", SuperstructureFactory.outtake());
+    NamedCommands.registerCommand("MoveToDescoreAlgaeL2", SuperstructureFactory.moveToDescoreAlgaeL2());
+    NamedCommands.registerCommand("MoveToDescoreAlgaeL3", SuperstructureFactory.moveToDescoreAlgaeL3());
     NamedCommands.registerCommand("DescoreAlgaeL3", SuperstructureFactory.descoreAlgaeL3());
     NamedCommands.registerCommand("DescoreAlgaeL2", SuperstructureFactory.descoreAlgaeL2());
     NamedCommands.registerCommand("ScoreProcessor", SuperstructureFactory.scoreProcessorCommand(m_buttonsController));
-    NamedCommands.registerCommand("ScoreBarge", SuperstructureFactory.scoreBargeCommand(m_buttonsController));
+    NamedCommands.registerCommand("ScoreNet", SuperstructureFactory.scoreNetAutomated(m_buttonsController));
     NamedCommands.registerCommand("KeepCoralIn", CoralFactory.runSlowIntake());
     NamedCommands.registerCommand("DriveToPoint",
         new DriveToPointCommand(m_driverController, Mode.NEAREST).until(() -> swerve.isAtPointStable()));
@@ -133,8 +135,6 @@ public class RobotContainer {
         new DriveToPointCommand(m_driverController, Mode.NEAREST));
     NamedCommands.registerCommand("DriveToPointAlgae",
         new DriveToPointCommand(m_driverController, Mode.ALGAE).until(() -> swerve.isAtPointStable()));
-    NamedCommands.registerCommand("DriveToPointNet",
-        new DriveToPointCommand(m_driverController, Mode.NET));
     NamedCommands.registerCommand("SwerveDefault", swerve.getDefaultCommand());
     NamedCommands.registerCommand("IntakeOnly", CoralFactory.runIntake());
   }

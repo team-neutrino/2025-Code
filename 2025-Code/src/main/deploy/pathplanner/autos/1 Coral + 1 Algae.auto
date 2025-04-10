@@ -75,7 +75,7 @@
           }
         },
         {
-          "type": "deadline",
+          "type": "sequential",
           "data": {
             "commands": [
               {
@@ -83,63 +83,63 @@
                 "data": {
                   "pathName": "Algae Backup"
                 }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
+              },
               {
-                "type": "path",
+                "type": "deadline",
                 "data": {
-                  "pathName": "Mid Descore Algae"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "MoveToDescoreAlgaeL2"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "SwerveDefault"
+                      }
+                    }
+                  ]
                 }
               },
               {
-                "type": "named",
+                "type": "deadline",
                 "data": {
-                  "name": "DriveToPointAlgae"
+                  "commands": [
+                    {
+                      "type": "sequential",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "DriveToPointAlgae"
+                            }
+                          },
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "Algae Backup"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "DescoreAlgaeL2"
+                      }
+                    }
+                  ]
                 }
               }
             ]
           }
         },
         {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "DescoreAlgaeL2"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "DriveToPointAlgae"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Algae Backup"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
+          "type": "sequential",
           "data": {
             "commands": [
               {
@@ -151,33 +151,14 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPointNet"
+                  "name": "ScoreNet"
                 }
               }
             ]
           }
         },
         {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "ScoreBarge"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "DriveToPointNet"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
+          "type": "sequential",
           "data": {
             "commands": [
               {
@@ -187,28 +168,47 @@
                 }
               },
               {
-                "type": "named",
+                "type": "deadline",
                 "data": {
-                  "name": "DriveToPointAlgae"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "MoveToDescoreAlgaeL3"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "SwerveDefault"
+                      }
+                    }
+                  ]
                 }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
+              },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "DescoreAlgaeL3"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "DriveToPointAlgae"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Algae Backup"
+                      }
+                    }
+                  ]
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPointAlgae"
+                  "name": "DescoreAlgaeL3"
                 }
               }
             ]

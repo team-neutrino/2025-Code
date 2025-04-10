@@ -266,4 +266,14 @@ public class SuperstructureFactory {
     public static Command moveToIntake() {
         return new ParallelCommandGroup(ElevatorFactory.moveToIntake(), ArmFactory.armToIntake());
     }
+
+    public static Command moveToDescoreAlgaeL2() {
+        return new ParallelCommandGroup(ElevatorFactory.moveToRemoveAlgaeL2(), ArmFactory.armToDescoreL2())
+                .until(() -> arm.readyToScore());
+    }
+
+    public static Command moveToDescoreAlgaeL3() {
+        return new ParallelCommandGroup(ElevatorFactory.moveToRemoveAlgaeL3(), ArmFactory.armToDescoreL3())
+                .until(() -> arm.readyToScore());
+    }
 }
