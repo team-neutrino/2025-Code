@@ -127,6 +127,11 @@ public class Limelight extends SubsystemBase {
     m_lastFrameStation = frame;
   }
 
+  public double getTargetYawFromMainReef() {
+    targetPose2 = LimelightHelpers.getTargetPose_RobotSpace(LL_REEF1);
+    return targetPose2[4];
+  }
+
   private void updateOdometry() {
     Command com = Subsystem.swerve.getCurrentCommand();
     boolean deAlgaefying = false;

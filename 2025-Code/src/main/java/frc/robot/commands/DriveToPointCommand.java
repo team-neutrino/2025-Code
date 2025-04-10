@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.DriveToPoint.Mode;
@@ -185,6 +186,24 @@ public class DriveToPointCommand extends Command {
     m_pointControl.setTarget(m_localList.get(id));
   }
 
+  private Rotation2d magicAngle() {
+    System.out.println("Raw ll value" + Subsystem.limelight.getTargetYawFromMainReef());
+    if (Subsystem.limelight.getTvReef1() && atHeading() && swerve.isAtPoint()
+        && Math.abs(Subsystem.limelight.getTargetYawFromMainReef()) > 1.5) {
+      swerve.setAtPoint(false);
+      Subsystem.swerve.getPigeon2().setYaw(
+          Subsystem.swerve.getPigeon2().getYaw().getValueAsDouble() + Subsystem.limelight.getTargetYawFromMainReef());
+    }
+    return m_pointControl.getRotation();
+  }
+
+  private boolean atHeading() {
+    System.out.println(Subsystem.swerve.getYawDegrees() + ", "
+        + MathUtil.inputModulus(m_pointControl.getRotation().getDegrees(), -180, 180));
+    return Math.abs(Subsystem.swerve.getYawDegrees()
+        - MathUtil.inputModulus(m_pointControl.getRotation().getDegrees(), -180, 180)) < 1;
+  }
+
   private void drive() {
     double velx = m_pointControl.getXVelocity(), vely = m_pointControl.getYVelocity();
     double xsign = Math.signum(velx), ysign = Math.signum(vely);
@@ -199,7 +218,7 @@ public class DriveToPointCommand extends Command {
     SwerveRequestStash.driveWithVelocity
         .withVelocityX(velx)
         .withVelocityY(vely)
-        .withTargetDirection(m_pointControl.getRotation());
+        .withTargetDirection(magicAngle());
     swerve.setControl(SwerveRequestStash.driveWithVelocity);
   }
 }
