@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
+import frc.robot.commands.DriveToPointCommand;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.Constants.DriveToPoint.ALGAE_ALIGN_COMMAND;
@@ -28,6 +29,7 @@ public class Limelight extends SubsystemBase {
   private boolean m_has_station_tag;
   private boolean m_enabled = false;
   private long m_slow_count = 0;
+  private boolean m_deAlgaefying = false;
 
   /** Creates a new ExampleSubsystem. */
   public Limelight() {
@@ -124,6 +126,9 @@ public class Limelight extends SubsystemBase {
     m_lastFrameStation = frame;
   }
 
+  public void setDealgaefying(boolean dealgaefying) {
+    m_deAlgaefying = dealgaefying;
+  }
   public double getTargetYawFromReef1() {
     return LimelightHelpers.getTargetPose_RobotSpace(LL_REEF1)[4];
   }
@@ -143,11 +148,12 @@ public class Limelight extends SubsystemBase {
       deAlgaefying = com.getName().equals(ALGAE_ALIGN_COMMAND) || com.getName().equals("DriveToPointAlgae");
     }
 
+  private void updateOdometry() {
     // if aligning to an algae position, force odometry updates from reef.
-    if (getTvReef1() && (deAlgaefying || Subsystem.coral.hasCoral())) {
+    if (getTvReef1() && (m_deAlgaefying || Subsystem.coral.hasCoral())) {
       updateOdometryReef1();
       return;
-    } else if (getTvReef2() && (deAlgaefying || Subsystem.coral.hasCoral())) {
+    } else if (getTvReef2() && (m_deAlgaefying || Subsystem.coral.hasCoral())) {
       updateOdometryReef2();
       return;
     }

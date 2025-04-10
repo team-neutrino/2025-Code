@@ -23,6 +23,10 @@ public class ElevatorFactory {
         return elevator.moveElevatorCommand(L4);
     }
 
+    public static Command zeroElevator() {
+        return elevator.moveElevatorCommand(0);
+    }
+
     public static Command moveToIntake() {
         return elevator.moveElevatorCommand(CORAL_INTAKE);
     }

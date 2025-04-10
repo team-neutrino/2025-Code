@@ -140,7 +140,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("DriveToPointAlgae",
         new DriveToPointCommand(m_driverController, Mode.ALGAE));
     NamedCommands.registerCommand("SwerveDefault", swerve.getDefaultCommand());
-    NamedCommands.registerCommand("ElevatorDefault", elevator.elevatorDefaultCommand());
+    NamedCommands.registerCommand("ElevatorDefault", ElevatorFactory.zeroElevator());
     NamedCommands.registerCommand("ArmDefault", arm.armDefaultCommand());
     NamedCommands.registerCommand("IntakeOnly", CoralFactory.runIntake());
   }
