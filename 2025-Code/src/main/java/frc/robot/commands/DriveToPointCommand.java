@@ -24,6 +24,7 @@ import static frc.robot.util.Subsystem.arm;
 import java.util.List;
 
 public class DriveToPointCommand extends Command {
+  private boolean m_hasUpdated = false;
   private DriveToPointController m_pointControl = new DriveToPointController();
   private CommandXboxController m_xboxController;
   private List<Pose2d> m_localList;
@@ -39,6 +40,7 @@ public class DriveToPointCommand extends Command {
 
   @Override
   public void initialize() {
+    m_hasUpdated = false;
     swerve.setDrivingToPoint(true);
     swerve.setAtPoint(false);
 
@@ -187,19 +189,20 @@ public class DriveToPointCommand extends Command {
   }
 
   private Rotation2d magicAngle() {
-    System.out.println("Raw ll value" + Subsystem.limelight.getTargetYawFromMainReef());
-    if (Subsystem.limelight.getTvReef1() && atHeading() && swerve.isAtPoint()
-        && Math.abs(Subsystem.limelight.getTargetYawFromMainReef()) > 1.5) {
+    System.out.println(Subsystem.swerve.getYawDegrees() + ", "
+        + MathUtil.inputModulus(m_pointControl.getRotation().getDegrees(), -180, 180) + ", " + swerve.isAtPoint());
+    if (!m_hasUpdated && Subsystem.limelight.getTvReef1() && atHeading() && swerve.isAtPoint()
+        && Math.abs(Subsystem.limelight.getTargetYawFromReef1()) > 1.5) {
+      m_hasUpdated = true;
+      System.out.println("RUNNING");
       swerve.setAtPoint(false);
       Subsystem.swerve.getPigeon2().setYaw(
-          Subsystem.swerve.getPigeon2().getYaw().getValueAsDouble() + Subsystem.limelight.getTargetYawFromMainReef());
+          Subsystem.swerve.getPigeon2().getYaw().getValueAsDouble() + Subsystem.limelight.getTargetYawFromReef1());
     }
     return m_pointControl.getRotation();
   }
 
   private boolean atHeading() {
-    System.out.println(Subsystem.swerve.getYawDegrees() + ", "
-        + MathUtil.inputModulus(m_pointControl.getRotation().getDegrees(), -180, 180));
     return Math.abs(Subsystem.swerve.getYawDegrees()
         - MathUtil.inputModulus(m_pointControl.getRotation().getDegrees(), -180, 180)) < 1;
   }
