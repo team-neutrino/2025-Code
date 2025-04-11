@@ -48,7 +48,7 @@ public final class Constants {
                 public static final double SLOW_SWERVE_SPEED = 3;
                 public static final double MAX_ROTATION_SPEED = 1.5 * Math.PI;
                 public static final double SLOW_ROTATION_SPEED = 0.8 * Math.PI;
-                public static final double DRIVE_ASSIST_KP = 4;
+                public static final double DRIVE_ASSIST_KP = 8;
                 public static final double[] HEXAGON_ANGLES = { Integer.MAX_VALUE, -1, -1, -1, -1, -1, 120, 180, -120,
                                 -60, 0,
                                 60,
@@ -303,6 +303,9 @@ public final class Constants {
                 public static final double OFFSET_REEF_ALGAE = 0.53;
                 public static final double DYNAMIC_INTAKE_THRESHOLD = .5;
                 public static final double OFFSET_TO_BARGE = -0.5;
+
+                public static final double AT_HEADING_TOLERANCE = 1;
+                public static final double DYNAMIC_UPDATE_THRESHOLD = 1.5;
                 // negative is more right
 
                 // CURRENTLY TESTING WITH THIS LIBRARY THING

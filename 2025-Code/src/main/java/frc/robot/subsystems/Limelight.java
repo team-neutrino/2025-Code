@@ -20,9 +20,6 @@ public class Limelight extends SubsystemBase {
   double m_robotYaw;
   Swerve m_swerve;
   Rotation2d m_targetYaw;
-  private double[] pose = new double[11];
-  private double[] targetPose = new double[6];
-  private double[] targetPose2 = new double[6];
   private double m_lastFrameReef1 = -2;
   private double m_lastFrameReef2 = -2;
   private double m_lastFrameStation = -2;
@@ -125,6 +122,18 @@ public class Limelight extends SubsystemBase {
       m_swerve.addVisionMeasurement(limePoseEstStation.pose, limePoseEstStation.timestampSeconds);
     }
     m_lastFrameStation = frame;
+  }
+
+  public double getTargetYawFromReef1() {
+    return LimelightHelpers.getTargetPose_RobotSpace(LL_REEF1)[4];
+  }
+
+  public double getTargetYawFromReef2() {
+    return LimelightHelpers.getTargetPose_RobotSpace(LL_REEF2)[4];
+  }
+
+  public double getTargetYawFromStation() {
+    return LimelightHelpers.getTargetPose_RobotSpace(LL_STATION)[4];
   }
 
   private void updateOdometry() {
