@@ -131,10 +131,16 @@ public class Limelight extends SubsystemBase {
   }
 
   public double getTargetYawFromReef1() {
+    if (!getTvReef1()) {
+      return Integer.MAX_VALUE;
+    }
     return LimelightHelpers.getTargetPose_RobotSpace(LL_REEF1)[4];
   }
 
   public double getTargetYawFromReef2() {
+    if (!getTvReef2()) {
+      return Integer.MAX_VALUE;
+    }
     return LimelightHelpers.getTargetPose_RobotSpace(LL_REEF2)[4];
   }
 

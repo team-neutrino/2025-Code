@@ -66,12 +66,12 @@ public final class Constants {
                 public static final double DRIVE_GEAR_RATIO = 5.6;
                 public static final double REEF_OFFSET = Units.inchesToMeters(12.94) / 2;
                 public static final double isAlignedError = 0;
-                public static final double DRIVE_TO_POINT_P = 6;
-                public static final double DRIVE_TO_POINT_D = .6;
+                public static final double DRIVE_TO_POINT_P = 5;
+                public static final double DRIVE_TO_POINT_D = .3;
                 public static final double DRIVE_TO_POINT_INTAKE_P = 4;
                 public static final double DRIVE_TO_POINT_SLOW_P = 1.5;
                 public static final double MAX_DRIVETOPOINT_SPEED = 4;
-                public static final double AT_POINT_TOLERANCE = 0.02;
+                public static final double AT_POINT_TOLERANCE = 0.035;
                 public static final double AT_INTAKE_TOLERANCE = 0.5;
         }
 
@@ -83,7 +83,7 @@ public final class Constants {
                 public static final double DEFAULT_WITH_CORAL = 0;
                 public static final double BOTTOM_POSITION = 0.0;
                 public static final double STAGE_ONE_UP = 26.0;
-                public static final double CORAL_INTAKE = 33.5;
+                public static final double CORAL_INTAKE = 35.5;
                 public static final double REMOVE_ALGAE_L2 = 30.0;
                 public static final double REMOVE_ALGAE_L3 = 46.0;
                 public static final double SCORE_ALGAE_BARGE = 54.9;
@@ -294,7 +294,7 @@ public final class Constants {
                 public static final double OFFSET_ARM_STATION = -.42;
                 public static final double SIDEWAYS_OFFSET_STATION = .3;
                 // right is more negative, left is more positive
-                public static final double OFFSET_TO_REEF = .525;
+                public static final double OFFSET_TO_REEF = .515;
                 public static final double OFFSET_TO_STATION = .56;
                 public static final double REEF_WIDTH = 0.33;
                 public static final double SAFE_OFFSET_TO_STATION = 1.5;
@@ -302,7 +302,8 @@ public final class Constants {
                 public static final double OFFSET_ARM_ALGAE = 0.31;
                 public static final double OFFSET_REEF_ALGAE = 0.53;
                 public static final double DYNAMIC_INTAKE_THRESHOLD = .5;
-                public static final double OFFSET_TO_BARGE = -0.5;
+                public static final double OFFSET_TO_BARGE = -.6;
+                public static final double OFFSET_TO_BARGEY = .3;
 
                 public static final double AT_HEADING_TOLERANCE = 1;
                 public static final double DYNAMIC_UPDATE_THRESHOLD = 1.5;
