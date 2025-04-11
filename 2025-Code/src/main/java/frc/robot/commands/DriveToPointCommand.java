@@ -189,12 +189,11 @@ public class DriveToPointCommand extends Command {
   }
 
   private Rotation2d magicAngle() {
-    System.out.println(swerve.isAtPoint());
     boolean rightSide = RED_REEF_RIGHT.contains(m_pointControl.getTarget())
         || BLUE_REEF_RIGHT.contains(m_pointControl.getTarget());
     if (!m_hasUpdated && (rightSide ? Subsystem.limelight.getTvReef1() : Subsystem.limelight.getTvReef2())
-        && atHeading() && swerve.isAtPoint() && Math.abs(rightSide ? Subsystem.limelight.getTargetYawFromReef1()
-            : Subsystem.limelight.getTargetYawFromReef2()) > 1.5) {
+        && atHeading() && swerve.isAtPointStable() && Math.abs(rightSide ? Subsystem.limelight.getTargetYawFromReef1()
+            : Subsystem.limelight.getTargetYawFromReef2()) > DYNAMIC_UPDATE_THRESHOLD) {
       m_hasUpdated = true;
       swerve.setAtPoint(false);
       Subsystem.swerve.getPigeon2().setYaw(
@@ -205,7 +204,7 @@ public class DriveToPointCommand extends Command {
 
   private boolean atHeading() {
     return Math.abs(Subsystem.swerve.getYawDegrees()
-        - MathUtil.inputModulus(m_pointControl.getRotation().getDegrees(), -180, 180)) < 1;
+        - MathUtil.inputModulus(m_pointControl.getRotation().getDegrees(), -180, 180)) < AT_HEADING_TOLERANCE;
   }
 
   private void drive() {
