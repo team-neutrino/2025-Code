@@ -13,6 +13,7 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.Constants.*;
 import frc.robot.commands.DriveToPointCommand;
 import frc.robot.Constants;
+import frc.robot.util.DriveToPointController;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.util.Subsystem.*;
@@ -253,8 +254,15 @@ public class SuperstructureFactory {
     }
 
     public static Command spicyMoveToScoreL4Command() {
-        return new ParallelCommandGroup(ElevatorFactory.moveL4(), ArmFactory.moveToL4())
-                .onlyWhile(() -> DriveToPointController.getManhattanDistance() < .2);
+        return new RunCommand(() -> {
+            if (DriveToPointController.getStraightLineDistStatic() < Constants.ELEVATOR_ARM_DISTANCE) {
+                arm.setTarget(ArmConstants.L4_POSITION);
+                elevator.setTargetHeight(ElevatorConstants.L4);
+            } else {
+                arm.setTarget(ArmConstants.DEFAULT_POSITION);
+                elevator.setTargetHeight(ElevatorConstants.DEFAULT_WITH_CORAL);
+            }
+        }, Subsystem.arm, Subsystem.elevator);
     }
 
     public static Command moveToScoreL3Command() {
@@ -262,8 +270,15 @@ public class SuperstructureFactory {
     }
 
     public static Command spicyMoveToScoreL3Command() {
-        return new ParallelCommandGroup(ElevatorFactory.moveL3(), ArmFactory.moveToL3())
-                .onlyWhile(() -> DriveToPointController.getManhattanDistance() < .2);
+        return new RunCommand(() -> {
+            if (DriveToPointController.getStraightLineDistStatic() < Constants.ELEVATOR_ARM_DISTANCE) {
+                arm.setTarget(ArmConstants.L3_POSITION);
+                elevator.setTargetHeight(ElevatorConstants.L3);
+            } else {
+                arm.setTarget(ArmConstants.DEFAULT_POSITION);
+                elevator.setTargetHeight(ElevatorConstants.DEFAULT_WITH_CORAL);
+            }
+        }, Subsystem.arm, Subsystem.elevator);
     }
 
     public static Command moveToScoreL2Command() {
@@ -271,8 +286,15 @@ public class SuperstructureFactory {
     }
 
     public static Command spicyMoveToScoreL2Command() {
-        return new ParallelCommandGroup(ElevatorFactory.moveL2(), ArmFactory.moveToL2())
-                .onlyWhile(() -> DriveToPointController.getManhattanDistance() < .2);
+        return new RunCommand(() -> {
+            if (DriveToPointController.getStraightLineDistStatic() < Constants.ELEVATOR_ARM_DISTANCE) {
+                arm.setTarget(ArmConstants.L2_POSITION);
+                elevator.setTargetHeight(ElevatorConstants.L2);
+            } else {
+                arm.setTarget(ArmConstants.DEFAULT_POSITION);
+                elevator.setTargetHeight(ElevatorConstants.DEFAULT_WITH_CORAL);
+            }
+        }, Subsystem.arm, Subsystem.elevator);
     }
 
     public static Command moveToScoreL1Command() {

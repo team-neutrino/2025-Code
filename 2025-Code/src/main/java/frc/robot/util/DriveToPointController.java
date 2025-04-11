@@ -56,6 +56,11 @@ public class DriveToPointController {
         return Math.hypot(getXDistance(), getYDistance());
     }
 
+    public static double getStraightLineDistStatic() {
+        return Math.hypot(Math.abs(m_target.getX() - Subsystem.swerve.getCurrentPose().getX()),
+                m_target.getY() - Subsystem.swerve.getCurrentPose().getY());
+    }
+
     public Rotation2d getRotation() {
         return Rotation2d.fromDegrees(m_target.getRotation().getDegrees());
     }

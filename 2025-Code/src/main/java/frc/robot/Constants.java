@@ -28,6 +28,8 @@ import static frc.robot.util.DriveToPointCalculator.*;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+        public static final double ELEVATOR_ARM_DISTANCE = .1;
+
         public static class GlobalConstants {
                 public static Optional<Boolean> redAlliance = Optional.empty();
         }
