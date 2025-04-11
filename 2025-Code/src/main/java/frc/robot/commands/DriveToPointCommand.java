@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.DriveToPoint.Mode;
@@ -72,6 +73,7 @@ public class DriveToPointCommand extends Command {
   public void end(boolean interrupted) {
     swerve.setDrivingToPoint(false);
     swerve.setAtPoint(false);
+    m_pointControl.setTarget(null);
     Subsystem.limelight.setDealgaefying(false);
   }
 
@@ -152,18 +154,20 @@ public class DriveToPointCommand extends Command {
     }
   }
 
-  /**
-   * this only returns a value that makes sense if the target is a coral station
-   * point, and is intended only for use as such.
-   * <p>
-   * gives the radial distance from the desired PS point to the robot, Gives a
-   * negative value if too close to player station and vice versa.
-   */
-  public double distStraightPlayerStation() {
-    double angle = m_pointControl.getRotation().getRadians();
-    return (Math.cos(angle) * (swerve.getCurrentPose().getX() - m_pointControl.getTarget().getX()))
-        + (Math.sin(angle) * (swerve.getCurrentPose().getY() - m_pointControl.getTarget().getY()));
-  }
+  // /**
+  // * this only returns a value that makes sense if the target is a coral station
+  // * point, and is intended only for use as such.
+  // * <p>
+  // * gives the radial distance from the desired PS point to the robot, Gives a
+  // * negative value if too close to player station and vice versa.
+  // */
+  // public double distStraightPlayerStation() {
+  // double angle = m_pointControl.getRotation().getRadians();
+  // return (Math.cos(angle) * (swerve.getCurrentPose().getX() -
+  // m_pointControl.getTarget().getX()))
+  // + (Math.sin(angle) * (swerve.getCurrentPose().getY() -
+  // m_pointControl.getTarget().getY()));
+  // }
 
   public void isAtPoint() {
     if (Math.abs(m_pointControl.getStraightLineDist()) < AT_POINT_TOLERANCE) {
@@ -200,7 +204,7 @@ public class DriveToPointCommand extends Command {
     double badPigeon = Math.abs(rightSide ? Subsystem.limelight.getTargetYawFromReef1()
         : Subsystem.limelight.getTargetYawFromReef2());
 
-    if (!m_hasUpdated
+    if (!DriverStation.isAutonomousEnabled() && !m_hasUpdated
         && (RED_REEF.contains(m_pointControl.getTarget()) || BLUE_REEF.contains(m_pointControl.getTarget()))
         && (rightSide ? Subsystem.limelight.getTvReef1() : Subsystem.limelight.getTvReef2())
         && atHeading() && swerve.isAtPoint() && badPigeon > DYNAMIC_UPDATE_THRESHOLD && badPigeon < 10) {

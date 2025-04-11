@@ -40,7 +40,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.3
+                        "waitTime": 0.5
                       }
                     },
                     {
@@ -82,31 +82,6 @@
                 "type": "path",
                 "data": {
                   "pathName": "Top-T20 to Station"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveToIntake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "IntakeOnly"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "DriveToPointForever"
                 }
               },
               {
@@ -183,31 +158,6 @@
                 "type": "named",
                 "data": {
                   "name": "DriveToPointForever"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "IntakeOnly"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "DriveToPointForever"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveToIntake"
                 }
               }
             ]
