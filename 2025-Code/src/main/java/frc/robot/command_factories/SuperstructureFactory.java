@@ -255,7 +255,8 @@ public class SuperstructureFactory {
 
     public static Command spicyMoveToScoreL4Command() {
         return new RunCommand(() -> {
-            if (DriveToPointController.getStraightLineDistStatic() < Constants.ELEVATOR_ARM_DISTANCE) {
+            System.out.println(DriveToPointController.getStraightLineDistStatic());
+            if (Math.abs(DriveToPointController.getStraightLineDistStatic()) < Constants.ELEVATOR_ARM_DISTANCE) {
                 arm.setTarget(ArmConstants.L4_POSITION);
                 elevator.setTargetHeight(ElevatorConstants.L4);
             } else {
@@ -271,7 +272,7 @@ public class SuperstructureFactory {
 
     public static Command spicyMoveToScoreL3Command() {
         return new RunCommand(() -> {
-            if (DriveToPointController.getStraightLineDistStatic() < Constants.ELEVATOR_ARM_DISTANCE) {
+            if (Math.abs(DriveToPointController.getStraightLineDistStatic()) < Constants.ELEVATOR_ARM_DISTANCE) {
                 arm.setTarget(ArmConstants.L3_POSITION);
                 elevator.setTargetHeight(ElevatorConstants.L3);
             } else {
@@ -287,7 +288,7 @@ public class SuperstructureFactory {
 
     public static Command spicyMoveToScoreL2Command() {
         return new RunCommand(() -> {
-            if (DriveToPointController.getStraightLineDistStatic() < Constants.ELEVATOR_ARM_DISTANCE) {
+            if (Math.abs(DriveToPointController.getStraightLineDistStatic()) < Constants.ELEVATOR_ARM_DISTANCE) {
                 arm.setTarget(ArmConstants.L2_POSITION);
                 elevator.setTargetHeight(ElevatorConstants.L2);
             } else {

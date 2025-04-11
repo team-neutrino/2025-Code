@@ -163,7 +163,7 @@ public class RobotContainer {
     try {
       auto = m_autonPath;
     } catch (Exception e) {
-      auto = new PathPlannerAuto("Nothing");
+      auto = new PathPlannerAuto("SPICY MIDDLE TEST");
     }
 
     return auto;
