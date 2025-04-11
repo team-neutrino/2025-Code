@@ -278,10 +278,4 @@ public class SuperstructureFactory {
                 .until(() -> arm.readyToScore());
     }
 
-    public static Command elevatorArmDefaultSpicy() {
-        return new RunCommand(() -> {
-            arm.setTarget(ArmConstants.DEFAULT_NO_GP);
-            elevator.setTargetHeight(ElevatorConstants.DEFAULT_NO_CORAL);
-        });
-    }
 }

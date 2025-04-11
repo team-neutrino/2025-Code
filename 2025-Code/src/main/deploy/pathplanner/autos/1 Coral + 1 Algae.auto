@@ -238,12 +238,6 @@
               }
             ]
           }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": []
-          }
         }
       ]
     }

@@ -129,6 +129,7 @@ public class Limelight extends SubsystemBase {
   public void setDealgaefying(boolean dealgaefying) {
     m_deAlgaefying = dealgaefying;
   }
+
   public double getTargetYawFromReef1() {
     return LimelightHelpers.getTargetPose_RobotSpace(LL_REEF1)[4];
   }
@@ -140,13 +141,6 @@ public class Limelight extends SubsystemBase {
   public double getTargetYawFromStation() {
     return LimelightHelpers.getTargetPose_RobotSpace(LL_STATION)[4];
   }
-
-  private void updateOdometry() {
-    Command com = Subsystem.swerve.getCurrentCommand();
-    boolean deAlgaefying = false;
-    if (com != null) {
-      deAlgaefying = com.getName().equals(ALGAE_ALIGN_COMMAND) || com.getName().equals("DriveToPointAlgae");
-    }
 
   private void updateOdometry() {
     // if aligning to an algae position, force odometry updates from reef.
