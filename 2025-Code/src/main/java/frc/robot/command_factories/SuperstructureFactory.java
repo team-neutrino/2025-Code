@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.DriveToPoint.Mode;
 import frc.robot.commands.DriveToPointCommand;
 import frc.robot.subsystems.Algae;
+import frc.robot.subsystems.Elevator;
 import frc.robot.Constants.*;
 import frc.robot.commands.DriveToPointCommand;
 import frc.robot.Constants;
@@ -266,4 +267,15 @@ public class SuperstructureFactory {
     public static Command moveToIntake() {
         return new ParallelCommandGroup(ElevatorFactory.moveToIntake(), ArmFactory.armToIntake());
     }
+
+    public static Command moveToDescoreAlgaeL2() {
+        return new ParallelCommandGroup(ElevatorFactory.moveToRemoveAlgaeL2(), ArmFactory.armToDescoreL2())
+                .until(() -> arm.readyToScore());
+    }
+
+    public static Command moveToDescoreAlgaeL3() {
+        return new ParallelCommandGroup(ElevatorFactory.moveToRemoveAlgaeL3(), ArmFactory.armToDescoreL3())
+                .until(() -> arm.readyToScore());
+    }
+
 }

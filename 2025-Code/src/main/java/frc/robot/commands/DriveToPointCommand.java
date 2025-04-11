@@ -72,6 +72,7 @@ public class DriveToPointCommand extends Command {
   public void end(boolean interrupted) {
     swerve.setDrivingToPoint(false);
     swerve.setAtPoint(false);
+    Subsystem.limelight.setDealgaefying(false);
   }
 
   @Override
@@ -82,6 +83,7 @@ public class DriveToPointCommand extends Command {
   private void obtainTarget() {
     swerve.setDrivingToPoint(true);
     swerve.setAtPoint(false);
+    Subsystem.limelight.setDealgaefying(m_mode == Mode.ALGAE);
 
     if (m_mode == Mode.ALGAE) {
       m_pointControl.setTargetNearest(REEF_ALGAE);
