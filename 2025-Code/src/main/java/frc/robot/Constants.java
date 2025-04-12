@@ -217,7 +217,7 @@ public final class Constants {
                 // REEF CAMERA OFFSETS
                 public static final double CAMERA_FORWARD_OFFSET = 0.216;
                 public static final double CAMERA_SIDE_OFFSET = 0.121;
-                public static final double CAMERA_HEIGHT_OFFSET = 0.2404;
+                public static final double CAMERA_HEIGHT_OFFSET = 0.1813196;
 
                 public static final double CAMERA_ROLL_OFFSET = 0.0;
                 public static final double CAMERA_PITCH_OFFSET = 0.0;
