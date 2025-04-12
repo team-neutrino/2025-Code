@@ -132,14 +132,14 @@ public class Limelight extends SubsystemBase {
 
   public double getTargetYawFromReef1() {
     if (!getTvReef1()) {
-      return Integer.MAX_VALUE;
+      return 0;
     }
     return LimelightHelpers.getTargetPose_RobotSpace(LL_REEF1)[4];
   }
 
   public double getTargetYawFromReef2() {
     if (!getTvReef2()) {
-      return Integer.MAX_VALUE;
+      return 0;
     }
     return LimelightHelpers.getTargetPose_RobotSpace(LL_REEF2)[4];
   }
@@ -150,10 +150,10 @@ public class Limelight extends SubsystemBase {
 
   private void updateOdometry() {
     // if aligning to an algae position, force odometry updates from reef.
-    if (getTvReef1() && (m_deAlgaefying || Subsystem.coral.hasCoral())) {
+    if (getTvReef1() && (m_deAlgaefying || Subsystem.coral.hasCoral() || Subsystem.algae.hasAlgae())) {
       updateOdometryReef1();
       return;
-    } else if (getTvReef2() && (m_deAlgaefying || Subsystem.coral.hasCoral())) {
+    } else if (getTvReef2() && (m_deAlgaefying || Subsystem.coral.hasCoral() || Subsystem.algae.hasAlgae())) {
       updateOdometryReef2();
       return;
     }

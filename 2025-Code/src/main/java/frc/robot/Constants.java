@@ -303,7 +303,7 @@ public final class Constants {
                 public static final double OFFSET_REEF_ALGAE = 0.53;
                 public static final double DYNAMIC_INTAKE_THRESHOLD = .5;
                 public static final double OFFSET_TO_BARGE = -.6;
-                public static final double OFFSET_TO_BARGEY = .3;
+                public static final double OFFSET_TO_BARGEY = -1.2;
 
                 public static final double AT_HEADING_TOLERANCE = 1;
                 public static final double DYNAMIC_UPDATE_THRESHOLD = 1.5;
