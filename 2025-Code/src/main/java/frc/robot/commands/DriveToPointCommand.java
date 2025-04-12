@@ -170,12 +170,23 @@ public class DriveToPointCommand extends Command {
   // }
 
   public void isAtPoint() {
-    if (Math.abs(m_pointControl.getStraightLineDist()) < AT_POINT_TOLERANCE) {
+    if (appropriateLLHasTv() && Math.abs(m_pointControl.getStraightLineDist()) < AT_POINT_TOLERANCE) {
       swerve.setDrivingToPoint(false);
       swerve.setAtPoint(true);
     } else {
       swerve.setDrivingToPoint(true);
       swerve.setAtPoint(false);
+    }
+  }
+
+  private boolean appropriateLLHasTv() {
+    Pose2d target = m_pointControl.getTarget();
+    if (RED_REEF_RIGHT.contains(target) || BLUE_REEF_RIGHT.contains(target) || REEF_ALGAE.contains(target)) {
+      return Subsystem.limelight.getTvReef1();
+    } else if (RED_REEF_LEFT.contains(target) || BLUE_REEF_LEFT.contains(target)) {
+      return Subsystem.limelight.getTvReef2();
+    } else {
+      return Subsystem.limelight.getTvStation();
     }
   }
 
