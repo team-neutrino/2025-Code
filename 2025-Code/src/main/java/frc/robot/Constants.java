@@ -68,11 +68,9 @@ public final class Constants {
                 public static final double isAlignedError = 0;
                 public static final double DRIVE_TO_POINT_P = 5;
                 public static final double DRIVE_TO_POINT_D = .3;
-                public static final double DRIVE_TO_POINT_INTAKE_P = 4;
-                public static final double DRIVE_TO_POINT_SLOW_P = 1.5;
                 public static final double MAX_DRIVETOPOINT_SPEED = 4;
                 public static final double AT_POINT_TOLERANCE = 0.035;
-                public static final double AT_INTAKE_TOLERANCE = 0.5;
+                public static final double AT_INTAKE_TOLERANCE = 0.25;
         }
 
         public static class ElevatorConstants {
@@ -137,6 +135,7 @@ public final class Constants {
                 public static final double ALGAE_FRONT_SAFE_ANGLE = 90;
 
                 public static final double DRIVING_ANGLE_TOLERANCE = 2.0;
+                public static final double INTAKE_ANGLE_TOLERANCE = 20.0;
 
                 public static final double ENCODER_ZERO_OFFSET = 0;
                 public static final int CURRENT_LIMIT = 60;
