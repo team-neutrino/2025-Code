@@ -45,7 +45,7 @@ public class RobotContainer {
     configureDefaultCommands();
     configureNamedCommands();
     DataLogManager.start();
-    m_autonPath = new PathPlannerAuto("1 Coral + 1 Algae");
+    m_autonPath = new PathPlannerAuto("3 CORAL TOP");
 
   }
 

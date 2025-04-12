@@ -131,21 +131,13 @@ public class Limelight extends SubsystemBase {
   }
 
   public double getTargetYawFromReef1() {
-    if (!getTvReef1()) {
-      return 0;
-    }
-    return LimelightHelpers.getTargetPose_RobotSpace(LL_REEF1)[4];
+    double[] thing = LimelightHelpers.getTargetPose_RobotSpace(LL_REEF1);
+    return thing.length == 0 ? 0 : thing[4];
   }
 
   public double getTargetYawFromReef2() {
-    if (!getTvReef2()) {
-      return 0;
-    }
-    return LimelightHelpers.getTargetPose_RobotSpace(LL_REEF2)[4];
-  }
-
-  public double getTargetYawFromStation() {
-    return LimelightHelpers.getTargetPose_RobotSpace(LL_STATION)[4];
+    double[] thing = LimelightHelpers.getTargetPose_RobotSpace(LL_REEF2);
+    return thing.length == 0 ? 0 : thing[4];
   }
 
   private void updateOdometry() {
