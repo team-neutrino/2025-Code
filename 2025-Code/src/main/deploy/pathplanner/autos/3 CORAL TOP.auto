@@ -34,22 +34,9 @@
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.1
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "MoveToScoringL4"
-                      }
-                    }
-                  ]
+                  "name": "MoveToScoringL4"
                 }
               }
             ]
