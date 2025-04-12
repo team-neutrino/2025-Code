@@ -99,11 +99,14 @@ public class Elevator extends SubsystemBase {
   }
 
   private double feedForwardCalculation() {
-    if (m_encoder.getPosition() < STAGE_ONE_UP) {
-      return m_FFStage1;
-    } else {
-      return m_FFStage2;
+    double feedForward = m_FFStage1;
+    if (m_encoder.getPosition() >= STAGE_ONE_UP) {
+      feedForward = m_FFStage2;
     }
+    if (Subsystem.algae.debouncedHasAlgae()) {
+      feedForward += ALGAE_FF;
+    }
+    return feedForward;
   }
 
   private void resetEncoder(double position) {
