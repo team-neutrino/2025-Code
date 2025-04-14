@@ -70,6 +70,6 @@ public class DriveToPointCalculator {
                 double x = tagPosition.getX() - OFFSET_TO_BARGE_X;
                 double y = tagPosition.getY() - OFFSET_TO_BARGE_Y;
 
-                return new Pose2d(x, y, Rotation2d.fromRadians(0));
+                return new Pose2d(x, y, Rotation2d.fromRadians(bargeAngle));
         }
 }
