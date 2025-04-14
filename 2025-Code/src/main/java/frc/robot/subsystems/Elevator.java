@@ -32,6 +32,8 @@ public class Elevator extends SubsystemBase {
   private SparkFlexConfig m_config = new SparkFlexConfig();
   private SparkFlexConfig m_followerConfig = new SparkFlexConfig();
 
+  private double m_safeHeight = 0;
+
   private double m_targetHeight = BOTTOM_POSITION;
   private double m_FFStage1 = STAGE_1_FF;
   private double m_FFStage2 = STAGE_2_FF;
@@ -158,7 +160,7 @@ public class Elevator extends SubsystemBase {
     double safeTarget = targetHeight;
     double safeHeight = Subsystem.algae.hasAlgae() ? SAFE_HEIGHT_ALGAE : SAFE_HEIGHT_NO_ALGAE;
 
-    if (Subsystem.arm.getAngle() > 270 && getTargetHeight() < 25) {
+    if (Subsystem.arm.getAngle() > 280 && getTargetHeight() < 25) {
       return CORAL_INTAKE;
     }
 
@@ -174,6 +176,7 @@ public class Elevator extends SubsystemBase {
         && getTargetHeight() < safeHeight) {
       safeTarget = safeHeight;
     }
+    m_safeHeight = safeTarget;
     return safeTarget;
   }
 
@@ -185,6 +188,10 @@ public class Elevator extends SubsystemBase {
 
   public void changeFF1(double newFF) {
     m_FFStage1 = newFF;
+  }
+
+  public double getSafeHeight() {
+    return m_safeHeight;
   }
 
   public void changeFF2(double newFF) {
