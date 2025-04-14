@@ -8,10 +8,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.DriveToPoint.Mode;
 import frc.robot.commands.DriveToPointCommand;
-import frc.robot.subsystems.Algae;
-import frc.robot.subsystems.Elevator;
 import frc.robot.Constants.*;
-import frc.robot.commands.DriveToPointCommand;
 import frc.robot.Constants;
 import frc.robot.util.DriveToPointController;
 import frc.robot.util.Subsystem;
@@ -35,7 +32,6 @@ public class SuperstructureFactory {
 
     public static Command autonDynamicCoralIntake() {
         Command ret = new RunCommand(() -> {
-            Command swerveCom = swerve.getCurrentCommand();
             // if we're running driveToPoint and the distance from target is below a certain
             // threshold, change the arm and elevator position based on that distance
             if (Math.abs(DriveToPointController.distStraightPlayerStation()) <= DriveToPoint.DYNAMIC_INTAKE_THRESHOLD) {
