@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import java.util.Enumeration;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -289,7 +287,6 @@ public final class Constants {
                                 .loadField(AprilTagFields.k2025ReefscapeWelded);
                 // right is more negative, left is more positive
                 public static final double OFFSET_ARM_REEF = .3;
-                public static final double OFFSET_ARM_REEF_LEFT = .33;
                 public static final double OFFSET_ARM_STATION = -.42;
                 public static final double SIDEWAYS_OFFSET_STATION = .3;
                 // right is more negative, left is more positive

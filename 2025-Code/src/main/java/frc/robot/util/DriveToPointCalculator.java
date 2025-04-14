@@ -67,11 +67,6 @@ public class DriveToPointCalculator {
         public static Pose2d CalculateBargePoint(Pose3d tagPosition) {
                 double bargeAngle = tagPosition.getRotation().getAngle();
 
-                // double offsetX = (OFFSET_ARM_ALGAE)
-                // * Math.cos(perpendicularBargeAngle);
-                // double offsetY = (OFFSET_ARM_ALGAE)
-                // * Math.sin(perpendicularBargeAngle);
-
                 double x = tagPosition.getX() - OFFSET_TO_BARGE_X;
                 double y = tagPosition.getY() - OFFSET_TO_BARGE_Y;
 
