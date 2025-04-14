@@ -62,7 +62,7 @@ public class DriveToPointCommand extends Command {
       checkBumpers();
     }
     drive();
-    setAtPoint();
+    updateAtPoint();
     if ((swerve.isAtPoint() && (Subsystem.coral.debouncedHasCoral() != m_hadGamePiece))
         || (arm.isAtIntake() && isSafePoint)) {
       initialize(); // reinitialize if the state of our game piece changes
@@ -154,7 +154,7 @@ public class DriveToPointCommand extends Command {
     }
   }
 
-  public void setAtPoint() {
+  public void updateAtPoint() {
     if ((m_mode == Mode.NET || appropriateLLHasTv())
         && Math.abs(m_pointControl.getStraightLineDist()) < AT_POINT_TOLERANCE) {
       swerve.setDrivingToPoint(false);
