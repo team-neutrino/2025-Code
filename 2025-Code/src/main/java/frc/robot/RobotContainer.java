@@ -142,6 +142,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("SwerveDefault", swerve.getDefaultCommand());
     NamedCommands.registerCommand("ElevatorDefault", ElevatorFactory.zeroElevator());
     NamedCommands.registerCommand("ArmDefault", arm.armDefaultCommand());
+    NamedCommands.registerCommand("ArmElevatorDefault", SuperstructureFactory.moveToDefault());
     NamedCommands.registerCommand("IntakeOnly", CoralFactory.runIntake());
   }
 

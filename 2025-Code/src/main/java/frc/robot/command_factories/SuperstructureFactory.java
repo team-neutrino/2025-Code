@@ -292,6 +292,10 @@ public class SuperstructureFactory {
                 .until(() -> arm.readyToScore());
     }
 
+    public static Command moveToDefault() {
+        return new ParallelCommandGroup(arm.armDefaultCommand(), elevator.elevatorDefaultCommand());
+    }
+
     public static Command moveToDescoreAlgaeL3() {
         return new ParallelCommandGroup(ElevatorFactory.moveToRemoveAlgaeL3(), ArmFactory.armToDescoreL3())
                 .until(() -> arm.readyToScore());
