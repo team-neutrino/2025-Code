@@ -112,7 +112,7 @@ public class Arm extends SubsystemBase {
   }
 
   public boolean isAtIntake() {
-    return Math.abs(getAngle() - CORAL_STATION_POSITION) <= DRIVING_ANGLE_TOLERANCE;
+    return Math.abs(getAngle() - CORAL_STATION_POSITION) <= INTAKE_ANGLE_TOLERANCE;
   }
 
   private void adjustArm(double targetAngle) {

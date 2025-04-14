@@ -8,11 +8,9 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.DriveToPoint.Mode;
 import frc.robot.commands.DriveToPointCommand;
-import frc.robot.subsystems.Algae;
-import frc.robot.subsystems.Elevator;
 import frc.robot.Constants.*;
-import frc.robot.commands.DriveToPointCommand;
 import frc.robot.Constants;
+import frc.robot.util.DriveToPointController;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.util.Subsystem.*;
@@ -32,6 +30,25 @@ public class SuperstructureFactory {
                         : true;
     }
 
+    public static Command autonDynamicCoralIntake() {
+        Command ret = new RunCommand(() -> {
+            // if we're running driveToPoint and the distance from target is below a certain
+            // threshold, change the arm and elevator position based on that distance
+            if (Math.abs(DriveToPointController.distStraightPlayerStation()) <= DriveToPoint.DYNAMIC_INTAKE_THRESHOLD) {
+                arm.setTarget(ArmConstants.CORAL_STATION_POSITION);
+                // right now the P is just the conversion factor for meters to inches,
+                // effectively making every inch we're off from target position one extra inch
+                // in elevator height.
+                elevator.setTargetHeight(ElevatorConstants.CORAL_INTAKE
+                        - (DriveToPointController.distStraightPlayerStation() * ElevatorConstants.DYNAMIC_ADJUST_P));
+            } else {
+                arm.setTarget(ArmConstants.CORAL_STATION_POSITION);
+                elevator.setTargetHeight(ElevatorConstants.CORAL_INTAKE);
+            }
+        }, arm, elevator);
+        return ret.alongWith(CoralFactory.runIntake()).until(() -> coral.debouncedHasCoral());
+    }
+
     public static Command dynamicCoralIntake() {
         Command ret = new RunCommand(() -> {
             Command swerveCom = swerve.getCurrentCommand();
@@ -42,13 +59,14 @@ public class SuperstructureFactory {
             // if we're running driveToPoint and the distance from target is below a certain
             // threshold, change the arm and elevator position based on that distance
             if (casted != null
-                    && Math.abs(casted.distStraightPlayerStation()) <= DriveToPoint.DYNAMIC_INTAKE_THRESHOLD) {
+                    && Math.abs(DriveToPointController
+                            .distStraightPlayerStation()) <= DriveToPoint.DYNAMIC_INTAKE_THRESHOLD) {
                 arm.setTarget(ArmConstants.CORAL_STATION_POSITION);
                 // right now the P is just the conversion factor for meters to inches,
                 // effectively making every inch we're off from target position one extra inch
                 // in elevator height.
                 elevator.setTargetHeight(ElevatorConstants.CORAL_INTAKE
-                        - (casted.distStraightPlayerStation() * ElevatorConstants.DYNAMIC_ADJUST_P));
+                        - (DriveToPointController.distStraightPlayerStation() * ElevatorConstants.DYNAMIC_ADJUST_P));
             } else {
                 arm.setTarget(ArmConstants.CORAL_STATION_POSITION);
                 elevator.setTargetHeight(ElevatorConstants.CORAL_INTAKE);

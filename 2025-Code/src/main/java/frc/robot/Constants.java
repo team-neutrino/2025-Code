@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import java.util.Enumeration;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,13 +64,11 @@ public final class Constants {
                 public static final double DRIVE_GEAR_RATIO = 5.6;
                 public static final double REEF_OFFSET = Units.inchesToMeters(12.94) / 2;
                 public static final double isAlignedError = 0;
-                public static final double DRIVE_TO_POINT_P = 6;
-                public static final double DRIVE_TO_POINT_D = .6;
-                public static final double DRIVE_TO_POINT_INTAKE_P = 4;
-                public static final double DRIVE_TO_POINT_SLOW_P = 1.5;
+                public static final double DRIVE_TO_POINT_P = 5;
+                public static final double DRIVE_TO_POINT_D = .3;
                 public static final double MAX_DRIVETOPOINT_SPEED = 4;
-                public static final double AT_POINT_TOLERANCE = 0.02;
-                public static final double AT_INTAKE_TOLERANCE = 0.5;
+                public static final double AT_POINT_TOLERANCE = 0.035;
+                public static final double AT_INTAKE_TOLERANCE = 0.25;
         }
 
         public static class ElevatorConstants {
@@ -83,7 +79,7 @@ public final class Constants {
                 public static final double DEFAULT_WITH_CORAL = 0;
                 public static final double BOTTOM_POSITION = 0.0;
                 public static final double STAGE_ONE_UP = 26.0;
-                public static final double CORAL_INTAKE = 33.5;
+                public static final double CORAL_INTAKE = 35.5;
                 public static final double REMOVE_ALGAE_L2 = 30.0;
                 public static final double REMOVE_ALGAE_L3 = 46.0;
                 public static final double SCORE_ALGAE_BARGE = 54.9;
@@ -137,6 +133,7 @@ public final class Constants {
                 public static final double ALGAE_FRONT_SAFE_ANGLE = 90;
 
                 public static final double DRIVING_ANGLE_TOLERANCE = 2.0;
+                public static final double INTAKE_ANGLE_TOLERANCE = 20.0;
 
                 public static final double ENCODER_ZERO_OFFSET = 0;
                 public static final int CURRENT_LIMIT = 60;
@@ -218,7 +215,7 @@ public final class Constants {
                 // REEF CAMERA OFFSETS
                 public static final double CAMERA_FORWARD_OFFSET = 0.216;
                 public static final double CAMERA_SIDE_OFFSET = 0.121;
-                public static final double CAMERA_HEIGHT_OFFSET = 0.2404;
+                public static final double CAMERA_HEIGHT_OFFSET = 0.1813196;
 
                 public static final double CAMERA_ROLL_OFFSET = 0.0;
                 public static final double CAMERA_PITCH_OFFSET = 0.0;
@@ -290,11 +287,10 @@ public final class Constants {
                                 .loadField(AprilTagFields.k2025ReefscapeWelded);
                 // right is more negative, left is more positive
                 public static final double OFFSET_ARM_REEF = .3;
-                public static final double OFFSET_ARM_REEF_LEFT = .33;
                 public static final double OFFSET_ARM_STATION = -.42;
                 public static final double SIDEWAYS_OFFSET_STATION = .3;
                 // right is more negative, left is more positive
-                public static final double OFFSET_TO_REEF = .525;
+                public static final double OFFSET_TO_REEF = .515;
                 public static final double OFFSET_TO_STATION = .56;
                 public static final double REEF_WIDTH = 0.33;
                 public static final double SAFE_OFFSET_TO_STATION = 1.5;
@@ -302,7 +298,8 @@ public final class Constants {
                 public static final double OFFSET_ARM_ALGAE = 0.31;
                 public static final double OFFSET_REEF_ALGAE = 0.53;
                 public static final double DYNAMIC_INTAKE_THRESHOLD = .5;
-                public static final double OFFSET_TO_BARGE = -0.5;
+                public static final double OFFSET_TO_BARGE_X = -.57;
+                public static final double OFFSET_TO_BARGE_Y = -1.2;
 
                 public static final double AT_HEADING_TOLERANCE = 1;
                 public static final double DYNAMIC_UPDATE_THRESHOLD = 1.5;

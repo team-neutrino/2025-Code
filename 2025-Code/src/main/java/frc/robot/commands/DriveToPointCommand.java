@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.DriveToPoint.Mode;
@@ -61,7 +62,7 @@ public class DriveToPointCommand extends Command {
       checkBumpers();
     }
     drive();
-    isAtPoint();
+    updateAtPoint();
     if ((swerve.isAtPoint() && (Subsystem.coral.debouncedHasCoral() != m_hadGamePiece))
         || (arm.isAtIntake() && isSafePoint)) {
       initialize(); // reinitialize if the state of our game piece changes
@@ -72,6 +73,7 @@ public class DriveToPointCommand extends Command {
   public void end(boolean interrupted) {
     swerve.setDrivingToPoint(false);
     swerve.setAtPoint(false);
+    m_pointControl.setTarget(null);
     Subsystem.limelight.setDealgaefying(false);
   }
 
@@ -152,26 +154,25 @@ public class DriveToPointCommand extends Command {
     }
   }
 
-  /**
-   * this only returns a value that makes sense if the target is a coral station
-   * point, and is intended only for use as such.
-   * <p>
-   * gives the radial distance from the desired PS point to the robot, Gives a
-   * negative value if too close to player station and vice versa.
-   */
-  public double distStraightPlayerStation() {
-    double angle = m_pointControl.getRotation().getRadians();
-    return (Math.cos(angle) * (swerve.getCurrentPose().getX() - m_pointControl.getTarget().getX()))
-        + (Math.sin(angle) * (swerve.getCurrentPose().getY() - m_pointControl.getTarget().getY()));
-  }
-
-  public void isAtPoint() {
-    if (Math.abs(m_pointControl.getStraightLineDist()) < AT_POINT_TOLERANCE) {
+  public void updateAtPoint() {
+    if ((m_mode == Mode.NET || appropriateLLHasTv())
+        && Math.abs(m_pointControl.getStraightLineDist()) < AT_POINT_TOLERANCE) {
       swerve.setDrivingToPoint(false);
       swerve.setAtPoint(true);
     } else {
       swerve.setDrivingToPoint(true);
       swerve.setAtPoint(false);
+    }
+  }
+
+  private boolean appropriateLLHasTv() {
+    Pose2d target = m_pointControl.getTarget();
+    if (RED_REEF_RIGHT.contains(target) || BLUE_REEF_RIGHT.contains(target) || REEF_ALGAE.contains(target)) {
+      return Subsystem.limelight.getTvReef1();
+    } else if (RED_REEF_LEFT.contains(target) || BLUE_REEF_LEFT.contains(target)) {
+      return Subsystem.limelight.getTvReef2();
+    } else {
+      return Subsystem.limelight.getTvStation();
     }
   }
 
@@ -196,9 +197,14 @@ public class DriveToPointCommand extends Command {
   private Rotation2d magicAngle() {
     boolean rightSide = RED_REEF_RIGHT.contains(m_pointControl.getTarget())
         || BLUE_REEF_RIGHT.contains(m_pointControl.getTarget());
-    if (!m_hasUpdated && (rightSide ? Subsystem.limelight.getTvReef1() : Subsystem.limelight.getTvReef2())
-        && atHeading() && swerve.isAtPointStable() && Math.abs(rightSide ? Subsystem.limelight.getTargetYawFromReef1()
-            : Subsystem.limelight.getTargetYawFromReef2()) > DYNAMIC_UPDATE_THRESHOLD) {
+
+    double badPigeon = Math.abs(rightSide ? Subsystem.limelight.getTargetYawFromReef1()
+        : Subsystem.limelight.getTargetYawFromReef2());
+
+    if (!DriverStation.isAutonomousEnabled() && !m_hasUpdated
+        && (RED_REEF.contains(m_pointControl.getTarget()) || BLUE_REEF.contains(m_pointControl.getTarget()))
+        && (rightSide ? Subsystem.limelight.getTvReef1() : Subsystem.limelight.getTvReef2())
+        && atHeading() && swerve.isAtPoint() && badPigeon > DYNAMIC_UPDATE_THRESHOLD && badPigeon < 10) {
       m_hasUpdated = true;
       swerve.setAtPoint(false);
       Subsystem.swerve.getPigeon2().setYaw(
