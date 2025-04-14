@@ -72,8 +72,8 @@ public class DriveToPointCalculator {
                 // double offsetY = (OFFSET_ARM_ALGAE)
                 // * Math.sin(perpendicularBargeAngle);
 
-                double x = tagPosition.getX() - OFFSET_TO_BARGE;
-                double y = tagPosition.getY() - OFFSET_TO_BARGEY;
+                double x = tagPosition.getX() - OFFSET_TO_BARGE_X;
+                double y = tagPosition.getY() - OFFSET_TO_BARGE_Y;
 
                 return new Pose2d(x, y, Rotation2d.fromRadians(0));
         }
