@@ -299,8 +299,8 @@ public final class Constants {
                 public static final double OFFSET_ARM_ALGAE = 0.31;
                 public static final double OFFSET_REEF_ALGAE = 0.53;
                 public static final double DYNAMIC_INTAKE_THRESHOLD = .5;
-                public static final double OFFSET_TO_BARGE_X = -.57;
-                public static final double OFFSET_TO_BARGE_Y = -1.2;
+                public static final double OFFSET_TO_BARGE_X = .57;
+                public static final double OFFSET_TO_BARGE_Y = 1.2;
 
                 public static final double AT_HEADING_TOLERANCE = 1;
                 public static final double DYNAMIC_UPDATE_THRESHOLD = 1.5;
@@ -377,10 +377,8 @@ public final class Constants {
                 public static final Pose2d BLUE_REEF_22A = CalculatePoint(LAYOUT.getTagPose(22).get(), false);
                 public static final Pose2d BLUE_REEF_22B = CalculatePoint(LAYOUT.getTagPose(22).get(), true);
 
-                public static final Pose2d BLUE_BARGE_4 = CalculateBargePoint(LAYOUT.getTagPose(4).get());
                 public static final Pose2d BLUE_BARGE_14 = CalculateBargePoint(LAYOUT.getTagPose(14).get());
                 public static final Pose2d RED_BARGE_5 = CalculateBargePoint(LAYOUT.getTagPose(5).get());
-                public static final Pose2d RED_BARGE_15 = CalculateBargePoint(LAYOUT.getTagPose(15).get());
 
                 // Don't reorder this list
 
