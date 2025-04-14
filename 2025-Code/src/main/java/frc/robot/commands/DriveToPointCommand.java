@@ -154,21 +154,6 @@ public class DriveToPointCommand extends Command {
     }
   }
 
-  // /**
-  // * this only returns a value that makes sense if the target is a coral station
-  // * point, and is intended only for use as such.
-  // * <p>
-  // * gives the radial distance from the desired PS point to the robot, Gives a
-  // * negative value if too close to player station and vice versa.
-  // */
-  // public double distStraightPlayerStation() {
-  // double angle = m_pointControl.getRotation().getRadians();
-  // return (Math.cos(angle) * (swerve.getCurrentPose().getX() -
-  // m_pointControl.getTarget().getX()))
-  // + (Math.sin(angle) * (swerve.getCurrentPose().getY() -
-  // m_pointControl.getTarget().getY()));
-  // }
-
   public void setAtPoint() {
     if ((m_mode == Mode.NET || appropriateLLHasTv())
         && Math.abs(m_pointControl.getStraightLineDist()) < AT_POINT_TOLERANCE) {
