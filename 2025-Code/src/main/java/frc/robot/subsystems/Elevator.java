@@ -21,7 +21,6 @@ import frc.robot.Constants.ArmConstants;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.Constants.ElevatorConstants.*;
-import static frc.robot.Constants.ArmConstants.DRIVING_ANGLE_TOLERANCE;
 import static frc.robot.Constants.CANRateConstants.*;
 
 public class Elevator extends SubsystemBase {
