@@ -105,7 +105,7 @@ public final class Constants {
                 public static final double D_VAL_ALGAE = 0.0;
                 public static final double STAGE_1_FF = 0.20;
                 public static final double STAGE_2_FF = 0.30;
-                public static final double ALGAE_FF = 0.05;
+                public static final double ALGAE_FF = 0.13;
                 public static final double HEIGHT_TOLERANCE = 0.6;
                 public static final double SLOW_MOVE_THRESHOLD = 45.0;
                 public static final double DYNAMIC_ADJUST_P = 39.3701;
