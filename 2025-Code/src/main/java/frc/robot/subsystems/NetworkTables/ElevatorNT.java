@@ -101,7 +101,7 @@ public class ElevatorNT extends Elevator {
         final long now = NetworkTablesJNI.now();
         encoderVelocityPub.set(getVelocity(), now);
         encoderPositionPub.set(getHeight(), now);
-        targetPositionPub.set(getTargetHeight(), now);
+        targetPositionPub.set(getSafeHeight(), now);
         lowLimitPub.set(isAtBottom(), now);
         scoreReadyPub.set(readyToScore(), now);
         busVoltagePub.set(getBusVoltage(), now);

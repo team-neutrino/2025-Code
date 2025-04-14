@@ -158,6 +158,7 @@ public final class Constants {
                 public static final double ArmIZone = 2;
 
                 public static final double FFCONSTANT = 0.04;
+                public static final double ALGAE_FF = 0.01;
 
                 public static final double GEAR_RATIO = 125;
         }
