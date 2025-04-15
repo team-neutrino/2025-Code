@@ -27,7 +27,7 @@ import static frc.robot.util.DriveToPointCalculator.*;
  */
 public final class Constants {
         public static class GlobalConstants {
-                public static Optional<Boolean> redAlliance = Optional.empty();
+                public static Optional<Boolean> RED_ALLIANCE = Optional.empty();
         }
 
         public static class OperatorConstants {

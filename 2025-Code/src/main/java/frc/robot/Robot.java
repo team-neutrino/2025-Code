@@ -49,8 +49,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    if (!Constants.GlobalConstants.redAlliance.isPresent() && DriverStation.getAlliance().isPresent()) {
-      Constants.GlobalConstants.redAlliance = Optional.of(DriverStation.getAlliance().get().equals(Alliance.Red));
+    if (!Constants.GlobalConstants.RED_ALLIANCE.isPresent() && DriverStation.getAlliance().isPresent()) {
+      Constants.GlobalConstants.RED_ALLIANCE = Optional.of(DriverStation.getAlliance().get().equals(Alliance.Red));
     }
     // Runs the Scheduler. This is responsible for polling buttons, adding
     // newly-scheduled

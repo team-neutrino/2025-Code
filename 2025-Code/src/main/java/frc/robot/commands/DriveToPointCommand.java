@@ -41,7 +41,7 @@ public class DriveToPointCommand extends Command {
     swerve.setDrivingToPoint(true);
     swerve.setAtPoint(false);
 
-    if (!redAlliance.isPresent()) {
+    if (!RED_ALLIANCE.isPresent()) {
       System.out.println("NO ALLIANCE VALUE YET");
       return;
     }
@@ -89,20 +89,20 @@ public class DriveToPointCommand extends Command {
     }
 
     if (m_mode == Mode.NET) {
-      m_pointControl.setTarget(redAlliance.get() ? RED_BARGE_5 : BLUE_BARGE_14);
+      m_pointControl.setTarget(RED_ALLIANCE.get() ? RED_BARGE_5 : BLUE_BARGE_14);
       return;
     }
 
     if (Subsystem.coral.debouncedHasCoral()) {
       switch (m_mode) {
         case LEFT:
-          m_pointControl.setTargetNearest(redAlliance.get() ? RED_REEF_LEFT : BLUE_REEF_LEFT);
+          m_pointControl.setTargetNearest(RED_ALLIANCE.get() ? RED_REEF_LEFT : BLUE_REEF_LEFT);
           return;
         case NEAREST:
-          m_pointControl.setTargetNearest(redAlliance.get() ? RED_REEF : BLUE_REEF);
+          m_pointControl.setTargetNearest(RED_ALLIANCE.get() ? RED_REEF : BLUE_REEF);
           return;
         case RIGHT:
-          m_pointControl.setTargetNearest(redAlliance.get() ? RED_REEF_RIGHT : BLUE_REEF_RIGHT);
+          m_pointControl.setTargetNearest(RED_ALLIANCE.get() ? RED_REEF_RIGHT : BLUE_REEF_RIGHT);
           return;
         default:
           System.out.println("undefined behavior in obtainTarget; m_mode is null or an improper value");
@@ -110,9 +110,10 @@ public class DriveToPointCommand extends Command {
       }
     }
 
+    // by now the only case left is player station
     if (arm.isAtIntake()) {
       m_pointControl
-          .setTargetNearest(redAlliance.get() ? List.of(RED_PLAYER_STATION_1_CENTER, RED_PLAYER_STATION_2_CENTER)
+          .setTargetNearest(RED_ALLIANCE.get() ? List.of(RED_PLAYER_STATION_1_CENTER, RED_PLAYER_STATION_2_CENTER)
               : List.of(BLUE_PLAYER_STATION_12_CENTER, BLUE_PLAYER_STATION_13_CENTER));
       return;
     }
@@ -142,7 +143,7 @@ public class DriveToPointCommand extends Command {
       return;
     }
     // at this point it's for sure a player station point
-    if (redAlliance.get()) {
+    if (RED_ALLIANCE.get()) {
       m_localList = target == RED_PLAYER_STATION_1_CENTER ? POSE_LIST.subList(0, 3) : POSE_LIST.subList(3, 6);
     } else {
       m_localList = target == BLUE_PLAYER_STATION_12_CENTER ? POSE_LIST.subList(6, 9)

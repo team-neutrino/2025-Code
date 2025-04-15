@@ -41,11 +41,11 @@ public class DriveToPointController {
      * point, and is intended only for use as such.
      * <p>
      * gives the radial distance from the desired PS point to the robot, Gives a
-     * negative value if too close to player station and vice versa.
+     * positive value if too close to player station and vice versa.
      */
     public static double distStraightPlayerStation() {
         if (m_target == null) {
-            return Integer.MAX_VALUE;
+            return 0;
         }
         double angle = m_target.getRotation().getRadians();
         return (Math.cos(angle) * (Subsystem.swerve.getCurrentPose().getX() - m_target.getX()))
