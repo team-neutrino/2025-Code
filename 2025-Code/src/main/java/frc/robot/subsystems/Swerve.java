@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest.ForwardPerspectiveValue;
+import com.ctre.phoenix6.configs.GyroTrimConfigs;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.ModuleConfig;
@@ -81,6 +82,8 @@ public class Swerve extends CommandSwerveDrivetrain {
         valkyrie ? ValkyrieTunerConstants.FrontRight : TunerConstants.FrontRight,
         valkyrie ? ValkyrieTunerConstants.BackLeft : TunerConstants.BackLeft,
         valkyrie ? ValkyrieTunerConstants.BackRight : TunerConstants.BackRight);
+
+    getPigeon2().getConfigurator().apply(new GyroTrimConfigs().withGyroScalarZ(GYRO_SCALAR_Z));
 
     configureRequestPID();
     // if the robot power was never killed but code was redeployed/rebooted then the
