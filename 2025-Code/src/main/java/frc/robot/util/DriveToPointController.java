@@ -7,6 +7,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructPublisher;
 
+import static frc.robot.Constants.DriveToPoint.CLOSE_PID_THRESHOLD;
 import static frc.robot.Constants.SwerveConstants.*;
 
 import java.util.List;
@@ -33,6 +34,11 @@ public class DriveToPointController {
         if (Subsystem.swerve.isAtPoint()) {
             return 0;
         }
+        if (getStraightLineDist() < CLOSE_PID_THRESHOLD) {
+            m_controlskerX.setPID(DTP_CLOSE_P, 0, 0);
+        } else {
+            m_controlskerX.setPID(DRIVE_TO_POINT_P, 0, DRIVE_TO_POINT_D);
+        }
         return m_controlskerX.calculate(Subsystem.swerve.getCurrentPose().getX() - m_target.getX());
     }
 
@@ -55,6 +61,11 @@ public class DriveToPointController {
     public double getYVelocity() {
         if (Subsystem.swerve.isAtPoint()) {
             return 0;
+        }
+        if (getStraightLineDist() < CLOSE_PID_THRESHOLD) {
+            m_controlskerY.setPID(DTP_CLOSE_P, 0, 0);
+        } else {
+            m_controlskerY.setPID(DRIVE_TO_POINT_P, 0, DRIVE_TO_POINT_D);
         }
         return m_controlskerY.calculate(Subsystem.swerve.getCurrentPose().getY() - m_target.getY());
     }

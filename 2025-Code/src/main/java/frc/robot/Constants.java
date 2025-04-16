@@ -65,6 +65,7 @@ public final class Constants {
                 public static final double REEF_OFFSET = Units.inchesToMeters(12.94) / 2;
                 public static final double isAlignedError = 0;
                 public static final double DRIVE_TO_POINT_P = 5;
+                public static final double DTP_CLOSE_P = 1;
                 public static final double DRIVE_TO_POINT_D = .3;
                 public static final double MAX_DRIVETOPOINT_SPEED = 4;
                 public static final double AT_POINT_TOLERANCE = 0.035;
@@ -308,6 +309,7 @@ public final class Constants {
 
                 public static final double AT_HEADING_TOLERANCE = 1;
                 public static final double DYNAMIC_UPDATE_THRESHOLD = 1.5;
+                public static final double CLOSE_PID_THRESHOLD = .2;
                 // negative is more right
 
                 // CURRENTLY TESTING WITH THIS LIBRARY THING
