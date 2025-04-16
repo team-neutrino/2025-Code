@@ -112,7 +112,7 @@ public final class Constants {
                 public static final double DYNAMIC_ADJUST_P = 39.3701;
                 public static final double SAFE_HEIGHT_ALGAE = 30;
                 public static final double SAFE_HEIGHT_NO_ALGAE = 17;
-                public static final double FF_STAGE_3 = .4;
+                public static final double FF_STAGE_3 = 1.5;
         }
 
         public static class ArmConstants {

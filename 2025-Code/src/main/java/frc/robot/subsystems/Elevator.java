@@ -104,7 +104,8 @@ public class Elevator extends SubsystemBase {
     double feedForward = m_FFStage1;
     if (m_encoder.getPosition() >= STAGE_ONE_UP) {
       feedForward = m_FFStage2;
-    } else if (m_encoder.getPosition() >= 40) {
+    }
+    if (m_encoder.getPosition() >= 53) {
       feedForward = FF_STAGE_3;
     }
     if (Subsystem.algae.debouncedHasAlgae()) {
