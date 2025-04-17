@@ -15,7 +15,6 @@ import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
@@ -66,7 +65,7 @@ public class Swerve extends CommandSwerveDrivetrain {
   private Debouncer m_driveToPointDebouncer = new Debouncer(0.3, DebounceType.kRising);
   private Debouncer m_tippyDebouncer = new Debouncer(0.3, DebounceType.kBoth);
 
-  private Telemetry m_telemetry = new Telemetry(MAX_SPEED);
+  // private Telemetry m_telemetry = new Telemetry(MAX_SPEED);
 
   /**
    * Constructs the drivetrain using the values found in {@link TunerConstants}.
@@ -105,7 +104,7 @@ public class Swerve extends CommandSwerveDrivetrain {
       configurePathPlanner();
     }
     m_hasBeenConstructed = true;
-    registerTelemetry(m_telemetry::telemeterize);
+    // registerTelemetry(m_telemetry::telemeterize);
   }
 
   /**
