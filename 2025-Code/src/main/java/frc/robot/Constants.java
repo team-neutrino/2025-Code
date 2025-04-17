@@ -197,7 +197,7 @@ public final class Constants {
 
                 public static final int CLIMB_CURRENT_LIMIT = 40;
 
-                public static final int LOWER_CLIMB_POSITION = -40;
+                public static final int LOWER_CLIMB_POSITION = 0;
                 public static final int RAISE_CLIMB_POSITION = 40;
 
                 public static final int CLIMB_POSITION_TOLERANCE = 3;
