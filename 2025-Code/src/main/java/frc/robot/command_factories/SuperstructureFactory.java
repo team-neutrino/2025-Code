@@ -188,7 +188,7 @@ public class SuperstructureFactory {
         Command coralDefaultCom = coral.coralDefaultCommand();
         Command coralScoreCom = CoralFactory.runOuttake();
         Command armEvacCom = ArmFactory.evacuateScoreL4();
-        Command evacWait = new WaitCommand(0.2);
+        Command evacWait = new WaitCommand(0.1);
         BooleanSupplier readyToScore = () -> (arm.readyToScore() && elevator.readyToScore()
                 && controller.getHID().getRightBumperButton() && antiDriveTeamCondition());
         BooleanSupplier comEnd = () -> !coral.debouncedHasCoral();

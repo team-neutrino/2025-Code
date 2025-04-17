@@ -295,7 +295,7 @@ public final class Constants {
                 public static final double OFFSET_ARM_STATION = -.42;
                 public static final double SIDEWAYS_OFFSET_STATION = .3;
                 // right is more negative, left is more positive
-                public static final double OFFSET_TO_REEF = .505;
+                public static final double OFFSET_TO_REEF = .48;
                 public static final double OFFSET_TO_STATION = .56;
                 public static final double REEF_WIDTH = 0.33;
                 public static final double SAFE_OFFSET_TO_STATION = 1.5;
