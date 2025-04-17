@@ -15,6 +15,7 @@ import static frc.robot.util.Subsystem.*;
 
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.commands.PathfindingCommand;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.wpilibj.DataLogManager;
@@ -44,8 +45,9 @@ public class RobotContainer {
     configureBindings();
     configureDefaultCommands();
     configureNamedCommands();
+    PathfindingCommand.warmupCommand().schedule();
     DataLogManager.start();
-    m_autonPath = new PathPlannerAuto("1 Coral + Intake Algae");
+    m_autonPath = new PathPlannerAuto("3 CORAL TOP");
 
   }
 

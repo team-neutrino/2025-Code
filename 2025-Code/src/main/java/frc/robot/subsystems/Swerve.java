@@ -130,6 +130,7 @@ public class Swerve extends CommandSwerveDrivetrain {
   public void resetYaw() {
     resetRotation(new Rotation2d(0));
     getPigeon2().reset();
+    System.out.println("Yaw reset to 0");
     // need more research on the following
     // seedFieldCentric();
   }
@@ -295,11 +296,12 @@ public class Swerve extends CommandSwerveDrivetrain {
         .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED));
   }
 
-  public Command swerveDriveToPoint(DriveToPointController controller) {
-    return applyRequest(() -> SwerveRequestStash.driveWithVelocity.withVelocityX(controller.getXVelocity())
-        .withVelocityY(controller.getYVelocity())
-        .withTargetDirection(controller.getRotation()));
-  }
+  // public Command swerveDriveToPoint(DriveToPointController controller) {
+  // return applyRequest(() ->
+  // SwerveRequestStash.driveWithVelocity.withVelocityX(controller.getXVelocity())
+  // .withVelocityY(controller.getYVelocity())
+  // .withTargetDirection(controller.getRotation()));
+  // }
 
   public Command resetYawCommand() {
     return run(() -> resetYaw());
