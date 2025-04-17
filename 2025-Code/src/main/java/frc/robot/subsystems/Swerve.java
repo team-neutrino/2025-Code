@@ -32,7 +32,7 @@ import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.KilogramSquareMeters;
 import static edu.wpi.first.units.Units.Pounds;
-import static frc.robot.Constants.GlobalConstants.redAlliance;
+import static frc.robot.Constants.GlobalConstants.RED_ALLIANCE;
 import static frc.robot.Constants.SwerveConstants.*;
 
 import java.io.IOException;
@@ -169,7 +169,7 @@ public class Swerve extends CommandSwerveDrivetrain {
               rotationConstants),
           robotConfig,
           () -> {
-            return GlobalConstants.redAlliance.isPresent() && GlobalConstants.redAlliance.get();
+            return GlobalConstants.RED_ALLIANCE.isPresent() && GlobalConstants.RED_ALLIANCE.get();
           },
           this);
     } catch (IOException | ParseException e) {
@@ -205,7 +205,7 @@ public class Swerve extends CommandSwerveDrivetrain {
             new Translation2d(ValkyrieTunerConstants.BackLeft.LocationX, ValkyrieTunerConstants.BackLeft.LocationY),
             new Translation2d(ValkyrieTunerConstants.BackRight.LocationX, ValkyrieTunerConstants.BackRight.LocationY)),
         () -> {
-          return GlobalConstants.redAlliance.isPresent() && GlobalConstants.redAlliance.get();
+          return GlobalConstants.RED_ALLIANCE.isPresent() && GlobalConstants.RED_ALLIANCE.get();
         },
         this);
   }
@@ -234,7 +234,7 @@ public class Swerve extends CommandSwerveDrivetrain {
 
   public boolean isNearIntake() {
     Pose2d target = getCurrentPose().nearest(
-        redAlliance.get() ? Constants.DriveToPoint.RED_PLAYER_STATION : Constants.DriveToPoint.BLUE_PLAYER_STATION);
+        RED_ALLIANCE.get() ? Constants.DriveToPoint.RED_PLAYER_STATION : Constants.DriveToPoint.BLUE_PLAYER_STATION);
     return (Math.abs(target.getX() - getCurrentPose().getX()) < AT_INTAKE_TOLERANCE)
         && (Math.abs(target.getY() - getCurrentPose().getY()) < AT_INTAKE_TOLERANCE);
   }
