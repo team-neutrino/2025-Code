@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest.ForwardPerspectiveValue;
+import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.configs.GyroTrimConfigs;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -23,6 +24,10 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.networktables.DoubleArrayPublisher;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -64,6 +69,14 @@ public class Swerve extends CommandSwerveDrivetrain {
   private boolean m_atPoint = false;
   private Debouncer m_driveToPointDebouncer = new Debouncer(0.3, DebounceType.kRising);
   private Debouncer m_tippyDebouncer = new Debouncer(0.3, DebounceType.kBoth);
+  // private final double[] m_poseArray = new double[3];
+  // private final NetworkTable table =
+  // NetworkTableInstance.getDefault().getTable("Pose");
+  // private final DoubleArrayPublisher fieldPub =
+  // table.getDoubleArrayTopic("robotPose").publish();
+  private final NetworkTable driveStateTable = NetworkTableInstance.getDefault().getTable("DriveState");
+  private final StructPublisher<Pose2d> drivePose = driveStateTable.getStructTopic("Pose", Pose2d.struct)
+      .publish();
 
   // private Telemetry m_telemetry = new Telemetry(MAX_SPEED);
 
@@ -310,6 +323,13 @@ public class Swerve extends CommandSwerveDrivetrain {
   @Override
   public void periodic() {
     super.periodic();
+    Pose2d currentPose = getState().Pose;
+    // m_poseArray[0] = currentPose.getX();
+    // m_poseArray[1] = currentPose.getY();
+    // m_poseArray[2] = currentPose.getRotation().getDegrees();
+    // SignalLogger.writeDoubleArray("DriveState/Pose", m_poseArray);
+    // fieldPub.set(m_poseArray);
+    drivePose.set(currentPose);
   }
 
   /**
