@@ -69,6 +69,7 @@ public final class Constants {
                 public static final double MAX_DRIVETOPOINT_SPEED = 4;
                 public static final double AT_POINT_TOLERANCE = 0.035;
                 public static final double AT_INTAKE_TOLERANCE = 0.25;
+                public static final double GYRO_SCALAR_Z = -1.5;
         }
 
         public static class ElevatorConstants {
@@ -88,6 +89,7 @@ public final class Constants {
                 public static final double L2 = 17.0;
                 public static final double L3 = 32.5;
                 public static final double L4 = 55.5;
+                public static final double L4_FF_THRESHOLD = 53.0;
                 public static final double ARM_WILL_NOT_HIT_BASE_HEIGHT = 20.0;
                 public static final double STAGE_1_LENGTH = 29;
                 public static final double STAGE_2_LENGTH = 26;
@@ -111,6 +113,7 @@ public final class Constants {
                 public static final double DYNAMIC_ADJUST_P = 39.3701;
                 public static final double SAFE_HEIGHT_ALGAE = 30;
                 public static final double SAFE_HEIGHT_NO_ALGAE = 17;
+                public static final double L4_FF = 1.5;
         }
 
         public static class ArmConstants {

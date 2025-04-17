@@ -6,8 +6,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.DriveToPoint.Mode;
@@ -25,7 +23,6 @@ import static frc.robot.util.Subsystem.arm;
 import java.util.List;
 
 public class DriveToPointCommand extends Command {
-  private boolean m_hasUpdated = false;
   private DriveToPointController m_pointControl = new DriveToPointController();
   private CommandXboxController m_xboxController;
   private List<Pose2d> m_localList;
@@ -41,7 +38,6 @@ public class DriveToPointCommand extends Command {
 
   @Override
   public void initialize() {
-    m_hasUpdated = false;
     swerve.setDrivingToPoint(true);
     swerve.setAtPoint(false);
 
@@ -194,30 +190,6 @@ public class DriveToPointCommand extends Command {
     m_pointControl.setTarget(m_localList.get(id));
   }
 
-  private Rotation2d magicAngle() {
-    boolean rightSide = RED_REEF_RIGHT.contains(m_pointControl.getTarget())
-        || BLUE_REEF_RIGHT.contains(m_pointControl.getTarget());
-
-    double badPigeon = Math.abs(rightSide ? Subsystem.limelight.getTargetYawFromReef1()
-        : Subsystem.limelight.getTargetYawFromReef2());
-
-    if (!DriverStation.isAutonomousEnabled() && !m_hasUpdated
-        && (RED_REEF.contains(m_pointControl.getTarget()) || BLUE_REEF.contains(m_pointControl.getTarget()))
-        && (rightSide ? Subsystem.limelight.getTvReef1() : Subsystem.limelight.getTvReef2())
-        && atHeading() && swerve.isAtPoint() && badPigeon > DYNAMIC_UPDATE_THRESHOLD && badPigeon < 10) {
-      m_hasUpdated = true;
-      swerve.setAtPoint(false);
-      Subsystem.swerve.getPigeon2().setYaw(
-          Subsystem.swerve.getPigeon2().getYaw().getValueAsDouble() + Subsystem.limelight.getTargetYawFromReef2());
-    }
-    return m_pointControl.getRotation();
-  }
-
-  private boolean atHeading() {
-    return Math.abs(Subsystem.swerve.getYawDegrees()
-        - MathUtil.inputModulus(m_pointControl.getRotation().getDegrees(), -180, 180)) < AT_HEADING_TOLERANCE;
-  }
-
   private void drive() {
     double velx = m_pointControl.getXVelocity(), vely = m_pointControl.getYVelocity();
     double xsign = Math.signum(velx), ysign = Math.signum(vely);
@@ -232,7 +204,7 @@ public class DriveToPointCommand extends Command {
     SwerveRequestStash.driveWithVelocity
         .withVelocityX(velx)
         .withVelocityY(vely)
-        .withTargetDirection(magicAngle());
+        .withTargetDirection(m_pointControl.getRotation());
     swerve.setControl(SwerveRequestStash.driveWithVelocity);
   }
 }
