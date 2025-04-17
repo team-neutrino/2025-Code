@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -138,6 +139,7 @@ public class Limelight extends SubsystemBase {
   }
 
   private void updateOdometry() {
+    Subsystem.swerve.setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
     // if aligning to an algae position, force odometry updates from reef.
     if (getTvReef1() && (m_deAlgaefying || Subsystem.coral.hasCoral() || Subsystem.algae.hasAlgae())) {
       updateOdometryReef1();

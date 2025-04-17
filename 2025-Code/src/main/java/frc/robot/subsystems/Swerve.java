@@ -106,8 +106,6 @@ public class Swerve extends CommandSwerveDrivetrain {
     }
     m_hasBeenConstructed = true;
     registerTelemetry(m_telemetry::telemeterize);
-
-    setVisionMeasurementStdDevs(VecBuilder.fill(0.7, 0.7, 9999999));
   }
 
   /**
