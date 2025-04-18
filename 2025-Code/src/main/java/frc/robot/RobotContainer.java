@@ -50,7 +50,7 @@ public class RobotContainer {
     PathfindingCommand.warmupCommand().schedule();
     // DataLogManager.start();
     SignalLogger.enableAutoLogging(false);
-    m_autonPath = new PathPlannerAuto("Copy of 1 Coral + 1 Algae");
+    m_autonPath = new PathPlannerAuto("GOOD 1 CORAL + ALGAE");
   }
 
   private void configureBindings() {
