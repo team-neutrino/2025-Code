@@ -9,10 +9,12 @@ import frc.robot.Constants.OperatorConstants;
 import static frc.robot.Constants.DriveToPoint.*;
 import frc.robot.command_factories.*;
 import frc.robot.commands.DriveToPointCommand;
+import frc.robot.subsystems.Elevator;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.util.Subsystem.*;
 
+import com.ctre.phoenix6.SignalLogger;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.commands.PathfindingCommand;
@@ -46,7 +48,8 @@ public class RobotContainer {
     configureDefaultCommands();
     configureNamedCommands();
     PathfindingCommand.warmupCommand().schedule();
-    DataLogManager.start();
+    // DataLogManager.start();
+    SignalLogger.enableAutoLogging(false);
     m_autonPath = new PathPlannerAuto("Copy of 1 Coral + 1 Algae");
 
   }
@@ -145,6 +148,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("ElevatorArmDefault",
         elevator.elevatorDefaultCommand().alongWith(arm.armDefaultCommand()));
     NamedCommands.registerCommand("IntakeOnly", CoralFactory.runIntake());
+    NamedCommands.registerCommand("ElevatorDefault", Subsystem.elevator.elevatorDefaultCommand());
   }
 
   /**
@@ -161,6 +165,7 @@ public class RobotContainer {
     try {
       auto = m_autonPath;
     } catch (Exception e) {
+      System.err.println("Caught exception when loading auto");
       auto = new PathPlannerAuto("3 CORAL TOP");
     }
 
