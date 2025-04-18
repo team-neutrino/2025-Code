@@ -16,11 +16,11 @@
     },
     {
       "anchor": {
-        "x": 6.113729508196721,
+        "x": 5.993852459016393,
         "y": 1.861219262295083
       },
       "prevControl": {
-        "x": 6.362200441865126,
+        "x": 6.242323392684798,
         "y": 1.8336113807763728
       },
       "nextControl": null,
@@ -34,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
-    "maxAcceleration": 4.0,
+    "maxAcceleration": 1.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -48,7 +48,7 @@
   "folder": "Processor ",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": false
 }
