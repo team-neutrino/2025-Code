@@ -165,7 +165,7 @@ public class RobotContainer {
       auto = m_autonPath;
     } catch (Exception e) {
       System.err.println("Caught exception when loading auto");
-      auto = new PathPlannerAuto("3 CORAL TOP");
+      auto = new PathPlannerAuto("Nothing");
     }
 
     return auto;
