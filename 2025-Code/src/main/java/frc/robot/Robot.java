@@ -44,6 +44,7 @@ public class Robot extends TimedRobot {
     // and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer(m_driverController, m_buttonsController);
+    jankInit();
   }
 
   /**
@@ -74,6 +75,11 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
+    //
+  }
+
+  private void jankInit() {
+    Constants.GlobalConstants.RED_ALLIANCE = Optional.of(true);
     System.out.println("STARTED JANK INITIALIZATION");
     DriveToPointCommand dtp = new DriveToPointCommand(m_driverController, Constants.DriveToPoint.Mode.NEAREST);
     Command com1 = SuperstructureFactory.moveToScoreL4Command();
@@ -121,6 +127,7 @@ public class Robot extends TimedRobot {
     com5.end(false);
     com6.end(false);
     System.out.println("FINISHED JANK INITIALIZATION");
+    Constants.GlobalConstants.RED_ALLIANCE = Optional.empty();
   }
 
   @Override
