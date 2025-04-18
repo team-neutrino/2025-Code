@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
           "type": "deadline",
           "data": {
             "commands": [
@@ -34,22 +40,9 @@
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.3
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "MoveToScoringL4"
-                      }
-                    }
-                  ]
+                  "name": "ElevatorArmDefault"
                 }
               }
             ]
@@ -100,31 +93,6 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "IntakeOnly"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "DriveToPointForever"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveToIntake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
                   "name": "Intake"
                 }
               },
@@ -148,22 +116,9 @@
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.75
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "MoveToScoringL4"
-                      }
-                    }
-                  ]
+                  "name": "ElevatorArmDefault"
                 }
               }
             ]
@@ -183,31 +138,6 @@
                 "type": "named",
                 "data": {
                   "name": "DriveToPointForever"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "IntakeOnly"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "DriveToPointForever"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveToIntake"
                 }
               }
             ]
@@ -243,22 +173,9 @@
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.75
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "MoveToScoringL4"
-                      }
-                    }
-                  ]
+                  "name": "ElevatorArmDefault"
                 }
               }
             ]
