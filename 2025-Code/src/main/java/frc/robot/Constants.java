@@ -69,7 +69,7 @@ public final class Constants {
                 public static final double MAX_DRIVETOPOINT_SPEED = 4;
                 public static final double AT_POINT_TOLERANCE = 0.035;
                 public static final double AT_INTAKE_TOLERANCE = 0.25;
-                public static final double GYRO_SCALAR_Z = -2.7;
+                public static final double GYRO_SCALAR_Z = -3.9;
         }
 
         public static class ElevatorConstants {
