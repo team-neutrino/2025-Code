@@ -30,15 +30,15 @@ public class RobotContainer {
   // @SuppressWarnings("unused")
   private Subsystem subsystemContainer;
   private Command m_autonPath;
-  private final CommandXboxController m_driverController = new CommandXboxController(
-      OperatorConstants.kDriverControllerPort);
-  private final CommandXboxController m_buttonsController = new CommandXboxController(
-      OperatorConstants.kButtonsControllerPort);
+  private final CommandXboxController m_driverController;
+  private final CommandXboxController m_buttonsController;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
-  public RobotContainer() {
+  public RobotContainer(CommandXboxController driverController, CommandXboxController buttonsController) {
+    m_driverController = driverController;
+    m_buttonsController = buttonsController;
     // "layout" wouldn't initialize until the b button was pressed, causing a 2-3
     // second delay. this forces it to initialize on startup.
     AprilTagFieldLayout tmp = Constants.DriveToPoint.LAYOUT;

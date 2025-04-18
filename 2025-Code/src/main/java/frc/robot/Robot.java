@@ -12,6 +12,11 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Constants.OperatorConstants;
+import frc.robot.command_factories.SuperstructureFactory;
+import frc.robot.commands.DriveToPointCommand;
+import frc.robot.util.Subsystem;
 
 /**
  * The methods in this class are called automatically corresponding to each
@@ -24,6 +29,8 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private final RobotContainer m_robotContainer;
+  private final CommandXboxController m_driverController;
+  private final CommandXboxController m_buttonsController;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -31,10 +38,12 @@ public class Robot extends TimedRobot {
    * initialization code.
    */
   public Robot() {
+    m_driverController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
+    m_buttonsController = new CommandXboxController(OperatorConstants.kButtonsControllerPort);
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
+    m_robotContainer = new RobotContainer(m_driverController, m_buttonsController);
   }
 
   /**
@@ -65,6 +74,53 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
+    System.out.println("STARTED JANK INITIALIZATION");
+    DriveToPointCommand dtp = new DriveToPointCommand(m_driverController, Constants.DriveToPoint.Mode.NEAREST);
+    Command com1 = SuperstructureFactory.moveToScoreL4Command();
+    Command com2 = SuperstructureFactory.moveToIntake();
+    Command com3 = SuperstructureFactory.autonDynamicCoralIntake();
+    Command com4 = SuperstructureFactory.moveToDescoreAlgaeL3();
+    Command com5 = SuperstructureFactory.scoreCoralL4AutonCommand();
+    Command com6 = SuperstructureFactory.scoreNetAutomated(m_driverController);
+    dtp.initialize();
+    com1.initialize();
+    com2.initialize();
+    com3.initialize();
+    com4.initialize();
+    com5.initialize();
+    com6.initialize();
+    for (int i = 0; i < 10001; i++) {
+      dtp.execute();
+      dtp.isFinished();
+      com1.execute();
+      com1.isFinished();
+      com2.execute();
+      com2.isFinished();
+      com3.execute();
+      com3.isFinished();
+      com4.execute();
+      com4.isFinished();
+      com5.execute();
+      com5.isFinished();
+      com6.execute();
+      com6.isFinished();
+      Subsystem.arm.periodic();
+      Subsystem.elevator.periodic();
+      Subsystem.swerve.periodic();
+      Subsystem.algae.periodic();
+      Subsystem.LED.periodic();
+      Subsystem.coral.periodic();
+      Subsystem.limelight.periodic();
+      Subsystem.climb.periodic();
+    }
+    dtp.end(false);
+    com1.end(false);
+    com2.end(false);
+    com3.end(false);
+    com4.end(false);
+    com5.end(false);
+    com6.end(false);
+    System.out.println("FINISHED JANK INITIALIZATION");
   }
 
   @Override
