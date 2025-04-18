@@ -51,7 +51,6 @@ public class RobotContainer {
     // DataLogManager.start();
     SignalLogger.enableAutoLogging(false);
     m_autonPath = new PathPlannerAuto("Copy of 1 Coral + 1 Algae");
-
   }
 
   private void configureBindings() {

@@ -15,5 +15,5 @@ public class Subsystem {
     public static Limelight limelight = null;
     public static final Arm arm = new Arm();
     public static final Algae algae = new Algae();
-    // public static final LED LED = new LED();
+    public static final LED LED = new LED();
 }
