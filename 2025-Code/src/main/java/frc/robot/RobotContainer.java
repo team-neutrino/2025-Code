@@ -47,7 +47,7 @@ public class RobotContainer {
     configureNamedCommands();
     PathfindingCommand.warmupCommand().schedule();
     DataLogManager.start();
-    m_autonPath = new PathPlannerAuto("3 CORAL TOP");
+    m_autonPath = new PathPlannerAuto("Copy of 1 Coral + 1 Algae");
 
   }
 
