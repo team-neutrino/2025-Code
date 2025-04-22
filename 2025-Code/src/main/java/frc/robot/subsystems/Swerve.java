@@ -295,13 +295,6 @@ public class Swerve extends CommandSwerveDrivetrain {
         .withRotationalRate(-controller.getRightX() * MAX_ROTATION_SPEED));
   }
 
-  // public Command swerveDriveToPoint(DriveToPointController controller) {
-  // return applyRequest(() ->
-  // SwerveRequestStash.driveWithVelocity.withVelocityX(controller.getXVelocity())
-  // .withVelocityY(controller.getYVelocity())
-  // .withTargetDirection(controller.getRotation()));
-  // }
-
   public Command resetYawCommand() {
     return run(() -> resetYaw());
   }
