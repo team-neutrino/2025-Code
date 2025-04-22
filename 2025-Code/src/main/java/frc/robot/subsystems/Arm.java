@@ -137,7 +137,7 @@ public class Arm extends SubsystemBase {
    * @return volts
    */
   private double feedForwardCalculation() {
-    double feedForward = FFCONSTANT;
+    double feedForward = m_FFConstant;
     double currentAngle = (getAngle() - 90) * (Math.PI / 180);
     if (Subsystem.algae.debouncedHasAlgae()) {
       feedForward += ALGAE_FF;

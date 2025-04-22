@@ -9,7 +9,6 @@ import frc.robot.Constants.OperatorConstants;
 import static frc.robot.Constants.DriveToPoint.*;
 import frc.robot.command_factories.*;
 import frc.robot.commands.DriveToPointCommand;
-import frc.robot.subsystems.Elevator;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.util.Subsystem.*;
@@ -20,7 +19,6 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.commands.PathfindingCommand;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
-import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
