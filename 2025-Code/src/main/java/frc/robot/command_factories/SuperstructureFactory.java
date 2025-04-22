@@ -17,17 +17,6 @@ import java.util.function.BooleanSupplier;
 
 public class SuperstructureFactory {
 
-    // public static boolean antiDriveTeamCondition() {
-    // if (Subsystem.swerve.getCurrentCommand() == null) {
-    // return false;
-    // }
-    // return Subsystem.swerve
-    // .getCurrentCommand().getName().equals(Constants.DriveToPoint.DRIVE_TO_POINT_BASIC)
-    // ? Subsystem.swerve.isAtPoint()
-    // && (Subsystem.limelight.getTvReef1() || Subsystem.limelight.getTvReef2())
-    // : true;
-    // }
-
     public static Command autonDynamicCoralIntake() {
         Command ret = new RunCommand(() -> {
             // if we're running driveToPoint and the distance from target is below a certain
