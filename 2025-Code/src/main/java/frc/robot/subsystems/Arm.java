@@ -211,13 +211,10 @@ public class Arm extends SubsystemBase {
    */
   public Command armDefaultCommand() {
     return run(() -> {
-      if (Subsystem.coral.hasCoral()) {
-        m_targetAngle = DEFAULT_POSITION;
-        if (Subsystem.algae.debouncedHasAlgae()) {
-          m_targetAngle = DEFAULT_NO_GP;
-        }
-      } else {
+      if (Subsystem.algae.debouncedHasAlgae()) {
         m_targetAngle = DEFAULT_NO_GP;
+      } else {
+        m_targetAngle = DEFAULT_POSITION;
       }
     });
 
