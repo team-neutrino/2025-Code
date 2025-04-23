@@ -226,11 +226,10 @@ public class Elevator extends SubsystemBase {
 
   public Command elevatorDefaultCommand() {
     return run(() -> {
-      if(Subsystem.algae.debouncedHasAlgae()) {
+      if (Subsystem.algae.debouncedHasAlgae()) {
         m_targetHeight = DEFAULT_NO_CORAL;
-      }
-      else {
-        m_targetHeight = DEFAULT_WITH_CORAL
+      } else {
+        m_targetHeight = DEFAULT_WITH_CORAL;
       }
     });
   }
