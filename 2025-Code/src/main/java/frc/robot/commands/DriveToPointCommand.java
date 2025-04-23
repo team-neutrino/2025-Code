@@ -88,34 +88,20 @@ public class DriveToPointCommand extends Command {
       return;
     }
 
-    if (Subsystem.coral.debouncedHasCoral()) {
-      switch (m_mode) {
-        case LEFT:
-          m_pointControl.setTargetNearest(BLUE_REEF_LEFT);
-          return;
-        case NEAREST:
-          m_pointControl.setTargetNearest(BLUE_REEF);
-          return;
-        case RIGHT:
-          m_pointControl.setTargetNearest(BLUE_REEF_RIGHT);
-          return;
-        default:
-          System.out.println("undefined behavior in obtainTarget; m_mode is null or an improper value");
-          break;
-      }
+    switch (m_mode) {
+      case LEFT:
+        m_pointControl.setTargetNearest(BLUE_REEF_LEFT);
+        return;
+      case NEAREST:
+        m_pointControl.setTargetNearest(BLUE_REEF);
+        return;
+      case RIGHT:
+        m_pointControl.setTargetNearest(BLUE_REEF_RIGHT);
+        return;
+      default:
+        System.out.println("undefined behavior in obtainTarget; m_mode is null or an improper value");
+        break;
     }
-
-    // by now the only case left is player station
-    if (arm.isAtIntake()) {
-      m_pointControl
-          .setTargetNearest(RED_ALLIANCE.get() ? List.of(RED_PLAYER_STATION_1_CENTER, RED_PLAYER_STATION_2_CENTER)
-              : List.of(BLUE_PLAYER_STATION_12_CENTER, BLUE_PLAYER_STATION_13_CENTER));
-      return;
-    }
-
-    m_pointControl
-        .setTargetNearest(PLAYER_STATION_SAFE);
-
   }
 
   /**
