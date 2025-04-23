@@ -88,21 +88,16 @@ public class DriveToPointCommand extends Command {
       return;
     }
 
-    if (m_mode == Mode.NET) {
-      m_pointControl.setTarget(RED_ALLIANCE.get() ? RED_BARGE_5 : BLUE_BARGE_14);
-      return;
-    }
-
     if (Subsystem.coral.debouncedHasCoral()) {
       switch (m_mode) {
         case LEFT:
-          m_pointControl.setTargetNearest(RED_ALLIANCE.get() ? RED_REEF_LEFT : BLUE_REEF_LEFT);
+          m_pointControl.setTargetNearest(BLUE_REEF_LEFT);
           return;
         case NEAREST:
-          m_pointControl.setTargetNearest(RED_ALLIANCE.get() ? RED_REEF : BLUE_REEF);
+          m_pointControl.setTargetNearest(BLUE_REEF);
           return;
         case RIGHT:
-          m_pointControl.setTargetNearest(RED_ALLIANCE.get() ? RED_REEF_RIGHT : BLUE_REEF_RIGHT);
+          m_pointControl.setTargetNearest(BLUE_REEF_RIGHT);
           return;
         default:
           System.out.println("undefined behavior in obtainTarget; m_mode is null or an improper value");

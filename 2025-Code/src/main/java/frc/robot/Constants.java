@@ -423,34 +423,18 @@ public final class Constants {
                                 RED_REEF_9A,
                                 RED_REEF_10A, RED_REEF_11A);
 
-                public static final List<Pose2d> BLUE_REEF = List.of(BLUE_REEF_22B, BLUE_REEF_22A, BLUE_REEF_21B,
-                                BLUE_REEF_21A,
-                                BLUE_REEF_20B, BLUE_REEF_20A, BLUE_REEF_19B, BLUE_REEF_19A, BLUE_REEF_18B,
-                                BLUE_REEF_18A, BLUE_REEF_17B,
-                                BLUE_REEF_17A);
+                public static final List<Pose2d> BLUE_REEF = List.of(BLUE_REEF_18B,
+                                BLUE_REEF_18A);
 
-                public static final List<Pose2d> BLUE_REEF_RIGHT = List.of(BLUE_REEF_22A,
-                                BLUE_REEF_21A, BLUE_REEF_20A, BLUE_REEF_19A, BLUE_REEF_18A, BLUE_REEF_17A);
+                public static final List<Pose2d> BLUE_REEF_RIGHT = List.of(BLUE_REEF_18A);
 
-                public static final List<Pose2d> BLUE_REEF_LEFT = List.of(BLUE_REEF_22B,
-                                BLUE_REEF_21B, BLUE_REEF_20B, BLUE_REEF_19B, BLUE_REEF_18B, BLUE_REEF_17B);
+                public static final List<Pose2d> BLUE_REEF_LEFT = List.of(BLUE_REEF_18B);
 
                 public static enum Mode {
                         LEFT, RIGHT, NEAREST, ALGAE, NET;
                 }
 
                 public static final List<Pose2d> REEF_ALGAE = List.of(
-                                CalculateAlgaePoint(LAYOUT.getTagPose(6).get()),
-                                CalculateAlgaePoint(LAYOUT.getTagPose(7).get()),
-                                CalculateAlgaePoint(LAYOUT.getTagPose(8).get()),
-                                CalculateAlgaePoint(LAYOUT.getTagPose(9).get()),
-                                CalculateAlgaePoint(LAYOUT.getTagPose(10).get()),
-                                CalculateAlgaePoint(LAYOUT.getTagPose(11).get()),
-                                CalculateAlgaePoint(LAYOUT.getTagPose(17).get()),
-                                CalculateAlgaePoint(LAYOUT.getTagPose(18).get()),
-                                CalculateAlgaePoint(LAYOUT.getTagPose(19).get()),
-                                CalculateAlgaePoint(LAYOUT.getTagPose(20).get()),
-                                CalculateAlgaePoint(LAYOUT.getTagPose(21).get()),
-                                CalculateAlgaePoint(LAYOUT.getTagPose(22).get()));
+                                CalculateAlgaePoint(LAYOUT.getTagPose(18).get()));
         }
 }
