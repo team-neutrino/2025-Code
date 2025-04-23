@@ -13,11 +13,12 @@ import frc.robot.util.Subsystem;
 
 import static frc.robot.util.Subsystem.*;
 
+import com.ctre.phoenix6.SignalLogger;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.commands.PathfindingCommand;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
-import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -44,9 +45,10 @@ public class RobotContainer {
     configureBindings();
     configureDefaultCommands();
     configureNamedCommands();
-    DataLogManager.start();
-    m_autonPath = new PathPlannerAuto("3 CORAL TOP");
-
+    PathfindingCommand.warmupCommand().schedule();
+    // DataLogManager.start();
+    SignalLogger.enableAutoLogging(false);
+    m_autonPath = new PathPlannerAuto("GOOD 1 CORAL + ALGAE");
   }
 
   private void configureBindings() {
@@ -140,9 +142,10 @@ public class RobotContainer {
     NamedCommands.registerCommand("DriveToPointAlgae",
         new DriveToPointCommand(m_driverController, Mode.ALGAE));
     NamedCommands.registerCommand("SwerveDefault", swerve.getDefaultCommand());
-    NamedCommands.registerCommand("ElevatorDefault", ElevatorFactory.zeroElevator());
-    NamedCommands.registerCommand("ArmDefault", arm.armDefaultCommand());
+    NamedCommands.registerCommand("ElevatorArmDefault",
+        elevator.elevatorDefaultCommand().alongWith(arm.armDefaultCommand()));
     NamedCommands.registerCommand("IntakeOnly", CoralFactory.runIntake());
+    NamedCommands.registerCommand("ElevatorDefault", Subsystem.elevator.elevatorDefaultCommand());
   }
 
   /**
@@ -159,7 +162,8 @@ public class RobotContainer {
     try {
       auto = m_autonPath;
     } catch (Exception e) {
-      auto = new PathPlannerAuto("3 CORAL TOP");
+      System.err.println("Caught exception when loading auto");
+      auto = new PathPlannerAuto("Nothing");
     }
 
     return auto;

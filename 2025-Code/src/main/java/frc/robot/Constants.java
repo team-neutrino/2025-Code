@@ -69,7 +69,7 @@ public final class Constants {
                 public static final double MAX_DRIVETOPOINT_SPEED = 4;
                 public static final double AT_POINT_TOLERANCE = 0.035;
                 public static final double AT_INTAKE_TOLERANCE = 0.25;
-                public static final double GYRO_SCALAR_Z = -1.5;
+                public static final double GYRO_SCALAR_Z = -3.9;
         }
 
         public static class ElevatorConstants {
@@ -168,7 +168,7 @@ public final class Constants {
 
         public static class CoralConstants {
                 public static final int MOTOR_ID = 21;
-                public static final int CURRENT_LIMIT = 20;
+                public static final int CURRENT_LIMIT = 30;
                 public static final double INTAKE_VOLTAGE = 1.0;
                 public static final double OUTTAKE_VOLTAGE = -1.0;
                 public static final double HOLD_PIECE_VOLTAGE = 0.1;
@@ -295,13 +295,13 @@ public final class Constants {
                 public static final double OFFSET_ARM_STATION = -.42;
                 public static final double SIDEWAYS_OFFSET_STATION = .3;
                 // right is more negative, left is more positive
-                public static final double OFFSET_TO_REEF = .515;
+                public static final double OFFSET_TO_REEF = .48;
                 public static final double OFFSET_TO_STATION = .56;
                 public static final double REEF_WIDTH = 0.33;
                 public static final double SAFE_OFFSET_TO_STATION = 1.5;
 
                 public static final double OFFSET_ARM_ALGAE = 0.31;
-                public static final double OFFSET_REEF_ALGAE = 0.53;
+                public static final double OFFSET_REEF_ALGAE = 0.49;
                 public static final double DYNAMIC_INTAKE_THRESHOLD = .5;
                 public static final double OFFSET_TO_BARGE_X = .57;
                 public static final double OFFSET_TO_BARGE_Y = 1.2;

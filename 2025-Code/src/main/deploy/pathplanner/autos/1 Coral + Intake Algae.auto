@@ -7,7 +7,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 1.5
           }
         },
         {
@@ -17,7 +17,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Pro to T22"
+                  "pathName": "Mid to T21"
                 }
               },
               {
@@ -30,19 +30,32 @@
           }
         },
         {
-          "type": "deadline",
+          "type": "sequential",
           "data": {
             "commands": [
               {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPointLeft"
+                  "name": "DriveToPoint"
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "ElevatorArmDefault"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.3
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "MoveToScoringL4"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -74,13 +87,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Pro-T22 to Station"
+                  "pathName": "Algae Backup"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveToIntake"
+                  "name": "ElevatorDefault"
                 }
               }
             ]
@@ -93,13 +106,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Intake"
+                  "name": "MoveToDescoreAlgaeL2"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPointForever"
+                  "name": "SwerveDefault"
                 }
               }
             ]
@@ -112,13 +125,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPointRight"
+                  "name": "DescoreAlgaeL2"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "ElevatorArmDefault"
+                  "name": "DriveToPointAlgae"
                 }
               }
             ]
@@ -129,81 +142,30 @@
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "ScoreL4"
+                  "pathName": "Algae Backup"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPointForever"
+                  "name": "MoveToDescoreAlgaeL2"
                 }
               }
             ]
           }
         },
         {
-          "type": "deadline",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "DriveToPointForever"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "DriveToPointLeft"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ElevatorArmDefault"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "ScoreL4"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "DriveToPointForever"
-                }
-              }
-            ]
+            "pathName": "Get off Line"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "3 CORAL",
+  "folder": "CORAL & ALGAE",
   "choreoAuto": false
 }
