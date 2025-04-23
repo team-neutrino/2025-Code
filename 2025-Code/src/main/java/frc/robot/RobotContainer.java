@@ -58,21 +58,15 @@ public class RobotContainer {
     m_driverController.a().onTrue(ClimbFactory.lowerClimb());
 
     m_driverController.back().whileTrue(swerve.resetYawCommand());
+
     Command align = new DriveToPointCommand(m_driverController, Mode.NEAREST);
     align.setName(Constants.DriveToPoint.DRIVE_TO_POINT_BASIC);
     m_driverController.b().whileTrue(align);
-
-    DriveToPointCommand reefsker = new DriveToPointCommand(m_driverController, Mode.NEAREST);
-    reefsker.setName(DRIVE_TO_POINT_BASIC);
-    m_driverController.b().whileTrue(reefsker);
 
     Command deAlgae = new DriveToPointCommand(m_driverController, Mode.ALGAE);
     deAlgae.setName(ALGAE_ALIGN_COMMAND);
     m_driverController.rightTrigger().whileTrue(deAlgae);
     m_driverController.leftTrigger().whileTrue(swerve.slowDefaultCommand(m_driverController));
-
-    // temp
-    m_driverController.x().whileTrue(SuperstructureFactory.scoreNetAutomated(m_buttonsController));
 
     // buttons controller
     m_buttonsController.x().whileTrue(SuperstructureFactory.scoreL1(m_buttonsController));
