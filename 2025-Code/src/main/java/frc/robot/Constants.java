@@ -83,7 +83,7 @@ public final class Constants {
                 public static final double CORAL_INTAKE = 35.5;
                 public static final double REMOVE_ALGAE_L2 = 30.0;
                 public static final double REMOVE_ALGAE_L3 = 46.0;
-                public static final double SCORE_ALGAE_BARGE = 54.9;
+                public static final double SCORE_ALGAE_BARGE = 55.5;
                 public static final double SCORE_ALGAE_PROCESSOR = 17.0;
                 public static final double L1 = 12.0;
                 public static final double L2 = 17.0;
