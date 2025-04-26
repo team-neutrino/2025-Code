@@ -176,7 +176,7 @@ public class Elevator extends SubsystemBase {
         || (Subsystem.arm.getTargetAngle() < 180 && Subsystem.arm.getAngle() > 180))
         || (Subsystem.arm.getAngle() > ArmConstants.DEFAULT_POSITION + ArmConstants.DRIVING_ANGLE_TOLERANCE
             && Subsystem.arm.getAngle() < ArmConstants.DEFAULT_NO_GP - ArmConstants.DRIVING_ANGLE_TOLERANCE))
-        && getTargetHeight() < safeHeight) {
+        && (getTargetHeight() < safeHeight) && (getHeight() < safeHeight || Subsystem.arm.getTargetAngle() < 180)) {
       safeTarget = safeHeight;
     }
     m_safeHeight = safeTarget;

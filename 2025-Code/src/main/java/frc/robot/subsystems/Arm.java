@@ -182,12 +182,13 @@ public class Arm extends SubsystemBase {
         safeAngle = ALGAE_FRONT_SAFE_ANGLE;
       } else {
         safeAngle = DEFAULT_POSITION;
+        return safeAngle;
       }
     }
     if (getAngle() > 180 && getTargetAngle() < SAFE_BACK_POS) {
       safeAngle = SAFE_BACK_POS;
     }
-    if (getTargetAngle() > 270) {
+    if (getTargetAngle() > 270 && getAngle() > 200) {
       safeAngle = SAFE_BACK_POS;
     }
     if (Math.abs(getAngle() - CORAL_STATION_POSITION) <= 20 && Subsystem.swerve.isNearIntake()) {
