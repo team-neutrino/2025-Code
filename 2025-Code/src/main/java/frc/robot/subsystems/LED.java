@@ -9,6 +9,7 @@ import edu.wpi.first.networktables.StringTopic;
 
 import static frc.robot.util.Subsystem.limelight;
 
+import edu.wpi.first.networktables.IntegerTopic;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
 import frc.robot.util.Subsystem;

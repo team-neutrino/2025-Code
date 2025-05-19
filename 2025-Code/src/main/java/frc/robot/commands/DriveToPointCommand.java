@@ -29,6 +29,7 @@ public class DriveToPointCommand extends Command {
   private boolean m_bumperWasPressed = false;
   private boolean m_hadGamePiece;
   private Mode m_mode;
+  private double m_distanceFromPoint;
 
   public DriveToPointCommand(CommandXboxController xboxController, Mode mode) {
     m_mode = mode;
@@ -59,6 +60,7 @@ public class DriveToPointCommand extends Command {
     }
     drive();
     updateAtPoint();
+    updateDistanceFromPoint();
     if ((swerve.isAtPoint() && (Subsystem.coral.debouncedHasCoral() != m_hadGamePiece))
         || (arm.isAtIntake() && isSafePoint)) {
       initialize(); // reinitialize if the state of our game piece changes
@@ -160,6 +162,14 @@ public class DriveToPointCommand extends Command {
       swerve.setDrivingToPoint(true);
       swerve.setAtPoint(false);
     }
+  }
+
+  private void updateDistanceFromPoint() {
+    m_distanceFromPoint = m_pointControl.getStraightLineDist();
+  }
+
+  public double getDistanceFromPoint() {
+    return m_distanceFromPoint;
   }
 
   private boolean appropriateLLHasTv() {
