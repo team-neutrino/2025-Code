@@ -170,14 +170,21 @@ public class Arm extends SubsystemBase {
         PersistMode.kPersistParameters);
   }
 
+  private boolean isElevatorAboveL2() {
+    return Subsystem.elevator.getHeight() > (ElevatorConstants.L2 - ElevatorConstants.HEIGHT_TOLERANCE);
+  }
+
+  private boolean isArmInConflictZone() {
+    return (getAngle() < 180 && getTargetAngle() > DEFAULT_POSITION) || getTargetAngle() < 90;
+  }
+
   private double safeAngle(double targetAngle) {
     double safeAngle = targetAngle;
-    if ((Subsystem.elevator.getHeight() > (ElevatorConstants.L2 - ElevatorConstants.HEIGHT_TOLERANCE))
-        && !Subsystem.swerve.isNearIntake()) {
+    if (isElevatorAboveL2() && !Subsystem.swerve.isNearIntake()) {
       return safeAngle;
     }
 
-    if ((getAngle() < 180 && getTargetAngle() > DEFAULT_POSITION) || getTargetAngle() < 90) {
+    if (isArmInConflictZone()) {
       if (Subsystem.algae.debouncedHasAlgae()) {
         safeAngle = ALGAE_FRONT_SAFE_ANGLE;
       } else {
