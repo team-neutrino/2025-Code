@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -16,12 +18,17 @@ public class ElevatorTest {
 
     @BeforeEach
     public void setUp() {
-        // Mock the RelativeEncoder and SparkLimitSwitch
         mockEncoder = Mockito.mock(RelativeEncoder.class);
         mockLowLimit = Mockito.mock(SparkLimitSwitch.class);
-
-        // Initialize the Elevator with mocked dependencies
         elevator = new Elevator(mockEncoder, mockLowLimit);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        elevator.close();
+        elevator = null;
+        mockEncoder = null;
+        mockLowLimit = null;
     }
 
     @Test
