@@ -22,6 +22,7 @@ import com.ctre.phoenix6.swerve.SwerveDrivetrain;
 import com.ctre.phoenix6.swerve.SwerveModule;
 import com.ctre.phoenix6.swerve.SwerveModuleConstants;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.units.measure.*;
@@ -107,7 +108,8 @@ public class MapleSimSwerveDrivetrain {
                         Meters.of(moduleConstants[0].WheelRadius),
                         KilogramSquareMeters.of(moduleConstants[0].SteerInertia),
                         wheelCOF));
-        mapleSimDrive = new SwerveDriveSimulation(simulationConfig, new Pose2d());
+        mapleSimDrive = new SwerveDriveSimulation(simulationConfig,
+                new Pose2d(new Translation2d(5, 5), new Rotation2d(0)));
 
         SwerveModuleSimulation[] moduleSimulations = mapleSimDrive.getModules();
         for (int i = 0; i < this.simModules.length; i++)

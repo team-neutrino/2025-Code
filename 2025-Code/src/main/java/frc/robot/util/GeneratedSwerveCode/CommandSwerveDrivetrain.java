@@ -10,20 +10,25 @@ import com.ctre.phoenix6.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
+import dev.doglog.DogLog;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.util.GeneratedSwerveCode.TunerConstants.TunerSwerveDrivetrain;
 import frc.robot.util.simulation.MapleSimSwerveDrivetrain;
+import edu.wpi.first.math.system.plant.DCMotor;
+import org.ironmaple.simulation.drivesims.SwerveDriveSimulation;
 
 /**
  * Class that extends the Phoenix 6 SwerveDrivetrain class and implements
@@ -45,6 +50,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
     private final SwerveRequest.SysIdSwerveTranslation m_translationCharacterization = new SwerveRequest.SysIdSwerveTranslation();
     private final SwerveRequest.SysIdSwerveSteerGains m_steerCharacterization = new SwerveRequest.SysIdSwerveSteerGains();
     private final SwerveRequest.SysIdSwerveRotation m_rotationCharacterization = new SwerveRequest.SysIdSwerveRotation();
+    private MapleSimSwerveDrivetrain mapleSimSwerveDrivetrain = null;
 
     /*
      * SysId routine for characterizing translation. This is used to find PID gains
@@ -249,22 +255,53 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
                 m_hasAppliedOperatorPerspective = true;
             });
         }
+
+        DogLog.log("BatteryVoltage", RobotController.getBatteryVoltage());
+        DogLog.log("Drive/OdometryPose", getState().Pose);
+        DogLog.log("Drive/TargetStates", getState().ModuleTargets);
+        DogLog.log("Drive/MeasuredStates", getState().ModuleStates);
+        DogLog.log("Drive/MeasuredSpeeds", getState().Speeds);
+        if (mapleSimSwerveDrivetrain != null)
+            DogLog.log("Drive/SimulationPose", mapleSimSwerveDrivetrain.mapleSimDrive.getSimulatedDriveTrainPose());
     }
 
     private void startSimThread() {
-        m_lastSimTime = Utils.getCurrentTimeSeconds();
-
+        mapleSimSwerveDrivetrain = new MapleSimSwerveDrivetrain(
+                Seconds.of(kSimLoopPeriod),
+                Pounds.of(114),
+                Inches.of(29),
+                Inches.of(29),
+                DCMotor.getKrakenX60(1),
+                DCMotor.getKrakenX60(1),
+                1.2,
+                getModuleLocations(),
+                getPigeon2(),
+                getModules(),
+                TunerConstants.FrontLeft,
+                TunerConstants.FrontRight,
+                TunerConstants.BackLeft,
+                TunerConstants.BackRight);
         /* Run simulation at a faster rate so PID gains behave more reasonably */
-        m_simNotifier = new Notifier(() -> {
-            final double currentTime = Utils.getCurrentTimeSeconds();
-            double deltaTime = currentTime - m_lastSimTime;
-            m_lastSimTime = currentTime;
-
-            /* use the measured time delta, get battery voltage from WPILib */
-            updateSimState(deltaTime, RobotController.getBatteryVoltage());
-        });
+        m_simNotifier = new Notifier(mapleSimSwerveDrivetrain::update);
         m_simNotifier.startPeriodic(kSimLoopPeriod);
     }
+
+    // public Translation2d[] getModuleLocation() {
+    // Translation2d FrontLeft = new
+    // Translation2d(TunerConstants.FrontLeft.LocationX,
+    // TunerConstants.FrontLeft.LocationY);
+    // Translation2d FrontRight = new
+    // Translation2d(TunerConstants.FrontRight.LocationX,
+    // TunerConstants.FrontRight.LocationY);
+    // Translation2d BackLeft = new Translation2d(TunerConstants.BackLeft.LocationX,
+    // TunerConstants.BackLeft.LocationY);
+    // Translation2d BackRight = new
+    // Translation2d(TunerConstants.BackRight.LocationX,
+    // TunerConstants.BackRight.LocationY);
+    // Translation2d[] moduleLocations = {FrontLeft, FrontRight, BackLeft,
+    // BackRight};
+    // return moduleLocations;
+    // }
 
     /**
      * Adds a vision measurement to the Kalman Filter. This will correct the
@@ -306,5 +343,12 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
             Matrix<N3, N1> visionMeasurementStdDevs) {
         super.addVisionMeasurement(visionRobotPoseMeters, Utils.fpgaToCurrentTime(timestampSeconds),
                 visionMeasurementStdDevs);
+    }
+
+    public void resetPose(Pose2d pose) {
+        if (this.mapleSimSwerveDrivetrain != null)
+            mapleSimSwerveDrivetrain.mapleSimDrive.setSimulationWorldPose(pose);
+        Timer.delay(0.1); // wait for simulation to update
+        super.resetPose(pose);
     }
 }
