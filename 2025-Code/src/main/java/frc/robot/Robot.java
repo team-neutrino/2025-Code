@@ -130,5 +130,6 @@ public class Robot extends TimedRobot {
   public void simulationPeriodic() {
     DogLog.log("Simulation/CoralPoses", SimulatedArena.getInstance().getGamePiecesArrayByType("Coral"));
     DogLog.log("Simulation/AlgaePoses", SimulatedArena.getInstance().getGamePiecesArrayByType("Algae"));
+    DogLog.log("Simulation/AlgaePoses", SimulatedArena.getInstance().getGamePiecesArrayByType("CoralAlgaeStack"));
   }
 }
