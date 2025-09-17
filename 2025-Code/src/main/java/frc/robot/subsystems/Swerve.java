@@ -64,6 +64,8 @@ public class Swerve extends CommandSwerveDrivetrain {
   private Debouncer m_driveToPointDebouncer = new Debouncer(0.3, DebounceType.kRising);
   private Debouncer m_tippyDebouncer = new Debouncer(0.3, DebounceType.kBoth);
 
+  private double m_originalDistance = 0;
+
   // private Telemetry m_telemetry = new Telemetry(MAX_SPEED);
 
   /**
@@ -261,6 +263,14 @@ public class Swerve extends CommandSwerveDrivetrain {
 
   public void setAtPoint(boolean value) {
     m_atPoint = value;
+  }
+
+  public void setOriginalDistance(double newValue) {
+    m_originalDistance = newValue;
+  }
+
+  public double getOriginalDistance() {
+    return m_originalDistance;
   }
 
   public boolean isStable() {
