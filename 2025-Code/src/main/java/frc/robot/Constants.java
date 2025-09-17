@@ -76,7 +76,7 @@ public final class Constants {
                 public static final int MOTOR_ID = 2;
                 public static final int FOLLOWER_ID = 3;
                 public static final int CURRENT_LIMIT = 60;
-                public static final double DEFAULT_NO_CORAL = 18.0;
+                public static final double DEFAULT_NO_CORAL = 0.0;
                 public static final double DEFAULT_WITH_CORAL = 0;
                 public static final double BOTTOM_POSITION = 0.0;
                 public static final double STAGE_ONE_UP = 26.0;
@@ -151,7 +151,7 @@ public final class Constants {
                 public static final double kp = 0.025;
                 public static final double ki = 0;
                 public static final double kd = 0;
-                public static final double kp1 = 0.05;
+                public static final double kp1 = 0.04;
                 public static final double ki1 = 0;
                 public static final double kd1 = 0;
                 public static final double kp2 = 0.01;
