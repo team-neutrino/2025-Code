@@ -170,32 +170,58 @@ public class Arm extends SubsystemBase {
         PersistMode.kPersistParameters);
   }
 
+  private boolean isElevatorAboveL2() {
+    return Subsystem.elevator.getHeight() > (ElevatorConstants.L2 - ElevatorConstants.HEIGHT_TOLERANCE);
+  }
+
+  private boolean isArmInConflictZone() {
+    return (getAngle() < 180 && getTargetAngle() > DEFAULT_POSITION) || getTargetAngle() < 90;
+  }
+
+  private boolean isSafeToKeepTargetAngle() {
+    return isElevatorAboveL2() && !Subsystem.swerve.isNearIntake();
+  }
+
+  private boolean isArmBehindAndUnsafe() {
+    return getAngle() > 180 && getTargetAngle() < SAFE_BACK_POS;
+  }
+
+  private boolean isTargetAngleTooHigh() {
+    return getTargetAngle() > 270;
+  }
+
+  private boolean isNearCoralStation() {
+    return Math.abs(getAngle() - CORAL_STATION_POSITION) <= 20 && Subsystem.swerve.isNearIntake();
+  }
+
   private double safeAngle(double targetAngle) {
     double safeAngle = targetAngle;
-    if ((Subsystem.elevator.getHeight() > (ElevatorConstants.L2 - ElevatorConstants.HEIGHT_TOLERANCE))
-        && !Subsystem.swerve.isNearIntake()) {
+
+    if (isSafeToKeepTargetAngle()) {
       return safeAngle;
     }
 
-    if ((getAngle() < 180 && getTargetAngle() > DEFAULT_POSITION) || getTargetAngle() < 90) {
+    if (isArmInConflictZone()) {
       if (Subsystem.algae.debouncedHasAlgae()) {
         safeAngle = ALGAE_FRONT_SAFE_ANGLE;
       } else {
         safeAngle = DEFAULT_POSITION;
       }
     }
-    if (getAngle() > 180 && getTargetAngle() < SAFE_BACK_POS) {
+
+    if (isArmBehindAndUnsafe()) {
       safeAngle = SAFE_BACK_POS;
     }
-    if (getTargetAngle() > 270) {
+
+    if (isTargetAngleTooHigh()) {
       safeAngle = SAFE_BACK_POS;
     }
-    if (Math.abs(getAngle() - CORAL_STATION_POSITION) <= 20 && Subsystem.swerve.isNearIntake()) {
+
+    if (isNearCoralStation()) {
       safeAngle = CORAL_STATION_POSITION;
     }
 
     return safeAngle;
-
   }
 
   @Override

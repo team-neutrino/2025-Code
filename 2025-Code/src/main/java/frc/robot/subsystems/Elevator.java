@@ -26,8 +26,8 @@ import static frc.robot.Constants.CANRateConstants.*;
 public class Elevator extends SubsystemBase {
   private SparkFlex m_motor = new SparkFlex(MOTOR_ID, MotorType.kBrushless);
   private SparkFlex m_follower = new SparkFlex(FOLLOWER_ID, MotorType.kBrushless);
-  private RelativeEncoder m_encoder = m_motor.getEncoder();
-  private SparkLimitSwitch m_lowLimit = m_motor.getReverseLimitSwitch();
+  private RelativeEncoder m_encoder;
+  private SparkLimitSwitch m_lowLimit;
   private SparkClosedLoopController m_pid = m_motor.getClosedLoopController();
   private SparkFlexConfig m_config = new SparkFlexConfig();
   private SparkFlexConfig m_followerConfig = new SparkFlexConfig();
@@ -39,6 +39,8 @@ public class Elevator extends SubsystemBase {
   private double m_FFStage2 = STAGE_2_FF;
 
   public Elevator() {
+    m_encoder = m_motor.getEncoder();
+    m_lowLimit = m_motor.getReverseLimitSwitch();
     m_config
         .inverted(true)
         .idleMode(IdleMode.kBrake);
@@ -89,6 +91,16 @@ public class Elevator extends SubsystemBase {
     m_followerConfig.smartCurrentLimit(CURRENT_LIMIT);
     m_follower.configure(m_followerConfig, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
+  }
+
+  public Elevator(RelativeEncoder encoder, SparkLimitSwitch lowLimit) {
+    m_encoder = encoder;
+    m_lowLimit = lowLimit;
+  }
+
+  public void close() {
+    m_motor.close();
+    m_follower.close();
   }
 
   private void adjustElevator(double target) {
