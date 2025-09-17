@@ -9,28 +9,36 @@ import edu.wpi.first.networktables.StringTopic;
 
 import static frc.robot.util.Subsystem.limelight;
 
+import edu.wpi.first.networktables.DoublePublisher;
+import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
 import frc.robot.util.Subsystem;
+import frc.robot.commands.DriveToPointCommand;
+
 
 public class LED extends SubsystemBase {
 
   private NetworkTableInstance m_nt = NetworkTableInstance.getDefault();
   private StringTopic m_color_topic = m_nt.getStringTopic("/LED/color");
   private StringTopic m_state_topic = m_nt.getStringTopic("/LED/state");
+  private DoubleTopic m_distance_topic = m_nt.getDoubleTopic("/LED/distance");
   private Coral m_coral = Subsystem.coral;
   private Algae m_algae = Subsystem.algae;
 
   private final StringPublisher m_color_pub;
   private final StringPublisher m_state_pub;
+  private final DoublePublisher m_distance_pub;
 
   public LED() {
     m_color_pub = m_color_topic.publish();
     m_state_pub = m_state_topic.publish();
+    m_distance_pub = m_distance_topic.publish();
   }
 
   @Override
   public void periodic() {
+    m_distance_pub.set(DriveToPointCommand.getDistanceProgress());
 
     if (Subsystem.swerve.isDrivingToPoint() && !limelight.getTvReef1() && !limelight.getTvReef2()) {
       m_color_pub.set("pink");

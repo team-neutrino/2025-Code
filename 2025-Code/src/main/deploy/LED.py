@@ -133,12 +133,17 @@ def valueStateChanged(table, key, value, isNew):
 def connectionListener(connected, info):
     print(info, "; Connected=%s" % connected)
 
+def distanceChanged(table, key, value, isNew):
+    print(value)
+
 NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
 led = NetworkTables.getTable("/LED")
 color = led.getAutoUpdateValue("color", "")
 state = led.getAutoUpdateValue("state", "")
+distance = led.getAutoUpdateValue("distance", "")
 color.addListener(valueColorChanged, NetworkTables.NotifyFlags.UPDATE)
 state.addListener(valueStateChanged, NetworkTables.NotifyFlags.UPDATE)
+distance.addListener(distanceChanged, NetworkTables.NotifyFlags.UPDATE)
 
 # def printRGB():
     # print("rc %d" % targetColorRGB[0])
