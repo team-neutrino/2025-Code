@@ -190,8 +190,9 @@ public class Arm extends SubsystemBase {
       return safeAngle;
     }
 
-    if (Math.abs(getAngle() - CORAL_STATION_POSITION) <= 20 && Subsystem.swerve.isNearIntake()) {
+    if (Math.abs(getAngle() - CORAL_STATION_POSITION) <= 30 && Subsystem.swerve.isNearIntake()) {
       safeAngle = CORAL_STATION_POSITION;
+      System.out.println("arm safety triggered");
       return safeAngle;
     }
 
