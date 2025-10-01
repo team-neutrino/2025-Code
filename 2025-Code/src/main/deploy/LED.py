@@ -17,12 +17,15 @@ if len(sys.argv) != 2:
 ip = "10.39.28.2"
 global targetColorRGB
 global newColorRGB
+targetDistance = 0
 targetColorRGB = [0, 0, 0]
 newColorRGB = [0, 0, 0]
 blink = False
-pixels = neopixel.NeoPixel(board.D18, 298, auto_write=False)
+LENGTH = 298
+pixels = neopixel.NeoPixel(board.D18, LENGTH, auto_write=False)
 previousBlinkTime = 0
 amount = 0
+currentState = "None"
 
 white = (64, 64, 64)
 red = (64, 0, 0)
@@ -104,14 +107,14 @@ def valueColorChanged(table, key, value, isNew):
         setTargetColor(pink)
     if value == "purple":
         setTargetColor(purple)
-    for t in range(19,0,-1):
-        for i in range(t, t + 19):
+    for t in range(LENGTH - 1,0,-1):
+        for i in range(t, t + (LENGTH - 1)):
             if value == "rainbow":
-                c = Color(hsv=((i-t) * (360/19), 1, 1))
-                if(i < 19):
+                c = Color(hsv=((i-t) * (360/(LENGTH - 1)), 1, 1))
+                if(i < (LENGTH - 1)):
                     pixels[i] = (c.red, c.green, c.blue)
                 else:
-                    pixels[i - 19] = (c.red, c.green, c.blue)
+                    pixels[i - (LENGTH - 1)] = (c.red, c.green, c.blue)
                     
 
 def valueStateChanged(table, key, value, isNew):
@@ -119,6 +122,8 @@ def valueStateChanged(table, key, value, isNew):
     global blink
     global amount
     global previousBlinkTime
+    global currentState
+    currentState = value
     if value == "blink":
         blink = True
         previousBlinkTime = time.time()
@@ -134,7 +139,22 @@ def connectionListener(connected, info):
     print(info, "; Connected=%s" % connected)
 
 def distanceChanged(table, key, value, isNew):
-    print(value)
+    global targetDistance
+    targetDistance = value
+
+def displayProgress():
+    # value is a number between 0 and 1, representing distance
+    realLength = LENGTH - 1 # not quite sure why this needs to be like this but it's the same in rainbow
+    midPoint = LENGTH / 2
+    lightsOnOneSide = round(midPoint * targetDistance)
+    lightsOnLeftSide = lightsOnOneSide
+    lightsOnRightSide = LENGTH - lightsOnOneSide
+
+    for light in range(realLength):
+        if light <= lightsOnLeftSide or light >= lightsOnRightSide:
+            pixels[light] = (newColorRGB[0], newColorRGB[1], newColorRGB[2]) # light should be on if it shouldn't be off. Genius!
+        else:
+            pixels[light] = (0, 0, 0) # turns the light off if it's after the threshold of lights that shouldn't be on
 
 NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
 led = NetworkTables.getTable("/LED")
@@ -160,5 +180,11 @@ while True:
     ramp(targetColorRGB)
     if (blink):
         blinkColor(newColorRGB)
-    pixels.fill((newColorRGB[0],newColorRGB[1], newColorRGB[2]))
+    if (currentState == "solid"):
+        pixels.fill((newColorRGB[0],newColorRGB[1], newColorRGB[2]))
+    elif (currentState == "progress"):
+        displayProgress()
+    else:
+        pixels.fill((newColorRGB[0],newColorRGB[1], newColorRGB[2]))
+
     pixels.show()

@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.StringTopic;
 
 import static frc.robot.util.Subsystem.limelight;
+import static frc.robot.util.Subsystem.swerve;
 
 import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.DoubleTopic;
@@ -38,11 +39,11 @@ public class LED extends SubsystemBase {
 
   @Override
   public void periodic() {
-    m_distance_pub.set(DriveToPointCommand.getDistanceProgress());
+     m_distance_pub.set(swerve.getDistanceProgress());
 
     if (Subsystem.swerve.isDrivingToPoint() && !limelight.getTvReef1() && !limelight.getTvReef2()) {
       m_color_pub.set("pink");
-      m_state_pub.set("solid");
+      m_state_pub.set("progress");
       return;
     }
 

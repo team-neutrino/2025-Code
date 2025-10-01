@@ -160,6 +160,7 @@ public class DriveToPointCommand extends Command {
     } else {
       swerve.setDrivingToPoint(true);
       swerve.setAtPoint(false);
+      swerve.setDistanceProgress(1 - Math.abs(m_pointControl.getStraightLineDist()) / swerve.getOriginalDistance());
     }
   }
 

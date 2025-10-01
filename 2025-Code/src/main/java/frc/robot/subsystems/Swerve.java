@@ -61,6 +61,7 @@ public class Swerve extends CommandSwerveDrivetrain {
 
   private boolean m_drivingToPoint = false;
   private boolean m_atPoint = false;
+  private double m_distanceFromPoint = 0.0;
   private Debouncer m_driveToPointDebouncer = new Debouncer(0.3, DebounceType.kRising);
   private Debouncer m_tippyDebouncer = new Debouncer(0.3, DebounceType.kBoth);
 
@@ -254,6 +255,14 @@ public class Swerve extends CommandSwerveDrivetrain {
 
   public boolean isAtPoint() {
     return m_atPoint;
+  }
+
+  public void setDistanceProgress(double value) {
+    m_distanceFromPoint = value;
+  }
+
+  public double getDistanceProgress() {
+    return m_distanceFromPoint;
   }
 
   public boolean isAtPointDebounced() {
