@@ -17,7 +17,6 @@ import com.revrobotics.spark.config.SparkFlexConfig;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ArmConstants;
 import frc.robot.util.Subsystem;
 
 import static frc.robot.Constants.ElevatorConstants.*;
@@ -173,9 +172,7 @@ public class Elevator extends SubsystemBase {
     }
 
     else if ((((Subsystem.arm.getTargetAngle() > 180 && Subsystem.arm.getAngle() < 180)
-        || (Subsystem.arm.getTargetAngle() < 180 && Subsystem.arm.getAngle() > 180))
-        || (Subsystem.arm.getAngle() > ArmConstants.DEFAULT_POSITION + ArmConstants.DRIVING_ANGLE_TOLERANCE
-            && Subsystem.arm.getAngle() < ArmConstants.DEFAULT_NO_GP - ArmConstants.DRIVING_ANGLE_TOLERANCE))
+        || (Subsystem.arm.getTargetAngle() < 180 && Subsystem.arm.getAngle() > 180)))
         && getTargetHeight() < safeHeight) {
       safeTarget = safeHeight;
     }
