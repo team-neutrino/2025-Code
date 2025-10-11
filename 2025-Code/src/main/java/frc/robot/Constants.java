@@ -68,7 +68,7 @@ public final class Constants {
                 public static final double DRIVE_TO_POINT_D = .3;
                 public static final double MAX_DRIVETOPOINT_SPEED = 4;
                 public static final double AT_POINT_TOLERANCE = 0.035;
-                public static final double AT_INTAKE_TOLERANCE = 0.25;
+                public static final double AT_INTAKE_TOLERANCE = 0.3;
                 public static final double GYRO_SCALAR_Z = -3.9;
         }
 
@@ -76,7 +76,7 @@ public final class Constants {
                 public static final int MOTOR_ID = 2;
                 public static final int FOLLOWER_ID = 3;
                 public static final int CURRENT_LIMIT = 60;
-                public static final double DEFAULT_NO_CORAL = 0.0;
+                public static final double DEFAULT_NO_CORAL = 18.0;
                 public static final double DEFAULT_WITH_CORAL = 0;
                 public static final double BOTTOM_POSITION = 0.0;
                 public static final double STAGE_ONE_UP = 26.0;

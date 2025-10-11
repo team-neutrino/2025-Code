@@ -177,21 +177,22 @@ public class Arm extends SubsystemBase {
       return safeAngle;
     }
 
-    if ((getAngle() < 180 && getTargetAngle() > DEFAULT_POSITION) || getTargetAngle() < 90) {
+    if ((getAngle() < 180 && getTargetAngle() > DEFAULT_POSITION) || (getTargetAngle() < 90 && Subsystem.elevator.getTargetHeight() < ElevatorConstants.DEFAULT_NO_CORAL)) {
       if (Subsystem.algae.debouncedHasAlgae()) {
         safeAngle = ALGAE_FRONT_SAFE_ANGLE;
       } else {
         safeAngle = DEFAULT_POSITION;
       }
+      return safeAngle;
     }
     if (getAngle() > 180 && getTargetAngle() < SAFE_BACK_POS) {
       safeAngle = SAFE_BACK_POS;
+      return safeAngle;
     }
-    if (getTargetAngle() > 270) {
-      safeAngle = SAFE_BACK_POS;
-    }
-    if (Math.abs(getAngle() - CORAL_STATION_POSITION) <= 20 && Subsystem.swerve.isNearIntake()) {
+
+    if (Math.abs(getAngle() - CORAL_STATION_POSITION) <= 30 && Subsystem.swerve.isNearIntake()) {
       safeAngle = CORAL_STATION_POSITION;
+      return safeAngle;
     }
 
     return safeAngle;
