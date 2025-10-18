@@ -48,7 +48,7 @@ public class RobotContainer {
     PathfindingCommand.warmupCommand().schedule();
     // DataLogManager.start();
     SignalLogger.enableAutoLogging(false);
-    m_autonPath = new PathPlannerAuto("GOOD 1 CORAL + ALGAE");
+    m_autonPath = new PathPlannerAuto("3 CORAL PROCESSOR");
   }
 
   private void configureBindings() {
