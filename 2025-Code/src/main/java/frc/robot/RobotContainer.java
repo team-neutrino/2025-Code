@@ -48,7 +48,7 @@ public class RobotContainer {
     PathfindingCommand.warmupCommand().schedule();
     // DataLogManager.start();
     SignalLogger.enableAutoLogging(false);
-    m_autonPath = new PathPlannerAuto("3 CORAL PROCESSOR");
+    m_autonPath = new PathPlannerAuto(OperatorConstants.AUTO_STRING);
   }
 
   private void configureBindings() {
@@ -146,6 +146,8 @@ public class RobotContainer {
         elevator.elevatorDefaultCommand().alongWith(arm.armDefaultCommand()));
     NamedCommands.registerCommand("IntakeOnly", CoralFactory.runIntake());
     NamedCommands.registerCommand("ElevatorDefault", Subsystem.elevator.elevatorDefaultCommand());
+    NamedCommands.registerCommand("MoveToDunkL4", SuperstructureFactory.moveToDunkL4Command());
+    NamedCommands.registerCommand("DunkL4", SuperstructureFactory.scoreDunkL4AutonCommand());
   }
 
   /**
@@ -162,6 +164,7 @@ public class RobotContainer {
     try {
       auto = m_autonPath;
     } catch (Exception e) {
+      // DO NOT CHANGE THE CODE IN THIS CATCH BLOCK
       System.err.println("Caught exception when loading auto");
       auto = new PathPlannerAuto("Nothing");
     }

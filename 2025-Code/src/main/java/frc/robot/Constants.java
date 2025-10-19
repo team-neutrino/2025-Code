@@ -34,6 +34,9 @@ public final class Constants {
                 public static final int kDriverControllerPort = 0;
                 public static final int kButtonsControllerPort = 1;
                 public static final int kPitControllerPort = 3;
+
+                // SET AUTONOMOUS ROUTINE HERE!!!
+                public static final String AUTO_STRING = "3 CORAL DUNK PROCESSOR";
         }
 
         public final class CANRateConstants {
@@ -109,6 +112,7 @@ public final class Constants {
                 public static final double STAGE_2_FF = 0.30;
                 public static final double ALGAE_FF = 0.13;
                 public static final double HEIGHT_TOLERANCE = 0.6;
+                public static final double LIBERAL_HEIGHT_TOLERANCE = 1.5;
                 public static final double SLOW_MOVE_THRESHOLD = 45.0;
                 public static final double DYNAMIC_ADJUST_P = 39.3701;
                 public static final double SAFE_HEIGHT_ALGAE = 30;
@@ -133,6 +137,7 @@ public final class Constants {
                 public static final double BARGE_POSITION = 180.0;
                 public static final double PROCESSOR_POSITION = 270.0;
                 public static final double EVACUATE_ANGLE = 20.0;
+                public static final double L4_DUNK_ANGLE = 150.0;
                 public static final double REEF_DESCORE_POSITION = 55.0;
                 public static final double ALGAE_FRONT_SAFE_ANGLE = 90;
 
