@@ -46,7 +46,6 @@ public class RobotContainer {
     configureDefaultCommands();
     configureNamedCommands();
     PathfindingCommand.warmupCommand().schedule();
-    // DataLogManager.start();
     SignalLogger.enableAutoLogging(false);
     m_autonPath = new PathPlannerAuto(OperatorConstants.AUTO_STRING);
   }
