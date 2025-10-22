@@ -31,6 +31,10 @@ public class ArmFactory {
         return arm.armRotateCommand(L4_POSITION + EVACUATE_ANGLE);
     }
 
+    public static Command prepareDunkL4() {
+        return arm.armRotateCommand(L4_DUNK_ANGLE);
+    }
+
     public static Command armToIntake() {
         return arm.armRotateCommand(CORAL_STATION_POSITION);
     }

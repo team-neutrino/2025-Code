@@ -11,7 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Pro to T22"
+                  "pathName": "Top to T20"
                 }
               },
               {
@@ -30,7 +30,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPointLeft"
+                  "name": "DriveToPointRight"
                 }
               },
               {
@@ -49,7 +49,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ScoreL4"
+                  "name": "DunkL4"
                 }
               },
               {
@@ -68,7 +68,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Pro-T22 to Station"
+                  "pathName": "Top-T20 to Station"
                 }
               },
               {
@@ -104,9 +104,22 @@
           "data": {
             "commands": [
               {
+                "type": "path",
+                "data": {
+                  "pathName": "Top-Station to T19"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPointRight"
+                  "name": "DriveToPointLeft"
                 }
               },
               {
@@ -125,7 +138,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ScoreL4"
+                  "name": "DunkL4"
                 }
               },
               {
@@ -161,9 +174,22 @@
           "data": {
             "commands": [
               {
+                "type": "path",
+                "data": {
+                  "pathName": "Top-Station to T19"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
                 "type": "named",
                 "data": {
-                  "name": "DriveToPointLeft"
+                  "name": "DriveToPointRight"
                 }
               },
               {
@@ -182,7 +208,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ScoreL4"
+                  "name": "DunkL4"
                 }
               },
               {

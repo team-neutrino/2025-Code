@@ -284,4 +284,26 @@ public class SuperstructureFactory {
                 .until(() -> arm.readyToScore());
     }
 
+    public static Command scoreDunkL4AutonCommand() {
+        Command elevatorCom = ElevatorFactory.moveL4();
+        Command armPrepDunkCom = ArmFactory.prepareDunkL4();
+        Command armDunkCom = ArmFactory.moveToL4();
+        Command coralDefaultCom = coral.coralDefaultCommand();
+        Command coralScoreCom = CoralFactory.runOuttake();
+        Command armEvacCom = ArmFactory.evacuateScoreL4();
+        Command evacWait = new WaitCommand(0.1);
+        BooleanSupplier readyToScore = () -> (arm.readyToScore() && elevator.readyToScore());
+        BooleanSupplier comEnd = () -> !coral.debouncedHasCoral();
+
+        return ((elevatorCom.alongWith(coralDefaultCom))
+                .until(() -> elevator.readyToScore())).andThen((armPrepDunkCom).until(readyToScore))
+                .andThen((armDunkCom)
+                        .until(readyToScore))
+                .andThen((coralScoreCom.alongWith(evacWait.andThen(armEvacCom))).until(comEnd));
+    }
+
+    public static Command moveToDunkL4Command() {
+        return new ParallelCommandGroup(ElevatorFactory.moveL4(), ArmFactory.prepareDunkL4());
+    }
+
 }

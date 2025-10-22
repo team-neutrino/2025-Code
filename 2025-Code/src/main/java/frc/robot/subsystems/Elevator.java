@@ -158,6 +158,12 @@ public class Elevator extends SubsystemBase {
         || m_targetHeight == DEFAULT_WITH_CORAL);
   }
 
+  public boolean readyToScoreLiberal() {
+    return (Math.abs(getHeight() - m_targetHeight) <= LIBERAL_HEIGHT_TOLERANCE)
+        && !(m_targetHeight == DEFAULT_NO_CORAL || m_targetHeight == CORAL_INTAKE
+            || m_targetHeight == DEFAULT_WITH_CORAL);
+  }
+
   private double safeHeight(double targetHeight) {
     double safeTarget = targetHeight;
     double safeHeight = Subsystem.algae.hasAlgae() ? SAFE_HEIGHT_ALGAE : SAFE_HEIGHT_NO_ALGAE;

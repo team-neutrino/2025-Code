@@ -68,7 +68,7 @@ public class ArmNT extends Arm {
         super.periodic();
         final long now = NetworkTablesJNI.now();
         encoderPositionPub.set(getAngle(), now);
-        targetPositionPub.set(getTargetAngle(), now);
+        targetPositionPub.set(getSafeTarget(), now);
         encoderVelocityPub.set(getAngularVelocity(), now);
         scoreReadyPub.set(readyToScore(), now);
 
