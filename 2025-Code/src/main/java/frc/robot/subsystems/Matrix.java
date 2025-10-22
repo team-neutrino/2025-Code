@@ -13,7 +13,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
 import frc.robot.util.Subsystem;
 
-public class LED extends SubsystemBase {
+public class Matrix extends SubsystemBase {
 
   private NetworkTableInstance m_nt = NetworkTableInstance.getDefault();
   private StringTopic m_color_topic = m_nt.getStringTopic("/LED/color");
@@ -24,7 +24,7 @@ public class LED extends SubsystemBase {
   private final StringPublisher m_color_pub;
   private final StringPublisher m_state_pub;
 
-  public LED() {
+  public Matrix() {
     m_color_pub = m_color_topic.publish();
     m_state_pub = m_state_topic.publish();
   }
@@ -35,24 +35,6 @@ public class LED extends SubsystemBase {
     if (Subsystem.swerve.isDrivingToPoint() && !limelight.getTvReef1() && !limelight.getTvReef2()) {
       m_color_pub.set("pink");
       m_state_pub.set("solid");
-      return;
-    }
-
-    if (Subsystem.swerve.isAtPoint()) {
-      m_color_pub.set("green");
-      m_state_pub.set("solid");
-      return;
-    }
-
-    if (m_coral.debouncedHasCoral()) {
-      m_state_pub.set("blinktwice");
-      m_color_pub.set("white");
-      return;
-    }
-
-    if (m_algae.debouncedHasAlgae()) {
-      m_state_pub.set("blinktwice");
-      m_color_pub.set("turquoise");
       return;
     }
 
