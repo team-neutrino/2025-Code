@@ -40,8 +40,8 @@ public final class Constants {
         }
 
         public final class CANRateConstants {
-                public static final int FASTEST_5MS = 5;
-                public static final int FAST_10MS = 10;
+                public static final int FASTEST_5MS = 10; //CHANGED, was 5 as name implies
+                public static final int FAST_10MS = 15; // CHANGED, was 10 as name implies
         }
 
         public static class SwerveConstants {
@@ -77,7 +77,7 @@ public final class Constants {
 
         public static class ElevatorConstants {
                 public static final int MOTOR_ID = 2;
-                public static final int FOLLOWER_ID = 3;
+                public static final int FOLLOWER_ID = 3; 
                 public static final int CURRENT_LIMIT = 60;
                 public static final double DEFAULT_NO_CORAL = 18.0;
                 public static final double DEFAULT_WITH_CORAL = 0;

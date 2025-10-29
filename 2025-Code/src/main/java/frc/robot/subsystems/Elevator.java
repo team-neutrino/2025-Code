@@ -214,6 +214,10 @@ public class Elevator extends SubsystemBase {
     m_targetHeight = height;
   }
 
+  public void setVoltage(double voltage){
+    m_motor.setVoltage(voltage);
+ }
+
   @Override
   public void periodic() {
     adjustElevator(safeHeight(m_targetHeight));
@@ -240,6 +244,12 @@ public class Elevator extends SubsystemBase {
   public Command moveElevatorCommand(double height) {
     return run(() -> {
       m_targetHeight = height;
+    });
+  }
+
+  public Command setRawVoltageCommand (double volts){
+    return run(() -> {
+      setVoltage(volts);
     });
   }
 }

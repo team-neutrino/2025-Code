@@ -47,4 +47,12 @@ public class ElevatorFactory {
         return elevator.moveElevatorCommand(SCORE_ALGAE_PROCESSOR);
     }
 
+    public static Command rawVoltage0(){
+        return elevator.setRawVoltageCommand(0);
+    }
+
+    public static Command rawVoltage12(){
+        return elevator.setRawVoltageCommand(12);
+    }
+
 }

@@ -50,6 +50,7 @@ public class RobotContainer {
     m_autonPath = new PathPlannerAuto(OperatorConstants.AUTO_STRING);
   }
 
+
   private void configureBindings() {
     // driver controller
     // ONLY RUN CLIMB IN ORDER AS LISTED BELOW vvv
@@ -69,6 +70,10 @@ public class RobotContainer {
     deAlgae.setName(ALGAE_ALIGN_COMMAND);
     m_driverController.rightTrigger().whileTrue(deAlgae);
     m_driverController.leftTrigger().whileTrue(swerve.slowDefaultCommand(m_driverController));
+
+    // // TESTSTTETSTESTEST DONT KEEP
+    // m_driverController.povUp().whileTrue(ElevatorFactory.rawVoltage0());
+    // m_driverController.povDown().whileTrue(ElevatorFactory.rawVoltage12());
 
     // temp
     m_driverController.x().whileTrue(SuperstructureFactory.scoreNetAutomated(m_buttonsController));
