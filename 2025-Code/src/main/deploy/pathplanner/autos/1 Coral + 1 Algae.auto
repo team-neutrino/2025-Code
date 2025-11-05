@@ -173,6 +173,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "CORAL & ALGAE",
+  "folder": null,
   "choreoAuto": false
 }

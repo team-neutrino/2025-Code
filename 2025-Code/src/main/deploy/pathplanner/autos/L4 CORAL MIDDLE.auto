@@ -78,6 +78,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "1 CORAL",
+  "folder": null,
   "choreoAuto": false
 }

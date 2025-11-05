@@ -224,6 +224,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "3 CORAL",
+  "folder": null,
   "choreoAuto": false
 }

@@ -36,7 +36,7 @@ public final class Constants {
                 public static final int kPitControllerPort = 3;
 
                 // SET AUTONOMOUS ROUTINE HERE!!!
-                public static final String AUTO_STRING = "3 CORAL DUNK PROCESSOR";
+                public static final String AUTO_STRING = "Testing Path";
         }
 
         public final class CANRateConstants {
