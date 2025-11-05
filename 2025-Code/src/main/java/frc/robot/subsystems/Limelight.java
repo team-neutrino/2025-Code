@@ -14,6 +14,8 @@ import frc.robot.LimelightHelpers;
 import frc.robot.util.Subsystem;
 import static frc.robot.Constants.LimelightConstants.*;
 
+import frc.robot.util.CoralDetectionMath;
+
 public class Limelight extends SubsystemBase {
   LimelightHelpers m_limelightHelpers;
   double m_robotYaw;
@@ -200,6 +202,9 @@ public class Limelight extends SubsystemBase {
         yaw_degrees, 0,
         0, 0, 0, 0);
     updateOdometry();
+    int number1 = -435;
+    int number2 = -880;
+    CoralDetectionMath.calculateCoralPos(number1, number2);
   }
 
   @Override
