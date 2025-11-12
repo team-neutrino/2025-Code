@@ -202,8 +202,10 @@ public class Limelight extends SubsystemBase {
         yaw_degrees, 0,
         0, 0, 0, 0);
     updateOdometry();
-    int number1 = -435;
-    int number2 = -880;
+
+    int number1 = -615;
+    int number2 = -1648;
+
     CoralDetectionMath.calculateCoralPos(number1, number2);
   }
 
