@@ -40,8 +40,8 @@ public final class Constants {
         }
 
         public final class CANRateConstants {
-                public static final int FASTEST_5MS = 10; //CHANGED, was 5 as name implies
-                public static final int FAST_10MS = 15; // CHANGED, was 10 as name implies
+                public static final int FASTEST_5MS = 5; //CHANGED, was 5 as name implies
+                public static final int FAST_10MS = 10; // CHANGED, was 10 as name implies
         }
 
         public static class SwerveConstants {
