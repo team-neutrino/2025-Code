@@ -40,7 +40,6 @@ public class DriveToPointCommand extends Command {
   public void initialize() {
     swerve.setDrivingToPoint(true);
     swerve.setAtPoint(false);
-    swerve.setOriginalDistance(Math.abs(m_pointControl.getStraightLineDist()));
 
     if (!RED_ALLIANCE.isPresent()) {
       System.out.println("NO ALLIANCE VALUE YET");
@@ -49,6 +48,7 @@ public class DriveToPointCommand extends Command {
     m_hadGamePiece = Subsystem.coral.debouncedHasCoral();
     obtainTarget();
     setLocalList();
+    swerve.setOriginalDistance(Math.abs(m_pointControl.getStraightLineDist()));
   }
 
   @Override
@@ -162,10 +162,6 @@ public class DriveToPointCommand extends Command {
       swerve.setAtPoint(false);
       swerve.setDistanceProgress(1 - Math.abs(m_pointControl.getStraightLineDist()) / swerve.getOriginalDistance());
     }
-  }
-
-  public double getDistanceProgress() {
-    return 1 - Math.abs(m_pointControl.getStraightLineDist()) / swerve.getOriginalDistance();
   }
 
   private boolean appropriateLLHasTv() {

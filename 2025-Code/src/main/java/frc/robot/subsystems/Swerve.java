@@ -259,6 +259,7 @@ public class Swerve extends CommandSwerveDrivetrain {
 
   public void setDistanceProgress(double value) {
     m_distanceFromPoint = value;
+    System.out.println(m_distanceFromPoint);
   }
 
   public double getDistanceProgress() {
