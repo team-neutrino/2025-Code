@@ -207,6 +207,7 @@ public class Limelight extends SubsystemBase {
     int number2 = -1648;
 
     CoralDetectionMath.calculateCoralPos(number1, number2);
+    CoralDetectionMath.calculateCameraFov(number1, number2);
   }
 
   @Override
