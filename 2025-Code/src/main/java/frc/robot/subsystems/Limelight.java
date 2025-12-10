@@ -203,8 +203,8 @@ public class Limelight extends SubsystemBase {
         0, 0, 0, 0);
     updateOdometry();
 
-    int number1 = -615;
-    int number2 = -1648;
+    int number1 = 766;
+    int number2 = 682;
 
     CoralDetectionMath.calculateCoralPos(number1, number2);
     CoralDetectionMath.calculateCameraFov(number1, number2);
