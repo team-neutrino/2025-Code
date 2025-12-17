@@ -1,15 +1,15 @@
 package frc.robot.util;
 
 public class CoralDetectionMath {
-    private static final int TOTAL_PIXEL_HEIGHT = 4080; //720
-    private static final int TOTAL_PIXEL_WIDTH = 3072; //1280
-    private static final double CAMERA_HEIGHT_FOV = 1.22; //0.87
-    private static final double CAMERA_WIDTH_FOV = 0.96; //0.87   34.5 in height    35.5     12.5 right
-    private static final double ANGLE_TO_MIDDLE_Y = 0.61; // 0.78
+    private static final int TOTAL_PIXEL_HEIGHT = 4080; 
+    private static final int TOTAL_PIXEL_WIDTH = 3072;
+    private static final double CAMERA_HEIGHT_FOV = 1.22; 
+    private static final double CAMERA_WIDTH_FOV = 0.96;
+    private static final double ANGLE_TO_MIDDLE_Y = 0.61;
     private static final double CAMERA_HEIGHT = 0.88;
 
-    private static final double EXPECTED_X = 0.32; //0.00063
-    private static final double EXPECTED_Y = 0.9; //0.927
+    private static final double EXPECTED_X = 0.32;
+    private static final double EXPECTED_Y = 0.9;
 
     public static void calculateCoralPos(int pixelX, int pixelY) {
         double angleToCoralY = calculateAngleToCoralY(pixelY);
